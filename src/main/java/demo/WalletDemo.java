@@ -1,8 +1,8 @@
 package demo;
 
-import com.github.ontio.OntSdk;
-import com.github.ontio.sdk.info.AccountInfo;
-import com.github.ontio.sdk.wallet.Account;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.sdk.info.AccountInfo;
+import com.github.TesraSupernet.sdk.wallet.Account;
 
 public class WalletDemo {
     public static void main(String[] args) {

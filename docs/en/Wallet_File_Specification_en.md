@@ -49,7 +49,7 @@ Here is an example as below:
 
 ```
 {
-        "name": "com.github.ontio",
+        "name": "com.github.TesraSupernet",
 	"scrypt": {
 		"dkLen": 64,
 		"n": 16384,

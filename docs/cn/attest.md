@@ -13,12 +13,7 @@
 
 可信声明存证合约提供了可信声明的存证服务。即存证可信声明Id，签发者ONT身份，属主ONT身份等信息，以及记录可用性信息即是否被吊销等信息。
 
-可信声明规范说明文档请参考：[可信声明规范](https://github.com/ontio/ontology-DID/blob/master/docs/cn/claim_spec_cn.md)
-
-
 ### 1.1 数据结构和规范
-
-具体标准请参考https://github.com/kunxian-xia/ontology-DID/blob/master/docs/en/claim_spec.md
 
 java-sdk采用JSON Web Token的格式表示claim以便于在声明发行者和申请者之间进行传递，jwt格式包含三部分header,payload,signature.
 

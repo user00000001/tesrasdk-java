@@ -1,13 +1,13 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.ontio.OntSdk;
-import com.github.ontio.common.Address;
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.transaction.Transaction;
-import com.github.ontio.smartcontract.neovm.abi.AbiFunction;
-import com.github.ontio.smartcontract.neovm.abi.AbiInfo;
-import com.github.ontio.smartcontract.neovm.abi.BuildParams;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.transaction.Transaction;
+import com.github.TesraSupernet.smartcontract.neovm.abi.AbiFunction;
+import com.github.TesraSupernet.smartcontract.neovm.abi.AbiInfo;
+import com.github.TesraSupernet.smartcontract.neovm.abi.BuildParams;
 
 /**
  *
@@ -27,19 +27,19 @@ public class PayForUserDemo {
 
         try {
             OntSdk ontSdk = getOntSdk();
-            com.github.ontio.account.Account acct1 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-            com.github.ontio.account.Account acct2 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
-            com.github.ontio.account.Account acct3 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey3), ontSdk.defaultSignScheme);
-            com.github.ontio.account.Account acct4 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey4), ontSdk.defaultSignScheme);
-            com.github.ontio.account.Account acct5 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey5), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), ontSdk.defaultSignScheme);
 
 
             if(false){ //TODO How pay Fee for user?
                 long gaslimit = 20000;
                 long gasprice = 500;
                 String recvAddr = acct3.getAddressU160().toBase58();
-                com.github.ontio.account.Account sender = acct1;
-                com.github.ontio.account.Account payerAcct = acct2;
+                com.github.TesraSupernet.account.Account sender = acct1;
+                com.github.TesraSupernet.account.Account payerAcct = acct2;
                 String oep4abi = "";
                 AbiInfo abiinfo = JSON.parseObject(oep4abi, AbiInfo.class);
                 AbiFunction func = abiinfo.getFunction("Transfer");

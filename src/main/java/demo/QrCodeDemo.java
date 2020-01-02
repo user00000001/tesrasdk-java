@@ -1,7 +1,7 @@
 package demo;
 
-import com.github.ontio.common.WalletQR;
-import com.github.ontio.sdk.wallet.Wallet;
+import com.github.TesraSupernet.common.WalletQR;
+import com.github.TesraSupernet.sdk.wallet.Wallet;
 
 /**
  *

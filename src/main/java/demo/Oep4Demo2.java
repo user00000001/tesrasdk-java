@@ -1,12 +1,12 @@
 package demo;
 
-import com.github.ontio.OntSdk;
-import com.github.ontio.account.Account;
-import com.github.ontio.common.Address;
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.asset.State;
-import com.github.ontio.core.transaction.Transaction;
-import com.github.ontio.crypto.SignatureScheme;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.account.Account;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.asset.State;
+import com.github.TesraSupernet.core.transaction.Transaction;
+import com.github.TesraSupernet.crypto.SignatureScheme;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -91,7 +91,7 @@ public class Oep4Demo2 {
         Address multiSignatureAddress = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey(), acct2.serializePublicKey());
         Account payerAcct = acct1;
         Transaction tx = ontSdk.neovm().oep4().makeTransfer(multiSignatureAddress.toBase58(), acct2.getAddressU160().toBase58(), 1000, payerAcct.getAddressU160().toBase58(), 20000, 500);
-        ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{payerAcct}});
+        ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{payerAcct}});
         ontSdk.addMultiSign(tx, 2, new byte[][]{acct1.serializePublicKey(), acct2.serializePublicKey()}, acct1);
         ontSdk.addMultiSign(tx, 2, new byte[][]{acct1.serializePublicKey(), acct2.serializePublicKey()}, acct2);
         boolean b = ontSdk.getConnect().sendRawTransaction(tx.toHexString());

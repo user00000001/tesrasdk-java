@@ -1,4 +1,4 @@
-<h1 align="center"> Ontology Java SDK 介绍 </h1>
+<h1 align="center"> Tesra Java SDK 介绍 </h1>
 
 <p align="center" class="version">Version 1.0.0 </p>
 
@@ -56,14 +56,14 @@ $ mvn clean install
 
 
 ```
-<!-- https://mvnrepository.com/artifact/com.github.ontio/ontology-sdk-java -->
+<!-- https://mvnrepository.com/artifact/com.github.TesraSupernet/tesra-sdk-java -->
 <dependency>
-    <groupId>com.github.ontio</groupId>
-    <artifactId>ontology-sdk-java</artifactId>
+    <groupId>com.github.TesraSupernet</groupId>
+    <artifactId>tesra-sdk-java</artifactId>
     <version>1.0.13</version>
 </dependency>
 ```
 
 ### 预准备
 
-* 启动[Ontology节点](https://github.com/ontio/ontology/releases)，无论是主网、测试网、私网都可以。确保rpc端口可以访问，并且确保SDK可以连接RPC服务器。
+* 启动[Tesra节点](https://github.com/TesraSupernet/tesra/releases)，无论是主网、测试网、私网都可以。确保rpc端口可以访问，并且确保SDK可以连接RPC服务器。

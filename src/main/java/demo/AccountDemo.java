@@ -1,12 +1,12 @@
 package demo;
 
-import com.github.ontio.OntSdk;
-import com.github.ontio.common.Helper;
-import com.github.ontio.crypto.Digest;
-import com.github.ontio.crypto.ECC;
-import com.github.ontio.sdk.info.AccountInfo;
-import com.github.ontio.sdk.wallet.Account;
-import com.github.ontio.sdk.wallet.Identity;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.crypto.Digest;
+import com.github.TesraSupernet.crypto.ECC;
+import com.github.TesraSupernet.sdk.info.AccountInfo;
+import com.github.TesraSupernet.sdk.wallet.Account;
+import com.github.TesraSupernet.sdk.wallet.Identity;
 
 import java.util.Base64;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class AccountDemo {
 
         try {
             OntSdk ontSdk = getOntSdk();
-            com.github.ontio.account.Account account = ontSdk.getWalletMgr().getAccount("AHX1wzvdw9Yipk7E9MuLY4GGX4Ym9tHeDe","111111");
+            com.github.TesraSupernet.account.Account account = ontSdk.getWalletMgr().getAccount("AHX1wzvdw9Yipk7E9MuLY4GGX4Ym9tHeDe","111111");
 
             if(false){
                 ontSdk.nativevm().ong().withdrawOng(account,account.getAddressU160().toBase58(),53620575000000000L,account,20000,0);
@@ -37,11 +37,11 @@ public class AccountDemo {
                 return;
             }
             byte[] saltt = Base64.getDecoder().decode("0X3NC1UHQGltHc4ikzgzmA==");
-            String prikeyg = com.github.ontio.account.Account.getGcmDecodedPrivateKey("7a1ccOWFQUGl0HQmc+PSLeKMwbVZ45/YDHTH/+um4O1z/YAWuv+vsr9zusvYXWbj", "1","ANH5bHrrt111XwNEnuPZj6u95Dd6u7G4D6",saltt,16384,ontSdk.defaultSignScheme);
-            com.github.ontio.account.Account a = new com.github.ontio.account.Account(Helper.hexToBytes(prikeyg),ontSdk.defaultSignScheme);
+            String prikeyg = com.github.TesraSupernet.account.Account.getGcmDecodedPrivateKey("7a1ccOWFQUGl0HQmc+PSLeKMwbVZ45/YDHTH/+um4O1z/YAWuv+vsr9zusvYXWbj", "1","ANH5bHrrt111XwNEnuPZj6u95Dd6u7G4D6",saltt,16384,ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account a = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(prikeyg),ontSdk.defaultSignScheme);
             System.out.println(Helper.toHexString(a.serializePrivateKey()));
             System.out.println(a.getAddressU160().toBase58());
-            //com.github.ontio.account.Account b = new com.github.ontio.account.Account(false,a.serializePublicKey());
+            //com.github.TesraSupernet.account.Account b = new com.github.TesraSupernet.account.Account(false,a.serializePublicKey());
 
             //System.out.println(Helper.toHexString(b.serializePublicKey()));
             System.out.println( a.exportGcmEncryptedPrikey("1",saltt,16384));
@@ -60,8 +60,8 @@ public class AccountDemo {
             String key0 = "+TDw5opWl5HfGEWUpxblVa5BqVKF2962DoCwi1GYidwWMKvOj7mqaUVx3k/utGLx";
             System.out.println(Helper.toHexString(salt0)+" "+salt0.length);
             System.out.println(Helper.toHexString(java.util.Base64.getDecoder().decode(key0)));
-            String prikey0 = com.github.ontio.account.Account.getGcmDecodedPrivateKey(key0,"1","APrfMuKrAQB5sSb5GF8tx96ickZQJjCvwG", salt0,16384,ontSdk.defaultSignScheme);
-            com.github.ontio.account.Account acct11 = new com.github.ontio.account.Account(Helper.hexToBytes(prikey0), ontSdk.defaultSignScheme);
+            String prikey0 = com.github.TesraSupernet.account.Account.getGcmDecodedPrivateKey(key0,"1","APrfMuKrAQB5sSb5GF8tx96ickZQJjCvwG", salt0,16384,ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct11 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(prikey0), ontSdk.defaultSignScheme);
             System.out.println(acct11.getAddressU160().toBase58());
            // System.exit(0);
             if (false){
@@ -70,18 +70,18 @@ public class AccountDemo {
                 System.out.println(info.addressBase58);
                 Account accountInfo = ontSdk.getWalletMgr().importAccount("3JZLD/X45qSFjmRRvRVhcEjKgCJQDPWOsjx2dcTEj58=", "passwordtest",info.addressBase58,new byte[]{});
 
-                com.github.ontio.account.Account acct0 = ontSdk.getWalletMgr().getAccount(info.addressBase58, "passwordtest",new byte[]{});
+                com.github.TesraSupernet.account.Account acct0 = ontSdk.getWalletMgr().getAccount(info.addressBase58, "passwordtest",new byte[]{});
             }
             System.out.println();
             if(true){
 
                 byte[] salt = salt0;
 //                salt = ECC.generateKey(16);
-                com.github.ontio.account.Account acct = new com.github.ontio.account.Account(Helper.hexToBytes("a1a38ccff49fa6476e737d66ef9f18c7507b50eb4804ed8e077744a4a2a74bb6"),ontSdk.defaultSignScheme);
+                com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(Helper.hexToBytes("a1a38ccff49fa6476e737d66ef9f18c7507b50eb4804ed8e077744a4a2a74bb6"),ontSdk.defaultSignScheme);
                 String key = acct.exportGcmEncryptedPrikey("1",salt,16384);
                 System.out.println(key);
                 System.out.println(acct.getAddressU160().toBase58());
-                String prikey = com.github.ontio.account.Account.getGcmDecodedPrivateKey(key, "1",acct.getAddressU160().toBase58(),salt,16384,ontSdk.defaultSignScheme);
+                String prikey = com.github.TesraSupernet.account.Account.getGcmDecodedPrivateKey(key, "1",acct.getAddressU160().toBase58(),salt,16384,ontSdk.defaultSignScheme);
                 System.out.println(prikey);
             }
 

@@ -1,10 +1,10 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.ontio.OntSdk;
-import com.github.ontio.common.UInt256;
-import com.github.ontio.merkle.MerkleVerifier;
-import com.github.ontio.sdk.wallet.Identity;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.common.UInt256;
+import com.github.TesraSupernet.merkle.MerkleVerifier;
+import com.github.TesraSupernet.sdk.wallet.Identity;
 
 import java.util.HashMap;
 import java.util.List;

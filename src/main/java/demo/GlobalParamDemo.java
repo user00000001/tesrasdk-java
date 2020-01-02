@@ -1,15 +1,15 @@
 package demo;
 
-import com.github.ontio.OntSdk;
-import com.github.ontio.account.Account;
-import com.github.ontio.common.Address;
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.globalparams.Params;
-import com.github.ontio.crypto.SignatureScheme;
-import com.github.ontio.io.BinaryReader;
-import com.github.ontio.io.BinaryWriter;
-import com.github.ontio.io.Serializable;
-import com.github.ontio.sdk.wallet.Identity;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.account.Account;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.globalparams.Params;
+import com.github.TesraSupernet.crypto.SignatureScheme;
+import com.github.TesraSupernet.io.BinaryReader;
+import com.github.TesraSupernet.io.BinaryWriter;
+import com.github.TesraSupernet.io.Serializable;
+import com.github.TesraSupernet.sdk.wallet.Identity;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -72,7 +72,7 @@ public class GlobalParamDemo {
         }
 
         if(false){
-            Params params = new Params(new com.github.ontio.core.globalparams.Param[]{new com.github.ontio.core.globalparams.Param("key2","value2")});
+            Params params = new Params(new com.github.TesraSupernet.core.globalparams.Param[]{new com.github.TesraSupernet.core.globalparams.Param("key2","value2")});
             System.out.println(Helper.toHexString(params.toArray()));
 //            String txhash = ontSdk.nativevm().gParams().setGlobalParam(account1,params,account,ontSdk.DEFAULT_GAS_LIMIT,0);
             String txhash = ontSdk.nativevm().gParams().setGlobalParam(2,new Account[]{account1s,account2s,account3s},

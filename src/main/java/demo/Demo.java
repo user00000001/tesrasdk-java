@@ -1,31 +1,31 @@
 /*
- * Copyright (C) 2018 The ontology Authors
- * This file is part of The ontology library.
+ * Copyright (C) 2018 The TesraSupernet Authors
+ * This file is part of The TesraSupernet library.
  *
- *  The ontology is free software: you can redistribute it and/or modify
+ *  The TesraSupernet is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The ontology is distributed in the hope that it will be useful,
+ *  The TesraSupernet is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with The ontology.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with The TesraSupernet.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.ontio.OntSdk;
-import com.github.ontio.common.Address;
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.block.Block;
-import com.github.ontio.sdk.wallet.Account;
-import com.github.ontio.sdk.wallet.Identity;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.block.Block;
+import com.github.TesraSupernet.sdk.wallet.Account;
+import com.github.TesraSupernet.sdk.wallet.Identity;
 
 import java.util.Base64;
 import java.util.List;
@@ -44,7 +44,7 @@ public class Demo {
                  Account account = ontSdk.getWalletMgr().importAccount("UcZl6tYzuUwikWnlSBkv1aDrFG80RadPqwoKINRe0+wzCR5o5QqBrrklFXgC5uz9",
                         "LUlu@665211","AKSTMpAL1MWujdmE1oZNBXLTo4yr4sdF3g",Base64.getDecoder().decode("2kMG+JvubSz5Llw07ewiWQ=="));
                 System.out.println(account.address);
-                com.github.ontio.account.Account account1 = ontSdk.getWalletMgr().getAccount(account.address,"LUlu@665211");
+                com.github.TesraSupernet.account.Account account1 = ontSdk.getWalletMgr().getAccount(account.address,"LUlu@665211");
                 System.out.println(account1.exportWif());
                 return;
             }

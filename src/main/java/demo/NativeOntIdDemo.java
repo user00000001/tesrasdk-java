@@ -1,16 +1,16 @@
 package demo;
 
-import com.github.ontio.OntSdk;
-import com.github.ontio.common.Address;
-import com.github.ontio.common.Common;
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.ontid.Attribute;
-import com.github.ontio.core.transaction.Transaction;
-import com.github.ontio.crypto.SignatureScheme;
-import com.github.ontio.sdk.info.AccountInfo;
-import com.github.ontio.sdk.info.IdentityInfo;
-import com.github.ontio.sdk.wallet.Account;
-import com.github.ontio.sdk.wallet.Identity;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.common.Common;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.ontid.Attribute;
+import com.github.TesraSupernet.core.transaction.Transaction;
+import com.github.TesraSupernet.crypto.SignatureScheme;
+import com.github.TesraSupernet.sdk.info.AccountInfo;
+import com.github.TesraSupernet.sdk.info.IdentityInfo;
+import com.github.TesraSupernet.sdk.wallet.Account;
+import com.github.TesraSupernet.sdk.wallet.Identity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,14 +28,14 @@ public class NativeOntIdDemo {
 
             Account payer = ontSdk.getWalletMgr().createAccount(password);
 
-            com.github.ontio.account.Account payerAcct = ontSdk.getWalletMgr().getAccount(payer.address,password,ontSdk.getWalletMgr().getWallet().getAccount(payer.address).getSalt());
+            com.github.TesraSupernet.account.Account payerAcct = ontSdk.getWalletMgr().getAccount(payer.address,password,ontSdk.getWalletMgr().getWallet().getAccount(payer.address).getSalt());
             String privatekey0 = "c19f16785b8f3543bbaf5e1dbb5d398dfa6c85aaad54fc9d71203ce83e505c07";
             String privatekey1 = "2ab720ff80fcdd31a769925476c26120a879e235182594fbb57b67c0743558d7";
-            com.github.ontio.account.Account account1 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1),SignatureScheme.SHA256WITHECDSA);
+            com.github.TesraSupernet.account.Account account1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1),SignatureScheme.SHA256WITHECDSA);
 
             if(true){
                 Account account = ontSdk.getWalletMgr().createAccount(password);
-                com.github.ontio.account.Account account2 = ontSdk.getWalletMgr().getAccount(account.address,password,account.getSalt());
+                com.github.TesraSupernet.account.Account account2 = ontSdk.getWalletMgr().getAccount(account.address,password,account.getSalt());
                 Identity identity = ontSdk.getWalletMgr().createIdentityFromPriKey(password, Helper.toHexString(account2.serializePrivateKey()));
                 ontSdk.nativevm().ontId().sendRegister(identity,password,account2,20000,0);
                 Thread.sleep(6000);
@@ -117,8 +117,8 @@ public class NativeOntIdDemo {
             IdentityInfo info2 = ontSdk.getWalletMgr().getIdentityInfo(dids.get(1).ontid,password,new byte[]{});
             IdentityInfo info3 = ontSdk.getWalletMgr().getIdentityInfo(dids.get(2).ontid,password,new byte[]{});
 
-            com.github.ontio.account.Account acct = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey0),SignatureScheme.SHA256WITHECDSA);
-            com.github.ontio.account.Account acct2 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1),SignatureScheme.SHA256WITHECDSA);
+            com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0),SignatureScheme.SHA256WITHECDSA);
+            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1),SignatureScheme.SHA256WITHECDSA);
             Address multiAddr = Address.addressFromMultiPubKeys(2,acct.serializePublicKey(),acct2.serializePublicKey());
 
             if(false){
@@ -136,7 +136,7 @@ public class NativeOntIdDemo {
                 ontSdk.nativevm().ontId().sendRemovePubKey(dids.get(0).ontid,account.address,password,new byte[]{},info2.pubkey,payerAcct,ontSdk.DEFAULT_GAS_LIMIT,0);
                 ontSdk.nativevm().ontId().sendAddPubKey(dids.get(0).ontid,account.address,password,new byte[]{},info2.pubkey,payerAcct,ontSdk.DEFAULT_GAS_LIMIT,0);
                 Transaction tx = ontSdk.nativevm().ontId().makeAddPubKey(dids.get(0).ontid,multiAddr.toBase58(),null,info2.pubkey,payer.address,ontSdk.DEFAULT_GAS_LIMIT,0);
-    //          ontSdk.signTx(tx,new com.github.ontio.account.Account[][]{{acct,acct2}});
+    //          ontSdk.signTx(tx,new com.github.TesraSupernet.account.Account[][]{{acct,acct2}});
     //          ontSdk.addSign(tx,payerAcc.address,password);
     //          ontSdk.getConnect().sendRawTransaction(tx.toHexString());
             }

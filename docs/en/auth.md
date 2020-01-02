@@ -13,13 +13,13 @@ If a smart contract needs to add an authority management function, then informat
 
 An authority contract is responsible for managing authority of an application contract. The contract administrator can transfer the authority, allocate functions for roles, revoke contract calling privileges and can verify the validity of the contract call token through entity validation.
 
-Ontology's authority contract implements a role-based authority management solution. Each role corresponds to some callable function. Administrator assigns a role to an ONT ID to make it possible to call functions under that role. At the same time, roles can be passed, which means A can pass a certain role delegation to B and appoint the delegation time, so that B can also call the corresponding functions in a certain period.
+Tesra's authority contract implements a role-based authority management solution. Each role corresponds to some callable function. Administrator assigns a role to an ONT ID to make it possible to call functions under that role. At the same time, roles can be passed, which means A can pass a certain role delegation to B and appoint the delegation time, so that B can also call the corresponding functions in a certain period.
 
 ### Usage Examples
 
-Ontology smart contract do not support initialization execution during deployment, therefore, the contract administrator needs to hardcode it into the contract code, where the contract administrator’s ONTID is defined as a constant in the contract. 
+Tesra smart contract do not support initialization execution during deployment, therefore, the contract administrator needs to hardcode it into the contract code, where the contract administrator’s ONTID is defined as a constant in the contract. 
 
-For more details please refer to the following contract example: Ontology smart contract can call VerifyToken function for authority verification. At the same time, for developers’ convenience to check if an ONTID has a role, Java-SDK also provides VerifyToken interface where one can check role allocations.
+For more details please refer to the following contract example: Tesra smart contract can call VerifyToken function for authority verification. At the same time, for developers’ convenience to check if an ONTID has a role, Java-SDK also provides VerifyToken interface where one can check role allocations.
 
 Usage flow:
 
@@ -87,7 +87,7 @@ String txhash = sdk.nativevm().auth().sendTransfer(adminIdentity.ontid,password,
 account,sdk.DEFAULT_GAS_LIMIT,0);
 ```
 
-Ontology contract example:
+Tesra contract example:
 ```
 using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;
@@ -191,7 +191,7 @@ namespace Example
 
 ## Interface list
 
-The Ontology Java SDK provides methods for authority management.
+The Tesra Java SDK provides methods for authority management.
 
 |Instruction||Description|
 |:--|:--|:--|

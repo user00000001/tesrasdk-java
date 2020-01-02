@@ -1,14 +1,14 @@
 package demo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.github.ontio.OntSdk;
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.transaction.Transaction;
-import com.github.ontio.sdk.wallet.Account;
-import com.github.ontio.sdk.wallet.Identity;
-import com.github.ontio.smartcontract.neovm.abi.AbiFunction;
-import com.github.ontio.smartcontract.neovm.abi.AbiInfo;
-import com.github.ontio.smartcontract.neovm.abi.BuildParams;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.transaction.Transaction;
+import com.github.TesraSupernet.sdk.wallet.Account;
+import com.github.TesraSupernet.sdk.wallet.Identity;
+import com.github.TesraSupernet.smartcontract.neovm.abi.AbiFunction;
+import com.github.TesraSupernet.smartcontract.neovm.abi.AbiInfo;
+import com.github.TesraSupernet.smartcontract.neovm.abi.BuildParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +27,12 @@ public class AuthDemo {
             // 8007c33f29a892e3a36e2cfec657eff1d7431e8f
             String privatekey0 = "523c5fcf74823831756f0bcb3634234f10b3beb1c05595058534577752ad2d9f";
             String privatekey1 ="83614c773f668a531132e765b5862215741c9148e7b2f9d386b667e4fbd93e39";
-            com.github.ontio.account.Account acct0 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
 
-            com.github.ontio.account.Account account = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
 
             payer = ontSdk.getWalletMgr().createAccount(password);
-            com.github.ontio.account.Account payerAcct = ontSdk.getWalletMgr().getAccount(payer.address,password,payer.getSalt());
+            com.github.TesraSupernet.account.Account payerAcct = ontSdk.getWalletMgr().getAccount(payer.address,password,payer.getSalt());
             Identity identity = null;
             Identity identity2 = null;
             Identity identity3 = null;

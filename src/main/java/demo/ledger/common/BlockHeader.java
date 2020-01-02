@@ -1,8 +1,8 @@
 package demo.ledger.common;
 
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.block.Block;
-import com.github.ontio.io.BinaryReader;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.block.Block;
+import com.github.TesraSupernet.io.BinaryReader;
 
 import java.io.IOException;
 

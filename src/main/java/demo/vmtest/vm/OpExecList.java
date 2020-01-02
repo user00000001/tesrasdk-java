@@ -1,6 +1,6 @@
 package demo.vmtest.vm;
 
-import com.github.ontio.core.scripts.ScriptOp;
+import com.github.TesraSupernet.core.scripts.ScriptOp;
 import demo.vmtest.types.ArrayItem;
 import demo.vmtest.types.MapItem;
 import demo.vmtest.types.StackItems;

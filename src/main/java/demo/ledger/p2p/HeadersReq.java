@@ -1,7 +1,7 @@
 package demo.ledger.p2p;
 
-import com.github.ontio.common.Helper;
-import com.github.ontio.common.UInt256;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.common.UInt256;
 
 /**
  *

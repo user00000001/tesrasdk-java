@@ -1,10 +1,10 @@
 package demo.vmtest.utils;
 
-import com.github.ontio.common.Address;
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.scripts.ScriptOp;
-import com.github.ontio.io.BinaryWriter;
-import com.github.ontio.smartcontract.neovm.abi.BuildParams;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.scripts.ScriptOp;
+import com.github.TesraSupernet.io.BinaryWriter;
+import com.github.TesraSupernet.smartcontract.neovm.abi.BuildParams;
 import demo.vmtest.types.*;
 import demo.vmtest.vm.ExecutionEngine;
 

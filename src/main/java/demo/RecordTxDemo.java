@@ -1,7 +1,7 @@
 package demo;
 
-import com.github.ontio.OntSdk;
-import com.github.ontio.sdk.wallet.Identity;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.sdk.wallet.Identity;
 
 public class RecordTxDemo {
 

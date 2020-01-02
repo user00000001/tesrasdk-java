@@ -1,7 +1,7 @@
 package demo.ledger.p2p;
 
-import com.github.ontio.common.Helper;
-import com.github.ontio.io.BinaryReader;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.io.BinaryReader;
 import demo.ledger.common.BlockHeader;
 
 import java.io.ByteArrayInputStream;

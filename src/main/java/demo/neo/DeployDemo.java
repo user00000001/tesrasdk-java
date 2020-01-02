@@ -5,11 +5,11 @@ import com.alibaba.fastjson.JSON;
 import com.github.neo.core.*;
 import com.github.neo.core.transaction.InvocationTransaction;
 import com.github.neo.core.transaction.TransferTransaction;
-import com.github.ontio.common.*;
-import com.github.ontio.crypto.ECC;
-import com.github.ontio.crypto.SignatureScheme;
-import com.github.ontio.io.BinaryWriter;
-import com.github.ontio.network.exception.RpcException;
+import com.github.TesraSupernet.common.*;
+import com.github.TesraSupernet.crypto.ECC;
+import com.github.TesraSupernet.crypto.SignatureScheme;
+import com.github.TesraSupernet.io.BinaryWriter;
+import com.github.TesraSupernet.network.exception.RpcException;
 import org.bouncycastle.math.ec.ECPoint;
 
 import java.io.ByteArrayOutputStream;
@@ -43,13 +43,13 @@ public class DeployDemo {
 
     public static void main(String[] args) throws Exception {
         System.out.println("Hi NEO, Nep-5 smartcontract invoke test!");
-        com.github.ontio.account.Account acct1 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
-        com.github.ontio.account.Account acct2 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey2), SignatureScheme.SHA256WITHECDSA);
-        com.github.ontio.account.Account acct3 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey3), SignatureScheme.SHA256WITHECDSA);
-        com.github.ontio.account.Account acct4 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey4), SignatureScheme.SHA256WITHECDSA);
-        com.github.ontio.account.Account acct5 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey5), SignatureScheme.SHA256WITHECDSA);
-        com.github.ontio.account.Account acct6 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey6), SignatureScheme.SHA256WITHECDSA);
-        com.github.ontio.account.Account acct7 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey7), SignatureScheme.SHA256WITHECDSA);
+        com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
+        com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), SignatureScheme.SHA256WITHECDSA);
+        com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), SignatureScheme.SHA256WITHECDSA);
+        com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), SignatureScheme.SHA256WITHECDSA);
+        com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), SignatureScheme.SHA256WITHECDSA);
+        com.github.TesraSupernet.account.Account acct6 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey6), SignatureScheme.SHA256WITHECDSA);
+        com.github.TesraSupernet.account.Account acct7 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey7), SignatureScheme.SHA256WITHECDSA);
         Address multiSignAddr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey(), acct2.serializePublicKey());
         System.out.println("acct1:" + acct1.getAddressU160().toBase58());
         System.out.println("acct2:" + acct2.getAddressU160().toBase58());
@@ -64,7 +64,7 @@ public class DeployDemo {
             //http://docs.neo.org/zh-cn/sc/reference/fw/dotnet/neo/Contract/Create.html
 
             String gasAsset = "602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7";
-            com.github.ontio.account.Account senderAcct = acct1;
+            com.github.TesraSupernet.account.Account senderAcct = acct1;
             Address senderAddr = acct1.getAddressU160();
 
             InvocationTransaction tx = new InvocationTransaction();

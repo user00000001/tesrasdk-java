@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class ServiceMap {
     static Map<String, Service> map = new HashMap<>();
-    static final String ATTRIBUTE_GETUSAGE_NAME = "Ontology.Attribute.GetUsage";
-    static final String ATTRIBUTE_GETDATA_NAME = "Ontology.Attribute.GetData";
+    static final String ATTRIBUTE_GETUSAGE_NAME = "Tesra.Attribute.GetUsage";
+    static final String ATTRIBUTE_GETDATA_NAME = "Tesra.Attribute.GetData";
 
     static final String BLOCK_GETTRANSACTIONCOUNT_NAME = "System.Block.GetTransactionCount";
     static final String BLOCK_GETTRANSACTIONS_NAME = "System.Block.GetTransactions";
@@ -22,22 +22,22 @@ public class ServiceMap {
 
     static final String HEADER_GETINDEX_NAME = "System.Header.GetIndex";
     static final String HEADER_GETHASH_NAME = "System.Header.GetHash";
-    static final String HEADER_GETVERSION_NAME = "Ontology.Header.GetVersion";
+    static final String HEADER_GETVERSION_NAME = "Tesra.Header.GetVersion";
     static final String HEADER_GETPREVHASH_NAME = "System.Header.GetPrevHash";
     static final String HEADER_GETTIMESTAMP_NAME = "System.Header.GetTimestamp";
-    static final String HEADER_GETCONSENSUSDATA_NAME = "Ontology.Header.GetConsensusData";
-    static final String HEADER_GETNEXTCONSENSUS_NAME = "Ontology.Header.GetNextConsensus";
-    static final String HEADER_GETMERKLEROOT_NAME = "Ontology.Header.GetMerkleRoot";
+    static final String HEADER_GETCONSENSUSDATA_NAME = "Tesra.Header.GetConsensusData";
+    static final String HEADER_GETNEXTCONSENSUS_NAME = "Tesra.Header.GetNextConsensus";
+    static final String HEADER_GETMERKLEROOT_NAME = "Tesra.Header.GetMerkleRoot";
 
     static final String TRANSACTION_GETHASH_NAME = "System.Transaction.GetHash";
-    static final String TRANSACTION_GETTYPE_NAME = "Ontology.Transaction.GetType";
-    static final String TRANSACTION_GETATTRIBUTES_NAME = "Ontology.Transaction.GetAttributes";
+    static final String TRANSACTION_GETTYPE_NAME = "Tesra.Transaction.GetType";
+    static final String TRANSACTION_GETATTRIBUTES_NAME = "Tesra.Transaction.GetAttributes";
 
-    static final String CONTRACT_CREATE_NAME = "Ontology.Contract.Create";
-    static final String CONTRACT_MIGRATE_NAME = "Ontology.Contract.Migrate";
+    static final String CONTRACT_CREATE_NAME = "Tesra.Contract.Create";
+    static final String CONTRACT_MIGRATE_NAME = "Tesra.Contract.Migrate";
     static final String CONTRACT_GETSTORAGECONTEXT_NAME = "System.Contract.GetStorageContext";
     static final String CONTRACT_DESTROY_NAME = "System.Contract.Destroy";
-    static final String CONTRACT_GETSCRIPT_NAME = "Ontology.Contract.GetScript";
+    static final String CONTRACT_GETSCRIPT_NAME = "Tesra.Contract.GetScript";
 
     static final String STORAGE_GET_NAME = "System.Storage.Get";
     static final String STORAGE_PUT_NAME = "System.Storage.Put";
@@ -55,7 +55,7 @@ public class ServiceMap {
     static final String RUNTIME_SERIALIZE_NAME = "System.Runtime.Serialize";
     static final String RUNTIME_DESERIALIZE_NAME = "System.Runtime.Deserialize";
 
-    static final String NATIVE_INVOKE_NAME = "Ontology.Native.Invoke";
+    static final String NATIVE_INVOKE_NAME = "Tesra.Native.Invoke";
 
     static final String GETSCRIPTCONTAINER_NAME = "System.ExecutionEngine.GetScriptContainer";
     static final String GETEXECUTINGSCRIPTHASH_NAME = "System.ExecutionEngine.GetExecutingScriptHash";

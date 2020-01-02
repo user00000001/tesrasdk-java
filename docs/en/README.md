@@ -1,4 +1,4 @@
-<h1 align="center"> Ontology Java SDK User Guide </h1>
+<h1 align="center"> Tesra Java SDK User Guide </h1>
 
 <p align="center" class="version">Version 1.0.0 </p>
 
@@ -6,7 +6,7 @@ English / [中文](../cn/README.md)
 
 ## Overview
 
-This official Ontology Java SDK is a comprehensive Java library for the Ontology blockchain. This SDK supports multiple functions including native wallet management, digital identity management, digital asset management, smart contract deployment and invocation and node communication. This SDK will continue to be updated with new features.
+This official Tesra Java SDK is a comprehensive Java library for the Tesra blockchain. This SDK supports multiple functions including native wallet management, digital identity management, digital asset management, smart contract deployment and invocation and node communication. This SDK will continue to be updated with new features.
 
 ## Main functions
 
@@ -60,16 +60,16 @@ $ mvn clean install
 Add maven dependency:
 
 ```
-<!-- https://mvnrepository.com/artifact/com.github.ontio/ontology-sdk-java -->
+<!-- https://mvnrepository.com/artifact/com.github.TesraSupernet/tesra-sdk-java -->
 <dependency>
-    <groupId>com.github.ontio</groupId>
-    <artifactId>ontology-sdk-java</artifactId>
+    <groupId>com.github.TesraSupernet</groupId>
+    <artifactId>tesra-sdk-java</artifactId>
     <version>1.0.13</version>
 </dependency>
 ```
     
 ### Preparations
 
-Ensure you have access to an Ontology Blockchain (mainnet, testnet or privaenet) and access via RPC ports is available. 
+Ensure you have access to an Tesra Blockchain (mainnet, testnet or privaenet) and access via RPC ports is available. 
 
 

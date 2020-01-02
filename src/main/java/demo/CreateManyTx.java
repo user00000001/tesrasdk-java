@@ -1,12 +1,12 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.ontio.OntSdk;
-import com.github.ontio.common.Common;
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.transaction.Transaction;
-import com.github.ontio.crypto.SignatureScheme;
-import com.github.ontio.sdk.wallet.Identity;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.common.Common;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.transaction.Transaction;
+import com.github.TesraSupernet.crypto.SignatureScheme;
+import com.github.TesraSupernet.sdk.wallet.Identity;
 
 import java.io.*;
 
@@ -21,7 +21,7 @@ public class CreateManyTx {
 
         try {
             OntSdk ontSdk = getOntSdk();
-            com.github.ontio.account.Account payerAcct = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
+            com.github.TesraSupernet.account.Account payerAcct = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
             if(true) {  //open file, make registry ontid transaction, save tx to file.
                 File file = new File(filePath);
                 if (!file.exists()) {
@@ -29,7 +29,7 @@ public class CreateManyTx {
                 }
                 FileOutputStream fos = new FileOutputStream(file);
                 for (int i = 0; i < 3; i++) {
-                    com.github.ontio.account.Account account = new com.github.ontio.account.Account(SignatureScheme.SHA256WITHECDSA);
+                    com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(SignatureScheme.SHA256WITHECDSA);
                     String ontid = Common.didont + account.getAddressU160().toBase58();
                     Transaction tx = ontSdk.nativevm().ontId().makeRegister(ontid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
                     ontSdk.addSign(tx, account);

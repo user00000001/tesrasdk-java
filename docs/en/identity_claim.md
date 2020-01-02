@@ -6,7 +6,7 @@ English / [中文](../cn/identity_claim.md)
 
 ## Introduction
 
-A description of an Ontology Digital ID can be found in our [ONT ID Protocol and Trust Framework](https://github.com/ontio/ontology-DID) document.
+A description of an Tesra Digital ID can be found in our [ONT ID Protocol and Trust Framework](https://github.com/TesraSupernet/tesra-DID) document.
 
 <br>
 
@@ -70,7 +70,7 @@ public class Control {
 
 ### Registering a digital identity
 
-Digital identity creation refers to the generation of an Ontology digital identity with an appropriate identity data structure which would then be written to a wallet file.
+Digital identity creation refers to the generation of an TesraSupernet digital identity with an appropriate identity data structure which would then be written to a wallet file.
 
 ##### Java SDK method to register a digital identity
 ```
@@ -102,7 +102,7 @@ ontSdk.signTx(tx,identity.ontid,password,salt);
 ontSdk.getConnect().sendRawTransaction(tx);
 ```
 
-Upon successful registration, the corresponding DDO of the ONT ID will be stored on the Ontology blockchain. Detailed information about DDO can be found in [ONT ID identity protocol and smart contract implementation](https://github.com/ontio/ontology-DID/blob/master/README.md)
+Upon successful registration, the corresponding DDO of the ONT ID will be stored on the Tesra blockchain. Detailed information about DDO can be found in [ONT ID identity protocol and smart contract implementation](https://github.com/TesraSupernet/tesra-DID/blob/master/README.md)
 
 
 

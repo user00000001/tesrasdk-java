@@ -1,9 +1,9 @@
 package demo;
 
-import com.github.ontio.OntSdk;
-import com.github.ontio.account.Account;
-import com.github.ontio.common.Helper;
-import com.github.ontio.crypto.SignatureScheme;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.account.Account;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.crypto.SignatureScheme;
 
 import java.util.Map;
 

@@ -1,7 +1,7 @@
 package demo.vmtest.utils;
 
-import com.github.ontio.common.Helper;
-import com.github.ontio.io.BinaryReader;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.io.BinaryReader;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

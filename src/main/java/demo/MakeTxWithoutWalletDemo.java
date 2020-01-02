@@ -1,39 +1,39 @@
 /*
- * Copyright (C) 2018 The ontology Authors
- * This file is part of The ontology library.
+ * Copyright (C) 2018 The TesraSupernet Authors
+ * This file is part of The TesraSupernet library.
  *
- *  The ontology is free software: you can redistribute it and/or modify
+ *  The TesraSupernet is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The ontology is distributed in the hope that it will be useful,
+ *  The TesraSupernet is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with The ontology.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with The TesraSupernet.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.ontio.OntSdk;
-import com.github.ontio.common.Address;
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.VmType;
-import com.github.ontio.core.asset.Contract;
-import com.github.ontio.core.asset.State;
-import com.github.ontio.core.asset.Transfers;
-import com.github.ontio.core.payload.InvokeCode;
-import com.github.ontio.core.transaction.Transaction;
-import com.github.ontio.crypto.KeyType;
-import com.github.ontio.sdk.info.AccountInfo;
-import com.github.ontio.sdk.manager.WalletMgr;
-import com.github.ontio.sdk.wallet.Account;
-import com.github.ontio.sdk.wallet.Identity;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.VmType;
+import com.github.TesraSupernet.core.asset.Contract;
+import com.github.TesraSupernet.core.asset.State;
+import com.github.TesraSupernet.core.asset.Transfers;
+import com.github.TesraSupernet.core.payload.InvokeCode;
+import com.github.TesraSupernet.core.transaction.Transaction;
+import com.github.TesraSupernet.crypto.KeyType;
+import com.github.TesraSupernet.sdk.info.AccountInfo;
+import com.github.TesraSupernet.sdk.manager.WalletMgr;
+import com.github.TesraSupernet.sdk.wallet.Account;
+import com.github.TesraSupernet.sdk.wallet.Identity;
 
 import java.math.BigInteger;
 import java.security.Key;
@@ -56,14 +56,14 @@ public class MakeTxWithoutWalletDemo {
             OntSdk ontSdk = getOntSdk();
 
             String privatekey0 = "523c5fcf74823831756f0bcb3634234f10b3beb1c05595058534577752ad2d9f";
-            com.github.ontio.account.Account acct0 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
             System.out.println(Helper.toHexString(acct0.serializePublicKey()));
 
-            com.github.ontio.account.Account acct1 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-            com.github.ontio.account.Account acct2 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
-            com.github.ontio.account.Account acct3 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey3), ontSdk.defaultSignScheme);
-            com.github.ontio.account.Account acct4 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey4), ontSdk.defaultSignScheme);
-            com.github.ontio.account.Account acct5 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey5), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), ontSdk.defaultSignScheme);
 
 
             if (false) {
@@ -78,7 +78,7 @@ public class MakeTxWithoutWalletDemo {
                 Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 
                 System.out.println(tx.json());
-                ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{acct0}});
+                ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
                 ontSdk.addMultiSign(tx,2,new byte[][]{acct0.serializePublicKey(),acct1.serializePublicKey()},acct0);
                 ontSdk.addMultiSign(tx,2,new byte[][]{acct0.serializePublicKey(),acct1.serializePublicKey()},acct0);
                 System.out.println(tx.hash().toHexString());
@@ -95,7 +95,7 @@ public class MakeTxWithoutWalletDemo {
                 System.out.println("recvAddr:" + recvAddr.toBase58());
                 long amount = 100000;
                 Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
-                ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{acct0}});
+                ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
                 //getSmartCodeEvent per 3s, max 60s
                 Object object = ontSdk.getConnect().waitResult(tx.hash().toString());
                 System.out.println(object);
@@ -111,7 +111,7 @@ public class MakeTxWithoutWalletDemo {
 
                 Transaction tx = ontSdk.nativevm().ont().makeTransfer(multiAddr.toBase58(),recvAddr.toBase58(), amount,multiAddr.toBase58(),30000,0);
                 System.out.println(tx.json());
-                //ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{acct1, acct2}});
+                //ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct1, acct2}});
                 ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
                 ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
 
@@ -135,7 +135,7 @@ public class MakeTxWithoutWalletDemo {
                 State state2 = new State(sender2,recvAddr,amount2);
                 Transaction tx = ontSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
                 System.out.println(tx.json());
-                ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{acct0}});
+                ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
                 ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
                 ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
                 System.out.println(tx.hash().toHexString());
@@ -168,7 +168,7 @@ public class MakeTxWithoutWalletDemo {
             if(false){
                 String sender = acct0.getAddressU160().toBase58();
                 Transaction tx = ontSdk.nativevm().ong().makeWithdrawOng(sender,sender,10,sender,30000,0);
-                ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{acct0}});
+                ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
                 ontSdk.getConnect().sendRawTransaction(tx.toHexString());
             }
         } catch (Exception e) {

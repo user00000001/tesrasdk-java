@@ -1,12 +1,12 @@
-<h1 align="center"> Ontology Java SDK Getting Started Guide </h1>
+<h1 align="center"> Tesra Java SDK Getting Started Guide </h1>
 
 <p align="center" class="version">Version 1.0.0 </p>
 
 English / [中文](../cn/sdk_get_start.md)
 
-This is an introductory guide for developers who wish to use the Java SDK. You can access the full Java SDK document suite [here](https://github.com/ontio/ontology-java-sdk/tree/master/docs/en).
+This is an introductory guide for developers who wish to use the Java SDK. You can access the full Java SDK document suite [here](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/docs/en).
 
-There are two kinds of assets in the Ontology Ecosystem, native assets and contract assets. Native assets are ONT and ONG and contract assets are items such as smart contracts.
+There are two kinds of assets in the Tesra Ecosystem, native assets and contract assets. Native assets are ONT and ONG and contract assets are items such as smart contracts.
 
 
 
@@ -81,16 +81,16 @@ The outline of this document is as follows:
 #### Without using wallet management 
 #####  Create account randomly
 ```
-com.github.ontio.account.Account acct = new com.github.ontio.account.Account(ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
 acct.serializePrivateKey();//Private key
 acct.serializePublicKey();//Public key
 acct.getAddressU160().toBase58();//Base58 address
 ```            
 ##### Create account based on private key
 ```          
-com.github.ontio.account.Account acct0 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
-com.github.ontio.account.Account acct1 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-com.github.ontio.account.Account acct2 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
 
 ```
 
@@ -108,10 +108,10 @@ AccountInfo info0 = ontSdk.getWalletMgr().createAccountInfo("passwordtest");
 AccountInfo info = ontSdk.getWalletMgr().createAccountInfoFromPriKey("passwordtest","e467a2a9c9f56b012c71cf2270df42843a9d7ff181934068b4a62bcdd570e8be");
 
 // Get account
-com.github.ontio.account.Account acct0 = ontSdk.getWalletMgr().getAccount(info.addressBase58,"passwordtest",salt);
+com.github.TesraSupernet.account.Account acct0 = ontSdk.getWalletMgr().getAccount(info.addressBase58,"passwordtest",salt);
 
 ```
-[Full example](https://github.com/ontio/ontology-java-sdk/blob/master/src/main/java/demo/WalletDemo.java) 
+[Full example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/WalletDemo.java) 
 
 
 <br>
@@ -128,7 +128,7 @@ String privatekey1 = "49855b16636e70f100cc5f4f42bc20a6535d7414fb8845e7310f8dd065
 String privatekey2 = "1094e90dd7c4fdfd849c14798d725ac351ae0d924b29a279a9ffa77d5737bd96";
 
 //Generate account and get address
-com.github.ontio.account.Account acct0 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
 Address sender = acct0.getAddressU160();
 
 //base58 address decode
@@ -145,7 +145,7 @@ Address recvAddr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey()
 
 ## ONT and ONG transfer
 
-[Full example](https://github.com/ontio/ontology-java-sdk/blob/master/src/main/java/demo/MakeTxWithoutWalletDemo.java)
+[Full example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/MakeTxWithoutWalletDemo.java)
 
 ### SDK Initialization
 ```
@@ -245,9 +245,9 @@ long amount = 1000;
 Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 
 // Sign a transaction
-ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{acct0}});
+ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
 // Signature scheme of multiple addresses
-ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{acct1, acct2}});
+ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct1, acct2}});
 // If the addresses of the transferee and the payer who pay the network fee are different, the payer’s signature needs to be added.
 
 //Send prepare execution transaction（optional）：
@@ -261,7 +261,7 @@ System.out.println(obj);
 
 ##### Failed result
 ```
-com.github.ontio.network.exception.RestfulException: {"Action":"sendrawtransaction","Desc":"SMARTCODE EXEC ERROR","Error":47001,"Result":"","Version":"1.0.0"}
+com.github.TesraSupernet.network.exception.RestfulException: {"Action":"sendrawtransaction","Desc":"SMARTCODE EXEC ERROR","Error":47001,"Result":"","Version":"1.0.0"}
 ```
 
 ```
@@ -278,7 +278,7 @@ Object obj = ontSdk.getConnect().syncSendRawTransaction(tx.toHexString());
 ##### Failed result
 
 ```
-com.github.ontio.sdk.exception.SDKException: {"Action":"getmempooltxstate","Desc":"UNKNOWN TRANSACTION","Error":44001,"Result":"","Version":"1.0.0"}
+com.github.TesraSupernet.sdk.exception.SDKException: {"Action":"getmempooltxstate","Desc":"UNKNOWN TRANSACTION","Error":44001,"Result":"","Version":"1.0.0"}
 
 ```
 | Method Name  | Parameter  | Parameter Description |
@@ -330,7 +330,7 @@ State state2 = new State(sender2, recvAddr, amount2);
 Transaction tx = ontSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
 
 //The first transferee is a single-signature address, and the second transferee is a multiple-signature address
-ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{acct0}});
+ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
 ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
 ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
 
@@ -358,7 +358,7 @@ ontSdk.addSign(txRx,acct0);
 
 **Interaction between SDK and signature server**：
 
-[Full Example](https://github.com/ontio/ontology-java-sdk/blob/master/src/main/java/demo/SignServerDemo.java)
+[Full Example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/SignServerDemo.java)
 
 ```
 //Start the signature server service when nodes start：
@@ -386,10 +386,10 @@ ontSdk.getSignServer().sendSigTransferTx("ont","TU5exRFVqjRi5wnMVzNoWKBq9WFncLXE
 **Sign data**
 
 
-[Full Example](https://github.com/ontio/ontology-java-sdk/blob/master/src/main/java/demo/SignatureDemo.java) 
+[Full Example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/SignatureDemo.java) 
 
 ```
-com.github.ontio.account.Account acct = new com.github.ontio.account.Account(ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
 
 byte[] data = "12345".getBytes();
 byte[] signature = ontSdk.signatureData(acct, data);
@@ -460,10 +460,10 @@ Transaction deserialization
 (version(1) type(1) nonce(4) gasprice(8) gaslimit(8))22 bytes + (payer)21 bytes + payload code bytes( any bytes)
 
 claim ong 
-//             claim address                                                 ont contract address                         to   address                                 amount                       "transferFrom"                           ong                   SYSCALL         "Ontology.Native.Invoke"
+//             claim address                                                 ont contract address                         to   address                                 amount                       "transferFrom"                           ong                   SYSCALL         "Tesra.Native.Invoke"
 //00 c66b 14bb2d5b718efeac060ac825338ca440216da4d8dc 6a7cc8 140000000000000000000000000000000000000001 6a7cc8 14bb2d5b718efeac060ac825338ca440216da4d8dc 6a7cc8 08 806a735501000000 6a7cc8 6c 0c7472616e7366657246726f6d 140000000000000000000000000000000000000002 0068 164f6e746f6c6f67792e4e61746976652e496e766f6b65
 ont and ong transfer
-//                     from                                           to                                        amount                                 "transfer"                                                                       ont or ong                SYSCALL           "Ontology.Native.Invoke"
+//                     from                                           to                                        amount                                 "transfer"                                                                       ont or ong                SYSCALL           "Tesra.Native.Invoke"
 //00 c66b 147af216ff3da82b999b26f5efe165de5f944ac549 6a7cc8 14d2c124dd088190f709b684e0bc676d70c41b3776 6a7cc8 08 00ca9a3b00000000 6a7cc8 6c 51c1 087472616e73666572                                                      140000000000000000000000000000000000000001 0068 164f6e746f6c6f67792e4e61746976652e496e766f6b65
 
 For amount ：   1-16  is  0x51-0x60  .     >=16 is  long,  08 is the total amount bytes .  
@@ -495,7 +495,7 @@ String addr = acct0.getAddressU160().toBase58();
 String ong = sdk.nativevm().ong().unboundOng(addr);
 
 // Withdraw ONG
-com.github.ontio.account.Account account = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey0), ontSdk.signatureScheme);
+com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.signatureScheme);
 String hash = sdk.nativevm().ong().withdrawOng(account,toAddr,64000L,payerAcct,30000,500);
 
 ```
@@ -503,7 +503,7 @@ String hash = sdk.nativevm().ong().withdrawOng(account,toAddr,64000L,payerAcct,3
 
 ## NEP5 Transfer
 
-[Full example](https://github.com/ontio/ontology-java-sdk/blob/master/src/main/java/demo/Nep5Demo.java)
+[Full example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/Nep5Demo.java)
 
 
 ### Query NEP5 Balance
@@ -626,7 +626,7 @@ System.out.println(object);
 ##### Failed response
 ```
 response fail,reject by txpool:
-com.github.ontio.sdk.exception.SDKException: {"Action":"getmempooltxstate","Desc":"UNKNOWN TRANSACTION","Error":44001,"Result":"","Version":"1.0.0"}
+com.github.TesraSupernet.sdk.exception.SDKException: {"Action":"getmempooltxstate","Desc":"UNKNOWN TRANSACTION","Error":44001,"Result":"","Version":"1.0.0"}
 ```
 
 
@@ -635,7 +635,7 @@ com.github.ontio.sdk.exception.SDKException: {"Action":"getmempooltxstate","Desc
 
 When SDK sends OntID registration or other exchange transaction, the whole process takes 1-2 seconds since user will extract the private key information from the wallet before doing the signature. To be more efficient, we can constructure the transaction in advance by multi-line or multi-machine before pushing transaction
 
-Detail example as below，[Example](https://github.com/ontio/ontology-java-sdk/tree/master/src/main/java/demo/CreateManyTx.java)
+Detail example as below，[Example](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/src/main/java/demo/CreateManyTx.java)
 
 ### Construct Batch Transaction
 
@@ -651,10 +651,10 @@ File file = new File(filePath);
 if (!file.exists()) {
     file.createNewFile();
 }
-com.github.ontio.account.Account payerAcct = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
+com.github.TesraSupernet.account.Account payerAcct = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
 FileOutputStream fos = new FileOutputStream(file);
 for (int i = 0; i < 3; i++) {
-    com.github.ontio.account.Account account = new com.github.ontio.account.Account(SignatureScheme.SHA256WITHECDSA);
+    com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(SignatureScheme.SHA256WITHECDSA);
     String ontid = Common.didont + account.getAddressU160().toBase58();
     Transaction tx = ontSdk.nativevm().ontId().makeRegister(ontid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
     ontSdk.addSign(tx, account);

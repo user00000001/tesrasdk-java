@@ -1,32 +1,32 @@
 /*
- * Copyright (C) 2018 The ontology Authors
- * This file is part of The ontology library.
+ * Copyright (C) 2018 The TesraSupernet Authors
+ * This file is part of The TesraSupernet library.
  *
- *  The ontology is free software: you can redistribute it and/or modify
+ *  The TesraSupernet is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The ontology is distributed in the hope that it will be useful,
+ *  The TesraSupernet is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with The ontology.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with The TesraSupernet.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
 package demo;
 
-import com.github.ontio.OntSdk;
-import com.github.ontio.account.Account;
-import com.github.ontio.common.Helper;
-import com.github.ontio.common.UInt256;
-import com.github.ontio.merkle.MerkleVerifier;
-import com.github.ontio.network.rpc.*;
-import com.github.ontio.sdk.exception.SDKException;
-import com.github.ontio.sdk.wallet.Identity;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.account.Account;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.common.UInt256;
+import com.github.TesraSupernet.merkle.MerkleVerifier;
+import com.github.TesraSupernet.network.rpc.*;
+import com.github.TesraSupernet.sdk.exception.SDKException;
+import com.github.TesraSupernet.sdk.wallet.Identity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +43,7 @@ public class ClaimDemo {
         try {
             OntSdk ontSdk = getOntSdk();
             String privatekey0 = "c19f16785b8f3543bbaf5e1dbb5d398dfa6c85aaad54fc9d71203ce83e505c07";
-            com.github.ontio.account.Account acct0 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
             List<Identity> dids = ontSdk.getWalletMgr().getWallet().getIdentities();
             if (dids.size() < 2) {
                 Identity identity = ontSdk.getWalletMgr().createIdentity("passwordtest");

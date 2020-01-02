@@ -1,10 +1,10 @@
 package demo;
 
-import com.github.ontio.OntSdk;
-import com.github.ontio.account.Account;
-import com.github.ontio.common.Address;
-import com.github.ontio.common.Helper;
-import com.github.ontio.smartcontract.neovm.oep5.Oep5Param;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.account.Account;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.smartcontract.neovm.oep5.Oep5Param;
 
 public class Oep5Demo {
     public static void main(String[] args) {

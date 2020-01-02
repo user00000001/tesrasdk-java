@@ -1,10 +1,10 @@
 
-<h1 align="center">JAVA SDK For Ontology  </h1>
+<h1 align="center">JAVA SDK For Tesra  </h1>
 <h4 align="center">Version 1.0.0 </h4>
 
 ## Overview
 
-This is a comprehensive Java library for the Ontology blockchain. Currently, it supports local wallet management, digital identity management, digital asset management,  deployment and invoke for Smart Contract , and communication with Ontology Blockchain. The future will also support more rich functions and applications .
+This is a comprehensive Java library for the Tesra blockchain. Currently, it supports local wallet management, digital identity management, digital asset management,  deployment and invoke for Smart Contract , and communication with Tesra Blockchain. The future will also support more rich functions and applications .
 
 ## Getting started
 
@@ -30,17 +30,17 @@ mvn clean install
 
 ## Preparations
 
-* Make sure Ontology Blockchain has deployed well,  RPC port has been opened, and SDK will connect the RPC server to initialize.
+* Make sure Tesra Blockchain has deployed well,  RPC port has been opened, and SDK will connect the RPC server to initialize.
 
 
 # Contributing
 
-Can I contribute patches to Ontology project?
+Can I contribute patches to Tesra project?
 
 Yes! Please open a pull request with signed-off commits. We appreciate your help!
 
 You can also send your patches as emails to the developer mailing list.
-Please join the Ontology mailing list or forum and talk to us about it.
+Please join the Tesra mailing list or forum and talk to us about it.
 
 Either way, if you don't sign off your patches, we will not accept them.
 This means adding a line that says "Signed-off-by: Name <email>" at the
@@ -77,4 +77,4 @@ looks like this:
 
 ## License
 
-The Ontology library (i.e. all code outside of the cmd directory) is licensed under the GNU Lesser General Public License v3.0, also included in our repository in the License file.
+The TesraSupernet library (i.e. all code outside of the cmd directory) is licensed under the GNU Lesser General Public License v3.0, also included in our repository in the License file.

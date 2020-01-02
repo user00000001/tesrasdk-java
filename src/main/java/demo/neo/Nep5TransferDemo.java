@@ -3,17 +3,17 @@ package demo.neo;
 
 import com.alibaba.fastjson.JSON;
 import com.github.neo.core.NeoRpc;
-import com.github.ontio.account.Account;
-import com.github.ontio.common.Address;
-import com.github.ontio.common.ErrorCode;
-import com.github.ontio.common.Helper;
-import com.github.ontio.crypto.SignatureScheme;
+import com.github.TesraSupernet.account.Account;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.common.ErrorCode;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.crypto.SignatureScheme;
 import com.github.neo.core.Program;
 import com.github.neo.core.transaction.TransactionNeo;
 import com.github.neo.core.SmartContract;
-import com.github.ontio.network.exception.RpcException;
-import com.github.ontio.smartcontract.neovm.abi.AbiFunction;
-import com.github.ontio.smartcontract.neovm.abi.AbiInfo;
+import com.github.TesraSupernet.network.exception.RpcException;
+import com.github.TesraSupernet.smartcontract.neovm.abi.AbiFunction;
+import com.github.TesraSupernet.smartcontract.neovm.abi.AbiInfo;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -36,8 +36,8 @@ public class Nep5TransferDemo {
 	public static String nep5abi = "{\"hash\":\"0x5bb169f915c916a5e30a3c13a5e0cd228ea26826\",\"entrypoint\":\"Main\",\"functions\":[{\"name\":\"Name\",\"parameters\":[],\"returntype\":\"String\"},{\"name\":\"Symbol\",\"parameters\":[],\"returntype\":\"String\"},{\"name\":\"Decimals\",\"parameters\":[],\"returntype\":\"Integer\"},{\"name\":\"Main\",\"parameters\":[{\"name\":\"operation\",\"type\":\"String\"},{\"name\":\"args\",\"type\":\"Array\"}],\"returntype\":\"Any\"},{\"name\":\"Init\",\"parameters\":[],\"returntype\":\"Boolean\"},{\"name\":\"TotalSupply\",\"parameters\":[],\"returntype\":\"Integer\"},{\"name\":\"Transfer\",\"parameters\":[{\"name\":\"from\",\"type\":\"ByteArray\"},{\"name\":\"to\",\"type\":\"ByteArray\"},{\"name\":\"value\",\"type\":\"Integer\"}],\"returntype\":\"Boolean\"},{\"name\":\"BalanceOf\",\"parameters\":[{\"name\":\"address\",\"type\":\"ByteArray\"}],\"returntype\":\"Integer\"}],\"events\":[{\"name\":\"transfer\",\"parameters\":[{\"name\":\"arg1\",\"type\":\"ByteArray\"},{\"name\":\"arg2\",\"type\":\"ByteArray\"},{\"name\":\"arg3\",\"type\":\"Integer\"}],\"returntype\":\"Void\"}]}";
 	public static void main(String[] args) throws Exception {
         System.out.println("Hi NEO, Nep-5 smartcontract invoke test!");
-		com.github.ontio.account.Account acct1 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
-		com.github.ontio.account.Account acct2 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey2), SignatureScheme.SHA256WITHECDSA);
+		com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
+		com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), SignatureScheme.SHA256WITHECDSA);
 		Address multiSignAddr = Address.addressFromMultiPubKeys(2,acct1.serializePublicKey(),acct2.serializePublicKey());
 
 		//read smarcontract abi file

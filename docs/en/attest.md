@@ -88,8 +88,6 @@ A verifiable claim is constructed based on user input, which contains signed dat
 |        | expire   | long | Attribute marks the expiration time of the claim and has the format of unix timestamp     | required |
 | Output parameter| claim   | String  |   |  |
 
-Refer to: https://github.com/kunxian-xia/ontology-DID/blob/master/docs/en/claim_spec.md
-
 ##### Example of creating an onit claim    
 ```
 String createOntIdClaim (String signerOntid, String password,byte[] salt, String context, Map<String, Object> claimMap, Map metaData,Map clmRevMap,long expire)
@@ -180,10 +178,8 @@ String claim = ontSdk.nativevm().ontId().createOntIdClaim(dids.get(0).ontid,pass
 clmRevMap,System.currentTimeMillis()/1000 +100000);
 ```
 
-Note: For createOntIdClaim interface details please see the digital identity ontid document https://github.com/ontio/ontology-java-sdk/blob/master/docs/cn/identity_claim.md
+Note: For createOntIdClaim interface details please see the digital identity ontid document https://github.com/TesraSupernet/tesra-java-sdk/blob/master/docs/cn/identity_claim.md
 
-
-The specification of the following interface document is: https://github.com/kunxian-xia/ontology-DID/blob/master/docs/en/claim_spec.md.
 
 <br>
 

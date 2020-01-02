@@ -1,8 +1,8 @@
 package demo.vmtest.utils;
 
-import com.github.ontio.common.Address;
-import com.github.ontio.core.payload.InvokeCode;
-import com.github.ontio.core.transaction.Transaction;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.core.payload.InvokeCode;
+import com.github.TesraSupernet.core.transaction.Transaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;

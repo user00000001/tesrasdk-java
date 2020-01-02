@@ -1,28 +1,28 @@
 /*
- * Copyright (C) 2018 The ontology Authors
- * This file is part of The ontology library.
+ * Copyright (C) 2018 The TesraSupernet Authors
+ * This file is part of The TesraSupernet library.
  *
- *  The ontology is free software: you can redistribute it and/or modify
+ *  The TesraSupernet is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  The ontology is distributed in the hope that it will be useful,
+ *  The TesraSupernet is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU Lesser General Public License for more details.
  *
  *  You should have received a copy of the GNU Lesser General Public License
- *  along with The ontology.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with The TesraSupernet.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.ontio.OntSdk;
-import com.github.ontio.common.Helper;
-import com.github.ontio.sdk.manager.ECIES;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.sdk.manager.ECIES;
 import org.bouncycastle.crypto.digests.SHA256Digest;
 
 /**
@@ -34,7 +34,7 @@ public class ECIESDemo {
         try {
             OntSdk ontSdk = getOntSdk();
 
-            com.github.ontio.account.Account account = new com.github.ontio.account.Account(Helper.hexToBytes("9a31d585431ce0aa0aab1f0a432142e98a92afccb7bcbcaff53f758df82acdb3"), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes("9a31d585431ce0aa0aab1f0a432142e98a92afccb7bcbcaff53f758df82acdb3"), ontSdk.defaultSignScheme);
             System.out.println("PrivateKey:"+Helper.toHexString(account.serializePrivateKey()));
             System.out.println("PublicKey:"+Helper.toHexString(account.serializePublicKey()));
 //            System.out.println(Helper.toHexString(account.serializePrivateKey()));

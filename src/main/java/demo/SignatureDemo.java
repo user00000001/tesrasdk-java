@@ -1,29 +1,29 @@
 package demo;
 
-import com.github.ontio.OntSdk;
-import com.github.ontio.core.DataSignature;
-import com.github.ontio.sdk.info.AccountInfo;
-import com.github.ontio.sdk.wallet.Account;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.core.DataSignature;
+import com.github.TesraSupernet.sdk.info.AccountInfo;
+import com.github.TesraSupernet.sdk.wallet.Account;
 
 public class SignatureDemo {
     public static void main(String[] args) {
         try {
             OntSdk ontSdk = getOntSdk();
             if(true) {
-                com.github.ontio.account.Account acct = new com.github.ontio.account.Account(ontSdk.defaultSignScheme);
+                com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
                 byte[] data = "12345".getBytes();
                 byte[] signature = ontSdk.signatureData(acct, data);
 
                 System.out.println(ontSdk.verifySignature(acct.serializePublicKey(), data, signature));
             }
             if(true) {
-                com.github.ontio.account.Account acct = new com.github.ontio.account.Account(ontSdk.defaultSignScheme);
+                com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
                 byte[] data = "12345".getBytes();
                 DataSignature sign = new DataSignature(ontSdk.defaultSignScheme, acct, data);
                 byte[] signature = sign.signature();
 
 
-                com.github.ontio.account.Account acct2 = new com.github.ontio.account.Account(false,acct.serializePublicKey());
+                com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(false,acct.serializePublicKey());
                 DataSignature sign2 = new DataSignature();
                 System.out.println(sign2.verifySignature(acct2, data, signature));
             }

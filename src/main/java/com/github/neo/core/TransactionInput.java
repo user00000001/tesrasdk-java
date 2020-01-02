@@ -1,10 +1,10 @@
 package com.github.neo.core;
 
 
-import com.github.ontio.common.UInt256;
-import com.github.ontio.io.BinaryReader;
-import com.github.ontio.io.BinaryWriter;
-import com.github.ontio.io.Serializable;
+import com.github.TesraSupernet.common.UInt256;
+import com.github.TesraSupernet.io.BinaryReader;
+import com.github.TesraSupernet.io.BinaryWriter;
+import com.github.TesraSupernet.io.Serializable;
 
 import java.io.IOException;
 

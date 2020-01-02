@@ -5,12 +5,12 @@ import com.alibaba.fastjson.JSON;
 import com.github.neo.core.*;
 import com.github.neo.core.transaction.TransactionNeo;
 import com.github.neo.core.transaction.TransferTransaction;
-import com.github.ontio.common.*;
-import com.github.ontio.crypto.ECC;
-import com.github.ontio.crypto.SignatureScheme;
-import com.github.ontio.network.exception.RpcException;
-import com.github.ontio.smartcontract.neovm.abi.AbiFunction;
-import com.github.ontio.smartcontract.neovm.abi.AbiInfo;
+import com.github.TesraSupernet.common.*;
+import com.github.TesraSupernet.crypto.ECC;
+import com.github.TesraSupernet.crypto.SignatureScheme;
+import com.github.TesraSupernet.network.exception.RpcException;
+import com.github.TesraSupernet.smartcontract.neovm.abi.AbiFunction;
+import com.github.TesraSupernet.smartcontract.neovm.abi.AbiInfo;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -43,13 +43,13 @@ public class NeoTransferDemo {
 	public static String assetid = "c56f33fc6ecfcd0c225c4ab356fee59390af8560be0e930faebe74a6daff7c9b";
 	public static void main(String[] args) throws Exception {
         System.out.println("Hi NEO, Nep-5 smartcontract invoke test!");
-		com.github.ontio.account.Account acct1 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
-		com.github.ontio.account.Account acct2 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey2), SignatureScheme.SHA256WITHECDSA);
-		com.github.ontio.account.Account acct3 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey3), SignatureScheme.SHA256WITHECDSA);
-		com.github.ontio.account.Account acct4 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey4), SignatureScheme.SHA256WITHECDSA);
-		com.github.ontio.account.Account acct5 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey5), SignatureScheme.SHA256WITHECDSA);
-		com.github.ontio.account.Account acct6 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey6), SignatureScheme.SHA256WITHECDSA);
-		com.github.ontio.account.Account acct7 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey7), SignatureScheme.SHA256WITHECDSA);
+		com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
+		com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), SignatureScheme.SHA256WITHECDSA);
+		com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), SignatureScheme.SHA256WITHECDSA);
+		com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), SignatureScheme.SHA256WITHECDSA);
+		com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), SignatureScheme.SHA256WITHECDSA);
+		com.github.TesraSupernet.account.Account acct6 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey6), SignatureScheme.SHA256WITHECDSA);
+		com.github.TesraSupernet.account.Account acct7 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey7), SignatureScheme.SHA256WITHECDSA);
 		Address multiSignAddr = Address.addressFromMultiPubKeys(2,acct1.serializePublicKey(),acct2.serializePublicKey());
 		System.out.println("acct1:"+acct1.getAddressU160().toBase58());
 		System.out.println("acct2:"+acct2.getAddressU160().toBase58());
@@ -65,7 +65,7 @@ public class NeoTransferDemo {
 			int allInputAmount = 979;
 			int trfAmount = 1;
 			TransactionInput txinput = new TransactionInput(UInt256.parse(input1),prevIndex);
-			com.github.ontio.account.Account senderAcct = acct3;
+			com.github.TesraSupernet.account.Account senderAcct = acct3;
 			Address senderAddr = senderAcct.getAddressU160();
 			Address recvAddr = acct7.getAddressU160();
 			TransferTransaction tx = makeTransferTx(assetid, new TransactionInput[]{txinput}, allInputAmount,trfAmount,senderAddr, recvAddr);

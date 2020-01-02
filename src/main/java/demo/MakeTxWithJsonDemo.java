@@ -1,12 +1,12 @@
 package demo;
 
-import com.github.ontio.OntSdk;
-import com.github.ontio.common.Address;
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.payload.InvokeCode;
-import com.github.ontio.core.transaction.Transaction;
-import com.github.ontio.sdk.info.AccountInfo;
-import com.github.ontio.sdk.wallet.Account;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.payload.InvokeCode;
+import com.github.TesraSupernet.core.transaction.Transaction;
+import com.github.TesraSupernet.sdk.info.AccountInfo;
+import com.github.TesraSupernet.sdk.wallet.Account;
 
 import java.util.*;
 
@@ -56,7 +56,7 @@ public class MakeTxWithJsonDemo {
                         "\t}\n" +
                         "}";
                 //System.out.println(str);
-                com.github.ontio.account.Account acct = new com.github.ontio.account.Account(Helper.hexToBytes("274b0b664d9c1e993c1d62a42f78ba84c379e332aa1d050ce9c1840820acee8b"), ontSdk.defaultSignScheme);
+                com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(Helper.hexToBytes("274b0b664d9c1e993c1d62a42f78ba84c379e332aa1d050ce9c1840820acee8b"), ontSdk.defaultSignScheme);
                 Transaction[] txs1 = ontSdk.makeTransactionByJson(str);
                 //System.out.println(tx.json());
                 ontSdk.addSign(txs1[0], acct);

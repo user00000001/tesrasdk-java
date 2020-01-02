@@ -1,8 +1,8 @@
 package demo.vmtest.utils;
 
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.scripts.ScriptOp;
-import com.github.ontio.crypto.Digest;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.scripts.ScriptOp;
+import com.github.TesraSupernet.crypto.Digest;
 import demo.vmtest.vm.ExecutionContext;
 import demo.vmtest.vm.ExecutionEngine;
 import demo.vmtest.types.InteropItem;

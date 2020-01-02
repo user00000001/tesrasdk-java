@@ -6,7 +6,7 @@
 
 ## 介绍
 
-数字身份相关介绍可参考[ONT ID 身份标识协议及信任框架](https://github.com/ontio/ontology-DID)。
+数字身份相关介绍可参考[ONT ID 身份标识协议及信任框架](https://github.com/TesraSupernet/tesra-DID)。
 
 ## 钱包文件及规范
 
@@ -105,7 +105,7 @@ ontSdk.getConnect().sendRawTransaction(tx);
 
 链上注册成功后，对应此ONT ID的身份描述对象DDO将被存储在本体区块链上。
 
-关于DDO的信息可以从[ONT ID 身份标识协议](https://github.com/ontio/ontology-DID/blob/master/README_cn.md)
+关于DDO的信息可以从[ONT ID 身份标识协议](https://github.com/TesraSupernet/tesra-DID/blob/master/README_cn.md)
 
 
 ### 2. 身份管理

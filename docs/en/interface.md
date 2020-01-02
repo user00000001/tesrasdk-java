@@ -1,4 +1,4 @@
-<h1 align="center">  Ontology Java SDK Interface</h1>
+<h1 align="center">  Tesra Java SDK Interface</h1>
 
 <p align="center" class="version">Version 1.0.0 </p>
 
@@ -274,13 +274,13 @@ They are:
        
 ```
 
-com.github.ontio.account.Account acct = new com.github.ontio.account.Account(ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
 byte[] data = "12345".getBytes();
 DataSignature sign = new DataSignature(ontSdk.defaultSignScheme, acct, data);
 byte[] signature = sign.signature();
 
 
-com.github.ontio.account.Account acct2 = new com.github.ontio.account.Account(false,acct.serializePublicKey());
+com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(false,acct.serializePublicKey());
 DataSignature sign2 = new DataSignature();
 System.out.println(sign2.verifySignature(acct2, data, signature));
     

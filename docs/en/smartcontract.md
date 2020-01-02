@@ -1,4 +1,4 @@
-<h1 align="center"> Ontology Java SDK Smart Contract </h1>
+<h1 align="center"> Tesra Java SDK Smart Contract </h1>
 
 <p align="center" class="version">Version 1.0.0 </p>
 
@@ -30,7 +30,7 @@ Note: At present, the Java SDK supports both NEO and WASM smart contract deploym
 | Output params | tx          | Transaction           | Transaction instance              | |
 
 ```
-InputStream is = new FileInputStream("/Users/sss/dev/ontologytest/IdContract/IdContract.avm");
+InputStream is = new FileInputStream("/Users/sss/dev/tesratest/IdContract/IdContract.avm");
 byte[] bys = new byte[is.available()];
 is.read(bys);
 is.close();

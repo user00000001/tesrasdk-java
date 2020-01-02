@@ -1,13 +1,13 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.ontio.OntSdk;
-import com.github.ontio.account.Account;
-import com.github.ontio.common.Helper;
-import com.github.ontio.common.WalletQR;
-import com.github.ontio.crypto.MnemonicCode;
-import com.github.ontio.crypto.SignatureScheme;
-import com.github.ontio.sdk.wallet.Scrypt;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.account.Account;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.common.WalletQR;
+import com.github.TesraSupernet.crypto.MnemonicCode;
+import com.github.TesraSupernet.crypto.SignatureScheme;
+import com.github.TesraSupernet.sdk.wallet.Scrypt;
 
 import java.util.Map;
 
@@ -28,7 +28,7 @@ public class MnemonicDemo {
 
             //get keystore
             Scrypt scrypt = new Scrypt();
-            com.github.ontio.sdk.wallet.Account account = new com.github.ontio.sdk.wallet.Account();
+            com.github.TesraSupernet.sdk.wallet.Account account = new com.github.TesraSupernet.sdk.wallet.Account();
             //TODO change scrypt and account value
             Map keystore = WalletQR.exportAccountQRCode(scrypt,account);
             System.out.println(JSON.toJSONString(keystore));

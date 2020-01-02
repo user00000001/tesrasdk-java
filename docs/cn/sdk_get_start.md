@@ -6,7 +6,7 @@
 
 ONT中有两种资产：原生资产和合约资产。原生资产如ont和ong。交易所对接时，主要处理这两种类型资产的充值、提现等操作。
 
-sdk文档：[sdk文档](https://github.com/ontio/ontology-java-sdk/tree/master/docs/cn) 
+sdk文档：[sdk文档](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/docs/cn) 
 
 本文大纲如下：
 * [Java sdk 使用说明](#java-sdk-使用说明)
@@ -54,22 +54,22 @@ sdk文档：[sdk文档](https://github.com/ontio/ontology-java-sdk/tree/master/d
 自己存储，是指账户信息保存在用户数据库或其他地方，而不存储在遵循钱包规范的文件中。
 #####  随机创建账号：
 ```java
-com.github.ontio.account.Account acct = new com.github.ontio.account.Account(ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
 acct.serializePrivateKey();//私钥
 acct.serializePublicKey();//公钥
 acct.getAddressU160().toBase58();//base58地址
 ```            
 ##### 根据私钥创建账号            
 ```java     
-com.github.ontio.account.Account acct0 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
-com.github.ontio.account.Account acct1 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-com.github.ontio.account.Account acct2 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
 
 ```
 
 #### 1.1.2 按钱包规范存储：
 
-账户和身份信息保持在遵循钱包规范的文件中。[例子](https://github.com/ontio/ontology-java-sdk/blob/master/src/main/java/demo/WalletDemo.java) 
+账户和身份信息保持在遵循钱包规范的文件中。[例子](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/WalletDemo.java) 
 
 
 
@@ -88,7 +88,7 @@ AccountInfo info0 = ontSdk.getWalletMgr().createAccountInfo("passwordtest");
 AccountInfo info = ontSdk.getWalletMgr().createAccountInfoFromPriKey("passwordtest","e467a2a9c9f56b012c71cf2270df42843a9d7ff181934068b4a62bcdd570e8be");
 
 获取账号
-com.github.ontio.account.Account acct0 = ontSdk.getWalletMgr().getAccount(info.addressBase58,"passwordtest",salt);
+com.github.TesraSupernet.account.Account acct0 = ontSdk.getWalletMgr().getAccount(info.addressBase58,"passwordtest",salt);
 
 ```
 
@@ -109,7 +109,7 @@ String privatekey1 = "49855b16636e70f100cc5f4f42bc20a6535d7414fb8845e7310f8dd065
 String privatekey2 = "1094e90dd7c4fdfd849c14798d725ac351ae0d924b29a279a9ffa77d5737bd96";
 
 //生成账号，获取地址
-com.github.ontio.account.Account acct0 = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
 Address sender = acct0.getAddressU160();
 
 //base58地址解码
@@ -128,7 +128,7 @@ Address recvAddr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey()
 
 ## 2. 原生资产转账
 
-参考例子：[例子](https://github.com/ontio/ontology-java-sdk/blob/master/src/main/java/demo/MakeTxWithoutWalletDemo.java)
+参考例子：[例子](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/MakeTxWithoutWalletDemo.java)
 
 
 ### 2.1 初始化
@@ -324,7 +324,7 @@ response success:
 }
 
 response fail,reject by txpool:
-com.github.ontio.sdk.exception.SDKException: {"Action":"getmempooltxstate","Desc":"UNKNOWN TRANSACTION","Error":44001,"Result":"","Version":"1.0.0"}
+com.github.TesraSupernet.sdk.exception.SDKException: {"Action":"getmempooltxstate","Desc":"UNKNOWN TRANSACTION","Error":44001,"Result":"","Version":"1.0.0"}
 
 ```
 
@@ -419,10 +419,10 @@ http://polaris1.ont.io:20334/api/v1/transaction/8f4ab5db768e41e56643eee10ad9749b
 (version(1) type(1) nonce(4) gasprice(8) gaslimit(8))22 bytes + (payer)21 bytes + payload code bytes( any bytes)
 
 claim ong 
-//             claim address                                                 ont contract address                         to   address                                 amount                       "transferFrom"                           ong                   SYSCALL         "Ontology.Native.Invoke"
+//             claim address                                                 ont contract address                         to   address                                 amount                       "transferFrom"                           ong                   SYSCALL         "Tesra.Native.Invoke"
 //00 c66b 14bb2d5b718efeac060ac825338ca440216da4d8dc 6a7cc8 140000000000000000000000000000000000000001 6a7cc8 14bb2d5b718efeac060ac825338ca440216da4d8dc 6a7cc8 08 806a735501000000 6a7cc8 6c 0c7472616e7366657246726f6d 140000000000000000000000000000000000000002 0068 164f6e746f6c6f67792e4e61746976652e496e766f6b65
 ont and ong transfer
-//                     from                                           to                                        amount                                 "transfer"                                                                       ont or ong                SYSCALL           "Ontology.Native.Invoke"
+//                     from                                           to                                        amount                                 "transfer"                                                                       ont or ong                SYSCALL           "Tesra.Native.Invoke"
 //00 c66b 147af216ff3da82b999b26f5efe165de5f944ac549 6a7cc8 14d2c124dd088190f709b684e0bc676d70c41b3776 6a7cc8 08 00ca9a3b00000000 6a7cc8 6c 51c1 087472616e73666572                                                      140000000000000000000000000000000000000001 0068 164f6e746f6c6f67792e4e61746976652e496e766f6b65
 
 For amount ：   1-16  is  0x51-0x60  .     >=16 is  long,  08 is the total amount bytes .  
@@ -449,9 +449,9 @@ Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr
 String hash = tx.hash().toString()
 
 对交易做签名：
-ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{acct0}});
+ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
 //多签地址的签名方法：
-ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{acct1, acct2}});
+ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct1, acct2}});
 //如果转出方与网络费付款人不是同一个地址，需要添加网络费付款人的签名
 
 
@@ -461,7 +461,7 @@ System.out.println(obj);
 成功返回：
 {"State":1,"Gas":30000,"Result":"01"}
 余额不足返回异常：
-com.github.ontio.network.exception.RestfulException: {"Action":"sendrawtransaction","Desc":"SMARTCODE EXEC ERROR","Error":47001,"Result":"","Version":"1.0.0"}
+com.github.TesraSupernet.network.exception.RestfulException: {"Action":"sendrawtransaction","Desc":"SMARTCODE EXEC ERROR","Error":47001,"Result":"","Version":"1.0.0"}
 
 
 发送交易：
@@ -480,7 +480,7 @@ response success:
 }
 
 response fail,reject by txpool:
-com.github.ontio.sdk.exception.SDKException: {"Action":"getmempooltxstate","Desc":"UNKNOWN TRANSACTION","Error":44001,"Result":"","Version":"1.0.0"}
+com.github.TesraSupernet.sdk.exception.SDKException: {"Action":"getmempooltxstate","Desc":"UNKNOWN TRANSACTION","Error":44001,"Result":"","Version":"1.0.0"}
 
 ```
 
@@ -535,7 +535,7 @@ State state2 = new State(sender2, recvAddr, amount2);
 Transaction tx = ontSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
 
 //第一个转出方是单签地址，第二个转出方是多签地址：
-ontSdk.signTx(tx, new com.github.ontio.account.Account[][]{{acct0}});
+ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
 ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
 ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
 ```
@@ -565,7 +565,7 @@ ontSdk.addSign(txRx,acct0);
 
 **SDK与签名机交互**：
 
-[例子](https://github.com/ontio/ontology-java-sdk/blob/master/src/main/java/demo/SignServerDemo.java)
+[例子](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/SignServerDemo.java)
 
 ```java
 节点启动时打开签名机服务：
@@ -596,11 +596,11 @@ ontSdk.getSignServer().sendSigTransferTx("ont","TU5exRFVqjRi5wnMVzNoWKBq9WFncLXE
 
  **对数据做签名**
 
-SDK提供直接对数据做签名的接口。[例子](https://github.com/ontio/ontology-java-sdk/blob/master/src/main/java/demo/SignatureDemo.java) 
+SDK提供直接对数据做签名的接口。[例子](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/SignatureDemo.java) 
 
 
 ```java
-com.github.ontio.account.Account acct = new com.github.ontio.account.Account(ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
 
 byte[] data = "12345".getBytes();
 byte[] signature = ontSdk.signatureData(acct, data);
@@ -632,7 +632,7 @@ String addr = acct0.getAddressU160().toBase58();
 String ong = sdk.nativevm().ong().unboundOng(addr);
 
 //提取ong
-com.github.ontio.account.Account account = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey0), ontSdk.signatureScheme);
+com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.signatureScheme);
 String hash = sdk.nativevm().ong().withdrawOng(account,toAddr,64000L,payerAcct,30000,500);
 
 ```
@@ -641,7 +641,7 @@ String hash = sdk.nativevm().ong().withdrawOng(account,toAddr,64000L,payerAcct,3
 
 ## 3. NEP5转账
 
-参考例子：[例子](https://github.com/ontio/ontology-java-sdk/blob/master/src/main/java/demo/Nep5Demo.java)
+参考例子：[例子](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/Nep5Demo.java)
 
 ### 3.1 查询
 
@@ -675,7 +675,7 @@ ontSdk.neovm().nep5().sendTransfer(acct,"AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2",464
 
 SDK发送注册Ontid和转账等交易时，根据钱包中账户和身份信息解密出私钥再做签名，这个过程大概需要1-2秒时间。为了节省发交易时间，可以多线程或多机器事先创建交易，再批量发送。
 
-实现步骤如下，[例子](https://github.com/ontio/ontology-java-sdk/tree/master/src/main/java/demo/CreateManyTx.java)
+实现步骤如下，[例子](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/src/main/java/demo/CreateManyTx.java)
 
 ### 4.1 批量构造交易
 
@@ -691,10 +691,10 @@ File file = new File(filePath);
 if (!file.exists()) {
     file.createNewFile();
 }
-com.github.ontio.account.Account payerAcct = new com.github.ontio.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
+com.github.TesraSupernet.account.Account payerAcct = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
 FileOutputStream fos = new FileOutputStream(file);
 for (int i = 0; i < 3; i++) {
-    com.github.ontio.account.Account account = new com.github.ontio.account.Account(SignatureScheme.SHA256WITHECDSA);
+    com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(SignatureScheme.SHA256WITHECDSA);
     String ontid = Common.didont + account.getAddressU160().toBase58();
     Transaction tx = ontSdk.nativevm().ontId().makeRegister(ontid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
     ontSdk.addSign(tx, account);

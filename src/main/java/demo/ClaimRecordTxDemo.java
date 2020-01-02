@@ -3,15 +3,15 @@ package demo;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.github.ontio.OntSdk;
-import com.github.ontio.common.Address;
-import com.github.ontio.common.Common;
-import com.github.ontio.common.Helper;
-import com.github.ontio.core.block.Block;
-import com.github.ontio.crypto.SignatureScheme;
-import com.github.ontio.sdk.info.AccountInfo;
-import com.github.ontio.sdk.wallet.Account;
-import com.github.ontio.sdk.wallet.Identity;
+import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.common.Address;
+import com.github.TesraSupernet.common.Common;
+import com.github.TesraSupernet.common.Helper;
+import com.github.TesraSupernet.core.block.Block;
+import com.github.TesraSupernet.crypto.SignatureScheme;
+import com.github.TesraSupernet.sdk.info.AccountInfo;
+import com.github.TesraSupernet.sdk.wallet.Account;
+import com.github.TesraSupernet.sdk.wallet.Identity;
 
 import java.util.Base64;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class ClaimRecordTxDemo {
             String password = "111111";
 
             Account payerAccInfo = ontSdk.getWalletMgr().createAccount(password);
-            com.github.ontio.account.Account payerAcc = ontSdk.getWalletMgr().getAccount(payerAccInfo.address,password,payerAccInfo.getSalt());
+            com.github.TesraSupernet.account.Account payerAcc = ontSdk.getWalletMgr().getAccount(payerAccInfo.address,password,payerAccInfo.getSalt());
 
 
             if (ontSdk.getWalletMgr().getWallet().getIdentities().size() < 2) {
@@ -68,7 +68,7 @@ public class ClaimRecordTxDemo {
 
             Account account = ontSdk.getWalletMgr().importAccount("blDuHRtsfOGo9A79rxnJFo2iOMckxdFDfYe2n6a9X+jdMCRkNUfs4+C4vgOfCOQ5","111111","AazEvfQPcQ2GEFFPLF1ZLwQ7K5jDn81hve",Base64.getDecoder().decode("0hAaO6CT+peDil9s5eoHyw=="));
             AccountInfo info = ontSdk.getWalletMgr().getAccountInfo(account.address,"111111",account.getSalt());
-            com.github.ontio.account.Account account1 = new com.github.ontio.account.Account(Helper.hexToBytes("75de8489fcb2dcaf2ef3cd607feffde18789de7da129b5e97c81e001793cb7cf"),SignatureScheme.SHA256WITHECDSA);
+            com.github.TesraSupernet.account.Account account1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes("75de8489fcb2dcaf2ef3cd607feffde18789de7da129b5e97c81e001793cb7cf"),SignatureScheme.SHA256WITHECDSA);
 
 
             String[] claims = claim.split("\\.");

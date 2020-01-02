@@ -1,6 +1,6 @@
 package demo.vmtest.vm;
 
-import com.github.ontio.common.ErrorCode;
+import com.github.TesraSupernet.common.ErrorCode;
 
 public enum VMState {
     NONE(0x00),

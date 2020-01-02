@@ -9,7 +9,7 @@
 
 如果智能合约需要增加权限管理功能，那就必须记录合约中分配的角色，以及角色可调用的函数，哪些实体具有该角色等等信息。这个工作比较繁琐，可交由一个系统合约来管理。
 
-具体请参考[权限合约](https://github.com/ontio/ontology-smartcontract/blob/master/smartcontract/native/auth/auth.md)
+具体请参考[权限合约](https://github.com/TesraSupernet/tesra-smartcontract/blob/master/smartcontract/native/auth/auth.md)
 
 
 * 权限合约管理
@@ -27,7 +27,7 @@ Auth合约实现了一套基于角色的权限管理方案，每个角色对应�
 
 ### 用法示例
 
-Ontology智能合约不支持在部署的时候执行初始化，所以合约管理员需要硬编码在合约代码中，即将合约管理员ONT ID在合约中定义成一个常量，具体请看下面的合约样例。Ontology智能合约可以调用verifyToken函数进行权限验证，同时为了方便开发者验证某个OntID是否有某个角色，Java-SDK也提供了verifyToken接口，可以实时查询角色的分配情况。
+Tesra智能合约不支持在部署的时候执行初始化，所以合约管理员需要硬编码在合约代码中，即将合约管理员ONT ID在合约中定义成一个常量，具体请看下面的合约样例。Tesra智能合约可以调用verifyToken函数进行权限验证，同时为了方便开发者验证某个OntID是否有某个角色，Java-SDK也提供了verifyToken接口，可以实时查询角色的分配情况。
 
 使用流程：
 
@@ -106,7 +106,7 @@ account,sdk.DEFAULT_GAS_LIMIT,0);
 
 
 
-Ontology合约示例：
+Tesra合约示例：
 ```c#
 using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services.Neo;

@@ -1,7 +1,7 @@
 package demo.ledger.common;
 
-import com.github.ontio.common.UInt256;
-import com.github.ontio.io.BinaryReader;
+import com.github.TesraSupernet.common.UInt256;
+import com.github.TesraSupernet.io.BinaryReader;
 
 import java.io.IOException;
 

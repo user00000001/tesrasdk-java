@@ -18,7 +18,7 @@
 通过[SmartX](https://smartx.ont.io/)编译智能合约，可以在SmartX上直接部署合约，也可以通过java sdk部署合约。
 
 ```java
-InputStream is = new FileInputStream("/Users/sss/dev/ontologytest/IdContract/IdContract.avm");
+InputStream is = new FileInputStream("/Users/sss/dev/tesratest/IdContract/IdContract.avm");
 byte[] bys = new byte[is.available()];
 is.read(bys);
 is.close();

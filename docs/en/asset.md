@@ -234,7 +234,7 @@ sdk.openWalletFile("OntAssetDemo.json");
 //get ontAssetTx instance
 ont = sdk.nativevm().ont()
 //transfer
-com.github.ontio.account.Account account1 = new com.github.ontio.account.Account(privateKey,SignatureScheme.SHA256WITHECDSA);
+com.github.TesraSupernet.account.Account account1 = new com.github.TesraSupernet.account.Account(privateKey,SignatureScheme.SHA256WITHECDSA);
 ont.sendTransfer(account1,"TA4pCAb4zUifHyxSx32dZRjTrnXtxEWKZr",10000,account1,ontSdk.DEFAULT_GAS_LIMIT,0);
 ```
 
