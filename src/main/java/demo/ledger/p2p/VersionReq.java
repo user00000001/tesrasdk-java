@@ -22,7 +22,7 @@ public class VersionReq {
     public int version = 0;
     public long services = 2;
     public long timeStamp = System.currentTimeMillis();
-    public short syncPort = 20338;
+    public short syncPort = 25766;
     public short httpInfoPort = 0;
     public short consPort = 0;
     public byte[] cap = new byte[32];
@@ -60,14 +60,14 @@ public class VersionReq {
         BinaryReader reader = new BinaryReader(ms);
         try {
             version = reader.readInt();
-            services = reader.readLong();
-            timeStamp = reader.readLong();
+            services = reader.readLtsg();
+            timeStamp = reader.readLtsg();
             syncPort = reader.readShort();
             httpInfoPort = reader.readShort();
             consPort = reader.readShort();
             cap = reader.readBytes(32);
-            nonce = reader.readLong();
-            startHeight = reader.readLong();
+            nonce = reader.readLtsg();
+            startHeight = reader.readLtsg();
             relay = reader.readByte();
             isConsensus = reader.readBoolean();
         } catch (Exception e) {

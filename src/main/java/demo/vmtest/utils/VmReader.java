@@ -67,7 +67,7 @@ public class VmReader {
     }
 
     public long ReadUInt64() throws Exception {
-        return reader.readLong();
+        return reader.readLtsg();
     }
 
     public int Position() {

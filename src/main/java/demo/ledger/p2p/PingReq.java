@@ -38,7 +38,7 @@ public class PingReq {
         ByteArrayInputStream ms = new ByteArrayInputStream(data);
         BinaryReader reader = new BinaryReader(ms);
         try {
-            height = reader.readLong();
+            height = reader.readLtsg();
         } catch (Exception e) {
             e.printStackTrace();
         }

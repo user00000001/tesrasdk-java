@@ -347,7 +347,7 @@ public class NeoVmDemo3 {
                         "\n" +
                         "   ]\n" +
                         "}";
-                tstSdk.setRpc("http://polaris3.ont.io:20336");
+                tstSdk.setRpc("http://dapp2.tesra.me:25768");
                 AbiInfo info = JSON.parseObject(abi,AbiInfo.class);
                 AbiFunction function = info.getFunction("getTotalPaper");
                 Object res = tstSdk.neovm().sendTransaction(Helper.reverse("dedc8c61d03dcc3387737fbddbe8096300be84de"),acct,acct,
@@ -537,11 +537,11 @@ public class NeoVmDemo3 {
             if(false){
                 com.github.TesraSupernet.sdk.wallet.Account account9999999 = tstSdk.getWalletMgr().importAccount("8p2q0vLRqyfKmFHhnjUYVWOm12kPm78JWqzkTOi9rrFMBz624KjhHQJpyPmiSSOa","111111","AHX1wzvdw9Yipk7E9MuLY4GGX4Ym9tHeDe",Base64.getDecoder().decode("KbiCUr53CZUfKG1M3Gojjw=="));
                 Account account = tstSdk.getWalletMgr().getAccount(account9999999.address, "111111", account9999999.getSalt());
-                tstSdk.nativevm().ont().sendTransfer(account,account3.getAddressU160().toBase58(),100000,account,200000,0);
+                tstSdk.nativevm().tst().sendTransfer(account,account3.getAddressU160().toBase58(),100000,account,200000,0);
                 System.out.println(tstSdk.getConnect().getBalance(account9999999.address));
                 System.out.println(Helper.toHexString(account.serializePrivateKey()));
-                System.out.println(tstSdk.nativevm().ong().unboundTsg(account.getAddressU160().toBase58()));
-                tstSdk.nativevm().ong().withdrawTsg(account,account.getAddressU160().toBase58(),359943000000L,account,200000,0);
+                System.out.println(tstSdk.nativevm().tsg().unboundTsg(account.getAddressU160().toBase58()));
+                tstSdk.nativevm().tsg().withdrawTsg(account,account.getAddressU160().toBase58(),359943000000L,account,200000,0);
                 return;
             }
 
@@ -720,11 +720,11 @@ public class NeoVmDemo3 {
     }
 
     public static TstSdk getTstSdk() throws Exception {
-        String ip = "http://polaris3.ont.io";
-//        String ip = "http://polaris1.ont.io";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+        String ip = "http://dapp2.tesra.me";
+//        String ip = "http://dapp2.tesra.me";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

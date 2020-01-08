@@ -231,11 +231,11 @@ return value：total Supply
 TstSdk sdk = TstSdk.getInstance();
 sdk.setRpc(url);
 sdk.openWalletFile("TstAssetDemo.json");
-//get ontAssetTx instance
-ont = sdk.nativevm().ont()
+//get tstAssetTx instance
+tst = sdk.nativevm().tst()
 //transfer
 com.github.TesraSupernet.account.Account account1 = new com.github.TesraSupernet.account.Account(privateKey,SignatureScheme.SHA256WITHECDSA);
-ont.sendTransfer(account1,"TA4pCAb4zUifHyxSx32dZRjTrnXtxEWKZr",10000,account1,tstSdk.DEFAULT_GAS_LIMIT,0);
+tst.sendTransfer(account1,"TA4pCAb4zUifHyxSx32dZRjTrnXtxEWKZr",10000,account1,tstSdk.DEFAULT_GAS_LIMIT,0);
 ```
 
 ## NEP-5 smart contract digital assets

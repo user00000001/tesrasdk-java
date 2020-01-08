@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -75,7 +75,7 @@ public class Vm {
         }
         DeployCode tx = new DeployCode();
         if(payer != null){
-            tx.payer = Address.decodeBase58(payer.replace(Common.didont,""));
+            tx.payer = Address.decodeBase58(payer.replace(Common.didtst,""));
         }
         tx.attributes = new Attribute[0];
         tx.nonce = new Random().nextInt();
@@ -101,7 +101,7 @@ public class Vm {
         tx.gasLimit = gaslimit;
         tx.gasPrice = gasprice;
         if(payer != null){
-            tx.payer = Address.decodeBase58(payer.replace(Common.didont,""));
+            tx.payer = Address.decodeBase58(payer.replace(Common.didtst,""));
         }
         return tx;
     }
@@ -123,7 +123,7 @@ public class Vm {
         tx.gasLimit = gaslimit;
         tx.gasPrice = gasprice;
         if(payer != null){
-            tx.payer = Address.decodeBase58(payer.replace(Common.didont,""));
+            tx.payer = Address.decodeBase58(payer.replace(Common.didtst,""));
         }
         return tx;
     }

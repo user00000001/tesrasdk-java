@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -362,7 +362,7 @@ public class TstId {
         Transaction tx = makeAddPubKey(tstid, recovery, password, salt,newpubkey, payerAcct.getAddressU160().toBase58(), gaslimit, gasprice);
         String addr;
         if (recovery != null) {
-            addr = recovery.replace(Common.didont, "");
+            addr = recovery.replace(Common.didtst, "");
         } else {
             addr = tstid;
         }
@@ -438,7 +438,7 @@ public class TstId {
             arg = NativeBuildParams.createCodeParamsScript(list);
         } else {
             List list = new ArrayList();
-            list.add(new Struct().add(tstid.getBytes(),Helper.hexToBytes(newpubkey),Address.decodeBase58(recovery.replace(Common.didont,"")).toArray()));
+            list.add(new Struct().add(tstid.getBytes(),Helper.hexToBytes(newpubkey),Address.decodeBase58(recovery.replace(Common.didtst,"")).toArray()));
             arg = NativeBuildParams.createCodeParamsScript(list);
         }
         Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(contractAddress)),"addKey",arg,payer,gaslimit,gasprice);
@@ -485,9 +485,9 @@ public class TstId {
         Transaction tx = makeRemovePubKey(tstid, recovery, password,salt, removePubkey, payerAcct.getAddressU160().toBase58(), gaslimit, gasprice);
         String addr;
         if (recovery == null) {
-            addr = tstid;//.replace(Common.didont, "");
+            addr = tstid;//.replace(Common.didtst, "");
         } else {
-            addr = recovery.replace(Common.didont, "");
+            addr = recovery.replace(Common.didtst, "");
         }
         sdk.signTx(tx, addr, password,salt);
         sdk.addSign(tx, payerAcct);
@@ -567,7 +567,7 @@ public class TstId {
         } else {
 //            parabytes = NativeBuildParams.buildParams(tstid, Helper.hexToBytes(removePubkey), Address.decodeBase58(recoveryAddr).toArray());
             List list = new ArrayList();
-            list.add(new Struct().add(tstid.getBytes(),Helper.hexToBytes(removePubkey),Address.decodeBase58(recoveryAddr.replace(Common.didont,"")).toArray()));
+            list.add(new Struct().add(tstid.getBytes(),Helper.hexToBytes(removePubkey),Address.decodeBase58(recoveryAddr.replace(Common.didtst,"")).toArray()));
             arg = NativeBuildParams.createCodeParamsScript(list);
         }
 
@@ -598,7 +598,7 @@ public class TstId {
         if (contractAddress == null) {
             throw new SDKException(ErrorCode.NullCodeHash);
         }
-        String addr = tstid.replace(Common.didont, "");
+        String addr = tstid.replace(Common.didtst, "");
         Transaction tx = makeAddRecovery(tstid, password,salt, recoveryAddr, payerAcct.getAddressU160().toBase58(), gaslimit, gasprice);
         sdk.signTx(tx, tstid, password,salt);
         sdk.addSign(tx, payerAcct);
@@ -685,8 +685,8 @@ public class TstId {
         if (contractAddress == null) {
             throw new SDKException(ErrorCode.NullCodeHash);
         }
-        Address newAddr = Address.decodeBase58(newRecovery.replace(Common.didont,""));
-        Address oldAddr = Address.decodeBase58(oldRecovery.replace(Common.didont,""));
+        Address newAddr = Address.decodeBase58(newRecovery.replace(Common.didtst,""));
+        Address oldAddr = Address.decodeBase58(oldRecovery.replace(Common.didtst,""));
 
         List list = new ArrayList();
         list.add(new Struct().add(tstid,newAddr, oldAddr));
@@ -717,8 +717,8 @@ public class TstId {
         if (contractAddress == null) {
             throw new SDKException(ErrorCode.NullCodeHash);
         }
-        Address newAddr = Address.decodeBase58(newRecovery.replace(Common.didont,""));
-        Address oldAddr = Address.decodeBase58(oldRecovery.replace(Common.didont,""));
+        Address newAddr = Address.decodeBase58(newRecovery.replace(Common.didtst,""));
+        Address oldAddr = Address.decodeBase58(oldRecovery.replace(Common.didtst,""));
         byte[] parabytes = NativeBuildParams.buildParams(tstid.getBytes(),newAddr.toArray(),oldAddr.toArray());
         Transaction tx = sdk.vm().makeInvokeCodeTransaction(contractAddress, "changeRecovery", parabytes, payerAcct.getAddressU160().toBase58(), gaslimit, gasprice);
         sdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{accounts});
@@ -750,7 +750,7 @@ public class TstId {
         if (contractAddress == null) {
             throw new SDKException(ErrorCode.NullCodeHash);
         }
-        String addr = tstid.replace(Common.didont, "");
+        String addr = tstid.replace(Common.didtst, "");
         Transaction tx = makeAddAttributes(tstid, password, salt,attributes, payerAcct.getAddressU160().toBase58(), gaslimit, gasprice);
         sdk.signTx(tx, tstid, password,salt);
         sdk.addSign(tx, payerAcct);
@@ -844,7 +844,7 @@ public class TstId {
         if (contractAddress == null) {
             throw new SDKException(ErrorCode.NullCodeHash);
         }
-        String addr = tstid.replace(Common.didont, "");
+        String addr = tstid.replace(Common.didtst, "");
         Transaction tx = makeRemoveAttribute(tstid, password, salt,path, payerAcct.getAddressU160().toBase58(), gaslimit, gasprice);
         sdk.signTx(tx, tstid, password,salt);
         sdk.addSign(tx, payerAcct);

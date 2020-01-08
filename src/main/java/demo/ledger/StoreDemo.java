@@ -64,7 +64,7 @@ public class StoreDemo {
 
 
             if (false) {
-                DeployCode deployCode = ledgerStore.stateStore.GetContractState(Address.AddressFromVmCode(TstSdk.getInstance().nativevm().ont().getContractAddress()));
+                DeployCode deployCode = ledgerStore.stateStore.GetContractState(Address.AddressFromVmCode(TstSdk.getInstance().nativevm().tst().getContractAddress()));
                 System.out.println(deployCode.description);
                 System.out.println(Helper.toHexString(deployCode.code));
             }

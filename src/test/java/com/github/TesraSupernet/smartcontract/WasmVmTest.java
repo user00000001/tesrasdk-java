@@ -30,7 +30,7 @@ public class WasmVmTest {
     @Before
     public void setUp() throws Exception {
         tstSdk = TstSdk.getInstance();
-        tstSdk.setRestful("http://polaris1.ont.io:20334");
+        tstSdk.setRestful("http://dapp2.tesra.me:25770");
         tstSdk.setDefaultConnect(tstSdk.getRestful());
 //        tstSdk.openWalletFile("NeoVmTest.json");
         payer = new Account(Helper.hexToBytes(TstSdkTest.PRIVATEKEY), SignatureScheme.SHA256WITHECDSA);

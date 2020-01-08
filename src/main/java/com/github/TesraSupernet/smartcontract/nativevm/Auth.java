@@ -233,7 +233,7 @@ public class Auth {
      * @param password
      * @param contractAddr
      * @param role
-     * @param ontIDs
+     * @param tstIDs
      * @param keyNo
      * @param payerAcct
      * @param gaslimit
@@ -241,15 +241,15 @@ public class Auth {
      * @return
      * @throws Exception
      */
-    public String assignTstIdsToRole(String adminTstId,String password,byte[] salt,long keyNo, String contractAddr,String role,String[] ontIDs,Account payerAcct,long gaslimit,long gasprice) throws Exception {
+    public String assignTstIdsToRole(String adminTstId,String password,byte[] salt,long keyNo, String contractAddr,String role,String[] tstIDs,Account payerAcct,long gaslimit,long gasprice) throws Exception {
         if(adminTstId == null || adminTstId.equals("") || password==null || password.equals("") || contractAddr== null || contractAddr.equals("") ||
-                role == null || role.equals("") || ontIDs==null || ontIDs.length == 0){
+                role == null || role.equals("") || tstIDs==null || tstIDs.length == 0){
             throw  new SDKException(ErrorCode.ParamErr("parameter should not be null"));
         }
         if(keyNo<0 || gaslimit < 0 || gasprice < 0){
             throw new SDKException(ErrorCode.ParamErr("keyNo or gaslimit or gasprice should not be less than 0"));
         }
-        Transaction tx = makeAssignTstIDsToRole(adminTstId,contractAddr,role,ontIDs,keyNo,payerAcct.getAddressU160().toBase58(),gaslimit,gasprice);
+        Transaction tx = makeAssignTstIDsToRole(adminTstId,contractAddr,role,tstIDs,keyNo,payerAcct.getAddressU160().toBase58(),gaslimit,gasprice);
         sdk.signTx(tx,adminTstId,password,salt);
         sdk.addSign(tx,payerAcct);
         boolean b = sdk.getConnect().sendRawTransaction(tx.toHexString());
@@ -264,7 +264,7 @@ public class Auth {
      * @param adminTstId
      * @param contractAddr
      * @param role
-     * @param ontIDs
+     * @param tstIDs
      * @param keyNo
      * @param payer
      * @param gaslimit
@@ -272,17 +272,17 @@ public class Auth {
      * @return
      * @throws SDKException
      */
-    public Transaction makeAssignTstIDsToRole(String adminTstId,String contractAddr,String role,String[] ontIDs,long keyNo,String payer,long gaslimit,long gasprice) throws SDKException {
+    public Transaction makeAssignTstIDsToRole(String adminTstId,String contractAddr,String role,String[] tstIDs,long keyNo,String payer,long gaslimit,long gasprice) throws SDKException {
         if(adminTstId == null || adminTstId.equals("") || contractAddr== null || contractAddr.equals("") ||
-                role == null || role.equals("") || ontIDs==null || ontIDs.length == 0){
+                role == null || role.equals("") || tstIDs==null || tstIDs.length == 0){
             throw  new SDKException(ErrorCode.ParamErr("parameter should not be null"));
         }
         if(keyNo <0 || gaslimit < 0 || gasprice < 0){
             throw new SDKException(ErrorCode.ParamErr("keyNo or gaslimit or gasprice should not be less than 0"));
         }
-        byte[][] tstId = new byte[ontIDs.length][];
-        for(int i=0; i< ontIDs.length ; i++){
-            tstId[i] = ontIDs[i].getBytes();
+        byte[][] tstId = new byte[tstIDs.length][];
+        for(int i=0; i< tstIDs.length ; i++){
+            tstId[i] = tstIDs[i].getBytes();
         }
         List list = new ArrayList();
         Struct struct = new Struct();

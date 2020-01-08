@@ -166,18 +166,18 @@ String ddo = tstSdk.nativevm().tstId().sendGetDDO(tstid);
 		"Value": "value1",
 		"Key": "key1"
 	}],
-	"TstId": "did:ont:TA5UqF8iPqecMdBzTdzzANVeY8HW1krrgy",
+	"TstId": "did:tst:TA5UqF8iPqecMdBzTdzzANVeY8HW1krrgy",
 	"Recovery": "TA6AhqudP1dcLknEXmFinHPugDdudDnMJZ",
 	"Owners": [{
 		"Type": "ECDSA",
 		"Curve": "P256",
 		"Value": "12020346f8c238c9e4deaf6110e8f5967cf973f53b778ed183f4a6e7571acd51ddf80e",
-		"PubKeyId": "did:ont:TA5UqF8iPqecMdBzTdzzANVeY8HW1krrgy#keys-1"
+		"PubKeyId": "did:tst:TA5UqF8iPqecMdBzTdzzANVeY8HW1krrgy#keys-1"
 	}, {
 		"Type": "ECDSA",
 		"Curve": "P256",
 		"Value": "1202022fabd733d7d7d7009125bfde3cb0afe274769c78fd653079ecd5954ae9f52644",
-		"PubKeyId": "did:ont:TA5UqF8iPqecMdBzTdzzANVeY8HW1krrgy#keys-2"
+		"PubKeyId": "did:tst:TA5UqF8iPqecMdBzTdzzANVeY8HW1krrgy#keys-2"
 	}]
 }
 ```
@@ -203,7 +203,7 @@ String ddo = tstSdk.nativevm().tstId().sendGetDDO(tstid);
 ```
 String sendAddAttributes(String tstid, String password,byte[] salt, Attribute[] attributes,Account payerAcct,long gaslimit,long gasprice)
 Transaction tx = tstSdk.nativevm().tstId().sendAddAttributes(tstid,password,salt,attributes,payer,gaslimit,0);
-tstSdk.signTx(tx,identity.tstid.replace(Common.didont,""),password);
+tstSdk.signTx(tx,identity.tstid.replace(Common.didtst,""),password);
 tstSdk.getConnectMgr().sendRawTransaction(tx);
 
 ```
@@ -213,7 +213,7 @@ tstSdk.getConnectMgr().sendRawTransaction(tx);
 ```
 Transaction makeAddAttributes(String tstid, String password,byte[] salt, Attribute[] attributes,String payer,long gaslimit,long gasprice)
 Transaction tx = tstSdk.nativevm().tstId().makeAddAttributes(tstid,password,salt,attributes,payer,gaslimit,0);
-tstSdk.signTx(tx,identity.tstid.replace(Common.didont,""),password);
+tstSdk.signTx(tx,identity.tstid.replace(Common.didtst,""),password);
 tstSdk.getConnectMgr().sendRawTransaction(tx);
 ```
 
@@ -271,7 +271,7 @@ tstSdk.getConnectMgr().sendRawTransaction(tx);
 ```
 String sendAddPubKey(String tstid, String password,byte[] salt, String newpubkey,Account payerAcct,long gaslimit,long gasprice)
 Transaction tx = tstSdk.nativevm().tstId().sendAddPubKey(tstid,password,salt,newpubkey,payer,gas,0);
-tstSdk.signTx(tx,identity.tstid.replace(Common.didont,""),password);
+tstSdk.signTx(tx,identity.tstid.replace(Common.didtst,""),password);
 tstSdk.getConnectMgr().sendRawTransaction(tx);
 ```
 
@@ -280,7 +280,7 @@ tstSdk.getConnectMgr().sendRawTransaction(tx);
 ```
 Transaction makeAddPubKey(String tstid,String password,String newpubkey,String payer,long gaslimit,long gasprice)
 Transaction tx = tstSdk.nativevm().tstId().makeAddPubKey(tstid,password,salt,newpubkey,payer,gas,0);
-tstSdk.signTx(tx,identity.tstid.replace(Common.didont,""),password);
+tstSdk.signTx(tx,identity.tstid.replace(Common.didtst,""),password);
 tstSdk.getConnectMgr().sendRawTransaction(tx);
 ```
 

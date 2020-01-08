@@ -21,7 +21,7 @@ public class AccountDemo {
             com.github.TesraSupernet.account.Account account = tstSdk.getWalletMgr().getAccount("AHX1wzvdw9Yipk7E9MuLY4GGX4Ym9tHeDe","111111");
 
             if(false){
-                tstSdk.nativevm().ong().withdrawTsg(account,account.getAddressU160().toBase58(),53620575000000000L,account,20000,0);
+                tstSdk.nativevm().tsg().withdrawTsg(account,account.getAddressU160().toBase58(),53620575000000000L,account,20000,0);
                 Thread.sleep(6000);
                 System.out.println(tstSdk.getConnect().getBalance(account.getAddressU160().toBase58()));
                 return;
@@ -30,9 +30,9 @@ public class AccountDemo {
             if(true){
                 System.out.println(tstSdk.getConnect().getBalance("AHX1wzvdw9Yipk7E9MuLY4GGX4Ym9tHeDe"));
 
-                tstSdk.nativevm().ont().sendTransfer(account,"APrfMuKrAQB5sSb5GF8tx96ickZQJjCvwG",10000,account,20000,0);
+                tstSdk.nativevm().tst().sendTransfer(account,"APrfMuKrAQB5sSb5GF8tx96ickZQJjCvwG",10000,account,20000,0);
                 Thread.sleep(6000);
-                System.out.println(tstSdk.nativevm().ong().unboundTsg(account.getAddressU160().toBase58()));
+                System.out.println(tstSdk.nativevm().tsg().unboundTsg(account.getAddressU160().toBase58()));
 
                 return;
             }
@@ -94,11 +94,11 @@ public class AccountDemo {
     public static TstSdk getTstSdk() throws Exception {
 
         String ip = "http://127.0.0.1";
-//        String ip = "http://54.222.182.88;
-//        String ip = "http://101.132.193.149";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+//        String ip = "http://52.229.166.46;
+//        String ip = "http://52.229.166.6";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

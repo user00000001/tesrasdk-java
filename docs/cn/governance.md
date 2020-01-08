@@ -125,9 +125,9 @@ String withdraw(Account account,String peerPubkey[],long[] withdrawList,Account 
 | 输出参数 | 交易hash       | String  | 交易hash  |  |
 
 
-### 7. 提取解绑ong
+### 7. 提取解绑tsg
 
-* 提取解绑ong
+* 提取解绑tsg
 
 ```java
 String withdrawTsg(Account account,Account payerAcct,long gaslimit,long gasprice)
@@ -202,7 +202,7 @@ String addInitPos(Account account,String peerPubkey,int pos,Account payerAcct,lo
 | ----- | ------- | ------ | ------------- | ----------- |
 | 输入参数 | account       | Account | 节点钱包账户            | 必选 |
 |         | peerPubkey    | String  | 节点公钥               | 必选 |
-|         | pos           | int     | 增加抵押的ont数量       | 必选 |
+|         | pos           | int     | 增加抵押的tst数量       | 必选 |
 |         | payerAcct     | Account | 支付交易费用的账户      |必选|
 |         | gaslimit      | long    | gaslimit| 必选 |
 |         | gasprice      | long    | gas价格               | 必选|
@@ -222,7 +222,7 @@ String reduceInitPos(Account account,String peerPubkey,int pos,Account payerAcct
 | ----- | ------- | ------ | ------------- | ----------- |
 | 输入参数 | account       | Account | 节点钱包账户            | 必选 |
 |         | peerPubkey    | String  | 节点公钥               | 必选 |
-|         | pos           | int     | 减少抵押的ont数量       | 必选 |
+|         | pos           | int     | 减少抵押的tst数量       | 必选 |
 |         | payerAcct     | Account | 支付交易费用的账户      |必选|
 |         | gaslimit      | long    | gaslimit| 必选 |
 |         | gasprice      | long    | gas价格               | 必选|
@@ -263,7 +263,7 @@ String changeMaxAuthorization(Account account,String peerPubkey,int maxAuthorize
 | ----- | ------- | ------ | ------------- | ----------- |
 | 输入参数 | account       | Account | 节点钱包账户            | 必选 |
 |         | peerPubkey    | String  | 节点公钥               | 必选 |
-|         | maxAuthorize  | int     | 节点自己接受的最大授权ont数量 | 必选 |
+|         | maxAuthorize  | int     | 节点自己接受的最大授权tst数量 | 必选 |
 |         | payerAcct     | Account | 支付交易费用的账户      |必选|
 |         | gaslimit      | long    | gaslimit| 必选 |
 |         | gasprice      | long    | gas价格               | 必选|

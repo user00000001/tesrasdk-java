@@ -17,30 +17,30 @@ class UserAcct{
     String address;
     String withdrawAddr;
     byte[] privkey;
-    BigInteger ontBalance;
-    BigInteger ongBalance;
+    BigInteger tstBalance;
+    BigInteger tsgBalance;
 }
 
 class Balance{
-    @JSONField(name="ont")
-    String ont;
-    @JSONField(name="ong")
-    String ong;
+    @JSONField(name="tst")
+    String tst;
+    @JSONField(name="tsg")
+    String tsg;
 
     public String getTst() {
-        return ont;
+        return tst;
     }
 
-    public void setTst(String ont) {
-        this.ont = ont;
+    public void setTst(String tst) {
+        this.tst = tst;
     }
 
     public String getTsg() {
-        return ong;
+        return tsg;
     }
 
-    public void setTsg(String ong) {
-        this.ong = ong;
+    public void setTsg(String tsg) {
+        this.tsg = tsg;
     }
 }
 
@@ -122,7 +122,7 @@ class Event{
 
 public class ExchangeDemo {
 
-    //init account should have some onts
+    //init account should have some tsts
     public static final String INIT_ACCT_ADDR = "Ad4pjz2bqep4RhQrUAzMuZJkBC3qJ1tZuT";
     public static final String INIT_ACCT_SALT = "OkX96EG0OaCNUFD3hdc50Q==";
 
@@ -155,8 +155,8 @@ public class ExchangeDemo {
             HashMap<String,UserAcct> database = new HashMap<String,UserAcct>();
 
             TstSdk tstSdk = getTstSdk();
-            TST_NATIVE_ADDRESS = Helper.reverse(tstSdk.nativevm().ont().getContractAddress());
-            TSG_NATIVE_ADDRESS = Helper.reverse(tstSdk.nativevm().ong().getContractAddress());
+            TST_NATIVE_ADDRESS = Helper.reverse(tstSdk.nativevm().tst().getContractAddress());
+            TSG_NATIVE_ADDRESS = Helper.reverse(tstSdk.nativevm().tsg().getContractAddress());
 
             printlog("++++ starting simulate exchange process ...========");
             printlog("++++ 1. create a random account for user ====");
@@ -231,11 +231,11 @@ public class ExchangeDemo {
                                                     BigInteger amount = new BigInteger(state.getStates()[3].toString());
                                                     if (TSG_NATIVE_ADDRESS.equals(state.getContractAddress())){
                                                         printlog("===== charge TSG :"+state.getStates()[2] +" ,amount:"+amount);
-                                                        database.get(state.getStates()[2]).ontBalance = amount.add(database.get(state.getStates()[2]).ontBalance);
+                                                        database.get(state.getStates()[2]).tstBalance = amount.add(database.get(state.getStates()[2]).tstBalance);
                                                     }
                                                     if (TSG_NATIVE_ADDRESS.equals(state.getContractAddress())){
                                                         printlog("===== charge TSG :"+state.getStates()[2] +" ,amount:"+amount);
-                                                        database.get(state.getStates()[2]).ongBalance = amount.add(database.get(state.getStates()[2]).ongBalance);
+                                                        database.get(state.getStates()[2]).tsgBalance = amount.add(database.get(state.getStates()[2]).tsgBalance);
                                                     }
                                                 }
 
@@ -246,10 +246,10 @@ public class ExchangeDemo {
                                                         if (ua.withdrawAddr.equals((state.getStates()[2]))){
                                                             BigInteger amount = new BigInteger(state.getStates()[3].toString());
                                                             if (TSG_NATIVE_ADDRESS.equals(state.getContractAddress())){
-                                                                printlog("===== widtdraw "+ amount +" ont to " + ua.withdrawAddr + " confirmed!");
+                                                                printlog("===== widtdraw "+ amount +" tst to " + ua.withdrawAddr + " confirmed!");
                                                             }
                                                             if (TSG_NATIVE_ADDRESS.equals(state.getContractAddress())){
-                                                                printlog("===== widtdraw "+ amount +" ong to " + ua.withdrawAddr + " confirmed!");
+                                                                printlog("===== widtdraw "+ amount +" tsg to " + ua.withdrawAddr + " confirmed!");
                                                             }
 
                                                         }
@@ -286,60 +286,60 @@ public class ExchangeDemo {
 
                             Set<String> keys = database.keySet();
 
-                            List<Account> ontAccts = new ArrayList<Account>() ;
-                            List<State> ontStates = new ArrayList<State>();
-                            List<Account> ongAccts = new ArrayList<Account>() ;
-                            List<State> ongStates = new ArrayList<State>();
+                            List<Account> tstAccts = new ArrayList<Account>() ;
+                            List<State> tstStates = new ArrayList<State>();
+                            List<Account> tsgAccts = new ArrayList<Account>() ;
+                            List<State> tsgStates = new ArrayList<State>();
 
 
                             for(String key:keys){
                                 Object balance = tstSdk.getConnect().getBalance(key);
                                 printlog("----- balance of " + key + " : " + balance);
                                 Balance b = JSON.parseObject(balance.toString(),Balance.class);
-                                BigInteger ontbalance = new BigInteger(b.ont);
-                                BigInteger ongbalance = new BigInteger(b.ong);
+                                BigInteger tstbalance = new BigInteger(b.tst);
+                                BigInteger tsgbalance = new BigInteger(b.tsg);
 
-                                if (ontbalance.compareTo(new BigInteger("0")) > 0){
-                                    //transfer ont to main wallet
+                                if (tstbalance.compareTo(new BigInteger("0")) > 0){
+                                    //transfer tst to main wallet
                                     UserAcct ua = database.get(key);
                                     Account acct = new Account(ua.privkey,tstSdk.defaultSignScheme);
-                                    ontAccts.add(acct);
-                                    State st = new State(Address.addressFromPubKey(acct.serializePublicKey()),mainAccountAddr,ua.ontBalance.longValue());
-                                    ontStates.add(st);
+                                    tstAccts.add(acct);
+                                    State st = new State(Address.addressFromPubKey(acct.serializePublicKey()),mainAccountAddr,ua.tstBalance.longValue());
+                                    tstStates.add(st);
                                 }
 
-                                if (ongbalance.compareTo(new BigInteger("0")) > 0){
-                                    //transfer ong to main wallet
+                                if (tsgbalance.compareTo(new BigInteger("0")) > 0){
+                                    //transfer tsg to main wallet
                                     UserAcct ua = database.get(key);
                                     Account acct = new Account(ua.privkey,tstSdk.defaultSignScheme);
-                                    ongAccts.add(acct);
-                                    State st = new State(Address.addressFromPubKey(acct.serializePublicKey()),mainAccountAddr,ua.ongBalance.longValue());
-                                    ongStates.add(st);
+                                    tsgAccts.add(acct);
+                                    State st = new State(Address.addressFromPubKey(acct.serializePublicKey()),mainAccountAddr,ua.tsgBalance.longValue());
+                                    tsgStates.add(st);
                                 }
                             }
 
-                            //construct ont transfer tx
-                            if (ontStates.size() > 0) {
-                                printlog("----- Will collect ont to main wallet");
-                                Transaction ontTx = tstSdk.nativevm().ont().makeTransfer(ontStates.toArray(new State[ontStates.size()]), FEE_PROVIDER, 30000, 0);
-                                for (Account act : ontAccts) {
-                                    tstSdk.addSign(ontTx, act);
+                            //construct tst transfer tx
+                            if (tstStates.size() > 0) {
+                                printlog("----- Will collect tst to main wallet");
+                                Transaction tstTx = tstSdk.nativevm().tst().makeTransfer(tstStates.toArray(new State[tstStates.size()]), FEE_PROVIDER, 30000, 0);
+                                for (Account act : tstAccts) {
+                                    tstSdk.addSign(tstTx, act);
                                 }
                                 //add fee provider account sig
-                                tstSdk.addSign(ontTx, feeAct);
-                                tstSdk.getConnect().sendRawTransaction(ontTx.toHexString());
+                                tstSdk.addSign(tstTx, feeAct);
+                                tstSdk.getConnect().sendRawTransaction(tstTx.toHexString());
                             }
 
-                            //construct ong transfer tx
-                            if(ongStates.size() > 0) {
-                                printlog("----- Will collect ong to main wallet");
-                                Transaction ongTx = tstSdk.nativevm().ong().makeTransfer(ongStates.toArray(new State[ongStates.size()]), FEE_PROVIDER, 30000, 0);
-                                for (Account act : ongAccts) {
-                                    tstSdk.addSign(ongTx, act);
+                            //construct tsg transfer tx
+                            if(tsgStates.size() > 0) {
+                                printlog("----- Will collect tsg to main wallet");
+                                Transaction tsgTx = tstSdk.nativevm().tsg().makeTransfer(tsgStates.toArray(new State[tsgStates.size()]), FEE_PROVIDER, 30000, 0);
+                                for (Account act : tsgAccts) {
+                                    tstSdk.addSign(tsgTx, act);
                                 }
                                 //add fee provider account sig
-                                tstSdk.addSign(ongTx, feeAct);
-                                tstSdk.getConnect().sendRawTransaction(ongTx.toHexString());
+                                tstSdk.addSign(tsgTx, feeAct);
+                                tstSdk.getConnect().sendRawTransaction(tsgTx.toHexString());
                             }
 
                             Thread.sleep(10000);
@@ -356,10 +356,10 @@ public class ExchangeDemo {
             t2.start();
 
             Thread.sleep(2000);
-            printlog("++++ 2. charge some ont to acct1 from init account");
+            printlog("++++ 2. charge some tst to acct1 from init account");
             Account initAccount = tstSdk.getWalletMgr().getAccount(INIT_ACCT_ADDR,PWD,Base64.getDecoder().decode(INIT_ACCT_SALT));
             State st = new State(initAccount.getAddressU160(),acct1.getAddressU160(),1000L);
-            Transaction tx = tstSdk.nativevm().ont().makeTransfer(new State[]{st}, FEE_PROVIDER, 30000, 0);
+            Transaction tx = tstSdk.nativevm().tst().makeTransfer(new State[]{st}, FEE_PROVIDER, 30000, 0);
             tstSdk.addSign(tx,initAccount);
             tstSdk.addSign(tx, feeAct);
 
@@ -371,9 +371,9 @@ public class ExchangeDemo {
             printlog(event.toString());
 
 
-            printlog("++++ 3. charge some ong to acct1 from init account");
+            printlog("++++ 3. charge some tsg to acct1 from init account");
             st = new State(initAccount.getAddressU160(),acct1.getAddressU160(),1200L);
-            tx = tstSdk.nativevm().ong().makeTransfer(new State[]{st}, FEE_PROVIDER, 30000, 0);
+            tx = tstSdk.nativevm().tsg().makeTransfer(new State[]{st}, FEE_PROVIDER, 30000, 0);
             tstSdk.addSign(tx,initAccount);
             tstSdk.addSign(tx, feeAct);
             tstSdk.getConnect().sendRawTransaction(tx.toHexString());
@@ -382,14 +382,14 @@ public class ExchangeDemo {
 
             //simulate a withdraw
             //todo must add check the user balance of database
-            printlog("++++ withdraw 500 onts to " + usr.withdrawAddr );
+            printlog("++++ withdraw 500 tsts to " + usr.withdrawAddr );
             //reduce the withdraw amount first
             BigInteger wdAmount = new BigInteger("500");
-            if(usr.ontBalance.compareTo(wdAmount) > 0) {
-                database.get(usr.address).ontBalance = database.get(usr.address).ontBalance.subtract(wdAmount);
-                printlog("++++  " + usr.address + " ont balance : " + database.get(usr.address).ontBalance);
+            if(usr.tstBalance.compareTo(wdAmount) > 0) {
+                database.get(usr.address).tstBalance = database.get(usr.address).tstBalance.subtract(wdAmount);
+                printlog("++++  " + usr.address + " tst balance : " + database.get(usr.address).tstBalance);
                 State wdSt = new State(mainAccountAddr, Address.decodeBase58(usr.withdrawAddr), 500);
-                Transaction wdTx = tstSdk.nativevm().ont().makeTransfer(new State[]{wdSt}, FEE_PROVIDER, 30000, 0);
+                Transaction wdTx = tstSdk.nativevm().tst().makeTransfer(new State[]{wdSt}, FEE_PROVIDER, 30000, 0);
                 tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct1);
                 tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct2);
                 tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct3);
@@ -400,15 +400,15 @@ public class ExchangeDemo {
 
 
             //simulate a withdraw
-            printlog("++++ withdraw 500 ongs to " + usr.withdrawAddr );
+            printlog("++++ withdraw 500 tsgs to " + usr.withdrawAddr );
             wdAmount = new BigInteger("500");
             //reduce the withdraw amount first
-            if(usr.ongBalance.compareTo(wdAmount) > 0) {
-                database.get(usr.address).ongBalance = database.get(usr.address).ongBalance.subtract(wdAmount);
-                printlog("++++  " + usr.address + " ong balance : " + database.get(usr.address).ongBalance);
+            if(usr.tsgBalance.compareTo(wdAmount) > 0) {
+                database.get(usr.address).tsgBalance = database.get(usr.address).tsgBalance.subtract(wdAmount);
+                printlog("++++  " + usr.address + " tsg balance : " + database.get(usr.address).tsgBalance);
 
                 State wdSt = new State(mainAccountAddr, Address.decodeBase58(usr.withdrawAddr), 500);
-                Transaction wdTx = tstSdk.nativevm().ong().makeTransfer(new State[]{wdSt}, FEE_PROVIDER, 30000, 0);
+                Transaction wdTx = tstSdk.nativevm().tsg().makeTransfer(new State[]{wdSt}, FEE_PROVIDER, 30000, 0);
                 tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct1);
                 tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct2);
                 tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct3);
@@ -418,13 +418,13 @@ public class ExchangeDemo {
 
 
 
-            //claim ong
+            //claim tsg
             Object balance = tstSdk.getConnect().getBalance(mainAccountAddr.toBase58());
-            printlog("++++ before claime ong ,balance of "+ mainAccountAddr.toBase58() +" is " + balance);
-            String uTsgAmt = tstSdk.nativevm().ong().unboundTsg(mainAccountAddr.toBase58());
-            printlog("++++ unclaimed ong is " + uTsgAmt);
+            printlog("++++ before claime tsg ,balance of "+ mainAccountAddr.toBase58() +" is " + balance);
+            String uTsgAmt = tstSdk.nativevm().tsg().unboundTsg(mainAccountAddr.toBase58());
+            printlog("++++ unclaimed tsg is " + uTsgAmt);
             if(new BigInteger(uTsgAmt).compareTo(new BigInteger("0")) > 0) {
-                tx = tstSdk.nativevm().ong().makeWithdrawTsg(mainAccountAddr.toBase58(), mainAccountAddr.toBase58(), new BigInteger(uTsgAmt).longValue(), FEE_PROVIDER, 30000, 0);
+                tx = tstSdk.nativevm().tsg().makeWithdrawTsg(mainAccountAddr.toBase58(), mainAccountAddr.toBase58(), new BigInteger(uTsgAmt).longValue(), FEE_PROVIDER, 30000, 0);
                 tstSdk.addMultiSign(tx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct1);
                 tstSdk.addMultiSign(tx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct2);
                 tstSdk.addMultiSign(tx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct3);
@@ -433,8 +433,8 @@ public class ExchangeDemo {
                 balance = tstSdk.getConnect().getBalance(mainAccountAddr.toBase58());
 
                 Thread.sleep(10000);
-                printlog("++++ after claime ong ,balance of " + mainAccountAddr.toBase58() + " is " + balance);
-                //distribute ong to users in database
+                printlog("++++ after claime tsg ,balance of " + mainAccountAddr.toBase58() + " is " + balance);
+                //distribute tsg to users in database
             }
 
             t.join();
@@ -453,9 +453,9 @@ public class ExchangeDemo {
     public static TstSdk getTstSdk() throws Exception {
 
         String ip = "http://127.0.0.1";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
@@ -472,13 +472,13 @@ public class ExchangeDemo {
         System.out.println(msg);
     }
 
-    public  static UserAcct getNewUserAcct(String id ,String pubkey,byte[] privkey,BigInteger ont,BigInteger ong){
+    public  static UserAcct getNewUserAcct(String id ,String pubkey,byte[] privkey,BigInteger tst,BigInteger tsg){
         UserAcct acct = new UserAcct();
         acct.id = id;
         acct.privkey = privkey;
         acct.address = pubkey;
-        acct.ontBalance = ont;
-        acct.ongBalance = ong;
+        acct.tstBalance = tst;
+        acct.tsgBalance = tsg;
 
         return acct;
     }

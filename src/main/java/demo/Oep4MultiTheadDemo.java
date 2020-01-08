@@ -13,10 +13,10 @@ import java.util.List;
  * @date 2019/11/7
  */
 public class Oep4MultiTheadDemo {
-    static String ip1 = "http://polarisErr.ont.io";
-    static String ip2 = "http://polaris2.ont.io";
-    static String ip3 = "http://polaris3.ont.io";
-    static String ip4 = "http://polaris4.ont.io";
+    static String ip1 = "http://dapp2.tesra.me";
+    static String ip2 = "http://dapp2.tesra.me";
+    static String ip3 = "http://dapp2.tesra.me";
+    static String ip4 = "http://dapp2.tesra.me";
     static List<String> nodes = Arrays.asList(ip1, ip2, ip3, ip4);
     static String curIp = ip1;
 
@@ -81,7 +81,7 @@ public class Oep4MultiTheadDemo {
                     break;
                 }
             }
-            String restUrl = curIp + ":" + "20334";
+            String restUrl = curIp + ":" + "25770";
             tstSdk.setRestful(restUrl);
             tstSdk.setDefaultConnect(tstSdk.getRestful());
         } catch (SDKException e) {
@@ -90,9 +90,9 @@ public class Oep4MultiTheadDemo {
     }
 
     public static TstSdk getTstSdk() throws Exception {
-        String restUrl = curIp + ":" + "20334";
-        String rpcUrl = curIp + ":" + "20336";
-        String wsUrl = curIp + ":" + "20335";
+        String restUrl = curIp + ":" + "25770";
+        String rpcUrl = curIp + ":" + "25768";
+        String wsUrl = curIp + ":" + "25771";
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);

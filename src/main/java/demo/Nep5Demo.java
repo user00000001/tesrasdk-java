@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -116,13 +116,13 @@ public class Nep5Demo {
     }
 
     public static TstSdk getTstSdk() throws Exception {
-//        String ip = "http://139.219.108.204";
+//        String ip = "http://52.184.29.110";
         String ip = "http://127.0.0.1";
-//        String ip = "http://101.132.193.149";
-//        String ip = "http://polaris1.ont.io";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+//        String ip = "http://52.229.166.6";
+//        String ip = "http://dapp2.tesra.me";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

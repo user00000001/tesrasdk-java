@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -244,7 +244,7 @@ class Interfaces {
     public String getGrantTsg(String address) throws RestfulException {
         Map<String, String> params = new HashMap<String, String>();
         try {
-            return http.get(url + UrlConsts.Url_get_grant_ong+ "/" +address, params);
+            return http.get(url + UrlConsts.Url_get_grant_tsg+ "/" +address, params);
         } catch (Exception e) {
             throw new RestfulException(ErrorCode.ConnectUrlErr + url, e);
         }

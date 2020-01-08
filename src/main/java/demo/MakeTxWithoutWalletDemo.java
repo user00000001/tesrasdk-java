@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -75,7 +75,7 @@ public class MakeTxWithoutWalletDemo {
                 System.out.println("recvAddr:" + recvAddr.toBase58());
                 long amount = 100000;
 
-                Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+                Transaction tx = tstSdk.nativevm().tst().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 
                 System.out.println(tx.json());
                 tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
@@ -94,7 +94,7 @@ public class MakeTxWithoutWalletDemo {
                 System.out.println("sender:" + sender.toBase58());
                 System.out.println("recvAddr:" + recvAddr.toBase58());
                 long amount = 100000;
-                Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+                Transaction tx = tstSdk.nativevm().tst().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
                 tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
                 //getSmartCodeEvent per 3s, max 60s
                 Object object = tstSdk.getConnect().waitResult(tx.hash().toString());
@@ -109,7 +109,7 @@ public class MakeTxWithoutWalletDemo {
                 System.out.println("recvAddr:" + recvAddr.toBase58());
                 int amount = 8;
 
-                Transaction tx = tstSdk.nativevm().ont().makeTransfer(multiAddr.toBase58(),recvAddr.toBase58(), amount,multiAddr.toBase58(),30000,0);
+                Transaction tx = tstSdk.nativevm().tst().makeTransfer(multiAddr.toBase58(),recvAddr.toBase58(), amount,multiAddr.toBase58(),30000,0);
                 System.out.println(tx.json());
                 //tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct1, acct2}});
                 tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
@@ -133,7 +133,7 @@ public class MakeTxWithoutWalletDemo {
                 int amount2 = 2;
                 State state1 = new State(sender1,recvAddr,amount);
                 State state2 = new State(sender2,recvAddr,amount2);
-                Transaction tx = tstSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
+                Transaction tx = tstSdk.nativevm().tst().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
                 System.out.println(tx.json());
                 tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
                 tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
@@ -150,7 +150,7 @@ public class MakeTxWithoutWalletDemo {
                 System.out.println("recvAddr:" + recvAddr.toBase58());
                 long amount = 1000;
 
-                Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+                Transaction tx = tstSdk.nativevm().tst().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 
                 //serialize tx data
                 String txHex = tx.toHexString();
@@ -167,7 +167,7 @@ public class MakeTxWithoutWalletDemo {
             }
             if(false){
                 String sender = acct0.getAddressU160().toBase58();
-                Transaction tx = tstSdk.nativevm().ong().makeWithdrawTsg(sender,sender,10,sender,30000,0);
+                Transaction tx = tstSdk.nativevm().tsg().makeWithdrawTsg(sender,sender,10,sender,30000,0);
                 tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
                 tstSdk.getConnect().sendRawTransaction(tx.toHexString());
             }
@@ -178,12 +178,12 @@ public class MakeTxWithoutWalletDemo {
 
     public static TstSdk getTstSdk() throws Exception {
         String ip = "http://127.0.0.1";
-//        String ip = "http://54.222.182.88;
-//        String ip = "http://101.132.193.149";
-//        String ip = "http://polaris1.ont.io";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+//        String ip = "http://52.229.166.46;
+//        String ip = "http://52.229.166.6";
+//        String ip = "http://dapp2.tesra.me";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

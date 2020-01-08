@@ -58,8 +58,8 @@ public class TsgDemo2 {
     }
 
     public static void sendTransfer(TstSdk tstSdk) throws Exception {
-        // send ong from acct1 to acct2(单发单收)
-        String txhash = tstSdk.nativevm().ong().sendTransfer(acct1, acct2.getAddressU160().toBase58(), 1000, acct1, 20000, 500);
+        // send tsg from acct1 to acct2(单发单收)
+        String txhash = tstSdk.nativevm().tsg().sendTransfer(acct1, acct2.getAddressU160().toBase58(), 1000, acct1, 20000, 500);
         return;
     }
 
@@ -70,16 +70,16 @@ public class TsgDemo2 {
         State state = new State(acct1.getAddressU160(), acct3.getAddressU160(), 100);
         State state2 = new State(acct2.getAddressU160(), acct4.getAddressU160(), 200);
         State[] states = new State[]{state, state2};
-        String txhash = tstSdk.nativevm().ong().sendTransferMulti(accounts, states, acct1, 20000, 0);
+        String txhash = tstSdk.nativevm().tsg().sendTransferMulti(accounts, states, acct1, 20000, 0);
         return;
 
     }
 
     public static void sendTransferFromMultiSignAddr(TstSdk tstSdk) throws Exception {
-        // send ong from multiSignatureAddress to acct2（多签地址转账）
+        // send tsg from multiSignatureAddress to acct2（多签地址转账）
         Address multiSignatureAddress = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey(), acct2.serializePublicKey());
         Account payerAcct = acct1;
-        Transaction tx = tstSdk.nativevm().ong().makeTransfer(multiSignatureAddress.toBase58(), acct2.getAddressU160().toBase58(), 1000, payerAcct.getAddressU160().toBase58(), 20000, 500);
+        Transaction tx = tstSdk.nativevm().tsg().makeTransfer(multiSignatureAddress.toBase58(), acct2.getAddressU160().toBase58(), 1000, payerAcct.getAddressU160().toBase58(), 20000, 500);
         tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{payerAcct}});
         tstSdk.addMultiSign(tx, 2, new byte[][]{acct1.serializePublicKey(), acct2.serializePublicKey()}, acct1);
         tstSdk.addMultiSign(tx, 2, new byte[][]{acct1.serializePublicKey(), acct2.serializePublicKey()}, acct2);
@@ -109,12 +109,12 @@ public class TsgDemo2 {
     }
 
     public static void accountInfo(TstSdk tstSdk) throws Exception {
-        //query ong token info(账户状态查看)
-        System.out.println(tstSdk.nativevm().ong().queryDecimals());
-        System.out.println(tstSdk.nativevm().ong().queryName());
-        System.out.println(tstSdk.nativevm().ong().querySymbol());
-        System.out.println(tstSdk.nativevm().ong().queryTotalSupply());
-        System.out.println(acct1.getAddressU160().toBase58() + ": " + tstSdk.nativevm().ong().queryBalanceOf(acct1.getAddressU160().toBase58()));
+        //query tsg token info(账户状态查看)
+        System.out.println(tstSdk.nativevm().tsg().queryDecimals());
+        System.out.println(tstSdk.nativevm().tsg().queryName());
+        System.out.println(tstSdk.nativevm().tsg().querySymbol());
+        System.out.println(tstSdk.nativevm().tsg().queryTotalSupply());
+        System.out.println(acct1.getAddressU160().toBase58() + ": " + tstSdk.nativevm().tsg().queryBalanceOf(acct1.getAddressU160().toBase58()));
         return;
 
     }
@@ -134,27 +134,27 @@ public class TsgDemo2 {
     public static void showBalance(TstSdk tstSdk, Account[] accounts) throws Exception {
         for (int i = 0; i < accounts.length; i++) {
             int a = i + 1;
-            System.out.println("account" + a + ":" + tstSdk.nativevm().ong().queryBalanceOf(accounts[i].getAddressU160().toBase58()));
+            System.out.println("account" + a + ":" + tstSdk.nativevm().tsg().queryBalanceOf(accounts[i].getAddressU160().toBase58()));
         }
     }
 
 
     public static TstSdk getTstSdk() throws Exception {
-//        String ip = "http://139.219.108.204";
+//        String ip = "http://52.184.29.110";
         String ip = "http://127.0.0.1";
-        ip = "http://polaris3.ont.io";
+        ip = "http://dapp2.tesra.me";
 //        ip= "http://139.219.138.201";
-//        String ip = "http://101.132.193.149";
-//        String ip = "http://polaris1.ont.io";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+//        String ip = "http://52.229.166.6";
+//        String ip = "http://dapp2.tesra.me";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());
-        wm.openWalletFile("ong.json");
+        wm.openWalletFile("tsg.json");
         return wm;
     }
 }

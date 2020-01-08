@@ -8,9 +8,9 @@ import static org.junit.Assert.*;
 
 public class TstSdkTest {
     private TstSdk tstSdk;
-//    public static String URL = "http://polaris1.ont.io:20334";
-//    public static String URL = "http://139.219.129.26:20334";
-    public static String URL = "http://127.0.0.1:20334";
+//    public static String URL = "http://dapp2.tesra.me:25770";
+//    public static String URL = "http://52.184.29.110:25770";
+    public static String URL = "http://127.0.0.1:25770";
 
     public static String PRIVATEKEY3 = "c19f16785b8f3543bbaf5e1dbb5d398dfa6c85aaad54fc9d71203ce83e505c07";//有钱的账号的私钥
     public static String PRIVATEKEY2 = "f1442d5e7f4e2061ff9a6884d6d05212e2aa0f6a6284f0a28ae82a29cdb3d656";//有钱的账号的私钥

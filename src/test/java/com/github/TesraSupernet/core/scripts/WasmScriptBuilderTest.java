@@ -79,7 +79,7 @@ public class WasmScriptBuilderTest {
     }
 
     @Test
-    public void pushLong() {
+    public void pushLtsg() {
         List<Long> longList = Arrays.asList(
                 -9223372036854775808L,
                 -267L,

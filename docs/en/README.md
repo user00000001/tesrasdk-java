@@ -19,7 +19,6 @@ This official Tesra Java SDK is a comprehensive Java library for the Tesra block
 - [Authorization management](auth.md)
 - [Smart contract deployment and invocation](smartcontract.md)
 - [Error codes](errorcode.md)
-- [API reference](https://apidoc.ont.io/javasdk/)
 
 
 ## Code structure:
@@ -33,7 +32,7 @@ The SDK is broken down into the following key areas:
 * io: IO operations
 * network: Interfacing with the restful, RPC or websocket interfaces of the chain.
 * sdk: Underlying encapsulation, info management, communications management, UTXO management, wallet file management, exception class.
-* ontsdk class: Provide manager and transaction use cases and there are two types of managers: 
+* tstsdk class: Provide manager and transaction use cases and there are two types of managers: 
 	* walletMgr: Manages digital identities and digital asset accounts. Transactions sent to the blockchain need to be digitally signed with the user's private key. 
 	* connManager: Manages blockchain communications system. Any transactions and query needs to be processed by connManager.
 
@@ -59,10 +58,10 @@ $ mvn clean install
 Add maven dependency:
 
 ```
-<!-- https://mvnrepository.com/artifact/com.github.TesraSupernet/tesra-sdk-java -->
+<!-- https://mvnrepository.com/artifact/com.github.TesraSupernet/tesrasdk-java -->
 <dependency>
     <groupId>com.github.TesraSupernet</groupId>
-    <artifactId>tesra-sdk-java</artifactId>
+    <artifactId>tesrasdk-java</artifactId>
     <version>0.0.1</version>
 </dependency>
 ```

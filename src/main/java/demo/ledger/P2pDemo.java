@@ -38,7 +38,7 @@ public class P2pDemo {
                 System.exit(0);
             }
 
-            Socket s = new Socket("seed1.ont.io",20338);
+            Socket s = new Socket("dapp2.tesra.me",25766);
             OutputStream out = s.getOutputStream();
             InputStream in = s.getInputStream();
             byte[] buf = new byte[1024*256];

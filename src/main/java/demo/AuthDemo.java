@@ -142,18 +142,18 @@ public class AuthDemo {
 
     public static TstSdk getTstSdk() throws Exception {
 
-//        String ip = "http://polaris1.ont.io";
-//        String ip = "http://139.219.129.55";
-//        String ip = "http://101.132.193.149";
+//        String ip = "http://dapp2.tesra.me";
+//        String ip = "http://52.229.166.46";
+//        String ip = "http://52.229.166.6";
         String ip = "http://127.0.0.1";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRestful(restUrl);
 
-//        wm.setRestful("http://polaris1.ont.io:20334");
+//        wm.setRestful("http://dapp2.tesra.me:25770");
 //        wm.setRestful("http://192.168.50.121:9099");
         //
         wm.setDefaultConnect(wm.getRestful());

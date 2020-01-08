@@ -23,7 +23,7 @@ public class SignServerDemo {
             Account account2 = new Account(Helper.hexToBytes(privateKey2),SignatureScheme.SHA256WITHECDSA);
             System.out.println("account:" +  tstSdk.getConnect().getBalance(account.getAddressU160().toBase58()));
             System.out.println("account2:" +  tstSdk.getConnect().getBalance(account2.getAddressU160().toBase58()));
-            tstSdk.getSignServer().sendSigTransferTx("ont",account.getAddressU160().toBase58(),account2.getAddressU160().toBase58(),10,30000,0);
+            tstSdk.getSignServer().sendSigTransferTx("tst",account.getAddressU160().toBase58(),account2.getAddressU160().toBase58(),10,30000,0);
             Thread.sleep(6000);
             System.out.println("account:" +  tstSdk.getConnect().getBalance(account.getAddressU160().toBase58()));
             System.out.println("account2:" +  tstSdk.getConnect().getBalance(account2.getAddressU160().toBase58()));
@@ -32,13 +32,13 @@ public class SignServerDemo {
         }
     }
     public static TstSdk getTstSdk() throws Exception {
-//        String ip = "http://139.219.108.204";
+//        String ip = "http://52.184.29.110";
         String ip = "http://127.0.0.1";
-//        String ip = "http://101.132.193.149";
+//        String ip = "http://52.229.166.6";
         String url = ip + ":" + "20000/cli";
         TstSdk wm = TstSdk.getInstance();
         wm.setSignServer(url);
-        wm.setRpc("http://127.0.0.1:20336");
+        wm.setRpc("http://127.0.0.1:25768");
         return wm;
     }
 }

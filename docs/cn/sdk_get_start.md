@@ -4,9 +4,9 @@
 
 [English](../en/sdk_get_start.md) / 中文
 
-TSG中有两种资产：原生资产和合约资产。原生资产如ont和ong。交易所对接时，主要处理这两种类型资产的充值、提现等操作。
+TSG中有两种资产：原生资产和合约资产。原生资产如tst和tsg。交易所对接时，主要处理这两种类型资产的充值、提现等操作。
 
-sdk文档：[sdk文档](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/docs/cn) 
+sdk文档：[sdk文档](https://github.com/TesraSupernet/tesrasdk-java/tree/master/docs/cn) 
 
 本文大纲如下：
 * [Java sdk 使用说明](#java-sdk-使用说明)
@@ -20,7 +20,7 @@ sdk文档：[sdk文档](https://github.com/TesraSupernet/tesra-java-sdk/tree/mas
 	* [2. 原生资产转账](#2-原生资产转账)
 		* [2.1 初始化](#21-初始化)
 		* [2.2 查询](#22-查询)
-			* [ 查询ont，ong余额](#查询ontong余额)
+			* [ 查询tst，tsg余额](#查询tsttsg余额)
 			* [ 查询交易是否在交易池中](#查询交易是否在交易池中)
 			* [ 查询交易是否调用成功](#查询交易是否调用成功)
 			* [ 同步查询智能合约event](#同步查询智能合约event)
@@ -33,7 +33,7 @@ sdk文档：[sdk文档](https://github.com/TesraSupernet/tesra-java-sdk/tree/mas
 			* [使用签名机签名](#使用签名机签名)
 		* [2.5 TSG转账](#25-TSG转账)
 			* [ TSG转账](#TSG转账)
-			* [ 提取ong](#提取ong)
+			* [ 提取tsg](#提取tsg)
 	* [3. NEP5转账](#3-nep5转账)
 		* [3.1 查询](#31-查询)
 		* [3.2 转账](#32-转账)
@@ -69,7 +69,7 @@ com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.ac
 
 #### 1.1.2 按钱包规范存储：
 
-账户和身份信息保持在遵循钱包规范的文件中。[例子](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/WalletDemo.java) 
+账户和身份信息保持在遵循钱包规范的文件中。[例子](https://github.com/TesraSupernet/tesrasdk-java/blob/master/src/main/java/demo/WalletDemo.java) 
 
 
 
@@ -128,7 +128,7 @@ Address recvAddr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey()
 
 ## 2. 原生资产转账
 
-参考例子：[例子](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/MakeTxWithoutWalletDemo.java)
+参考例子：[例子](https://github.com/TesraSupernet/tesrasdk-java/blob/master/src/main/java/demo/MakeTxWithoutWalletDemo.java)
 
 
 ### 2.1 初始化
@@ -137,7 +137,7 @@ Address recvAddr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey()
 
 ```java
 
-String ip = "http://polaris1.ont.io";
+String ip = "http://polaris1.tst.io";
 String rpcUrl = ip + ":" + "20336";
 TstSdk tstSdk = TstSdk.getInstance();
 tstSdk.setRpc(rpcUrl);
@@ -160,24 +160,24 @@ tstSdk.setDefaultConnect(wm.getWebSocket());
 
 当发完交易之后可能需要查询交易是否已经落账，还可能需要查询账户余额。
 
-####  **查询ont，ong余额**
+####  **查询tst，tsg余额**
 
 ```java
 tstSdk.getConnect().getBalance("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2");
-tstSdk.nativevm().ont().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
-tstSdk.nativevm().ong().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
+tstSdk.nativevm().tst().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
+tstSdk.nativevm().tsg().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
 
-查ont信息：
-System.out.println(tstSdk.nativevm().ont().queryName());
-System.out.println(tstSdk.nativevm().ont().querySymbol());
-System.out.println(tstSdk.nativevm().ont().queryDecimals());
-System.out.println(tstSdk.nativevm().ont().queryTotalSupply());
+查tst信息：
+System.out.println(tstSdk.nativevm().tst().queryName());
+System.out.println(tstSdk.nativevm().tst().querySymbol());
+System.out.println(tstSdk.nativevm().tst().queryDecimals());
+System.out.println(tstSdk.nativevm().tst().queryTotalSupply());
 
-查ong信息：
-System.out.println(tstSdk.nativevm().ong().queryName());
-System.out.println(tstSdk.nativevm().ong().querySymbol());
-System.out.println(tstSdk.nativevm().ong().queryDecimals());
-System.out.println(tstSdk.nativevm().ong().queryTotalSupply());
+查tsg信息：
+System.out.println(tstSdk.nativevm().tsg().queryName());
+System.out.println(tstSdk.nativevm().tsg().querySymbol());
+System.out.println(tstSdk.nativevm().tsg().queryDecimals());
+System.out.println(tstSdk.nativevm().tsg().queryTotalSupply());
 
 
 
@@ -352,7 +352,7 @@ com.github.TesraSupernet.sdk.exception.SDKException: {"Action":"getmempooltxstat
    15 | tstSdk.getConnect().sendRawTransaction("txhexString")    |  发送交易
    16 | tstSdk.getConnect().sendRawTransaction(Transaction)      |  发送交易
    17 | tstSdk.getConnect().sendRawTransactionPreExec()          |  发送预执行交易
-   18 | tstSdk.getConnect().getAllowance("ont","from","to")      |  查询允许使用值
+   18 | tstSdk.getConnect().getAllowance("tst","from","to")      |  查询允许使用值
    19 | tstSdk.getConnect().getMemPoolTxCount()                  |  查询交易池中交易总量
    20 | tstSdk.getConnect().getMemPoolTxState()                  |  查询交易池中交易状态
 ```  
@@ -362,7 +362,7 @@ com.github.TesraSupernet.sdk.exception.SDKException: {"Action":"getmempooltxstat
 获取json格式的交易数据
 
 ```json  
-http://polaris1.ont.io:20334/api/v1/transaction/8f4ab5db768e41e56643eee10ad9749be0afa54a891bcd8e5c45543a8dd0cf7d?raw=0
+http://dapp1.tesra.me:25770/api/v1/transaction/8f4ab5db768e41e56643eee10ad9749be0afa54a891bcd8e5c45543a8dd0cf7d?raw=0
 
 {
     "Action": "gettransaction",
@@ -400,7 +400,7 @@ http://polaris1.ont.io:20334/api/v1/transaction/8f4ab5db768e41e56643eee10ad9749b
 
 获取hex格式的交易数据
 ```json  
-http://polaris1.ont.io:20334/api/v1/transaction/8f4ab5db768e41e56643eee10ad9749be0afa54a891bcd8e5c45543a8dd0cf7d?raw=1
+http://dapp1.tesra.me:25770/api/v1/transaction/8f4ab5db768e41e56643eee10ad9749be0afa54a891bcd8e5c45543a8dd0cf7d?raw=1
 
 
 {
@@ -418,11 +418,11 @@ http://polaris1.ont.io:20334/api/v1/transaction/8f4ab5db768e41e56643eee10ad9749b
 //版本号    交易类型  随机数   gasprice    gaslimit              网络费付款人       交易数据 
 (version(1) type(1) nonce(4) gasprice(8) gaslimit(8))22 bytes + (payer)21 bytes + payload code bytes( any bytes)
 
-claim ong 
-//             claim address                                                 ont contract address                         to   address                                 amount                       "transferFrom"                           ong                   SYSCALL         "Tesra.Native.Invoke"
+claim tsg 
+//             claim address                                                 tst contract address                         to   address                                 amount                       "transferFrom"                           tsg                   SYSCALL         "Tesra.Native.Invoke"
 //00 c66b 14bb2d5b718efeac060ac825338ca440216da4d8dc 6a7cc8 140000000000000000000000000000000000000001 6a7cc8 14bb2d5b718efeac060ac825338ca440216da4d8dc 6a7cc8 08 806a735501000000 6a7cc8 6c 0c7472616e7366657246726f6d 140000000000000000000000000000000000000002 0068 164f6e746f6c6f67792e4e61746976652e496e766f6b65
-ont and ong transfer
-//                     from                                           to                                        amount                                 "transfer"                                                                       ont or ong                SYSCALL           "Tesra.Native.Invoke"
+tst and tsg transfer
+//                     from                                           to                                        amount                                 "transfer"                                                                       tst or tsg                SYSCALL           "Tesra.Native.Invoke"
 //00 c66b 147af216ff3da82b999b26f5efe165de5f944ac549 6a7cc8 14d2c124dd088190f709b684e0bc676d70c41b3776 6a7cc8 08 00ca9a3b00000000 6a7cc8 6c 51c1 087472616e73666572                                                      140000000000000000000000000000000000000001 0068 164f6e746f6c6f67792e4e61746976652e496e766f6b65
 
 For amount ：   1-16  is  0x51-0x60  .     >=16 is  long,  08 is the total amount bytes .  
@@ -445,7 +445,7 @@ Address recvAddr = acct1;
 
 构造转账交易：
 long amount = 1000;
-Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().tst().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 String hash = tx.hash().toString()
 
 对交易做签名：
@@ -532,7 +532,7 @@ int amount2 = 20;
 
 State state = new State(sender1, recvAddr, amount);
 State state2 = new State(sender2, recvAddr, amount2);
-Transaction tx = tstSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().tst().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
 
 //第一个转出方是单签地址，第二个转出方是多签地址：
 tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
@@ -551,7 +551,7 @@ tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serialize
 ```java
 
 序列化交易发送给签名机：
-Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().tst().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 String txHex = tx.toHexString();
 
 接收方反序列化交易并签名：
@@ -565,7 +565,7 @@ tstSdk.addSign(txRx,acct0);
 
 **SDK与签名机交互**：
 
-[例子](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/SignServerDemo.java)
+[例子](https://github.com/TesraSupernet/tesrasdk-java/blob/master/src/main/java/demo/SignServerDemo.java)
 
 ```java
 节点启动时打开签名机服务：
@@ -589,14 +589,14 @@ String[] signs = new String[]{"02039b196d5ed74a4d771ade78752734957346597b31384c3
 tstSdk.getSignServer().sendMultiSigRawTx(txHex,2,signs);
 
 请求构造转账交易并签名：
-tstSdk.getSignServer().sendSigTransferTx("ont","TU5exRFVqjRi5wnMVzNoWKBq9WFncLXEjK","TA5SgQXTeKWyN4GNfWGoXqioEQ4eCDFMqE",10,30000,0);
+tstSdk.getSignServer().sendSigTransferTx("tst","TU5exRFVqjRi5wnMVzNoWKBq9WFncLXEjK","TA5SgQXTeKWyN4GNfWGoXqioEQ4eCDFMqE",10,30000,0);
             
 
 ```
 
  **对数据做签名**
 
-SDK提供直接对数据做签名的接口。[例子](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/SignatureDemo.java) 
+SDK提供直接对数据做签名的接口。[例子](https://github.com/TesraSupernet/tesrasdk-java/blob/master/src/main/java/demo/SignatureDemo.java) 
 
 
 ```java
@@ -618,22 +618,22 @@ TSG转账方法与TSG转账类似，但TSG的精度是9。
 
 
 ```json
-tstSdk.nativevm().ong().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+tstSdk.nativevm().tsg().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 ```
 
-####  **提取ong**
+####  **提取tsg**
 
-1. 查询是否有ong可以提取
-2. 发送提取ong交易
+1. 查询是否有tsg可以提取
+2. 发送提取tsg交易
 
 ```json
-查询未提取ong:
+查询未提取tsg:
 String addr = acct0.getAddressU160().toBase58();
-String ong = sdk.nativevm().ong().unboundTsg(addr);
+String tsg = sdk.nativevm().tsg().unboundTsg(addr);
 
-//提取ong
+//提取tsg
 com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), tstSdk.signatureScheme);
-String hash = sdk.nativevm().ong().withdrawTsg(account,toAddr,64000L,payerAcct,30000,500);
+String hash = sdk.nativevm().tsg().withdrawTsg(account,toAddr,64000L,payerAcct,30000,500);
 
 ```
 
@@ -641,7 +641,7 @@ String hash = sdk.nativevm().ong().withdrawTsg(account,toAddr,64000L,payerAcct,3
 
 ## 3. NEP5转账
 
-参考例子：[例子](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/Nep5Demo.java)
+参考例子：[例子](https://github.com/TesraSupernet/tesrasdk-java/blob/master/src/main/java/demo/Nep5Demo.java)
 
 ### 3.1 查询
 
@@ -675,7 +675,7 @@ tstSdk.neovm().nep5().sendTransfer(acct,"AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2",464
 
 SDK发送注册Tstid和转账等交易时，根据钱包中账户和身份信息解密出私钥再做签名，这个过程大概需要1-2秒时间。为了节省发交易时间，可以多线程或多机器事先创建交易，再批量发送。
 
-实现步骤如下，[例子](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/src/main/java/demo/CreateManyTx.java)
+实现步骤如下，[例子](https://github.com/TesraSupernet/tesrasdk-java/tree/master/src/main/java/demo/CreateManyTx.java)
 
 ### 4.1 批量构造交易
 
@@ -695,7 +695,7 @@ com.github.TesraSupernet.account.Account payerAcct = new com.github.TesraSuperne
 FileOutputStream fos = new FileOutputStream(file);
 for (int i = 0; i < 3; i++) {
     com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(SignatureScheme.SHA256WITHECDSA);
-    String tstid = Common.didont + account.getAddressU160().toBase58();
+    String tstid = Common.didtst + account.getAddressU160().toBase58();
     Transaction tx = tstSdk.nativevm().tstId().makeRegister(tstid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
     tstSdk.addSign(tx, account);
     tstSdk.addSign(tx, payerAcct);

@@ -32,7 +32,7 @@ public class MakeTxWithJsonDemo {
                         "\t\t\t\t\"operation\": \"transferNativeAsset\",\n" +
                         "\t\t\t\t\"args\": [{\n" +
                         "\t\t\t\t\t\"name\": \"arg0\",\n" +
-                        "\t\t\t\t\t\"value\": \"String:ont\"\n" +
+                        "\t\t\t\t\t\"value\": \"String:tst\"\n" +
                         "\t\t\t\t}, {\n" +
                         "\t\t\t\t\t\"name\": \"arg1\",\n" +
                         "\t\t\t\t\t\"value\": \"Address:AUr5QUfeBADq6BMY6Tp5yuMsUNGpsD7nLZ\"\n" +
@@ -109,12 +109,12 @@ public class MakeTxWithJsonDemo {
     public static TstSdk getTstSdk() throws Exception {
 
         String ip = "http://127.0.0.1";
-        ip = "http://polaris1.ont.io";
-        ip = "http://139.219.136.147";
-//        String ip = "http://101.132.193.149";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+        ip = "http://dapp2.tesra.me";
+        ip = "http://52.184.29.110";
+//        String ip = "http://52.229.166.6";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

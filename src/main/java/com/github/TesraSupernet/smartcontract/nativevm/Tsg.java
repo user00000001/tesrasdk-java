@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -42,15 +42,15 @@ import java.util.List;
  */
 public class Tsg {
     private TstSdk sdk;
-    private final String ontContract = "0000000000000000000000000000000000000001";
-    private final String ongContract = "0000000000000000000000000000000000000002";
+    private final String tstContract = "0000000000000000000000000000000000000001";
+    private final String tsgContract = "0000000000000000000000000000000000000002";
 
     public Tsg(TstSdk sdk) {
         this.sdk = sdk;
     }
 
     public String getContractAddress() {
-        return ongContract;
+        return tsgContract;
     }
 
     /**
@@ -160,7 +160,7 @@ public class Tsg {
         listStruct.add(new Struct().add(Address.decodeBase58(sendAddr),Address.decodeBase58(recvAddr),amount));
         list.add(listStruct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongContract)),"transfer",args,payer,gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgContract)),"transfer",args,payer,gaslimit, gasprice);
         return tx;
     }
 
@@ -179,7 +179,7 @@ public class Tsg {
         }
         list.add(listStruct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongContract)), "transfer", args, payer, gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgContract)), "transfer", args, payer, gaslimit, gasprice);
         return tx;
     }
     /**
@@ -195,7 +195,7 @@ public class Tsg {
         list.add(Address.decodeBase58(address));
         byte[] arg = NativeBuildParams.createCodeParamsScript(list);
 
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongContract)),"balanceOf",arg,null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgContract)),"balanceOf",arg,null,0,0);
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
         if (res==null||res.equals("")) {
@@ -218,7 +218,7 @@ public class Tsg {
         list.add(new Struct().add(Address.decodeBase58(fromAddr),Address.decodeBase58(toAddr)));
         byte[] arg = NativeBuildParams.createCodeParamsScript(list);
 
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongContract)),"allowance",arg,null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgContract)),"allowance",arg,null,0,0);
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
         if (res==null||res.equals("")) {
@@ -279,7 +279,7 @@ public class Tsg {
         List list = new ArrayList();
         list.add(new Struct().add(Address.decodeBase58(sendAddr),Address.decodeBase58(recvAddr),amount));
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongContract)),"approve",args,payer,gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgContract)),"approve",args,payer,gaslimit, gasprice);
         return tx;
     }
 
@@ -336,7 +336,7 @@ public class Tsg {
         List list = new ArrayList();
         list.add(new Struct().add(Address.decodeBase58(sendAddr), Address.decodeBase58(fromAddr), Address.decodeBase58(toAddr), amount));
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongContract)),"transferFrom",args,payer,gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgContract)),"transferFrom",args,payer,gaslimit, gasprice);
         return tx;
     }
 
@@ -345,7 +345,7 @@ public class Tsg {
      * @throws Exception
      */
     public String queryName() throws Exception {
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongContract)),"name",new byte[]{0},null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgContract)),"name",new byte[]{0},null,0,0);
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
         return new String(Helper.hexToBytes(res));
@@ -356,7 +356,7 @@ public class Tsg {
      * @throws Exception
      */
     public String querySymbol() throws Exception {
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongContract)),"symbol",new byte[]{0},null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgContract)),"symbol",new byte[]{0},null,0,0);
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
         return new String(Helper.hexToBytes(res));
@@ -367,7 +367,7 @@ public class Tsg {
      * @throws Exception
      */
     public long queryDecimals() throws Exception {
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongContract)),"decimals",new byte[]{0},null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgContract)),"decimals",new byte[]{0},null,0,0);
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
         if (("").equals(res)) {
@@ -381,7 +381,7 @@ public class Tsg {
      * @throws Exception
      */
     public long queryTotalSupply() throws Exception {
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongContract)),"totalSupply",new byte[]{0},null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgContract)),"totalSupply",new byte[]{0},null,0,0);
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
         if (res==null||res.equals("")) {
@@ -399,7 +399,7 @@ public class Tsg {
         if(address==null||address.equals("")){
             throw new SDKException(ErrorCode.ParamErr("address should not be null"));
         }
-        String unboundTsgStr = sdk.getConnect().getAllowance("ong", Address.parse(ontContract).toBase58(), address);
+        String unboundTsgStr = sdk.getConnect().getAllowance("tsg", Address.parse(tstContract).toBase58(), address);
         long unboundTsg = Long.parseLong(unboundTsgStr);
         return unboundTsgStr;
     }
@@ -452,9 +452,9 @@ public class Tsg {
             throw new SDKException(ErrorCode.ParamErr("amount or gaslimit gasprice should not be less than 0"));
         }
         List list = new ArrayList();
-        list.add(new Struct().add(Address.decodeBase58(claimer), Address.parse(ontContract), Address.decodeBase58(toAddr), amount));
+        list.add(new Struct().add(Address.decodeBase58(claimer), Address.parse(tstContract), Address.decodeBase58(toAddr), amount));
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongContract)),"transferFrom",args,payer,gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgContract)),"transferFrom",args,payer,gaslimit, gasprice);
         return tx;
     }
 }

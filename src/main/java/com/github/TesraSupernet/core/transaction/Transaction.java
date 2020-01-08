@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -68,8 +68,8 @@ public abstract class Transaction extends Inventory {
             Transaction transaction = (Transaction) Class.forName(typeName).newInstance();
             transaction.nonce = reader.readInt();
             transaction.version = ver;
-            transaction.gasPrice = reader.readLong();
-            transaction.gasLimit = reader.readLong();
+            transaction.gasPrice = reader.readLtsg();
+            transaction.gasLimit = reader.readLtsg();
             transaction.payer = reader.readSerializable(Address.class);
             transaction.deserializeUnsignedWithoutType(reader);
             transaction.sigs = new Sig[(int) reader.readVarInt()];
@@ -96,8 +96,8 @@ public abstract class Transaction extends Inventory {
         txType = TransactionType.valueOf(reader.readByte());
         nonce = reader.readInt();
         version = reader.readByte();
-        gasPrice = reader.readLong();
-        gasLimit = reader.readLong();
+        gasPrice = reader.readLtsg();
+        gasLimit = reader.readLtsg();
         try {
             payer = reader.readSerializable(Address.class);
         } catch (InstantiationException e) {

@@ -60,10 +60,10 @@ public class VerifyTxSignatureDemo {
     }
 
     public static TstSdk getTstSdk() throws Exception {
-        String ip = "http://dappnode1.ont.io";//"http://polaris1.ont.io";//
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+        String ip = "http://dapp2.tesra.me";//"http://dapp2.tesra.me";//
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -38,7 +38,7 @@ public class Bookkeeping extends Transaction {
 
     @Override
     protected void deserializeExclusiveData(BinaryReader reader) throws IOException {
-        nonce = reader.readLong();
+        nonce = reader.readLtsg();
     }
 
     @Override

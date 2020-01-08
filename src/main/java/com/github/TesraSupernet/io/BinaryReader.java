@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -144,7 +144,7 @@ public class BinaryReader implements AutoCloseable {
 		return buffer.getInt(0);
 	}
 	
-	public long readLong() throws IOException {
+	public long readLtsg() throws IOException {
 		reader.readFully(array, 0, 8);
 		return buffer.getLong(0);
 	}
@@ -192,7 +192,7 @@ public class BinaryReader implements AutoCloseable {
         } else if (fb == 0xFE) {
             value = Integer.toUnsignedLong(readInt());
         } else if (fb == 0xFF) {
-            value = readLong();
+            value = readLtsg();
         } else {
 			value = fb;
         }

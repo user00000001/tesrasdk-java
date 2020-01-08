@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -59,9 +59,9 @@ public class Record {
         if (key == null || value == null || key == "" || value == ""){
             throw new SDKException(ErrorCode.NullKeyOrValue);
         }
-        addr = addr.replace(Common.didont,"");
-        byte[] did = (Common.didont + addr).getBytes();
-        AccountInfo info = sdk.getWalletMgr().getAccountInfo(Common.didont + addr, password,salt);
+        addr = addr.replace(Common.didtst,"");
+        byte[] did = (Common.didtst + addr).getBytes();
+        AccountInfo info = sdk.getWalletMgr().getAccountInfo(Common.didtst + addr, password,salt);
         byte[] pk = Helper.hexToBytes(info.pubkey);
         List list = new ArrayList<Object>();
         list.add("Put".getBytes());
@@ -84,7 +84,7 @@ public class Record {
         if (key == null || key == ""){
             throw new SDKException(ErrorCode.NullKey);
         }
-        byte[] did = (Common.didont + addr).getBytes();
+        byte[] did = (Common.didtst + addr).getBytes();
         AccountInfo info = sdk.getWalletMgr().getAccountInfo(addr, password,salt);
         byte[] pk = Helper.hexToBytes(info.pubkey);
         List list = new ArrayList<Object>();

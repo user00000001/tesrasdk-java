@@ -30,7 +30,7 @@ public class CreateManyTx {
                 FileOutputStream fos = new FileOutputStream(file);
                 for (int i = 0; i < 3; i++) {
                     com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(SignatureScheme.SHA256WITHECDSA);
-                    String tstid = Common.didont + account.getAddressU160().toBase58();
+                    String tstid = Common.didtst + account.getAddressU160().toBase58();
                     Transaction tx = tstSdk.nativevm().tstId().makeRegister(tstid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
                     tstSdk.addSign(tx, account);
                     tstSdk.addSign(tx, payerAcct);
@@ -62,11 +62,11 @@ public class CreateManyTx {
     public static TstSdk getTstSdk() throws Exception {
 
         String ip = "http://127.0.0.1";
-//        String ip = "http://54.222.182.88;
-//        String ip = "http://101.132.193.149";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+//        String ip = "http://52.229.166.46;
+//        String ip = "http://52.229.166.6";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

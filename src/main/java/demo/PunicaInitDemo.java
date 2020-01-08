@@ -374,10 +374,10 @@ public class PunicaInitDemo {
 
 
     public static TstSdk getTstSdk() throws Exception{
-        String ip = "http://127.0.0.1";//"http://polaris1.ont.io";//
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" +  "20335";
+        String ip = "http://127.0.0.1";//"http://dapp2.tesra.me";//
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" +  "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

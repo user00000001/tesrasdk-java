@@ -8,15 +8,15 @@ public class RegisterSideChainParam {
     public Address address;
     public int ratio;
     public long deposit;
-    public long ongPool;
+    public long tsgPool;
     public byte[] caller;
     public int keyNo;
-    public RegisterSideChainParam(String sideChainID, Address address, int ratio, long deposit, long ongPool, byte[] caller, int keyNo){
+    public RegisterSideChainParam(String sideChainID, Address address, int ratio, long deposit, long tsgPool, byte[] caller, int keyNo){
         this.sideChainID = sideChainID;
         this.address = address;
         this.ratio = ratio;
         this.deposit = deposit;
-        this.ongPool = ongPool;
+        this.tsgPool = tsgPool;
         this.caller = caller;
         this.keyNo = keyNo;
     }

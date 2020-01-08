@@ -161,12 +161,12 @@ public class NativeTstIdDemo {
 
     public static TstSdk getTstSdk() throws Exception {
         String ip = "http://127.0.0.1";
-//        String ip = "http://polaris1.ont.io";
-//        String ip = "http://139.219.129.55";
-//        String ip = "http://101.132.193.149";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+//        String ip = "http://dapp2.tesra.me";
+//        String ip = "http://52.229.166.46";
+//        String ip = "http://52.229.166.6";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

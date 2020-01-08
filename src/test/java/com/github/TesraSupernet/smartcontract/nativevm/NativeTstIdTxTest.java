@@ -91,7 +91,7 @@ public class NativeTstIdTxTest {
 
         Map clmRevMap = new HashMap();
         clmRevMap.put("typ","AttestContract");
-        clmRevMap.put("addr",identity.tstid.replace(Common.didont,""));
+        clmRevMap.put("addr",identity.tstid.replace(Common.didtst,""));
 
         String claim = tstSdk.nativevm().tstId().createTstIdClaim(identity.tstid,password,identity.controls.get(0).getSalt(), "claim:context", map, map,clmRevMap,System.currentTimeMillis()/1000 +100000);
         boolean b2 = tstSdk.nativevm().tstId().verifyTstIdClaim(claim);

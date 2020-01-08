@@ -136,7 +136,7 @@ tstSdk.getConnect().sendRawTransaction(tx.toHexString());
 //lock global variable, synchronization lock
 public static Object lock = new Object();
 
-//Get ont instance
+//Get tst instance
 String ip = "http://127.0.0.1";
 String wsUrl = ip + ":" + "20335";
 TstSdk wm = TstSdk.getInstance();
@@ -279,7 +279,7 @@ Note: When you are attempting to get the codeAddress, you need to set which virt
 ### Outline of the invokeTransaction function for a smart contract
 ```
 //Firstly, convert the parameters of the smart contract into the vm-recognizable opcode 
-Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(ontContractAddr, null, contract.toArray(), VmType.Native.value(), sender.toBase58(),gaslimit，gasprice);
+Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(tstContractAddr, null, contract.toArray(), VmType.Native.value(), sender.toBase58(),gaslimit，gasprice);
 
 //Sign the transaction
 tstSdk.signTx(tx, info1.address, password);

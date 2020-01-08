@@ -134,6 +134,7 @@
                         <exclude>**/NeoVmTest.java</exclude>
                         <exclude>**/AuthTest.java</exclude>
                         <exclude>**/WasmScriptBuilderTest.java</exclude>
+                        <exclude>**/WasmVmTest.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>

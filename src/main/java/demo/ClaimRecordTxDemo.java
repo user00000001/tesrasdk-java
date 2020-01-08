@@ -56,7 +56,7 @@ public class ClaimRecordTxDemo {
 
             Map clmRevMap = new HashMap();
             clmRevMap.put("typ","AttestContract");
-            clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didont,""));
+            clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didtst,""));
 
             String claim = tstSdk.nativevm().tstId().createTstIdClaim(dids.get(0).tstid,password,dids.get(0).controls.get(0).getSalt(), "claim:context", map, map,clmRevMap,System.currentTimeMillis()/1000 +100000);
             System.out.println(claim);
@@ -123,13 +123,13 @@ public class ClaimRecordTxDemo {
     }
 
     public static TstSdk getTstSdk() throws Exception {
-//        String ip = "http://polaris1.ont.io";
+//        String ip = "http://dapp2.tesra.me";
         String ip = "http://127.0.0.1";
-//        String ip = "http://54.222.182.88;
-//        String ip = "http://101.132.193.149";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+//        String ip = "http://52.229.166.46;
+//        String ip = "http://52.229.166.6";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

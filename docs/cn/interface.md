@@ -55,7 +55,7 @@
    15 | tstSdk.getConnect().sendRawTransaction("txhexString")    |  发送交易
    16 | tstSdk.getConnect().sendRawTransaction(Transaction)      |  发送交易
    17 | tstSdk.getConnect().sendRawTransactionPreExec()          |  发送预执行交易
-   18 | tstSdk.getConnect().getAllowance("ont","from","to")      |  查询允许使用值
+   18 | tstSdk.getConnect().getAllowance("tst","from","to")      |  查询允许使用值
    19 | tstSdk.getConnect().getMemPoolTxCount()                  |  查询交易池中交易总量
    20 | tstSdk.getConnect().getMemPoolTxState()                  |  查询交易池中交易状态
    21 | tstSdk.getConnect().syncSendRawTransaction("data")       |  同步发送交易
@@ -103,7 +103,7 @@
 
 * 原生数字资产：
 
-ont:
+tst:
 ```
 
       |                                         Main   Function                                                     |           Description            
@@ -119,7 +119,7 @@ ont:
     9 | long queryTotalSupply()                                                                     |  查询总供应量
       
 ```
-ong:
+tsg:
 ```
 
       |                                         Main   Function                                                     |           Description            
@@ -133,8 +133,8 @@ ong:
     7 | String querySymbol()                                                                        |  查询资产Symbol
     8 | long queryDecimals()                                                                        |  查询精度
     9 | long queryTotalSupply()                                                                     |  查询总供应量
-   10 | String claimTsg(Account sendAcct, String toAddr, long amount, Account payerAcct, long gaslimit, long gasprice)             |  提取ong
-   11 | String unclaimTsg(String address)                                                                           |  查询未提取的ong
+   10 | String claimTsg(Account sendAcct, String toAddr, long amount, Account payerAcct, long gaslimit, long gasprice)             |  提取tsg
+   11 | String unclaimTsg(String address)                                                                           |  查询未提取的tsg
       
 ```   
 
@@ -244,7 +244,7 @@ ong:
    ----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------
      1 | String sendTransfer(String adminTstId,String password,byte[] salt,String contractAddr, String newAdminTstID,int key,Account payerAcct,long gaslimit,long gasprice)                  |   合约管理员转让合约管理权限
      2 | String assignFuncsToRole(String adminTstID,String password,byte[] salt,String contractAddr,String role,String[] funcName,int key,Account payerAcct, long gaslimit,long gasprice)    |   为角色分配函数
-     3 | String assignTstIDsToRole(String adminTstId,String password,byte[] salt,String contractAddr,String role,String[] ontIDs, int key,Account payerAcct, long gaslimit,long gasprice)    |   绑定角色到实体身份
+     3 | String assignTstIDsToRole(String adminTstId,String password,byte[] salt,String contractAddr,String role,String[] tstIDs, int key,Account payerAcct, long gaslimit,long gasprice)    |   绑定角色到实体身份
      4 | String delegate(String tstid,String password,byte[] salt,String contractAddr,String toTstId,String role,int period,int level,int key,Account payerAcct, long gaslimit,long gasprice)|   将合约调用权代理给其他人
      5 | String withdraw(String initiatorTstid,String password,byte[] salt,String contractAddr,String delegate, String role,int key,Account payerAcct, long gaslimit,long gasprice)          |   收回合约调用权
  ```
@@ -255,7 +255,7 @@ ong:
    ----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------
      1 | Transaction makeTransfer(String adminTstID,String contractAddr, String newAdminTstID,int key,String payer,long gaslimit,long gasprice)                    |   合约管理员转让合约管理权限
      2 | Transaction makeAssignFuncsToRole(String adminTstID,String contractAddr,String role,String[] funcName,int key,String payer,long gaslimit,long gasprice)   |   为角色分配函数
-     3 | Transaction makeAssignTstIDsToRole(String adminTstId,String contractAddr,String role,String[] ontIDs, int key,String payer,long gaslimit,long gasprice)   |   绑定角色到实体身份
+     3 | Transaction makeAssignTstIDsToRole(String adminTstId,String contractAddr,String role,String[] tstIDs, int key,String payer,long gaslimit,long gasprice)   |   绑定角色到实体身份
      4 | Transaction makeDelegate(String tstid,String contractAddr,String toAddr,String role,int period,int level,int key,String payer,long gaslimit,long gasprice)|   将合约调用权代理给其他人
      5 | Transaction makeWithDraw(String tstid,String contractAddr,String delegate, String role,int key,String payer,long gaslimit,long gasprice)                  |   收回合约调用权
  ```
@@ -266,7 +266,7 @@ ong:
     -----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
        1 | String registerCandidate(Account account, String peerPubkey, long initPos, String tstid,String tstidpwd,byte[] salt,  long keyNo, Account payerAcct, long gaslimit, long gasprice) | 抵押一定的TSG，消耗一定的额外TSG，申请成为候选节点
        2 | String unRegisterCandidate(Account account, String peerPubkey,Account payerAcct, long gaslimit, long gasprice)                  | 取消申请成为候选节点，解冻抵押的TSG
-       3 | String withdrawTsg(Account account,Account payerAcct,long gaslimit,long gasprice)                                               | 提取解绑ong
+       3 | String withdrawTsg(Account account,Account payerAcct,long gaslimit,long gasprice)                                               | 提取解绑tsg
        4 | String getPeerInfo(String peerPubkey)                                                                                           | 查询节点信息
        5 | String getPeerInfoAll()                                                                                                         | 查询所有节点
        6 | String getAuthorizeInfo(String peerPubkey,Address addr)                                                                  | 查询某个地址对某个节点的授权信息

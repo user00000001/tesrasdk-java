@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -117,7 +117,7 @@ public class Block extends Inventory {
             blockRoot = reader.readSerializable(UInt256.class);
             timestamp = reader.readInt();
             height = reader.readInt();
-            consensusData = Long.valueOf(reader.readLong());
+            consensusData = Long.valueOf(reader.readLtsg());
             consensusPayload = reader.readVarBytes();
             nextBookkeeper = reader.readSerializable(Address.class);
             int len = (int) reader.readVarInt();

@@ -18,7 +18,7 @@ public class TstAssetSM2Demo {
     public static String privatekey3 = "bc254cf8d3910bc615ba6bf09d4553846533ce4403bc24f58660ae150a6d64cf";
     public static String privatekey4 = "06bda156eda61222693cc6f8488557550735c329bc7ca91bd2994c894cd3cbc8";
     public static String privatekey5 = "f07d5a2be17bde8632ec08083af8c760b41b5e8e0b5de3703683c3bdcfb91549";
-    public static String ontContractAddr = "ff00000000000000000000000000000000000001";
+    public static String tstContractAddr = "ff00000000000000000000000000000000000001";
 
     public static void main(String[] args) throws Exception {
         TstSdk tstSdk = getTstSdk();
@@ -44,15 +44,15 @@ public class TstAssetSM2Demo {
             System.out.println("senderAd:" + sender.toBase58());
             System.out.println("recvAddr:" + recvAddr123.toBase58());
 
-            System.out.println("senderAd : ont :" + tstSdk.nativevm().ont().queryBalanceOf(sender.toBase58()));
-            System.out.println("recvAddr : ont :" + tstSdk.nativevm().ont().queryBalanceOf(recvAddr123.toBase58()));
+            System.out.println("senderAd : tst:" + tstSdk.nativevm().tst().queryBalanceOf(sender.toBase58()));
+            System.out.println("recvAddr : tst:" + tstSdk.nativevm().tst().queryBalanceOf(recvAddr123.toBase58()));
 
             int amount = 10;
 
             State state = new State(acct0.getAddressU160(), recvAddr123, amount);
             Transfers transfers = new Transfers(new State[]{state});
-            Contract contract = new Contract((byte) 0, Address.parse(ontContractAddr), "transfer", transfers.toArray());
-            Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(ontContractAddr, null, contract.toArray(), sender.toBase58(),0,0);
+            Contract contract = new Contract((byte) 0, Address.parse(tstContractAddr), "transfer", transfers.toArray());
+            Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(tstContractAddr, null, contract.toArray(), sender.toBase58(),0,0);
             System.out.println(tx.json());
             tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
 
@@ -69,16 +69,16 @@ public class TstAssetSM2Demo {
             System.out.println("recvAddr:" + recvAddr.toBase58());
 
 
-            System.out.println("senderAd : ont :" + tstSdk.nativevm().ont().queryBalanceOf(multiAddr.toBase58()));
-            System.out.println("recvAddr : ont :" + tstSdk.nativevm().ont().queryBalanceOf(recvAddr.toBase58()));
+            System.out.println("senderAd : tst:" + tstSdk.nativevm().tst().queryBalanceOf(multiAddr.toBase58()));
+            System.out.println("recvAddr : tst:" + tstSdk.nativevm().tst().queryBalanceOf(recvAddr.toBase58()));
 
             int amount = 1;
 
             State state = new State(multiAddr, recvAddr, amount);
             Transfers transfers = new Transfers(new State[]{state});
-            Contract contract = new Contract((byte) 0, Address.parse(ontContractAddr), "transfer", transfers.toArray());
+            Contract contract = new Contract((byte) 0, Address.parse(tstContractAddr), "transfer", transfers.toArray());
             String addr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey(),acct3.serializePublicKey()).toBase58();
-            Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(ontContractAddr, null, contract.toArray(), addr,0,0 );
+            Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(tstContractAddr, null, contract.toArray(), addr,0,0 );
 //            System.out.println(tx.json());
             tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct1, acct3}});
             System.out.println("tx.sigs.length:" + tx.sigs.length);
@@ -98,9 +98,9 @@ public class TstAssetSM2Demo {
             System.out.println("sender2:" + sender2.toBase58());
             System.out.println("recvAddr:" + recvAddr.toBase58());
 
-            System.out.println("sender1 : ont :" + tstSdk.nativevm().ont().queryBalanceOf(sender1.toBase58()));
-            System.out.println("sender2 : ont :" + tstSdk.nativevm().ont().queryBalanceOf(sender2.toBase58()));
-            System.out.println("recvAddr : ont :" + tstSdk.nativevm().ont().queryBalanceOf(recvAddr.toBase58()));
+            System.out.println("sender1 : tst:" + tstSdk.nativevm().tst().queryBalanceOf(sender1.toBase58()));
+            System.out.println("sender2 : tst:" + tstSdk.nativevm().tst().queryBalanceOf(sender2.toBase58()));
+            System.out.println("recvAddr : tst:" + tstSdk.nativevm().tst().queryBalanceOf(recvAddr.toBase58()));
 
             int amount = 10;
             int amount2 = 20;
@@ -108,9 +108,9 @@ public class TstAssetSM2Demo {
             State state2 = new State(sender2, recvAddr, amount2);
 
             Transfers transfers = new Transfers(new State[]{state, state2});
-            Contract contract = new Contract((byte) 0, Address.parse(ontContractAddr), "transfer", transfers.toArray());
+            Contract contract = new Contract((byte) 0, Address.parse(tstContractAddr), "transfer", transfers.toArray());
 
-            Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(ontContractAddr, null, contract.toArray(),sender1.toBase58(),0,0);
+            Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(tstContractAddr, null, contract.toArray(),sender1.toBase58(),0,0);
             System.out.println(tx.json());
             tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}, {acct1, acct2}});
 
@@ -124,11 +124,11 @@ public class TstAssetSM2Demo {
     public static TstSdk getTstSdk() throws Exception {
 
         String ip = "http://127.0.0.1";
-//        String ip = "http://54.222.182.88;
-//        String ip = "http://101.132.193.149";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+//        String ip = "http://52.229.166.46;
+//        String ip = "http://52.229.166.6";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

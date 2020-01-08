@@ -15,8 +15,8 @@ public class SideChain implements Serializable {
     public Address address;
     public long ratio;
     public long deposit;
-    public long ongNum;
-    public long ongPool;
+    public long tsgNum;
+    public long tsgPool;
     public byte status;
 
     public SideChain(){}
@@ -30,10 +30,10 @@ public class SideChain implements Serializable {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        this.ratio = reader.readLong();
-        this.deposit = reader.readLong();
-        this.ongNum = reader.readLong();
-        this.ongPool = reader.readLong();
+        this.ratio = reader.readLtsg();
+        this.deposit = reader.readLtsg();
+        this.tsgNum = reader.readLtsg();
+        this.tsgPool = reader.readLtsg();
         this.status = reader.readByte();
     }
 
@@ -47,8 +47,8 @@ public class SideChain implements Serializable {
         map.put("address", this.address.toBase58());
         map.put("ratio", this.ratio);
         map.put("deposit", this.deposit);
-        map.put("ongNum", this.ongNum);
-        map.put("ongPool", this.ongPool);
+        map.put("tsgNum", this.tsgNum);
+        map.put("tsgPool", this.tsgPool);
         map.put("status", this.status);
         return JSON.toJSONString(map);
     }

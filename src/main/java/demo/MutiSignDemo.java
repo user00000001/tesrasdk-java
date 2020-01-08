@@ -42,7 +42,7 @@ public class MutiSignDemo {
             System.out.println("recvAddr:" + recvAddr.toBase58());
             long amount = 100000;
 
-            Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+            Transaction tx = tstSdk.nativevm().tst().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 
             tstSdk.addMultiSign(tx,M,pks,acct1);
 
@@ -77,12 +77,12 @@ public class MutiSignDemo {
 
     public static TstSdk getTstSdk() throws Exception {
         String ip = "http://127.0.0.1";
-//        String ip = "http://polaris1.ont.io";
-//        String ip = "http://dappnode1.ont.io";
-//        String ip = "http://101.132.193.149";
-        String restUrl = ip + ":" + "20334";
-        String rpcUrl = ip + ":" + "20336";
-        String wsUrl = ip + ":" + "20335";
+//        String ip = "http://dapp2.tesra.me";
+//        String ip = "http://dapp2.tesra.me";
+//        String ip = "http://52.229.166.6";
+        String restUrl = ip + ":" + "25770";
+        String rpcUrl = ip + ":" + "25768";
+        String wsUrl = ip + ":" + "25771";
 
         TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);

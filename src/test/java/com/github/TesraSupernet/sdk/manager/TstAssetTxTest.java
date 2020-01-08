@@ -56,7 +56,7 @@ public class TstAssetTxTest {
     public void sendTransfer() throws Exception {
         com.github.TesraSupernet.account.Account sendAcct = tstSdk.getWalletMgr().getAccount(info1.address,password,info1.getSalt());
         com.github.TesraSupernet.account.Account payerAcct = tstSdk.getWalletMgr().getAccount(payer.address,password,payer.getSalt());
-        String res= tstSdk.nativevm().ont().sendTransfer(sendAcct,info2.address,100L,payerAcct,tstSdk.DEFAULT_GAS_LIMIT,0);
+        String res= tstSdk.nativevm().tst().sendTransfer(sendAcct,info2.address,100L,payerAcct,tstSdk.DEFAULT_GAS_LIMIT,0);
 
 
         Assert.assertNotNull(res);
@@ -65,7 +65,7 @@ public class TstAssetTxTest {
     @Test
     public void makeTransfer() throws Exception {
 
-        Transaction tx = tstSdk.nativevm().ont().makeTransfer(info1.address,info2.address,100L,payer.address,tstSdk.DEFAULT_GAS_LIMIT,0);
+        Transaction tx = tstSdk.nativevm().tst().makeTransfer(info1.address,info2.address,100L,payer.address,tstSdk.DEFAULT_GAS_LIMIT,0);
         Assert.assertNotNull(tx);
     }
 
@@ -74,17 +74,17 @@ public class TstAssetTxTest {
         com.github.TesraSupernet.account.Account sendAcct1 = tstSdk.getWalletMgr().getAccount(info1.address,password,info1.getSalt());
         com.github.TesraSupernet.account.Account sendAcct2 = tstSdk.getWalletMgr().getAccount(info2.address,password,info2.getSalt());
         com.github.TesraSupernet.account.Account payerAcct = tstSdk.getWalletMgr().getAccount(payer.address,password,payer.getSalt());
-        tstSdk.nativevm().ont().sendApprove(sendAcct1,sendAcct2.getAddressU160().toBase58(),10L,payerAcct,tstSdk.DEFAULT_GAS_LIMIT,0);
-        long info1balance = tstSdk.nativevm().ont().queryBalanceOf(sendAcct1.getAddressU160().toBase58());
-        long info2balance = tstSdk.nativevm().ont().queryBalanceOf(sendAcct2.getAddressU160().toBase58());
+        tstSdk.nativevm().tst().sendApprove(sendAcct1,sendAcct2.getAddressU160().toBase58(),10L,payerAcct,tstSdk.DEFAULT_GAS_LIMIT,0);
+        long info1balance = tstSdk.nativevm().tst().queryBalanceOf(sendAcct1.getAddressU160().toBase58());
+        long info2balance = tstSdk.nativevm().tst().queryBalanceOf(sendAcct2.getAddressU160().toBase58());
         Thread.sleep(6000);
 
-        long allo = tstSdk.nativevm().ont().queryAllowance(sendAcct1.getAddressU160().toBase58(),sendAcct2.getAddressU160().toBase58());
+        long allo = tstSdk.nativevm().tst().queryAllowance(sendAcct1.getAddressU160().toBase58(),sendAcct2.getAddressU160().toBase58());
         Assert.assertTrue(allo == 10);
-        tstSdk.nativevm().ont().sendTransferFrom(sendAcct2,info1.address,sendAcct2.getAddressU160().toBase58(),10L,payerAcct,tstSdk.DEFAULT_GAS_LIMIT,0);
+        tstSdk.nativevm().tst().sendTransferFrom(sendAcct2,info1.address,sendAcct2.getAddressU160().toBase58(),10L,payerAcct,tstSdk.DEFAULT_GAS_LIMIT,0);
         Thread.sleep(6000);
-        long info1balance2 = tstSdk.nativevm().ont().queryBalanceOf(info1.address);
-        long info2balance2 = tstSdk.nativevm().ont().queryBalanceOf(info2.address);
+        long info1balance2 = tstSdk.nativevm().tst().queryBalanceOf(info1.address);
+        long info2balance2 = tstSdk.nativevm().tst().queryBalanceOf(info2.address);
 
         Assert.assertTrue((info1balance - info1balance2) == 10);
         Assert.assertTrue((info2balance2 - info2balance) == 10);
@@ -94,33 +94,33 @@ public class TstAssetTxTest {
 
     @Test
     public void sendTsgTransferFrom() throws Exception {
-        String unboundTsgStr = tstSdk.nativevm().ong().unboundTsg(info1.address);
+        String unboundTsgStr = tstSdk.nativevm().tsg().unboundTsg(info1.address);
         long unboundTsg = Long.parseLong(unboundTsgStr);
-        String res = tstSdk.nativevm().ong().withdrawTsg(tstSdk.getWalletMgr().getAccount(info1.address,password,info1.getSalt()),info2.address,unboundTsg/100,tstSdk.getWalletMgr().getAccount(payer.address,password,payer.getSalt()),tstSdk.DEFAULT_GAS_LIMIT,0);
+        String res = tstSdk.nativevm().tsg().withdrawTsg(tstSdk.getWalletMgr().getAccount(info1.address,password,info1.getSalt()),info2.address,unboundTsg/100,tstSdk.getWalletMgr().getAccount(payer.address,password,payer.getSalt()),tstSdk.DEFAULT_GAS_LIMIT,0);
         Assert.assertNotNull(res);
     }
 
     @Test
     public void queryTest() throws Exception {
 
-        long decimal = tstSdk.nativevm().ont().queryDecimals();
-        long decimal2 = tstSdk.nativevm().ong().queryDecimals();
+        long decimal = tstSdk.nativevm().tst().queryDecimals();
+        long decimal2 = tstSdk.nativevm().tsg().queryDecimals();
         Assert.assertNotNull(decimal);
         Assert.assertNotNull(decimal2);
 
-        String ontname = tstSdk.nativevm().ont().queryName();
-        String ongname = tstSdk.nativevm().ong().queryName();
-        Assert.assertNotNull(ontname);
-        Assert.assertNotNull(ongname);
+        String tstname = tstSdk.nativevm().tst().queryName();
+        String tsgname = tstSdk.nativevm().tsg().queryName();
+        Assert.assertNotNull(tstname);
+        Assert.assertNotNull(tsgname);
 
-        String ontsym = tstSdk.nativevm().ont().querySymbol();
-        String ongsym = tstSdk.nativevm().ong().querySymbol();
-        Assert.assertNotNull(ontsym);
-        Assert.assertNotNull(ongsym);
+        String tstsym = tstSdk.nativevm().tst().querySymbol();
+        String tsgsym = tstSdk.nativevm().tsg().querySymbol();
+        Assert.assertNotNull(tstsym);
+        Assert.assertNotNull(tsgsym);
 
-        long onttotal = tstSdk.nativevm().ont().queryTotalSupply();
-        long ongtotal = tstSdk.nativevm().ong().queryTotalSupply();
-        Assert.assertNotNull(onttotal);
-        Assert.assertNotNull(ongtotal);
+        long tsttotal = tstSdk.nativevm().tst().queryTotalSupply();
+        long tsgtotal = tstSdk.nativevm().tsg().queryTotalSupply();
+        Assert.assertNotNull(tsttotal);
+        Assert.assertNotNull(tsgtotal);
     }
 }

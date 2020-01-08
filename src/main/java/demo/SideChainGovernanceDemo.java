@@ -17,11 +17,11 @@ public class SideChainGovernanceDemo {
     public static void main(String[] args) throws Exception {
         TstSdk sdk = TstSdk.getInstance();
         sdk.openWalletFile("wallet2.dat");
-        sdk.setRpc("http://139.219.128.220:20336");
+        sdk.setRpc("http://52.184.29.110:25768");
         SideChainGovernance sideChainGovernance = new SideChainGovernance(sdk);
         String password = "111111";
         Account account = sdk.getWalletMgr().getAccount("AHX1wzvdw9Yipk7E9MuLY4GGX4Ym9tHeDe",password);
-        Identity identity = sdk.getWalletMgr().getWallet().getIdentity("did:ont:Abrc5byDEZm1CnQb3XjAosEt34DD4w5Z1o");
+        Identity identity = sdk.getWalletMgr().getWallet().getIdentity("did:tst:Abrc5byDEZm1CnQb3XjAosEt34DD4w5Z1o");
         String sideChainContractAddr = "0000000000000000000000000000000000000008";
         if(false){
             System.out.println(sideChainGovernance.getSideChain("123456"));
@@ -36,7 +36,7 @@ public class SideChainGovernanceDemo {
         //梦航
 //        Account adminTstIdAcct = getAccount("cCQnie0Dd8aQPyY+9UBFw2x2cLn2RMogKqhM8OkyjJNrNTvlcVaYGRENfy2ErF7Q","passwordtest","ARiwjLzjzLKZy8V43vm6yUcRG9b56DnZtY","3e1zvaLjtVuPrQ1o7oJsQA==");
 //        String adminPrivateKey =Helper.toHexString(adminTstIdAcct.serializePrivateKey());
-        Identity adminIndentity = sdk.getWalletMgr().getWallet().getIdentity("did:ont:ARiwjLzjzLKZy8V43vm6yUcRG9b56DnZtY");
+        Identity adminIndentity = sdk.getWalletMgr().getWallet().getIdentity("did:tst:ARiwjLzjzLKZy8V43vm6yUcRG9b56DnZtY");
         //梦航
         Account account1 = getAccount("wR9S/JYwMDfCPWFGEy5DEvWfU14k9suZuL4+woGtfhZJf5+KyL9VJqMi/wGTOd1i","passwordtest","AZqk4i7Zhfhc1CRUtZYKrLw4YTSq4Y9khN","ZaIL8DxNaQ91fkMHAdiBjQ==");
         Account account2 = getAccount("PCj/a4zUgYnOBNZUVEaXBK61Sq4due8w2RUzrumO3Bm0hZ/3v4mlDiXYYvmmBZUk","passwordtest","ARpjnrnHEjXhg4aw7vY6xsY6CfQ1XEWzWC","wlz1h439j0GwsWhGBByMxg==");
@@ -54,7 +54,7 @@ public class SideChainGovernanceDemo {
 
 
         if(false){
-            sdk.nativevm().ong().sendTransfer(account1,account.getAddressU160().toBase58(),10000*1000000000L,account,20000,0);
+            sdk.nativevm().tsg().sendTransfer(account1,account.getAddressU160().toBase58(),10000*1000000000L,account,20000,0);
 
             return;
         }
@@ -66,8 +66,8 @@ public class SideChainGovernanceDemo {
             System.out.println(sdk.getConnect().getSmartCodeEvent(txhash1));
             System.out.println(sdk.getConnect().getSmartCodeEvent(txhash2));
 
-//            Transaction tx = sdk.nativevm().ont().makeTransfer(multiAddress.toBase58(),"AMAx993nE6NEqZjwBssUfopxnnvTdob9ij",10000, account.getAddressU160().toBase58(),200000,0);
-////            Transaction tx = sdk.nativevm().ong().makeWithdrawTsg(multiAddress.toBase58(),"AMAx993nE6NEqZjwBssUfopxnnvTdob9ij",35478934750000L,account.getAddressU160().toBase58(),20000,0);
+//            Transaction tx = sdk.nativevm().tst().makeTransfer(multiAddress.toBase58(),"AMAx993nE6NEqZjwBssUfopxnnvTdob9ij",10000, account.getAddressU160().toBase58(),200000,0);
+////            Transaction tx = sdk.nativevm().tsg().makeWithdrawTsg(multiAddress.toBase58(),"AMAx993nE6NEqZjwBssUfopxnnvTdob9ij",35478934750000L,account.getAddressU160().toBase58(),20000,0);
 //            for(int i=0;i<5;i++){
 //                sdk.addMultiSign(tx, 5, pks, accounts[i]);
 //            }
@@ -77,7 +77,7 @@ public class SideChainGovernanceDemo {
 //
 //
 //            Thread.sleep(3000);
-            System.out.println(sdk.nativevm().ong().unboundTsg(multiAddress.toBase58()));
+            System.out.println(sdk.nativevm().tsg().unboundTsg(multiAddress.toBase58()));
             System.out.println(sdk.getConnect().getBalance(multiAddress.toBase58()));
             System.out.println(sdk.getConnect().getBalance(account.getAddressU160().toBase58()));
             return;
@@ -152,7 +152,7 @@ public class SideChainGovernanceDemo {
         if(true){
 //            success
             SwapParam param = new SwapParam("123456",account.getAddressU160(), 100*1000000000L);
-            String txhash = sideChainGovernance.ongSwap(account,param,account,20000,0);
+            String txhash = sideChainGovernance.tsgSwap(account,param,account,20000,0);
             System.out.println("txhash:" + txhash);
             Thread.sleep(6000);
             System.out.println(sdk.getConnect().getBlockHeight());
@@ -170,7 +170,7 @@ public class SideChainGovernanceDemo {
         if(false){
 //            success
             SwapParam param = new SwapParam("12345678",account.getAddressU160(), 1000);
-            String txhash = sideChainGovernance.ongxSwap(account,new SwapParam[]{param},account,20000,0);
+            String txhash = sideChainGovernance.tsgxSwap(account,new SwapParam[]{param},account,20000,0);
             System.out.println(txhash);
             Thread.sleep(6000);
             System.out.println(sdk.getConnect().getSmartCodeEvent(txhash));

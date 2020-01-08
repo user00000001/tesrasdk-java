@@ -115,7 +115,7 @@ public class BlockStore {
         ByteArrayInputStream ms = new ByteArrayInputStream(value);
         BinaryReader reader = new BinaryReader(ms);
         try {
-            long sysFee = reader.readLong();
+            long sysFee = reader.readLtsg();
             System.out.println(sysFee);
             BlockHeader header = reader.readSerializable(BlockHeader.class);
             int txSize = reader.readInt();
