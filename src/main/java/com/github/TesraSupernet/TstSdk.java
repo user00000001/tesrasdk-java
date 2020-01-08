@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -625,10 +625,10 @@ public class TstSdk {
                         } else {
                             map.put("amount", Helper.BigIntFromNeoBytes(Helper.hexToBytes(codeHexStr.substring(104, 104 + code[51] * 2))));
                         }
-                        if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().ont().getContractAddress())) {
-                            map.put("asset", "ont");
-                        } else if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().ong().getContractAddress())) {
-                            map.put("asset", "ong");
+                        if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().tst().getContractAddress())) {
+                            map.put("asset", "tst");
+                        } else if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().tsg().getContractAddress())) {
+                            map.put("asset", "tsg");
                             map.put("amount", ((BigInteger) map.get("amount")).doubleValue() / 1000000000L);
                         }
                     } else if (codeHexStr.substring(codeHexStr.length() - 92 - 24, codeHexStr.length() - 92).equals(Helper.toHexString("transferFrom".getBytes()))) {
@@ -641,10 +641,10 @@ public class TstSdk {
                         } else {
                             map.put("amount", Helper.BigIntFromNeoBytes(Helper.hexToBytes(codeHexStr.substring(104, 104 + code[51] * 2))));
                         }
-                        if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().ont().getContractAddress())) {
-                            map.put("asset", "ont");
-                        } else if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().ong().getContractAddress())) {
-                            map.put("asset", "ong");
+                        if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().tst().getContractAddress())) {
+                            map.put("asset", "tst");
+                        } else if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().tsg().getContractAddress())) {
+                            map.put("asset", "tsg");
                             map.put("amount", ((BigInteger) map.get("amount")).doubleValue() / 1000000000L);
                         }
                     }

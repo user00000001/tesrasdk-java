@@ -19,7 +19,7 @@ A wallet file in JSON format has the following basic structure:
   "name": "MyWallet",
   "version": "1.0",
   "scrypt": {},
-  "defaultTstid": "did:ont:TJNxJe2Ty8eSCjCDxDPwiS78NRAn8XPTFL",
+  "defaultTstid": "did:tst :TJNxJe2Ty8eSCjCDxDPwiS78NRAn8XPTFL",
   "defaultAccountAddress": "TJNxJe2Ty8eSCjCDxDPwiS78NRAn8XPTFL",
   "createTime": "2018-03-14T03:12:30.862Z",
   "identities": [],
@@ -59,7 +59,7 @@ Here is an example as below:
 	"version": "1.0"，
 	"createTime": "2018-09-26T18:02:26Z",
 	"defaultAccountAddress": "APyT9ZrjDsvq6cRWPaVq3Fu3zFjP33FUq4",
-	"defaultTstid": "did:ont:AXFZPQivJK2NTxJDnE6vsrFfyyfnEQSqX6",
+	"defaultTstid": "did:tst :AXFZPQivJK2NTxJDnE6vsrFfyyfnEQSqX6",
 	"accounts": [{
 		"address": "APyT9ZrjDsvq6cRWPaVq3Fu3zFjP33FUq4",
 		"algorithm": "ECDSA",
@@ -93,7 +93,7 @@ Here is an example as below:
 		"isDefault": true,
 		"label": "d6a5b3b3",
 		"lock": false,
-		"tstid": "did:ont:AXFZPQivJK2NTxJDnE6vsrFfyyfnEQSqX6"
+		"tstid": "did:tst :AXFZPQivJK2NTxJDnE6vsrFfyyfnEQSqX6"
 	}]
 	
 }
@@ -124,7 +124,7 @@ ScryptParameters object has the following structure:
 Identity object has the following structure:
 ```
 {
-  "tstid": "did:ont:TQLASLtT6pWbThcSCYU1biVqhMnzhTgLFq",
+  "tstid": "did:tst :TQLASLtT6pWbThcSCYU1biVqhMnzhTgLFq",
   "label": "MyIdentity",
   "lock": false,
   "isDefault" : false,

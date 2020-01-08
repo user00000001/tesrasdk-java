@@ -220,11 +220,11 @@ long queryTotalSupply()
 TstSdk sdk = TstSdk.getInstance();
 sdk.setRpc(url);
 sdk.openWalletFile("TstAssetDemo.json");
-//step2:获得ont实例
-ont = sdk.nativevm().ont()
+//step2:获得tst实例
+tst = sdk.nativevm().tst()
 //step3:调用转账方法
 com.github.TesraSupernet.account.Account account1 = new com.github.TesraSupernet.account.Account(privateKey,SignatureScheme.SHA256WITHECDSA);
-tstSdk.nativevm().ont().sendTransfer(account1,"TA4pCAb4zUifHyxSx32dZRjTrnXtxEWKZr",10000,account1,tstSdk.DEFAULT_GAS_LIMIT,0);
+tstSdk.nativevm().tst().sendTransfer(account1,"TA4pCAb4zUifHyxSx32dZRjTrnXtxEWKZr",10000,account1,tstSdk.DEFAULT_GAS_LIMIT,0);
 ```
 
 ## nep-5智能合约数字资产例子

@@ -133,7 +133,7 @@ namespace Example
         }
 
         //the admin TSG ID of this contract must be hardcoded.
-        public static readonly byte[] adminTstID = "did:ont:AazEvfQPcQ2GEFFPLF1ZLwQ7K5jDn81hve".AsByteArray();
+        public static readonly byte[] adminTstID = "did:tst:AazEvfQPcQ2GEFFPLF1ZLwQ7K5jDn81hve".AsByteArray();
 
         public static Object Main(string operation,object[] args)
         {
@@ -254,18 +254,18 @@ String assignFuncsToRole(String adminTstID,String password,byte[] salt,String co
 
 #### 3. 绑定角色到实体身份
 ```java
-String assignTstIDsToRole(String adminTstId,String password,byte[] salt, String contractAddr,String role,String[] ontIDs,long keyNo,Account payerAcct,long gaslimit,long gasprice)
+String assignTstIDsToRole(String adminTstId,String password,byte[] salt, String contractAddr,String role,String[] tstIDs,long keyNo,Account payerAcct,long gaslimit,long gasprice)
 ```
  |说明||描述|
  |:--|:--|:--|
- |功能说明|绑定角色到实体身份|必须由合约管理者调用，ontIDs数组中的TSG ID被分配role角色，最后返回true。 在当前实现中，权限token的级别level默认等于2。|
+ |功能说明|绑定角色到实体身份|必须由合约管理者调用，tstIDs数组中的TSG ID被分配role角色，最后返回true。 在当前实现中，权限token的级别level默认等于2。|
  |参数说明|字段|描述|
  ||adminTstId|合约管理员tstid|
  ||password|合约管理员密码|
  ||salt|私钥解密参数|
  ||contractAddr|合约地址|
  ||role|角色|
- ||ontIDs|tstid数组|
+ ||tstIDs|tstid数组|
  ||keyNo|合约管理员的公钥编号|
  ||payerAcct|付费账户|
  ||gaslimit|gas价格|

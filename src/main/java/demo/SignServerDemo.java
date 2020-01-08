@@ -23,7 +23,7 @@ public class SignServerDemo {
             Account account2 = new Account(Helper.hexToBytes(privateKey2),SignatureScheme.SHA256WITHECDSA);
             System.out.println("account:" +  tstSdk.getConnect().getBalance(account.getAddressU160().toBase58()));
             System.out.println("account2:" +  tstSdk.getConnect().getBalance(account2.getAddressU160().toBase58()));
-            tstSdk.getSignServer().sendSigTransferTx("ont",account.getAddressU160().toBase58(),account2.getAddressU160().toBase58(),10,30000,0);
+            tstSdk.getSignServer().sendSigTransferTx("tst",account.getAddressU160().toBase58(),account2.getAddressU160().toBase58(),10,30000,0);
             Thread.sleep(6000);
             System.out.println("account:" +  tstSdk.getConnect().getBalance(account.getAddressU160().toBase58()));
             System.out.println("account2:" +  tstSdk.getConnect().getBalance(account2.getAddressU160().toBase58()));

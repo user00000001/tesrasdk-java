@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@ import java.util.Date;
 
 
 public abstract class Common implements AutoCloseable {
-    public static String didont = "did:ont:";
+    public static String didtst = "did:tst :";
     public static final int MULTI_SIG_MAX_PUBKEY_SIZE = 16;
     public static final int TX_MAX_SIG_SIZE = 16;
 

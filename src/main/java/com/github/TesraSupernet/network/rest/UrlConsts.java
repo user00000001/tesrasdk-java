@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -42,7 +42,7 @@ public class UrlConsts {
 	public static String Url_get_mem_pool_tx_state = "/api/v1/mempool/txstate/";
 	public static String Url_get_allowance = "/api/v1/allowance/";
 	public static String Url_get_version = "/api/v1/version";
-	public static String Url_get_grant_ong = "/api/v1/grantong";
+	public static String Url_get_grant_tsg = "/api/v1/granttsg";
 	public static String Url_get_networkid = "/api/v1/networkid";
 	public static String Url_get_syncstatus = "/api/v1/node/syncstatus";
 }

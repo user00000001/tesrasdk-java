@@ -31,7 +31,7 @@
 * io：io操作
 * network：restful\rpc\websocket与链通信接口
 * sdk：对SDK底层做封装、Info信息、通信管理、Claim管理、钱包管理、异常类。
-* ontsdk类：提供管理器和交易实例，管理器包括：walletMgr、connManager。
+* tstsdk类：提供管理器和交易实例，管理器包括：walletMgr、connManager。
     * walletMgr钱包管理器主要管理数字身份及数字资产账户，用户向链上发送交易需要私钥做签名。 
     * connManager与链上通信管理。任何发送交易和查询都需要通过连接管理器。
 
@@ -56,10 +56,10 @@ $ mvn clean install
 
 
 ```
-<!-- https://mvnrepository.com/artifact/com.github.TesraSupernet/tesra-sdk-java -->
+<!-- https://mvnrepository.com/artifact/com.github.TesraSupernet/tesrasdk-java -->
 <dependency>
     <groupId>com.github.TesraSupernet</groupId>
-    <artifactId>tesra-sdk-java</artifactId>
+    <artifactId>tesrasdk-java</artifactId>
     <version>0.0.1</version>
 </dependency>
 ```

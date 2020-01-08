@@ -114,7 +114,7 @@
 //    public void sendAddPubKey() throws Exception {
 //
 //        IdentityInfo acctinfo = tstSdk.getWalletMgr().getIdentityInfo(did.get(1).tstid,"passwordtest");
-//        txhash = tstSdk.neovm().tstId().sendAddPubKey(did.get(0).tstid.replace(Common.didont,""),"passwordtest",acctinfo.pubkey,0);
+//        txhash = tstSdk.neovm().tstId().sendAddPubKey(did.get(0).tstid.replace(Common.didtst,""),"passwordtest",acctinfo.pubkey,0);
 //        Assert.assertNotNull(txhash);
 //
 //    }
@@ -122,28 +122,28 @@
 //    @Test
 //    public void sendAddPubKeyWithRecovery() throws Exception {
 //        IdentityInfo acctinfo = tstSdk.getWalletMgr().getIdentityInfo(did.get(1).tstid,"passwordtest");
-//        String res = tstSdk.neovm().tstId().sendAddPubKey("passwordtest",did.get(0).tstid.replace(Common.didont,""),acctinfo.pubkey,acctinfo.addressU160,0);
+//        String res = tstSdk.neovm().tstId().sendAddPubKey("passwordtest",did.get(0).tstid.replace(Common.didtst,""),acctinfo.pubkey,acctinfo.addressU160,0);
 //        Assert.assertNotNull(res);
 //    }
 //
 //    @Test
 //    public void sendRemovePubKey() throws Exception {
 //        IdentityInfo acctinfo = tstSdk.getWalletMgr().getIdentityInfo(did.get(1).tstid,"passwordtest");
-//        String res = tstSdk.neovm().tstId().sendRemovePubKey(did.get(0).tstid.replace(Common.didont,""),"passwordtest",acctinfo.pubkey,0);
+//        String res = tstSdk.neovm().tstId().sendRemovePubKey(did.get(0).tstid.replace(Common.didtst,""),"passwordtest",acctinfo.pubkey,0);
 //        Assert.assertNotNull(res);
 //    }
 //
 //    @Test
 //    public void sendRemovePubKeyWithRecovery() throws Exception {
 //        IdentityInfo acctinfo = tstSdk.getWalletMgr().getIdentityInfo(did.get(1).tstid,"passwordtest");
-//        String res = tstSdk.neovm().tstId().sendRemovePubKey(did.get(0).tstid.replace(Common.didont,""),"passwordtest","".getBytes(),acctinfo.addressU160,0);
+//        String res = tstSdk.neovm().tstId().sendRemovePubKey(did.get(0).tstid.replace(Common.didtst,""),"passwordtest","".getBytes(),acctinfo.addressU160,0);
 //        Assert.assertNotNull(res);
 //    }
 //
 //    @Test
 //    public void sendAddRecovery() throws Exception {
 //        IdentityInfo acctinfo = tstSdk.getWalletMgr().getIdentityInfo(did.get(1).tstid,"passwordtest");
-//        String res = tstSdk.neovm().tstId().sendAddRecovery(did.get(0).tstid.replace(Common.didont,""),"passwordtest",acctinfo.addressU160,0);
+//        String res = tstSdk.neovm().tstId().sendAddRecovery(did.get(0).tstid.replace(Common.didtst,""),"passwordtest",acctinfo.addressU160,0);
 //        Assert.assertNotNull(res);
 //    }
 //
@@ -152,7 +152,7 @@
 //
 //        IdentityInfo acctinfo = tstSdk.getWalletMgr().getIdentityInfo(did.get(1).tstid,"passwordtest");
 //        IdentityInfo acctinfo2 = tstSdk.getWalletMgr().createIdentityInfo("passwordtest");
-//        String res = tstSdk.neovm().tstId().sendChangeRecovery(did.get(0).tstid.replace(Common.didont,""),"passwordtest",acctinfo2.addressU160,acctinfo.addressU160,0);
+//        String res = tstSdk.neovm().tstId().sendChangeRecovery(did.get(0).tstid.replace(Common.didtst,""),"passwordtest",acctinfo2.addressU160,acctinfo.addressU160,0);
 //        Assert.assertNotNull(res);
 //    }
 //
@@ -256,7 +256,7 @@
 //
 //    @Test
 //    public void sendGetPublicKeyStatus() throws Exception {
-//        AccountInfo accountInfo = tstSdk.getWalletMgr().getAccountInfo(did.get(0).tstid.replace(Common.didont,""),"passwordtest");
+//        AccountInfo accountInfo = tstSdk.getWalletMgr().getAccountInfo(did.get(0).tstid.replace(Common.didtst,""),"passwordtest");
 //        String res = tstSdk.neovm().tstId().sendGetPublicKeyStatus(did.get(0).tstid,"passwordtest", Helper.hexToBytes("01"));
 //        Assert.assertNotNull(res);
 //    }
@@ -264,7 +264,7 @@
 //    @Test
 //    public void getProof() throws Exception {
 //        IdentityInfo acctinfo = tstSdk.getWalletMgr().getIdentityInfo(did.get(1).tstid,"passwordtest");
-//        txhash = tstSdk.neovm().tstId().sendAddPubKey(did.get(0).tstid.replace(Common.didont,""),"passwordtest",acctinfo.pubkey,0);
+//        txhash = tstSdk.neovm().tstId().sendAddPubKey(did.get(0).tstid.replace(Common.didtst,""),"passwordtest",acctinfo.pubkey,0);
 //        Thread.sleep(6000);
 //        Object obj = tstSdk.nativevm().tstId().getMerkleProof(txhash);
 //        Assert.assertNotNull(obj);
@@ -273,7 +273,7 @@
 //    @Test
 //    public void verifyMerkleProof() throws Exception {
 //        IdentityInfo acctinfo = tstSdk.getWalletMgr().getIdentityInfo(did.get(1).tstid,"passwordtest");
-//        txhash = tstSdk.neovm().tstId().sendAddPubKey(did.get(0).tstid.replace(Common.didont,""),"passwordtest",acctinfo.pubkey,0);
+//        txhash = tstSdk.neovm().tstId().sendAddPubKey(did.get(0).tstid.replace(Common.didtst,""),"passwordtest",acctinfo.pubkey,0);
 //        Thread.sleep(6000);
 //        Object obj = tstSdk.nativevm().tstId().getMerkleProof(txhash);
 //        boolean b = tstSdk.nativevm().tstId().verifyMerkleProof(JSON.toJSONString(obj));

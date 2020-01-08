@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -1130,7 +1130,7 @@ class TotalStake implements Serializable{
     public void deserialize(BinaryReader reader) throws IOException {
         try {
             this.address = reader.readSerializable(Address.class);
-            this.stake = reader.readLong();
+            this.stake = reader.readLtsg();
             this.timeOffset = reader.readInt();
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -1157,7 +1157,7 @@ class SplitFeeAddress implements Serializable{
             e.printStackTrace();
             System.out.println(e);
         }
-        this.amount = reader.readLong();
+        this.amount = reader.readLtsg();
 
     }
 
@@ -1197,10 +1197,10 @@ class PeerAttributes implements Serializable{
     @Override
     public void deserialize(BinaryReader reader) throws IOException {
         this.peerPubkey = reader.readVarString();
-        this.maxAuthorize = reader.readLong();
-        this.t2PeerCost = reader.readLong();
-        this.t1PeerCost = reader.readLong();
-        this.tPeerCost = reader.readLong();
+        this.maxAuthorize = reader.readLtsg();
+        this.t2PeerCost = reader.readLtsg();
+        this.t1PeerCost = reader.readLtsg();
+        this.tPeerCost = reader.readLtsg();
         this.field1 = reader.readVarBytes();
         this.field2 = reader.readVarBytes();
         this.field3 = reader.readVarBytes();

@@ -56,7 +56,7 @@ public class ClaimRecordTxDemo {
 
             Map clmRevMap = new HashMap();
             clmRevMap.put("typ","AttestContract");
-            clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didont,""));
+            clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didtst,""));
 
             String claim = tstSdk.nativevm().tstId().createTstIdClaim(dids.get(0).tstid,password,dids.get(0).controls.get(0).getSalt(), "claim:context", map, map,clmRevMap,System.currentTimeMillis()/1000 +100000);
             System.out.println(claim);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -200,7 +200,7 @@ public class WalletMgr {
     public IdentityInfo getIdentityInfo(String tstid, String password,byte[] salt) throws Exception {
         com.github.TesraSupernet.account.Account acct = getAccountByAddressOrTstId(tstid, password,salt);
         IdentityInfo info = new IdentityInfo();
-        info.tstid = Common.didont + Address.addressFromPubKey(acct.serializePublicKey()).toBase58();
+        info.tstid = Common.didtst + Address.addressFromPubKey(acct.serializePublicKey()).toBase58();
         info.pubkey = Helper.toHexString(acct.serializePublicKey());
         info.setPrikey(Helper.toHexString(acct.serializePrivateKey()));
         info.setPriwif(acct.exportWif());
@@ -216,7 +216,7 @@ public class WalletMgr {
     private IdentityInfo createIdentity(String label,String password,byte[] salt, byte[] prikey) throws Exception {
         com.github.TesraSupernet.account.Account acct = createAccount(label,password,salt, prikey, false);
         IdentityInfo info = new IdentityInfo();
-        info.tstid = Common.didont + Address.addressFromPubKey(acct.serializePublicKey()).toBase58();
+        info.tstid = Common.didtst + Address.addressFromPubKey(acct.serializePublicKey()).toBase58();
         info.pubkey = Helper.toHexString(acct.serializePublicKey());
         info.setPrikey(Helper.toHexString(acct.serializePrivateKey()));
         info.setPriwif(acct.exportWif());
@@ -307,7 +307,7 @@ public class WalletMgr {
     public AccountInfo getAccountInfo(String addressOrTstId, String password,byte[] salt) throws Exception {
         AccountInfo info = new AccountInfo();
         com.github.TesraSupernet.account.Account acc = getAccountByAddressOrTstId(addressOrTstId, password,salt);
-        info.addressBase58 = addressOrTstId.replace(Common.didont, "");
+        info.addressBase58 = addressOrTstId.replace(Common.didtst, "");
         info.pubkey = Helper.toHexString(acc.serializePublicKey());
         info.setPrikey(Helper.toHexString(acc.serializePrivateKey()));
         info.encryptedPrikey = acc.exportGcmEncryptedPrikey(password,salt, walletFile.getScrypt().getN());
@@ -357,12 +357,12 @@ public class WalletMgr {
             walletInMem.getAccounts().add(acct);
         } else {
             for (Identity e : walletInMem.getIdentities()) {
-                if (e.tstid.equals(Common.didont + acct.address)) {
+                if (e.tstid.equals(Common.didtst + acct.address)) {
                     throw new SDKException(ErrorCode.ParamErr("wallet Identity exist"));
                 }
             }
             Identity idt = new Identity();
-            idt.tstid = Common.didont + acct.address;
+            idt.tstid = Common.didtst + acct.address;
             idt.label = label;
             if (walletInMem.getIdentities().size() == 0) {
                 idt.isDefault = true;
@@ -380,10 +380,10 @@ public class WalletMgr {
 
     private com.github.TesraSupernet.account.Account getAccountByAddressOrTstId(String addressOrTstId,String password,byte[] salt) throws Exception {
         try {
-            if(addressOrTstId.startsWith(Common.didont)){
+            if(addressOrTstId.startsWith(Common.didtst)){
                 for (Identity e : walletInMem.getIdentities()) {
                     if (e.tstid.equals(addressOrTstId)) {
-                        String addr = e.tstid.replace(Common.didont, "");
+                        String addr = e.tstid.replace(Common.didtst, "");
                         String prikey = com.github.TesraSupernet.account.Account.getGcmDecodedPrivateKey(e.controls.get(0).key, password, addr,salt, walletFile.getScrypt().getN(), scheme);
                         return new com.github.TesraSupernet.account.Account(Helper.hexToBytes(prikey), scheme);
                     }

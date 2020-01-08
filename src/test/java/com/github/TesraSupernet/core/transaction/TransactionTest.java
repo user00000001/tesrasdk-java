@@ -18,7 +18,7 @@ public class TransactionTest {
 
     TstSdk tstSdk;
     Vm vm;
-    String ontContract = "ff00000000000000000000000000000000000001";
+    String tstContract = "ff00000000000000000000000000000000000001";
 
     @Before
     public void setUp(){
@@ -28,7 +28,7 @@ public class TransactionTest {
 
     @Test
     public void serialize() throws Exception {
-        Transaction tx = vm.buildNativeParams(Address.parse(ontContract),"init","1".getBytes(),null,0,0);
+        Transaction tx = vm.buildNativeParams(Address.parse(tstContract),"init","1".getBytes(),null,0,0);
         Account account = new Account(Helper.hexToBytes("0bc8c1f75a028672cd42c221bf81709dfc7abbbaf0d87cb6fdeaf9a20492c194"),SignatureScheme.SHA256WITHECDSA);
         tstSdk.signTx(tx,new Account[][]{{account}});
 

@@ -4,7 +4,7 @@
 
 English / [中文](../cn/sdk_get_start.md)
 
-This is an introductory guide for developers who wish to use the Java SDK. You can access the full Java SDK document suite [here](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/docs/en).
+This is an introductory guide for developers who wish to use the Java SDK. You can access the full Java SDK document suite [here](https://github.com/TesraSupernet/tesrasdk-java/tree/master/docs/en).
 
 There are two kinds of assets in the Tesra Ecosystem, native assets and contract assets. Native assets are TSG and TSG and contract assets are items such as smart contracts.
 
@@ -20,20 +20,20 @@ The outline of this document is as follows:
 			* [Create account based on private key](#create-account-based-on-private-key)
 		* [Using wallet management](#using-wallet-management)
 	* [Address generation](#address-generation)
-* [TSG and TSG transfer](#ont-and-ong-transfer)
+* [TSG and TSG transfer](#tst-and-tsg-transfer)
 	* [SDK Initialization](#sdk-Initialization)
 	* [Queries](#queries)
-		* [Query TSG or TSG Balance](#query-ont-or-ong-balance)
+		* [Query TSG or TSG Balance](#query-tst-or-tsg-balance)
 		* [Query if the transaction is in the transaction pool](#query-if-the-transaction-is-in-the-transaction-pool)
 	* [Transaction deserialization](#transaction-deserialization)	
-	* [TSG transfer](#ont-transfer)
+	* [TSG transfer](#tst-transfer)
 		* [Construct transfer transaction and send](#construct-transfer-transaction-and-send)
 		* [Multiple signatures](#multiple-signatures)
 		* [One to multiple or multiple to multiple](#one-to-multiple-or-multiple-to-multiple)
 		* [Use signature server to sign](#use-signature-server-to-sign)
-	* [TSG transfer](#ong-transfer)
-		* [TSG transfer](#ong-transfer)
-		* [Withdraw TSG](#Withdraw-ong)
+	* [TSG transfer](#tsg-transfer)
+		* [TSG transfer](#tsg-transfer)
+		* [Withdraw TSG](#Withdraw-tsg)
 * [NEP5 Transfer](#nep5-transfer)
 	* [Query NEP5 Balance](#query-nep5-balance)
 	* [Transfer NEP5 token](#transfer-nep5-token)
@@ -68,7 +68,7 @@ The outline of this document is as follows:
 | 15   | tstSdk.getConnect().sendRawTransaction("txhexString")  |       Send transaction       |
 | 16   |  tstSdk.getConnect().sendRawTransaction(Transaction)   |       Send transaction       |
 | 17   |    tstSdk.getConnect().sendRawTransactionPreExec()     |    Send a pre-execution transaction    |
-| 18   |  tstSdk.getConnect().getAllowance("ont","from","to")   |    Query Allowed Values    |
+| 18   |  tstSdk.getConnect().getAllowance("tst","from","to")   |    Query Allowed Values    |
 | 19   |        tstSdk.getConnect().getMemPoolTxCount()         | Query total transaction volumn in the transaction pool  |
 | 20   |        tstSdk.getConnect().getMemPoolTxState()         | Query transaction status in the transaction pool |
 
@@ -111,7 +111,7 @@ AccountInfo info = tstSdk.getWalletMgr().createAccountInfoFromPriKey("passwordte
 com.github.TesraSupernet.account.Account acct0 = tstSdk.getWalletMgr().getAccount(info.addressBase58,"passwordtest",salt);
 
 ```
-[Full example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/WalletDemo.java) 
+[Full example](https://github.com/TesraSupernet/tesrasdk-java/blob/master/src/main/java/demo/WalletDemo.java) 
 
 
 <br>
@@ -145,7 +145,7 @@ Address recvAddr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey()
 
 ## TSG and TSG transfer
 
-[Full example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/MakeTxWithoutWalletDemo.java)
+[Full example](https://github.com/TesraSupernet/tesrasdk-java/blob/master/src/main/java/demo/MakeTxWithoutWalletDemo.java)
 
 ### SDK Initialization
 ```
@@ -172,20 +172,20 @@ tstSdk.setDefaultConnect(wm.getWebSocket());
 ####  Query TSG or TSG balance
 ```
 tstSdk.getConnect().getBalance("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2");
-tstSdk.nativevm().ont().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
-tstSdk.nativevm().ong().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
+tstSdk.nativevm().tst().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
+tstSdk.nativevm().tsg().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
 
 // view TSG information
-System.out.println(tstSdk.nativevm().ont().queryName());
-System.out.println(tstSdk.nativevm().ont().querySymbol());
-System.out.println(tstSdk.nativevm().ont().queryDecimals());
-System.out.println(tstSdk.nativevm().ont().queryTotalSupply());
+System.out.println(tstSdk.nativevm().tst().queryName());
+System.out.println(tstSdk.nativevm().tst().querySymbol());
+System.out.println(tstSdk.nativevm().tst().queryDecimals());
+System.out.println(tstSdk.nativevm().tst().queryTotalSupply());
 
 // view TSG information
-System.out.println(tstSdk.nativevm().ong().queryName());
-System.out.println(tstSdk.nativevm().ong().querySymbol());
-System.out.println(tstSdk.nativevm().ong().queryDecimals());
-System.out.println(tstSdk.nativevm().ong().queryTotalSupply());
+System.out.println(tstSdk.nativevm().tsg().queryName());
+System.out.println(tstSdk.nativevm().tsg().querySymbol());
+System.out.println(tstSdk.nativevm().tsg().queryDecimals());
+System.out.println(tstSdk.nativevm().tsg().queryTotalSupply());
 ```
 
 #### Query if the transaction is in the transaction pool
@@ -242,7 +242,7 @@ Address recvAddr = acct1;
 
 // Construct a transfer transaction
 long amount = 1000;
-Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().tst().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 
 // Sign a transaction
 tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
@@ -327,7 +327,7 @@ int amount2 = 20;
 
 State state = new State(sender1, recvAddr, amount);
 State state2 = new State(sender2, recvAddr, amount2);
-Transaction tx = tstSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().tst().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
 
 //The first transferee is a single-signature address, and the second transferee is a multiple-signature address
 tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
@@ -346,7 +346,7 @@ tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serialize
 
 ```
 //Send serialized transaction to signature server
-Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().tst().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 String txHex = tx.toHexString();
 
 //The receiver deserializes the transaction and signs it
@@ -358,7 +358,7 @@ tstSdk.addSign(txRx,acct0);
 
 **Interaction between SDK and signature server**：
 
-[Full Example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/SignServerDemo.java)
+[Full Example](https://github.com/TesraSupernet/tesrasdk-java/blob/master/src/main/java/demo/SignServerDemo.java)
 
 ```
 //Start the signature server service when nodes start：
@@ -380,13 +380,13 @@ String[] signs = new String[]{"1202039b196d5ed74a4d771ade78752734957346597b31384
 tstSdk.getSignServer().sendMultiSigRawTx(txHex,2,signs);
 
 // Construct transfer transaction and sign
-tstSdk.getSignServer().sendSigTransferTx("ont","TU5exRFVqjRi5wnMVzNoWKBq9WFncLXEjK","TA5SgQXTeKWyN4GNfWGoXqioEQ4eCDFMqE",10,30000,0);
+tstSdk.getSignServer().sendSigTransferTx("tst","TU5exRFVqjRi5wnMVzNoWKBq9WFncLXEjK","TA5SgQXTeKWyN4GNfWGoXqioEQ4eCDFMqE",10,30000,0);
 ```
 
 **Sign data**
 
 
-[Full Example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/SignatureDemo.java) 
+[Full Example](https://github.com/TesraSupernet/tesrasdk-java/blob/master/src/main/java/demo/SignatureDemo.java) 
 
 ```
 com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(tstSdk.defaultSignScheme);
@@ -459,11 +459,11 @@ Transaction deserialization
 //version   tx type  nonce   gasprice    gaslimit                payer              payload 
 (version(1) type(1) nonce(4) gasprice(8) gaslimit(8))22 bytes + (payer)21 bytes + payload code bytes( any bytes)
 
-claim ong 
-//             claim address                                                 ont contract address                         to   address                                 amount                       "transferFrom"                           ong                   SYSCALL         "Tesra.Native.Invoke"
+claim tsg 
+//             claim address                                                 tst contract address                         to   address                                 amount                       "transferFrom"                           tsg                   SYSCALL         "Tesra.Native.Invoke"
 //00 c66b 14bb2d5b718efeac060ac825338ca440216da4d8dc 6a7cc8 140000000000000000000000000000000000000001 6a7cc8 14bb2d5b718efeac060ac825338ca440216da4d8dc 6a7cc8 08 806a735501000000 6a7cc8 6c 0c7472616e7366657246726f6d 140000000000000000000000000000000000000002 0068 164f6e746f6c6f67792e4e61746976652e496e766f6b65
-ont and ong transfer
-//                     from                                           to                                        amount                                 "transfer"                                                                       ont or ong                SYSCALL           "Tesra.Native.Invoke"
+tst and tsg transfer
+//                     from                                           to                                        amount                                 "transfer"                                                                       tst or tsg                SYSCALL           "Tesra.Native.Invoke"
 //00 c66b 147af216ff3da82b999b26f5efe165de5f944ac549 6a7cc8 14d2c124dd088190f709b684e0bc676d70c41b3776 6a7cc8 08 00ca9a3b00000000 6a7cc8 6c 51c1 087472616e73666572                                                      140000000000000000000000000000000000000001 0068 164f6e746f6c6f67792e4e61746976652e496e766f6b65
 
 For amount ：   1-16  is  0x51-0x60  .     >=16 is  long,  08 is the total amount bytes .  
@@ -481,7 +481,7 @@ Example: 1000 is  0xe803000000000000 -> 0x00000000000003e8   change from little 
 The interface is similar to TSG - see the makeTransfer functionlity in the TSG section above.
 
 ```
-tstSdk.nativevm().ong().makeTransfer...
+tstSdk.nativevm().tsg().makeTransfer...
 ```
 
 #### Withdraw TSG
@@ -492,18 +492,18 @@ tstSdk.nativevm().ong().makeTransfer...
 ```
 // Query unbound TSG
 String addr = acct0.getAddressU160().toBase58();
-String ong = sdk.nativevm().ong().unboundTsg(addr);
+String tsg = sdk.nativevm().tsg().unboundTsg(addr);
 
 // Withdraw TSG
 com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), tstSdk.signatureScheme);
-String hash = sdk.nativevm().ong().withdrawTsg(account,toAddr,64000L,payerAcct,30000,500);
+String hash = sdk.nativevm().tsg().withdrawTsg(account,toAddr,64000L,payerAcct,30000,500);
 
 ```
 
 
 ## NEP5 Transfer
 
-[Full example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/Nep5Demo.java)
+[Full example](https://github.com/TesraSupernet/tesrasdk-java/blob/master/src/main/java/demo/Nep5Demo.java)
 
 
 ### Query NEP5 Balance
@@ -635,7 +635,7 @@ com.github.TesraSupernet.sdk.exception.SDKException: {"Action":"getmempooltxstat
 
 When SDK sends TstID registration or other exchange transaction, the whole process takes 1-2 seconds since user will extract the private key information from the wallet before doing the signature. To be more efficient, we can constructure the transaction in advance by multi-line or multi-machine before pushing transaction
 
-Detail example as below，[Example](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/src/main/java/demo/CreateManyTx.java)
+Detail example as below，[Example](https://github.com/TesraSupernet/tesrasdk-java/tree/master/src/main/java/demo/CreateManyTx.java)
 
 ### Construct Batch Transaction
 
@@ -655,7 +655,7 @@ com.github.TesraSupernet.account.Account payerAcct = new com.github.TesraSuperne
 FileOutputStream fos = new FileOutputStream(file);
 for (int i = 0; i < 3; i++) {
     com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(SignatureScheme.SHA256WITHECDSA);
-    String tstid = Common.didont + account.getAddressU160().toBase58();
+    String tstid = Common.didtst + account.getAddressU160().toBase58();
     Transaction tx = tstSdk.nativevm().tstId().makeRegister(tstid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
     tstSdk.addSign(tx, account);
     tstSdk.addSign(tx, payerAcct);

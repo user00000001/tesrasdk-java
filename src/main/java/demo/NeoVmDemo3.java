@@ -537,11 +537,11 @@ public class NeoVmDemo3 {
             if(false){
                 com.github.TesraSupernet.sdk.wallet.Account account9999999 = tstSdk.getWalletMgr().importAccount("8p2q0vLRqyfKmFHhnjUYVWOm12kPm78JWqzkTOi9rrFMBz624KjhHQJpyPmiSSOa","111111","AHX1wzvdw9Yipk7E9MuLY4GGX4Ym9tHeDe",Base64.getDecoder().decode("KbiCUr53CZUfKG1M3Gojjw=="));
                 Account account = tstSdk.getWalletMgr().getAccount(account9999999.address, "111111", account9999999.getSalt());
-                tstSdk.nativevm().ont().sendTransfer(account,account3.getAddressU160().toBase58(),100000,account,200000,0);
+                tstSdk.nativevm().tst().sendTransfer(account,account3.getAddressU160().toBase58(),100000,account,200000,0);
                 System.out.println(tstSdk.getConnect().getBalance(account9999999.address));
                 System.out.println(Helper.toHexString(account.serializePrivateKey()));
-                System.out.println(tstSdk.nativevm().ong().unboundTsg(account.getAddressU160().toBase58()));
-                tstSdk.nativevm().ong().withdrawTsg(account,account.getAddressU160().toBase58(),359943000000L,account,200000,0);
+                System.out.println(tstSdk.nativevm().tsg().unboundTsg(account.getAddressU160().toBase58()));
+                tstSdk.nativevm().tsg().withdrawTsg(account,account.getAddressU160().toBase58(),359943000000L,account,200000,0);
                 return;
             }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -24,8 +24,8 @@ import com.github.TesraSupernet.sdk.manager.ConnectMgr;
 import com.github.TesraSupernet.smartcontract.nativevm.*;
 
 public class NativeVm {
-    private Tst ont = null;
-    private Tsg ong = null;
+    private Tst tst = null;
+    private Tsg tsg = null;
     private TstId tstId = null;
     private GlobalParams globalParams = null;
     private Auth auth = null;
@@ -39,17 +39,17 @@ public class NativeVm {
      *  get TstAsset Tx
      * @return instance
      */
-    public Tst ont() {
-        if(ont == null){
-            ont = new Tst(sdk);
+    public Tst tst() {
+        if(tst == null){
+            tst = new Tst(sdk);
         }
-        return ont;
+        return tst;
     }
-    public Tsg ong() {
-        if(ong == null){
-            ong = new Tsg(sdk);
+    public Tsg tsg() {
+        if(tsg == null){
+            tsg = new Tsg(sdk);
         }
-        return ong;
+        return tsg;
     }
     public TstId tstId(){
         if (tstId == null){

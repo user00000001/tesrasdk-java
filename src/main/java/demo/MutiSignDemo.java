@@ -42,7 +42,7 @@ public class MutiSignDemo {
             System.out.println("recvAddr:" + recvAddr.toBase58());
             long amount = 100000;
 
-            Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+            Transaction tx = tstSdk.nativevm().tst().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 
             tstSdk.addMultiSign(tx,M,pks,acct1);
 

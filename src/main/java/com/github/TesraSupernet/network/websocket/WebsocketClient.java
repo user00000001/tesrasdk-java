@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -323,7 +323,7 @@ public class WebsocketClient extends AbstractConnector {
     @Override
     public String getGrantTsg(String address) throws ConnectorException, IOException {
         Map map = new HashMap<>();
-        map.put("Action", "getgrantong");
+        map.put("Action", "getgranttsg");
         map.put("Version", "1.0.0");
         map.put("Id", generateReqId());
         map.put("Addr", address);

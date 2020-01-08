@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -44,14 +44,14 @@ import java.util.List;
  */
 public class Tst {
     private TstSdk sdk;
-    private final String ontContract = "0000000000000000000000000000000000000001";
+    private final String tstContract = "0000000000000000000000000000000000000001";
     private String nativeAbi = "{\"hash\":\"0000000000000000000000000000000000000001\",\"functions\":[{\"name\":\"init\",\"parameters\":[],\"returntype\":\"Bool\"},{\"name\":\"transfer\",\"parameters\":[{\"name\":\"transfers\",\"type\":\"Struct\",\"subType\":[{\"name\":\"from\",\"type\":\"Address\"},{\"name\":\"to\",\"type\":\"Address\"},{\"name\":\"value\",\"type\":\"Int\"}]}],\"returntype\":\"Bool\"},{\"name\":\"approve\",\"parameters\":[{\"name\":\"from\",\"type\":\"Address\"},{\"name\":\"to\",\"type\":\"Address\"},{\"name\":\"value\",\"type\":\"Int\"}],\"returntype\":\"Bool\"},{\"name\":\"transferFrom\",\"parameters\":[{\"name\":\"sender\",\"type\":\"Address\"},{\"name\":\"from\",\"type\":\"Address\"},{\"name\":\"to\",\"type\":\"Address\"},{\"name\":\"value\",\"type\":\"Int\"}],\"returntype\":\"Bool\"},{\"name\":\"name\",\"parameters\":[],\"returntype\":\"String\"},{\"name\":\"symbol\",\"parameters\":[],\"returntype\":\"String\"},{\"name\":\"decimals\",\"parameters\":[],\"returntype\":\"Int\"},{\"name\":\"totalSupply\",\"parameters\":[],\"returntype\":\"Int\"},{\"name\":\"balanceOf\",\"parameters\":[{\"name\":\"account\",\"type\":\"Address\"}],\"returntype\":\"Int\"},{\"name\":\"allowance\",\"parameters\":[{\"name\":\"account\",\"type\":\"Address\"}],\"returntype\":\"Int\"}],\"events\":[{\"name\":\"transfer\",\"parameters\":[{\"name\":\"from\",\"type\":\"Address\"},{\"name\":\"to\",\"type\":\"Address\"},{\"name\":\"value\",\"type\":\"Int\"}]}]}";
     public Tst(TstSdk sdk) {
         this.sdk = sdk;
     }
 
     public String getContractAddress() {
-        return ontContract;
+        return tstContract;
     }
 
     /**
@@ -150,7 +150,7 @@ public class Tst {
         listStruct.add(new Struct().add(Address.decodeBase58(sender),Address.decodeBase58(recvAddr),amount));
         list.add(listStruct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ontContract)),"transfer",args,payer,gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tstContract)),"transfer",args,payer,gaslimit, gasprice);
         return tx;
     }
 
@@ -168,7 +168,7 @@ public class Tst {
         }
         list.add(listStruct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ontContract)), "transfer", args, payer, gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tstContract)), "transfer", args, payer, gaslimit, gasprice);
         return tx;
     }
 
@@ -185,7 +185,7 @@ public class Tst {
         list.add(Address.decodeBase58(address));
         byte[] arg = NativeBuildParams.createCodeParamsScript(list);
 
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ontContract)),"balanceOf",arg,null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tstContract)),"balanceOf",arg,null,0,0);
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
         if (res == null || res.equals("")) {
@@ -208,7 +208,7 @@ public class Tst {
         list.add(new Struct().add(Address.decodeBase58(fromAddr),Address.decodeBase58(toAddr)));
         byte[] arg = NativeBuildParams.createCodeParamsScript(list);
 
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ontContract)),"allowance",arg,null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tstContract)),"allowance",arg,null,0,0);
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
         if (res == null || res.equals("")) {
@@ -267,7 +267,7 @@ public class Tst {
         List list = new ArrayList();
         list.add(new Struct().add(Address.decodeBase58(sender),Address.decodeBase58(recvAddr),amount));
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ontContract)),"approve",args,payer,gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tstContract)),"approve",args,payer,gaslimit, gasprice);
         return tx;
     }
 
@@ -323,7 +323,7 @@ public class Tst {
         List list = new ArrayList();
         list.add(new Struct().add(Address.decodeBase58(sender), Address.decodeBase58(fromAddr), Address.decodeBase58(toAddr), amount));
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ontContract)),"transferFrom",args,payer,gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tstContract)),"transferFrom",args,payer,gaslimit, gasprice);
         return tx;
     }
 
@@ -332,7 +332,7 @@ public class Tst {
      * @throws Exception
      */
     public String queryName() throws Exception {
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ontContract)),"name",new byte[]{0},null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tstContract)),"name",new byte[]{0},null,0,0);
 
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
@@ -344,7 +344,7 @@ public class Tst {
      * @throws Exception
      */
     public String querySymbol() throws Exception {
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ontContract)),"symbol",new byte[]{0},null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tstContract)),"symbol",new byte[]{0},null,0,0);
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
         return new String(Helper.hexToBytes(res));
@@ -355,7 +355,7 @@ public class Tst {
      * @throws Exception
      */
     public long queryDecimals() throws Exception {
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ontContract)),"decimals",new byte[]{0},null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tstContract)),"decimals",new byte[]{0},null,0,0);
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
         if (("").equals(res)) {
@@ -369,7 +369,7 @@ public class Tst {
      * @throws Exception
      */
     public long queryTotalSupply() throws Exception {
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ontContract)),"totalSupply",new byte[]{0},null,0,0);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tstContract)),"totalSupply",new byte[]{0},null,0,0);
         Object obj = sdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject) obj).getString("Result");
         if (res == null || res.equals("")) {

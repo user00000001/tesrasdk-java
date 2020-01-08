@@ -23,18 +23,18 @@ import java.util.List;
 public class TsgX {
 
     private TstSdk sdk;
-    private final String ongXContract = "0000000000000000000000000000000000000002";
+    private final String tsgXContract = "0000000000000000000000000000000000000002";
 
     public TsgX(TstSdk sdk) {
         this.sdk = sdk;
     }
     public String getContractAddress() {
-        return ongXContract;
+        return tsgXContract;
     }
 
 
     public String sendTransfer(Account sendAcct, String recvAddr, long amount, Account payerAcct, long gaslimit, long gasprice) throws Exception {
-        Transaction tx = sdk.nativevm().ong().makeTransfer(sendAcct.getAddressU160().toBase58(),recvAddr,amount,
+        Transaction tx = sdk.nativevm().tsg().makeTransfer(sendAcct.getAddressU160().toBase58(),recvAddr,amount,
                 payerAcct.getAddressU160().toBase58(), gaslimit,gasprice);
         sdk.signTx(tx, new Account[][]{{sendAcct}});
         if(!sendAcct.equals(payerAcct)){
@@ -45,14 +45,14 @@ public class TsgX {
     }
 
     public Transaction makeTransfer(String sendAddr, String recvAddr, long amount, String payer, long gaslimit, long gasprice) throws Exception {
-        return sdk.nativevm().ong().makeTransfer(sendAddr,recvAddr,amount,payer,gaslimit,gasprice);
+        return sdk.nativevm().tsg().makeTransfer(sendAddr,recvAddr,amount,payer,gaslimit,gasprice);
     }
     public Transaction makeTransfer(State[] states, String payer, long gaslimit, long gasprice) throws Exception {
-        return sdk.nativevm().ong().makeTransfer(states,payer,gaslimit,gasprice);
+        return sdk.nativevm().tsg().makeTransfer(states,payer,gaslimit,gasprice);
     }
 
     public String sendApprove(Account sendAcct, String recvAddr, long amount, Account payerAcct, long gaslimit, long gasprice) throws Exception {
-        Transaction tx = sdk.nativevm().ong().makeApprove(sendAcct.getAddressU160().toBase58(),recvAddr,amount,
+        Transaction tx = sdk.nativevm().tsg().makeApprove(sendAcct.getAddressU160().toBase58(),recvAddr,amount,
                 payerAcct.getAddressU160().toBase58(),gaslimit,gasprice);
         sdk.signTx(tx, new Account[][]{{sendAcct}});
         if(!sendAcct.equals(payerAcct)){
@@ -62,11 +62,11 @@ public class TsgX {
         return tx.hash().toHexString();
     }
     public Transaction makeApprove(String sendAddr,String recvAddr,long amount,String payer,long gaslimit,long gasprice) throws Exception {
-        return sdk.nativevm().ong().makeApprove(sendAddr,recvAddr,amount,payer,gaslimit,gasprice);
+        return sdk.nativevm().tsg().makeApprove(sendAddr,recvAddr,amount,payer,gaslimit,gasprice);
     }
 
     public String sendTransferFrom(Account sendAcct, String fromAddr, String toAddr, long amount, Account payerAcct, long gaslimit, long gasprice) throws Exception {
-        Transaction tx = sdk.nativevm().ong().makeTransferFrom(sendAcct.getAddressU160().toBase58(),fromAddr,toAddr,amount,
+        Transaction tx = sdk.nativevm().tsg().makeTransferFrom(sendAcct.getAddressU160().toBase58(),fromAddr,toAddr,amount,
                 payerAcct.getAddressU160().toBase58(),gaslimit,gasprice);
         sdk.signTx(tx, new Account[][]{{sendAcct}});
         if(!sendAcct.equals(payerAcct)){
@@ -77,11 +77,11 @@ public class TsgX {
     }
 
     public Transaction makeTransferFrom(String sendAddr, String fromAddr, String toAddr,long amount,String payer,long gaslimit,long gasprice) throws Exception {
-        return sdk.nativevm().ong().makeTransferFrom(sendAddr,fromAddr,toAddr,amount,payer,gaslimit,gasprice);
+        return sdk.nativevm().tsg().makeTransferFrom(sendAddr,fromAddr,toAddr,amount,payer,gaslimit,gasprice);
     }
 
     public String queryName() throws Exception {
-        Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongXContract)), "name", new byte[]{0}, (String)null, 0L, 0L);
+        Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgXContract)), "name", new byte[]{0}, (String)null, 0L, 0L);
         Object obj = sdk.getSideChainConnectMgr().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject)obj).getString("Result");
         return new String(Helper.hexToBytes(res));
@@ -92,7 +92,7 @@ public class TsgX {
      * @throws Exception
      */
     public String querySymbol() throws Exception {
-        Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongXContract)), "symbol", new byte[]{0}, (String)null, 0L, 0L);
+        Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgXContract)), "symbol", new byte[]{0}, (String)null, 0L, 0L);
         Object obj = sdk.getSideChainConnectMgr().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject)obj).getString("Result");
         return new String(Helper.hexToBytes(res));
@@ -103,14 +103,14 @@ public class TsgX {
      * @throws Exception
      */
     public long queryDecimals() throws Exception {
-        Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongXContract)), "decimals", new byte[]{0}, (String)null, 0L, 0L);
+        Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgXContract)), "decimals", new byte[]{0}, (String)null, 0L, 0L);
         Object obj = sdk.getSideChainConnectMgr().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject)obj).getString("Result");
         return "".equals(res) ? 0L : Long.valueOf(Helper.reverse(res), 16);
     }
 
     public long queryTotalSupply() throws Exception {
-        Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongXContract)), "totalSupply", new byte[]{0}, (String)null, 0L, 0L);
+        Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgXContract)), "totalSupply", new byte[]{0}, (String)null, 0L, 0L);
         Object obj = sdk.getSideChainConnectMgr().sendRawTransactionPreExec(tx.toHexString());
         String res = ((JSONObject)obj).getString("Result");
         return res != null && !res.equals("") ? Long.valueOf(Helper.reverse(res), 16) : 0L;
@@ -118,7 +118,7 @@ public class TsgX {
 
     public String unboundTsg(String address) throws Exception {
         if (address != null && !address.equals("")) {
-            String unboundTsgStr = sdk.getSideChainConnectMgr().getAllowance("ong", Address.parse("0000000000000000000000000000000000000001").toBase58(), address);
+            String unboundTsgStr = sdk.getSideChainConnectMgr().getAllowance("tsg", Address.parse("0000000000000000000000000000000000000001").toBase58(), address);
             long unboundTsg = Long.parseLong(unboundTsgStr);
             return unboundTsgStr;
         } else {
@@ -130,7 +130,7 @@ public class TsgX {
             List list = new ArrayList();
             list.add(Address.decodeBase58(address));
             byte[] arg = NativeBuildParams.createCodeParamsScript(list);
-            Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongXContract)), "balanceOf", arg, (String)null, 0L, 0L);
+            Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgXContract)), "balanceOf", arg, (String)null, 0L, 0L);
             Object obj = sdk.getSideChainConnectMgr().sendRawTransactionPreExec(tx.toHexString());
             String res = ((JSONObject)obj).getString("Result");
             return res != null && !res.equals("") ? Long.valueOf(Helper.reverse(res), 16) : 0L;
@@ -144,7 +144,7 @@ public class TsgX {
             List list = new ArrayList();
             list.add((new Struct()).add(new Object[]{Address.decodeBase58(fromAddr), Address.decodeBase58(toAddr)}));
             byte[] arg = NativeBuildParams.createCodeParamsScript(list);
-            Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongXContract)), "allowance", arg, (String)null, 0L, 0L);
+            Transaction tx = this.sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgXContract)), "allowance", arg, (String)null, 0L, 0L);
             Object obj = sdk.getSideChainConnectMgr().sendRawTransactionPreExec(tx.toHexString());
             String res = ((JSONObject)obj).getString("Result");
             return res != null && !res.equals("") ? Long.valueOf(Helper.reverse(res), 16) : 0L;
@@ -153,7 +153,7 @@ public class TsgX {
         }
     }
 
-    public String ongxSetSyncAddr(Account[] accounts,byte[][] allPubkeys,int M,String address, Account payer, long gaslimit, long gasprice) throws Exception {
+    public String tsgxSetSyncAddr(Account[] accounts,byte[][] allPubkeys,int M,String address, Account payer, long gaslimit, long gasprice) throws Exception {
         if(accounts == null || accounts.length ==0 || address==null|| address.equals("")|| allPubkeys == null || allPubkeys.length < accounts.length
                 ||payer == null || gaslimit < 0||gasprice < 0){
             throw new SDKException(ErrorCode.ParamError);
@@ -163,7 +163,7 @@ public class TsgX {
         struct.add(Address.decodeBase58(address));
         list.add(struct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongXContract)),"setSyncAddr",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgXContract)),"setSyncAddr",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
         sdk.signTx(tx, new Account[][]{{payer}});
         for(int i=0;i<accounts.length;i++){
             sdk.addMultiSign(tx, M,allPubkeys, accounts[i]);
@@ -172,7 +172,7 @@ public class TsgX {
         return tx.hash().toHexString();
     }
 
-    public String ongxSetSyncAddr(Account account,String address, Account payer, long gaslimit, long gasprice) throws Exception {
+    public String tsgxSetSyncAddr(Account account,String address, Account payer, long gaslimit, long gasprice) throws Exception {
         if(account == null || address==null|| address.equals("") ||payer == null || gaslimit < 0||gasprice < 0){
             throw new SDKException(ErrorCode.ParamError);
         }
@@ -181,7 +181,7 @@ public class TsgX {
         struct.add(Address.decodeBase58(address));
         list.add(struct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongXContract)),"setSyncAddr",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgXContract)),"setSyncAddr",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
         sdk.signTx(tx, new Account[][]{{account}});
         if(!account.equals(payer)){
             sdk.addSign(tx, payer);
@@ -190,7 +190,7 @@ public class TsgX {
         return tx.hash().toHexString();
     }
 
-    public String ongSwap(Account account, Swap[] swaps, Account payer, long gaslimit, long gasprice) throws Exception {
+    public String tsgSwap(Account account, Swap[] swaps, Account payer, long gaslimit, long gasprice) throws Exception {
         if(account == null || swaps == null|| swaps.length == 0 || payer == null || gaslimit < 0||gasprice < 0){
             throw new SDKException(ErrorCode.ParamError);
         }
@@ -202,7 +202,7 @@ public class TsgX {
         }
         list.add(struct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongXContract)),"ongSwap",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgXContract)),"tsgSwap",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
         sdk.addSign(tx, account);
         sdk.getSideChainConnectMgr().sendRawTransaction(tx.toHexString());
         return tx.hash().toHexString();
@@ -210,7 +210,7 @@ public class TsgX {
     }
 
     public String getSyncAddress() throws ConnectorException, IOException, IllegalAccessException, InstantiationException {
-        Object obj = sdk.getSideChainConnectMgr().getStorage(Helper.reverse(ongXContract), Helper.toHexString("syncAddress".getBytes()));
+        Object obj = sdk.getSideChainConnectMgr().getStorage(Helper.reverse(tsgXContract), Helper.toHexString("syncAddress".getBytes()));
         if(obj == null) {
             return null;
         }
@@ -220,7 +220,7 @@ public class TsgX {
         return address.toBase58();
     }
 
-    public String ongxSwap(Account account, Swap swap, Account payer, long gaslimit, long gasprice) throws Exception {
+    public String tsgxSwap(Account account, Swap swap, Account payer, long gaslimit, long gasprice) throws Exception {
         if(account == null || swap == null|| swap.value <=0 || payer == null || gaslimit < 0||gasprice < 0){
             throw new SDKException(ErrorCode.ParamError);
         }
@@ -229,7 +229,7 @@ public class TsgX {
         struct.add(swap.address, swap.value);
         list.add(struct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ongXContract)),"ongxSwap",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tsgXContract)),"tsgxSwap",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
         sdk.addSign(tx, account);
         sdk.getSideChainConnectMgr().sendRawTransaction(tx.toHexString());
         return tx.hash().toHexString();

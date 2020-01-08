@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -147,7 +147,7 @@ public class ClaimRecord {
         if (contractAddress == null) {
             throw new SDKException(ErrorCode.NullCodeHash);
         }
-        String addr = issuerTstid.replace(Common.didont,"");
+        String addr = issuerTstid.replace(Common.didtst,"");
         Transaction tx = makeRevoke(issuerTstid,claimId,payerAcct.getAddressU160().toBase58(),gaslimit,gasprice);
         sdk.signTx(tx, addr, password,salt);
         sdk.addSign(tx,payerAcct);

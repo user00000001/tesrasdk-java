@@ -114,7 +114,7 @@ namespace Example
         }
 
         //the admin TSG ID of this contract must be hardcoded.
-        public static readonly byte[] adminTstID = "did:ont:AazEvfQPcQ2GEFFPLF1ZLwQ7K5jDn81hve".AsByteArray();
+        public static readonly byte[] adminTstID = "did:tst :AazEvfQPcQ2GEFFPLF1ZLwQ7K5jDn81hve".AsByteArray();
 
         public static Object Main(string operation,object[] args)
         {
@@ -240,14 +240,14 @@ String assignFuncsToRole(String adminTstID,String password,byte[] salt,String co
 
 |Instruction||Description|
 |:--|:--|:--|
-|Function instruction|Bind a role to an entity|This function must be called by the contract administrator. The TSG ID in the ontIDs array is assigned the role and finally returns true. In the current implementation, the level of the permission token is equal to 2 by default.|
+|Function instruction|Bind a role to an entity|This function must be called by the contract administrator. The TSG ID in the tstIDs array is assigned the role and finally returns true. In the current implementation, the level of the permission token is equal to 2 by default.|
 |Parameter instruction|Field|Description|
 ||adminTstId|Contract administrator's tstid|
 ||password|Contract administrator password|
 ||salt|Private key decryption parameters|
 ||contractAddr|Contract address|
 ||role|Role|
-||ontIDs|tstid array|
+||tstIDs|tstid array|
 ||keyNo|Contract administrator's public key KeyNo|
 ||payerAcct|Paid account|
 ||gaslimit|Gaslimit|
@@ -256,7 +256,7 @@ String assignFuncsToRole(String adminTstID,String password,byte[] salt,String co
 
 ##### Example
 ```
-String assignTstIDsToRole(String adminTstId,String password,salt,String contractAddr,String role,String[] ontIDs,long keyNo,Account payerAcct,long gaslimit,long gasprice)
+String assignTstIDsToRole(String adminTstId,String password,salt,String contractAddr,String role,String[] tstIDs,long keyNo,Account payerAcct,long gaslimit,long gasprice)
 ```
 
 A Role owner can assign a role to other people, from is the TSG ID for assigner, to is the TSG ID for the assignee/delegate, role is the assigned role, period parameter specifies the term of delegation in seconds.

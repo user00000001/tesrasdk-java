@@ -200,7 +200,7 @@ System.out.println(tstSdk.getConnect().getSmartCodeEvent(tx.hash().toHexString()
 //lock 全局变量,同步锁
 public static Object lock = new Object();
 
-//获得ont实例
+//获得tst实例
 String ip = "http://127.0.0.1";
 String wsUrl = ip + ":" + "20335";
 TstSdk wm = TstSdk.getInstance();
@@ -377,7 +377,7 @@ System.out.println("CodeAddress:" + Address.AddressFromVmCode(code).toHexString(
 ```java
 //step1：构造交易
 //需先将智能合约参数转换成vm可识别的opcode
-Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(ontContractAddr, null, contract.toArray(), VmType.Native.value(), sender.toBase58(),gaslimit，gasprice);
+Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(tstContractAddr, null, contract.toArray(), VmType.Native.value(), sender.toBase58(),gaslimit，gasprice);
 
 //step2：对交易签名
 tstSdk.signTx(tx, info1.address, password);

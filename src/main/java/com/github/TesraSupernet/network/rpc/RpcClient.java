@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -254,7 +254,7 @@ public class RpcClient extends AbstractConnector {
 
     @Override
     public String getGrantTsg(String address) throws ConnectorException, IOException {
-        Object result = rpc.call("getgrantong",address);
+        Object result = rpc.call("getgranttsg",address);
         try {
             return (String) result;
         } catch (Exception e) {

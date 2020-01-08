@@ -70,7 +70,7 @@ public class SideChainGovernance {
         }
         List list = new ArrayList();
         Struct struct = new Struct();
-        struct.add(param.sideChainID, param.address,param.ratio, param.deposit, param.ongPool, param.caller, param.keyNo);
+        struct.add(param.sideChainID, param.address,param.ratio, param.deposit, param.tsgPool, param.caller, param.keyNo);
         list.add(struct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
         Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(contractAddress)),"registerSideChain",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
@@ -165,16 +165,16 @@ public class SideChainGovernance {
         }
         return null;
     }
-    public String ongSwap(Account account, SwapParam param, Account payer, long gaslimit, long gasprice) throws Exception {
+    public String tsgSwap(Account account, SwapParam param, Account payer, long gaslimit, long gasprice) throws Exception {
         if(account == null || param == null || payer == null || gaslimit < 0|| gasprice < 0){
             throw new SDKException(ErrorCode.OtherError("parameter is wrong"));
         }
         List list = new ArrayList();
         Struct struct = new Struct();
-        struct.add(param.sideChainId, param.address, param.ongXAccount);
+        struct.add(param.sideChainId, param.address, param.tsgXAccount);
         list.add(struct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(contractAddress)),"ongSwap",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(contractAddress)),"tsgSwap",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
         sdk.signTx(tx,new Account[][]{{account}});
         if(!account.equals(payer)){
             sdk.addSign(tx,payer);
@@ -185,7 +185,7 @@ public class SideChainGovernance {
         }
         return null;
     }
-    public String ongxSwap(Account account, SwapParam[] params, Account payer, long gaslimit, long gasprice) throws Exception {
+    public String tsgxSwap(Account account, SwapParam[] params, Account payer, long gaslimit, long gasprice) throws Exception {
         if(account == null || params == null || params.length == 0|| payer == null || gaslimit < 0|| gasprice < 0){
             throw new SDKException(ErrorCode.OtherError("parameter is wrong"));
         }
@@ -193,11 +193,11 @@ public class SideChainGovernance {
         Struct struct = new Struct();
         struct.add(params.length);
         for(SwapParam param : params) {
-            struct.add(param.sideChainId, param.address, param.ongXAccount);
+            struct.add(param.sideChainId, param.address, param.tsgXAccount);
         }
         list.add(struct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(contractAddress)),"ongxSwap",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
+        Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(contractAddress)),"tsgxSwap",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);
         sdk.signTx(tx,new Account[][]{{account}});
         if(!account.equals(payer)){
             sdk.addSign(tx,payer);
@@ -214,7 +214,7 @@ public class SideChainGovernance {
         }
         List list = new ArrayList();
         Struct struct = new Struct();
-        struct.add(param.sideChainId, param.address, param.depositAdd, param.ongPoolAdd);
+        struct.add(param.sideChainId, param.address, param.depositAdd, param.tsgPoolAdd);
         list.add(struct);
         byte[] args = NativeBuildParams.createCodeParamsScript(list);
         Transaction tx = sdk.vm().buildNativeParams(new Address(Helper.hexToBytes(contractAddress)),"inflation",args,payer.getAddressU160().toBase58(),gaslimit, gasprice);

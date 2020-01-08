@@ -32,7 +32,7 @@ public class ConnectMgrTest {
     String blockHash;
     String password = "111111";
     Identity identity;
-    private final String ontContract = "0000000000000000000000000000000000000001";
+    private final String tstContract = "0000000000000000000000000000000000000001";
 
     String wallet = "ConnectMgrTest.json";
 
@@ -111,7 +111,7 @@ public class ConnectMgrTest {
         List list = new ArrayList();
         list.add(Address.decodeBase58(account.getAddressU160().toBase58()));
         byte[] parabytes = NativeBuildParams.createCodeParamsScript(list);
-        Transaction tx = tstSdk.vm().buildNativeParams(new Address(Helper.hexToBytes(ontContract)),"balanceOf",parabytes,null,0,0);
+        Transaction tx = tstSdk.vm().buildNativeParams(new Address(Helper.hexToBytes(tstContract)),"balanceOf",parabytes,null,0,0);
         Object obj = tstSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
         Assert.assertNotEquals(null,obj);
     }

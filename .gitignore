@@ -12,3 +12,5 @@ test-output
 .externalToolBuilders
 coverage-error.log
 NeoVmTest.json
+/bin
+/build

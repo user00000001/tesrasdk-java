@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -46,12 +46,12 @@ public class AuthorizeInfo implements Serializable {
         this.peerPubkey = reader.readVarString();
         try {
             this.address = reader.readSerializable(Address.class);
-            this.consensusPos = reader.readLong();
-            this.freezePos = reader.readLong();
-            this.newPos = reader.readLong();
-            this.withdrawPos = reader.readLong();
-            this.withdrawFreezePos = reader.readLong();
-            this.withdrawUnfreezePos = reader.readLong();
+            this.consensusPos = reader.readLtsg();
+            this.freezePos = reader.readLtsg();
+            this.newPos = reader.readLtsg();
+            this.withdrawPos = reader.readLtsg();
+            this.withdrawFreezePos = reader.readLtsg();
+            this.withdrawUnfreezePos = reader.readLtsg();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

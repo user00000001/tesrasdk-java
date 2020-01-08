@@ -58,8 +58,8 @@ public class TsgDemo2 {
     }
 
     public static void sendTransfer(TstSdk tstSdk) throws Exception {
-        // send ong from acct1 to acct2(单发单收)
-        String txhash = tstSdk.nativevm().ong().sendTransfer(acct1, acct2.getAddressU160().toBase58(), 1000, acct1, 20000, 500);
+        // send tsg from acct1 to acct2(单发单收)
+        String txhash = tstSdk.nativevm().tsg().sendTransfer(acct1, acct2.getAddressU160().toBase58(), 1000, acct1, 20000, 500);
         return;
     }
 
@@ -70,16 +70,16 @@ public class TsgDemo2 {
         State state = new State(acct1.getAddressU160(), acct3.getAddressU160(), 100);
         State state2 = new State(acct2.getAddressU160(), acct4.getAddressU160(), 200);
         State[] states = new State[]{state, state2};
-        String txhash = tstSdk.nativevm().ong().sendTransferMulti(accounts, states, acct1, 20000, 0);
+        String txhash = tstSdk.nativevm().tsg().sendTransferMulti(accounts, states, acct1, 20000, 0);
         return;
 
     }
 
     public static void sendTransferFromMultiSignAddr(TstSdk tstSdk) throws Exception {
-        // send ong from multiSignatureAddress to acct2（多签地址转账）
+        // send tsg from multiSignatureAddress to acct2（多签地址转账）
         Address multiSignatureAddress = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey(), acct2.serializePublicKey());
         Account payerAcct = acct1;
-        Transaction tx = tstSdk.nativevm().ong().makeTransfer(multiSignatureAddress.toBase58(), acct2.getAddressU160().toBase58(), 1000, payerAcct.getAddressU160().toBase58(), 20000, 500);
+        Transaction tx = tstSdk.nativevm().tsg().makeTransfer(multiSignatureAddress.toBase58(), acct2.getAddressU160().toBase58(), 1000, payerAcct.getAddressU160().toBase58(), 20000, 500);
         tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{payerAcct}});
         tstSdk.addMultiSign(tx, 2, new byte[][]{acct1.serializePublicKey(), acct2.serializePublicKey()}, acct1);
         tstSdk.addMultiSign(tx, 2, new byte[][]{acct1.serializePublicKey(), acct2.serializePublicKey()}, acct2);
@@ -109,12 +109,12 @@ public class TsgDemo2 {
     }
 
     public static void accountInfo(TstSdk tstSdk) throws Exception {
-        //query ong token info(账户状态查看)
-        System.out.println(tstSdk.nativevm().ong().queryDecimals());
-        System.out.println(tstSdk.nativevm().ong().queryName());
-        System.out.println(tstSdk.nativevm().ong().querySymbol());
-        System.out.println(tstSdk.nativevm().ong().queryTotalSupply());
-        System.out.println(acct1.getAddressU160().toBase58() + ": " + tstSdk.nativevm().ong().queryBalanceOf(acct1.getAddressU160().toBase58()));
+        //query tsg token info(账户状态查看)
+        System.out.println(tstSdk.nativevm().tsg().queryDecimals());
+        System.out.println(tstSdk.nativevm().tsg().queryName());
+        System.out.println(tstSdk.nativevm().tsg().querySymbol());
+        System.out.println(tstSdk.nativevm().tsg().queryTotalSupply());
+        System.out.println(acct1.getAddressU160().toBase58() + ": " + tstSdk.nativevm().tsg().queryBalanceOf(acct1.getAddressU160().toBase58()));
         return;
 
     }
@@ -134,7 +134,7 @@ public class TsgDemo2 {
     public static void showBalance(TstSdk tstSdk, Account[] accounts) throws Exception {
         for (int i = 0; i < accounts.length; i++) {
             int a = i + 1;
-            System.out.println("account" + a + ":" + tstSdk.nativevm().ong().queryBalanceOf(accounts[i].getAddressU160().toBase58()));
+            System.out.println("account" + a + ":" + tstSdk.nativevm().tsg().queryBalanceOf(accounts[i].getAddressU160().toBase58()));
         }
     }
 
@@ -154,7 +154,7 @@ public class TsgDemo2 {
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());
-        wm.openWalletFile("ong.json");
+        wm.openWalletFile("tsg.json");
         return wm;
     }
 }

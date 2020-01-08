@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -103,7 +103,7 @@ public class WebsocketDemo {
                     }
                     info1 = tstSdk.getWalletMgr().getWallet().getAccounts().get(0);
                     info2 = tstSdk.getWalletMgr().getWallet().getAccounts().get(1);
-                    Transaction tx = tstSdk.nativevm().ont().makeTransfer( info1.address, info2.address, 100L,payer.address, tstSdk.DEFAULT_GAS_LIMIT,0);
+                    Transaction tx = tstSdk.nativevm().tst().makeTransfer( info1.address, info2.address, 100L,payer.address, tstSdk.DEFAULT_GAS_LIMIT,0);
                     tstSdk.signTx(tx, info1.address, password,new byte[]{});
                     System.out.println(tx.toHexString());
                     tstSdk.getConnect().sendRawTransaction(tx.toHexString());

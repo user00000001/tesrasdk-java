@@ -68,7 +68,7 @@
 //
 //
 //        if (tstSdk.getWalletMgr().getIdentitys().size() < 1) {
-//            Identity did = tstSdk.neovm().tstId().sendRegister(password,identity.tstid.replace(Common.didont,""),0);
+//            Identity did = tstSdk.neovm().tstId().sendRegister(password,identity.tstid.replace(Common.didtst,""),0);
 //            Thread.sleep(6000);
 //        }
 //        did = tstSdk.getWalletMgr().getIdentitys().get(0);

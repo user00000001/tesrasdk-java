@@ -38,7 +38,7 @@ public class PongRsp {
         ByteArrayInputStream ms = new ByteArrayInputStream(data);
         BinaryReader reader = new BinaryReader(ms);
         try {
-            height = reader.readLong();
+            height = reader.readLtsg();
             System.out.println(height);
         } catch (Exception e) {
             e.printStackTrace();

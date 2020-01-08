@@ -52,7 +52,7 @@ They are:
  |   15 | sendRawTransaction("txhexString")    |  send transaction |
  |   16 | sendRawTransaction(Transaction)      |  send transaction |
  |   17 | sendRawTransactionPreExec()          |  send prepare execution transaction |
- |   18 | getAllowance("ont","from","to")      |  query allowance |
+ |   18 | getAllowance("tst","from","to")      |  query allowance |
  |   19 | getMemPoolTxCount()                  |  query memory pool transaction count |
  |   20 | getMemPoolTxState()                  |  query memory pool transaction state |
  |   21 | syncSendRawTransaction("data")       |  sync Send RawTransaction |
@@ -132,8 +132,8 @@ They are:
  |   7 | String querySymbol()                                                                        |  query Symbol|
   |  8 | long queryDecimals()                                                                        |  query Decimals|
  |   9 | long queryTotalSupply()                                                                     |  query TotalSupply|
-  | 10 | String claimTsg(Account sendAcct, String toAddr, long amount, Account payerAcct, long gaslimit, long gasprice)             |  claim ong|
- |  11 | String unclaimTsg(String address)   |  query unclaim ong|
+  | 10 | String claimTsg(Account sendAcct, String toAddr, long amount, Account payerAcct, long gaslimit, long gasprice)             |  claim tsg|
+ |  11 | String unclaimTsg(String address)   |  query unclaim tsg|
       
       
 
@@ -233,7 +233,7 @@ They are:
  |:-----|:--------|
  |    1 | String sendTransfer(String adminTstId,String password,byte[] salt,String contractAddr, String newAdminTstID,int key,Account payerAcct,long gaslimit,long gasprice)                 |
  |    2 | String assignFuncsToRole(String adminTstID,String password,byte[] salt,String contractAddr,String role,String[] funcName,int key,Account payerAcct, long gaslimit,long gasprice)    |
- |    3 | String assignTstIDsToRole(String adminTstId,String password,byte[] salt,String contractAddr,String role,String[] ontIDs, int key,Account payerAcct, long gaslimit,long gasprice)    |
+ |    3 | String assignTstIDsToRole(String adminTstId,String password,byte[] salt,String contractAddr,String role,String[] tstIDs, int key,Account payerAcct, long gaslimit,long gasprice)    |
   |   4 | String delegate(String tstid,String password,byte[] salt,String contractAddr,String toTstId,String role,int period,int level,int key,Account payerAcct, long gaslimit,long gasprice)|
 |     5 | String withdraw(String initiatorTstid,String password,byte[] salt,String contractAddr,String delegate, String role,int key,Account payerAcct, long gaslimit,long gasprice)          |
 
@@ -244,7 +244,7 @@ They are:
  |:-----|:--------|
  |    1 | Transaction makeTransfer(String adminTstID,String contractAddr, String newAdminTstID,int key,String payer,long gaslimit,long gasprice)                    |   
  |    2 | Transaction makeAssignFuncsToRole(String adminTstID,String contractAddr,String role,String[] funcName,int key,String payer,long gaslimit,long gasprice)   |   
- |    3 | Transaction makeAssignTstIDsToRole(String adminTstId,String contractAddr,String role,String[] ontIDs, int key,String payer,long gaslimit,long gasprice)   |   
+ |    3 | Transaction makeAssignTstIDsToRole(String adminTstId,String contractAddr,String role,String[] tstIDs, int key,String payer,long gaslimit,long gasprice)   |   
  |    4 | Transaction makeDelegate(String tstid,String contractAddr,String toAddr,String role,int period,int level,int key,String payer,long gaslimit,long gasprice)|   
 |     5 | Transaction makeWithDraw(String tstid,String contractAddr,String delegate, String role,int key,String payer,long gaslimit,long gasprice)                  |   
 
@@ -255,7 +255,7 @@ They are:
  -----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  |   1 | String registerCandidate(Account account, String peerPubkey, long initPos, String tstid,String tstidpwd,byte[] salt,  long keyNo, Account payerAcct, long gaslimit, long gasprice) | Mortgage a certain TSG, consume a certain amount of additional TSG, apply to become a candidate node |
  |   2 | String unRegisterCandidate(Account account, String peerPubkey,Account payerAcct, long gaslimit, long gasprice)                  | Cancel the application to become a candidate node, unfreeze the mortgaged TSG|
- |   3 | String withdrawTsg(Account account,Account payerAcct,long gaslimit,long gasprice)                                               | Extract untied ong|
+ |   3 | String withdrawTsg(Account account,Account payerAcct,long gaslimit,long gasprice)                                               | Extract untied tsg|
  |   4 | String getPeerInfo(String peerPubkey)                                                                                           | Query node information|
  |   5 | String getPeerInfoAll()                                                                                                         | Query all nodes|
  |   6 | String getAuthorizeInfo(String peerPubkey,Address addr)                                                                         | Query the authorization information of a certain address to a node|

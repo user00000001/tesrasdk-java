@@ -141,7 +141,7 @@ String addInitPos(Account account,String peerPubkey,int pos,Account payerAcct,lo
 | ----- | ------- | ------ | ------------- | ----------- |
 | input | account       | Account   | peer wallet account     | Required |
 |         | peerPubkey    | String  | peer public key               | Required |
-|         | pos           | int     | Add the number of ont mortgages      | Required |
+|         | pos           | int     | Add the number of tst mortgages      | Required |
 |         | payerAcct     | Account | account for payment of transaction fees    |Required|
 |         | gaslimit      | long    | gaslimit| Required |
 |         | gasprice      | long    | gas price               | Required|
@@ -159,7 +159,7 @@ String reduceInitPos(Account account,String peerPubkey,int pos,Account payerAcct
 | ----- | ------- | ------ | ------------- | ----------- |
 | input | account       | Account | peer wallet account          | Required |
 |         | peerPubkey    | String  | peer public key              | Required |
-|         | pos           | int     | Reduce the number of ont mortgages       | Required |
+|         | pos           | int     | Reduce the number of tst mortgages       | Required |
 |         | payerAcct     | Account | account for payment of transaction fees     |Required|
 |         | gaslimit      | long    | gaslimit| Required |
 |         | gasprice      | long    | gas price               | Required|
@@ -196,7 +196,7 @@ String changeMaxAuthorization(Account account,String peerPubkey,int maxAuthorize
 | ----- | ------- | ------ | ------------- | ----------- |
 | input | account       | Account | peer wallet account  | Required |
 |         | peerPubkey    | String  | peer public key               | Required |
-|         | maxAuthorize  | int     | The maximum number of authorized ont nodes accepted by the node itself | Required |
+|         | maxAuthorize  | int     | The maximum number of authorized tst nodes accepted by the node itself | Required |
 |         | payerAcct     | Account | account for payment of transaction fees      |Required|
 |         | gaslimit      | long    | gaslimit| Required |
 |         | gasprice      | long    | gas price   | Required|

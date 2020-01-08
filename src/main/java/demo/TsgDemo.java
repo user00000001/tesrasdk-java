@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -78,7 +78,7 @@ public class TsgDemo {
                 }
                 Address multiAddr = Address.addressFromMultiPubKeys(M,pks);
 
-                tstSdk.nativevm().ont().sendTransferFromMultiSignAddr(M,pks,new com.github.TesraSupernet.account.Account[]{acct00,acct01,acct02,acct03,acct04},acct1.getAddressU160().toBase58(),5,acct0,tstSdk.DEFAULT_GAS_LIMIT,0);
+                tstSdk.nativevm().tst().sendTransferFromMultiSignAddr(M,pks,new com.github.TesraSupernet.account.Account[]{acct00,acct01,acct02,acct03,acct04},acct1.getAddressU160().toBase58(),5,acct0,tstSdk.DEFAULT_GAS_LIMIT,0);
                 System.exit(0);
             }
             if(true){ //M < n
@@ -98,7 +98,7 @@ public class TsgDemo {
                 int M = 5;
                 Address multiAddr = Address.addressFromMultiPubKeys(M,pks);
                 System.out.println("multiAddr:"+multiAddr.toBase58());
-                Transaction tx = tstSdk.nativevm().ont().makeTransfer(multiAddr.toBase58(), acct1.getAddressU160().toBase58(), 2, payerAcct.getAddressU160().toBase58(), 30000, 0);
+                Transaction tx = tstSdk.nativevm().tst().makeTransfer(multiAddr.toBase58(), acct1.getAddressU160().toBase58(), 2, payerAcct.getAddressU160().toBase58(), 30000, 0);
 
                 for (int i = 0; i< M; i++) {
                     tstSdk.addMultiSign(tx, M, pks, accounts[i]);
@@ -108,51 +108,51 @@ public class TsgDemo {
                 System.exit(0);
             }
             if (false) {
-                String hash = tstSdk.nativevm().ong().sendApprove(acct0,acct1.getAddressU160().toBase58(),100,payerAcct,30000,0);
+                String hash = tstSdk.nativevm().tsg().sendApprove(acct0,acct1.getAddressU160().toBase58(),100,payerAcct,30000,0);
                 System.out.println(hash);
 //                Thread.sleep(6000);
-                System.out.println(tstSdk.nativevm().ong().queryAllowance(acct6.getAddressU160().toBase58(), acct1.getAddressU160().toBase58()));
+                System.out.println(tstSdk.nativevm().tsg().queryAllowance(acct6.getAddressU160().toBase58(), acct1.getAddressU160().toBase58()));
 //                System.out.println("acct0:" + tstSdk.getConnect().getBalance(acct0.getAddressU160().toBase58()));
 //                System.out.println("acct1:" + tstSdk.getConnect().getBalance(acct1.getAddressU160().toBase58()));
 //                System.out.println("acct2:" + tstSdk.getConnect().getBalance(acct2.getAddressU160().toBase58()));
-//                System.out.println(tstSdk.getConnect().getAllowance("ont",acct0.getAddressU160().toBase58(), acct1.getAddressU160().toBase58()));
+//                System.out.println(tstSdk.getConnect().getAllowance("tst",acct0.getAddressU160().toBase58(), acct1.getAddressU160().toBase58()));
             }
             if (false) {
-                String hash = tstSdk.nativevm().ong().sendTransferFrom(acct1,acct6.getAddressU160().toBase58(),acct1.getAddressU160().toBase58(),100,payerAcct,30000,0);
+                String hash = tstSdk.nativevm().tsg().sendTransferFrom(acct1,acct6.getAddressU160().toBase58(),acct1.getAddressU160().toBase58(),100,payerAcct,30000,0);
                 Thread.sleep(6000);
                 System.out.println(tstSdk.getConnect().getSmartCodeEvent(hash));
             }
             if(false){
-                System.out.println(tstSdk.nativevm().ong().queryBalanceOf(acct6.getAddressU160().toBase58()));
-                //System.out.println(tstSdk.nativevm().ont().queryTotalSupply());
+                System.out.println(tstSdk.nativevm().tsg().queryBalanceOf(acct6.getAddressU160().toBase58()));
+                //System.out.println(tstSdk.nativevm().tst().queryTotalSupply());
 //                System.exit(0);
-                //String hash = tstSdk.nativevm().ont().sendTransfer(acct0,acct1.getAddressU160().toBase58(),11,acct0,tstSdk.DEFAULT_GAS_LIMIT,0);
+                //String hash = tstSdk.nativevm().tst().sendTransfer(acct0,acct1.getAddressU160().toBase58(),11,acct0,tstSdk.DEFAULT_GAS_LIMIT,0);
                 //System.out.println(hash);
                 //Thread.sleep(6000);
 
-               // tstSdk.nativevm().ong().claimTsg(acct0,acct0.getAddressU160().toBase58(),49520000000000L,acct0,tstSdk.DEFAULT_GAS_LIMIT,0);
+               // tstSdk.nativevm().tsg().claimTsg(acct0,acct0.getAddressU160().toBase58(),49520000000000L,acct0,tstSdk.DEFAULT_GAS_LIMIT,0);
             }
             if(false){
-                System.out.println(tstSdk.nativevm().ong().unboundTsg(acct6.getAddressU160().toBase58()));
-                System.out.println(tstSdk.nativevm().ong().queryName());
-                System.out.println(tstSdk.nativevm().ong().querySymbol());
-                System.out.println(tstSdk.nativevm().ong().queryDecimals());
-                System.out.println(tstSdk.nativevm().ong().queryTotalSupply());
-                System.out.println(tstSdk.nativevm().ong().queryBalanceOf(acct0.getAddressU160().toBase58()));
-                System.out.println(tstSdk.nativevm().ong().queryAllowance(acct0.getAddressU160().toBase58(),acct0.getAddressU160().toBase58()));
+                System.out.println(tstSdk.nativevm().tsg().unboundTsg(acct6.getAddressU160().toBase58()));
+                System.out.println(tstSdk.nativevm().tsg().queryName());
+                System.out.println(tstSdk.nativevm().tsg().querySymbol());
+                System.out.println(tstSdk.nativevm().tsg().queryDecimals());
+                System.out.println(tstSdk.nativevm().tsg().queryTotalSupply());
+                System.out.println(tstSdk.nativevm().tsg().queryBalanceOf(acct0.getAddressU160().toBase58()));
+                System.out.println(tstSdk.nativevm().tsg().queryAllowance(acct0.getAddressU160().toBase58(),acct0.getAddressU160().toBase58()));
 
             }
             if(false){
 
-                String hash = tstSdk.nativevm().ont().sendTransfer(acct6,acct1.getAddressU160().toBase58(),1000L,payerAcct,30000,0);
+                String hash = tstSdk.nativevm().tst().sendTransfer(acct6,acct1.getAddressU160().toBase58(),1000L,payerAcct,30000,0);
 
-//                String hash = tstSdk.nativevm().ont().sendTransfer(acct0, acct1.getAddressU160().toBase58(), 30L, payerAcct, 30000, 0);
+//                String hash = tstSdk.nativevm().tst().sendTransfer(acct0, acct1.getAddressU160().toBase58(), 30L, payerAcct, 30000, 0);
                 Thread.sleep(6000);
                 System.out.println(tstSdk.getConnect().getSmartCodeEvent(hash));
             }
             if(true){
-                System.out.println(tstSdk.nativevm().ong().unboundTsg(acct0.getAddressU160().toBase58()));
-                String hash = tstSdk.nativevm().ong().withdrawTsg(acct0, acct0.getAddressU160().toBase58(), 1459535000000000L, payerAcct, 30000, 0);
+                System.out.println(tstSdk.nativevm().tsg().unboundTsg(acct0.getAddressU160().toBase58()));
+                String hash = tstSdk.nativevm().tsg().withdrawTsg(acct0, acct0.getAddressU160().toBase58(), 1459535000000000L, payerAcct, 30000, 0);
                 Thread.sleep(6000);
                 System.out.println(tstSdk.getConnect().getSmartCodeEvent(hash));
             }

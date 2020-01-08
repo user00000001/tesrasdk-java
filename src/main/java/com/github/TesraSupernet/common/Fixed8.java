@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -148,7 +148,7 @@ public class Fixed8 implements Comparable<Fixed8>, Serializable {
     }
 
 
-    public long toLong() {
+    public long toLtsg() {
         return value / D;
     }
 
@@ -179,6 +179,6 @@ public class Fixed8 implements Comparable<Fixed8>, Serializable {
 
     @Override
     public void deserialize(BinaryReader reader) throws IOException {
-        value = reader.readLong();
+        value = reader.readLtsg();
     }
 }

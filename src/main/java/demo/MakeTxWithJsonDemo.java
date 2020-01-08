@@ -32,7 +32,7 @@ public class MakeTxWithJsonDemo {
                         "\t\t\t\t\"operation\": \"transferNativeAsset\",\n" +
                         "\t\t\t\t\"args\": [{\n" +
                         "\t\t\t\t\t\"name\": \"arg0\",\n" +
-                        "\t\t\t\t\t\"value\": \"String:ont\"\n" +
+                        "\t\t\t\t\t\"value\": \"String:tst\"\n" +
                         "\t\t\t\t}, {\n" +
                         "\t\t\t\t\t\"name\": \"arg1\",\n" +
                         "\t\t\t\t\t\"value\": \"Address:AUr5QUfeBADq6BMY6Tp5yuMsUNGpsD7nLZ\"\n" +

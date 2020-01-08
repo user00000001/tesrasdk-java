@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The TesraSupernet Authors
+ * Copyright (C) 2019-2020 The TesraSupernet Authors
  * This file is part of The TesraSupernet library.
  *
  *  The TesraSupernet is free software: you can redistribute it and/or modify
@@ -57,8 +57,8 @@ public class PeerPoolItem implements Serializable {
             e.printStackTrace();
         }
         this.status = reader.readByte();
-        this.initPos = reader.readLong();
-        this.totalPos = reader.readLong();
+        this.initPos = reader.readLtsg();
+        this.totalPos = reader.readLtsg();
     }
 
     @Override

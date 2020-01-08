@@ -33,7 +33,7 @@ class Header {
     * JWT: This corresponds to the case that blockchain proof is not contained in the claim
     * JWT-X: This corresponds to the case that blockchain proof is a part of the claim
 
-`kid`  attribute refers to the public key used for signature verification. It has the form <ontID>#keys-<id> as defined in TSG ID specification.
+`kid`  attribute refers to the public key used for signature verification. It has the form <tstID>#keys-<id> as defined in TSG ID specification.
 
 
 ```
@@ -99,7 +99,7 @@ map.put("Issuer", dids.get(0).tstid);
 map.put("Subject", dids.get(1).tstid);
 Map clmRevMap = new HashMap();
 clmRevMap.put("typ","AttestContract");
-clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didont,""));
+clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didtst,""));
 String claim = tstSdk.nativevm().tstId().createTstIdClaim(dids.get(0).tstid,password,salt, "claim:context", map, map,clmRevMap,System.currentTimeMillis()/1000 +100000);
 ```
 Note: The issuer may have multiple public keys. The parameter tstid of createTstIdClaim specifies which public key to use. <p> <br>
@@ -133,7 +133,7 @@ map.put("Subject", dids.get(1).tstid);
 
 Map clmRevMap = new HashMap();
 clmRevMap.put("typ","AttestContract");
-clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didont,""));
+clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didtst,""));
 
 String claim = tstSdk.nativevm().tstId().createTstIdClaim(dids.get(0).tstid,password,salt, "claim:context", map, map,clmRevMap,System.currentTimeMillis()/1000 +100000);
 boolean b = tstSdk.nativevm().tstId().verifyTstIdClaim(claim);
@@ -172,13 +172,13 @@ map.put("Subject", dids.get(1).tstid);
 
 Map clmRevMap = new HashMap();
 clmRevMap.put("typ","AttestContract");
-clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didont,""));
+clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didtst,""));
 
 String claim = tstSdk.nativevm().tstId().createTstIdClaim(dids.get(0).tstid,password,dids.get(0).controls.get(0).getSalt(), "claim:context", map, map,
 clmRevMap,System.currentTimeMillis()/1000 +100000);
 ```
 
-Note: For createTstIdClaim interface details please see the digital identity tstid document https://github.com/TesraSupernet/tesra-java-sdk/blob/master/docs/cn/identity_claim.md
+Note: For createTstIdClaim interface details please see the digital identity tstid document https://github.com/TesraSupernet/tesrasdk-java/blob/master/docs/cn/identity_claim.md
 
 
 <br>

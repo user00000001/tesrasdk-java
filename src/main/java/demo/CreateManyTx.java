@@ -30,7 +30,7 @@ public class CreateManyTx {
                 FileOutputStream fos = new FileOutputStream(file);
                 for (int i = 0; i < 3; i++) {
                     com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(SignatureScheme.SHA256WITHECDSA);
-                    String tstid = Common.didont + account.getAddressU160().toBase58();
+                    String tstid = Common.didtst + account.getAddressU160().toBase58();
                     Transaction tx = tstSdk.nativevm().tstId().makeRegister(tstid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
                     tstSdk.addSign(tx, account);
                     tstSdk.addSign(tx, payerAcct);
