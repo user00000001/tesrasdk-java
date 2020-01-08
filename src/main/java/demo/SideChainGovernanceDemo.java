@@ -1,7 +1,7 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
@@ -15,7 +15,7 @@ import java.util.Base64;
 
 public class SideChainGovernanceDemo {
     public static void main(String[] args) throws Exception {
-        OntSdk sdk = OntSdk.getInstance();
+        TstSdk sdk = TstSdk.getInstance();
         sdk.openWalletFile("wallet2.dat");
         sdk.setRpc("http://139.219.128.220:20336");
         SideChainGovernance sideChainGovernance = new SideChainGovernance(sdk);
@@ -34,8 +34,8 @@ public class SideChainGovernanceDemo {
         }
 
         //梦航
-//        Account adminOntIdAcct = getAccount("cCQnie0Dd8aQPyY+9UBFw2x2cLn2RMogKqhM8OkyjJNrNTvlcVaYGRENfy2ErF7Q","passwordtest","ARiwjLzjzLKZy8V43vm6yUcRG9b56DnZtY","3e1zvaLjtVuPrQ1o7oJsQA==");
-//        String adminPrivateKey =Helper.toHexString(adminOntIdAcct.serializePrivateKey());
+//        Account adminTstIdAcct = getAccount("cCQnie0Dd8aQPyY+9UBFw2x2cLn2RMogKqhM8OkyjJNrNTvlcVaYGRENfy2ErF7Q","passwordtest","ARiwjLzjzLKZy8V43vm6yUcRG9b56DnZtY","3e1zvaLjtVuPrQ1o7oJsQA==");
+//        String adminPrivateKey =Helper.toHexString(adminTstIdAcct.serializePrivateKey());
         Identity adminIndentity = sdk.getWalletMgr().getWallet().getIdentity("did:ont:ARiwjLzjzLKZy8V43vm6yUcRG9b56DnZtY");
         //梦航
         Account account1 = getAccount("wR9S/JYwMDfCPWFGEy5DEvWfU14k9suZuL4+woGtfhZJf5+KyL9VJqMi/wGTOd1i","passwordtest","AZqk4i7Zhfhc1CRUtZYKrLw4YTSq4Y9khN","ZaIL8DxNaQ91fkMHAdiBjQ==");
@@ -59,15 +59,15 @@ public class SideChainGovernanceDemo {
             return;
         }
         if(false){
-            String txhash1 = sdk.nativevm().ontId().sendRegister(identity,password,account,20000,0);
-            String txhash2 = sdk.nativevm().ontId().sendRegister(adminIndentity,password,account,20000,0);
+            String txhash1 = sdk.nativevm().tstId().sendRegister(identity,password,account,20000,0);
+            String txhash2 = sdk.nativevm().tstId().sendRegister(adminIndentity,password,account,20000,0);
             Thread.sleep(6000);
 
             System.out.println(sdk.getConnect().getSmartCodeEvent(txhash1));
             System.out.println(sdk.getConnect().getSmartCodeEvent(txhash2));
 
 //            Transaction tx = sdk.nativevm().ont().makeTransfer(multiAddress.toBase58(),"AMAx993nE6NEqZjwBssUfopxnnvTdob9ij",10000, account.getAddressU160().toBase58(),200000,0);
-////            Transaction tx = sdk.nativevm().ong().makeWithdrawOng(multiAddress.toBase58(),"AMAx993nE6NEqZjwBssUfopxnnvTdob9ij",35478934750000L,account.getAddressU160().toBase58(),20000,0);
+////            Transaction tx = sdk.nativevm().ong().makeWithdrawTsg(multiAddress.toBase58(),"AMAx993nE6NEqZjwBssUfopxnnvTdob9ij",35478934750000L,account.getAddressU160().toBase58(),20000,0);
 //            for(int i=0;i<5;i++){
 //                sdk.addMultiSign(tx, 5, pks, accounts[i]);
 //            }
@@ -77,15 +77,15 @@ public class SideChainGovernanceDemo {
 //
 //
 //            Thread.sleep(3000);
-            System.out.println(sdk.nativevm().ong().unboundOng(multiAddress.toBase58()));
+            System.out.println(sdk.nativevm().ong().unboundTsg(multiAddress.toBase58()));
             System.out.println(sdk.getConnect().getBalance(multiAddress.toBase58()));
             System.out.println(sdk.getConnect().getBalance(account.getAddressU160().toBase58()));
             return;
         }
         if(false){
-            String txhash = sdk.nativevm().auth().assignFuncsToRole(adminIndentity.ontid,password,adminIndentity.controls.get(0).getSalt(),1,"0000000000000000000000000000000000000007","role",new String[]{"registerSideChain"},account,20000,0);
-//            String txhash = sdk.nativevm().auth().assignOntIdsToRole(adminIndentity.ontid,password,adminIndentity.controls.get(0).getSalt(),1,
-//                    sideChainContractAddr,"role",new String[]{identity.ontid},account,20000,0);
+            String txhash = sdk.nativevm().auth().assignFuncsToRole(adminIndentity.tstid,password,adminIndentity.controls.get(0).getSalt(),1,"0000000000000000000000000000000000000007","role",new String[]{"registerSideChain"},account,20000,0);
+//            String txhash = sdk.nativevm().auth().assignTstIdsToRole(adminIndentity.tstid,password,adminIndentity.controls.get(0).getSalt(),1,
+//                    sideChainContractAddr,"role",new String[]{identity.tstid},account,20000,0);
 
             Thread.sleep(3000);
             System.out.println(txhash);
@@ -93,9 +93,9 @@ public class SideChainGovernanceDemo {
             return;
         }
         if(false){
-//            String txhash = sdk.nativevm().auth().assignFuncsToRole(adminIndentity.ontid,password,adminIndentity.controls.get(0).getSalt(),1,sideChainContractAddr,"role",new String[]{"registerSideChain"},account,20000,0);
-            String txhash = sdk.nativevm().auth().assignOntIdsToRole(adminIndentity.ontid,password,adminIndentity.controls.get(0).getSalt(),1,
-                    sideChainContractAddr,"role",new String[]{identity.ontid},account,20000,0);
+//            String txhash = sdk.nativevm().auth().assignFuncsToRole(adminIndentity.tstid,password,adminIndentity.controls.get(0).getSalt(),1,sideChainContractAddr,"role",new String[]{"registerSideChain"},account,20000,0);
+            String txhash = sdk.nativevm().auth().assignTstIdsToRole(adminIndentity.tstid,password,adminIndentity.controls.get(0).getSalt(),1,
+                    sideChainContractAddr,"role",new String[]{identity.tstid},account,20000,0);
 
             Thread.sleep(3000);
             System.out.println(txhash);
@@ -103,14 +103,14 @@ public class SideChainGovernanceDemo {
             return;
         }
         if(false){
-            String res = sdk.nativevm().auth().verifyToken(identity.ontid,password,identity.controls.get(0).getSalt(),1,sideChainContractAddr,
+            String res = sdk.nativevm().auth().verifyToken(identity.tstid,password,identity.controls.get(0).getSalt(),1,sideChainContractAddr,
                     "registerSideChain");
             System.out.println(res);
             return;
         }
         if(false){
 //success
-            RegisterSideChainParam param = new RegisterSideChainParam("123456", account.getAddressU160(),1,(long)100*1000000000,(long)100*1000000000,identity.ontid.getBytes(),1);
+            RegisterSideChainParam param = new RegisterSideChainParam("123456", account.getAddressU160(),1,(long)100*1000000000,(long)100*1000000000,identity.tstid.getBytes(),1);
             String txhash = sideChainGovernance.registerSideChain(account,param, identity,password, account,20000,0);
             System.out.println("txhash: " + txhash);
             Thread.sleep(6000);

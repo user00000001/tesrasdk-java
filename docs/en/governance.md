@@ -8,10 +8,10 @@
 
 
 ### Apply to become a candidate node
-#### Mortgage a certain ONT, consume a certain amount of additional ONG, apply to become a candidate node
+#### Mortgage a certain TSG, consume a certain amount of additional TSG, apply to become a candidate node
 
 ```
-String registerCandidate(Account account, String peerPubkey, long initPos, String ontid,String ontidpwd,byte[] salt,  long keyNo, Account payerAcct, long gaslimit, long gasprice)
+String registerCandidate(Account account, String peerPubkey, long initPos, String tstid,String tstidpwd,byte[] salt,  long keyNo, Account payerAcct, long gaslimit, long gasprice)
 ```
 	Parameters:
   
@@ -20,8 +20,8 @@ String registerCandidate(Account account, String peerPubkey, long initPos, Strin
 | input | account       | Account | peer wallet account            | Required |
 |         | peerPubkey    | String  | peer publickey               | Required |
 |         | initPos       | long    | init pos             |Required|
-|         | ontid         | String  |authorized ontid          | Required|
-|         | ontidpwd      | String  | ontid password              |Required|
+|         | tstid         | String  |authorized tstid          | Required|
+|         | tstidpwd      | String  | tstid password              |Required|
 |         | salt          | byte[]  | salt        |Required|
 |         | keyNo         | long    | publickey index               |Required|
 |         | payerAcct     | Account | account for payment of transaction fees     |Required|
@@ -30,7 +30,7 @@ String registerCandidate(Account account, String peerPubkey, long initPos, Strin
 | output | transactionhash| String  | transaction hash  |  |
 
 
-#### Cancel the application to become a candidate node, unfreeze the mortgaged ONT
+#### Cancel the application to become a candidate node, unfreeze the mortgaged TSG
 ```
 String unRegisterCandidate(Account account, String peerPubkey,Account payerAcct, long gaslimit, long gasprice)
 ```
@@ -47,9 +47,9 @@ String unRegisterCandidate(Account account, String peerPubkey,Account payerAcct,
 | output | transaction hash| String  | transaction hash  |  |
 
 
-#### Extract unbound ONG
+#### Extract unbound TSG
 ```
-String withdrawOng(Account account,Account payerAcct,long gaslimit,long gasprice)
+String withdrawTsg(Account account,Account payerAcct,long gaslimit,long gasprice)
 ```
 
   Parameters:
@@ -114,7 +114,7 @@ String getAuthorizeInfo(String peerPubkey,Address addr)
 | output |       | String  | peer AuthorizeInfo  |  |
 
 
-#### Take out the mortgage ONT in an unfrozen state
+#### Take out the mortgage TSG in an unfrozen state
 ```
 String quitNode(Account account,String peerPubkey,Account payerAcct,long gaslimit,long gasprice)
 ```
@@ -185,7 +185,7 @@ String setPeerCost(Account account,String peerPubkey,int peerCost,Account payerA
 
 
 #### changeMaxAuthorization
-The node modifies the maximum number of authorized ONT nodes it accepts
+The node modifies the maximum number of authorized TSG nodes it accepts
 ```
 String changeMaxAuthorization(Account account,String peerPubkey,int maxAuthorize,Account payerAcct,long gaslimit,long gasprice)
 ```

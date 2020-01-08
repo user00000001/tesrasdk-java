@@ -58,29 +58,29 @@ English / [中文](../cn/errorcode.md)
 |54005  |  LeftTreeFull | Left tree always full |
 |58001  |  SendRawTxError |SmartCodeTx error, sendRawTransaction error|
 |58002  |  TypeError |SmartCodeTx error, type error|
-|58003  |  NullCodeHash |OntIdTx error, null codeHash|
-|58004  |  ParamError |OntIdTx error, param error|
-|58005  |  ParamErr |OntIdTx error, param error|
-|58006  |  DidNull |OntIdTx error, SendDid or receiverDid is null in metaData|
-|58007  |  NotExistCliamIssuer |OntIdTx error, claim issuer doesn't exist|
-|58007  |  NotFoundPublicKeyId |OntIdTx error, not found PublicKeyId|
-|58008  |  PublicKeyIdErr |OntIdTx error, PublicKeyId error|
-|58009  |  BlockHeightNotMatch |OntIdTx error, BlockHeight doesn't match|
-|58010  |  NodesNotMatch |OntIdTx error, nodes don't match|
-|58011  |  ResultIsNull |OntIdTx error, result is null|
-|58012  |  CreateOntIdClaimErr |OntIdTx error, createOntIdClaim error|
-|58013  |  VerifyOntIdClaimErr |OntIdTx error, verifyOntIdClaim error|
-|58014  |  WriteVarBytesError |OntIdTx error, writeVarBytes error|
-|58101  |  AssetNameError |OntAsset error,asset name error|
-|58102  |  DidError |OntAsset error, Did error|
-|58103  |  NullPkId |OntAsset error, null pkId|
-|58104  |  NullClaimId |OntAsset error, null claimId|
-|58105  |  OntAsset error, amount is less than or equal to zero|
-|58106  |  ParamLengthNotSame |OntAsset error, param length is not the same|
+|58003  |  NullCodeHash |TstIdTx error, null codeHash|
+|58004  |  ParamError |TstIdTx error, param error|
+|58005  |  ParamErr |TstIdTx error, param error|
+|58006  |  DidNull |TstIdTx error, SendDid or receiverDid is null in metaData|
+|58007  |  NotExistCliamIssuer |TstIdTx error, claim issuer doesn't exist|
+|58007  |  NotFoundPublicKeyId |TstIdTx error, not found PublicKeyId|
+|58008  |  PublicKeyIdErr |TstIdTx error, PublicKeyId error|
+|58009  |  BlockHeightNotMatch |TstIdTx error, BlockHeight doesn't match|
+|58010  |  NodesNotMatch |TstIdTx error, nodes don't match|
+|58011  |  ResultIsNull |TstIdTx error, result is null|
+|58012  |  CreateTstIdClaimErr |TstIdTx error, createTstIdClaim error|
+|58013  |  VerifyTstIdClaimErr |TstIdTx error, verifyTstIdClaim error|
+|58014  |  WriteVarBytesError |TstIdTx error, writeVarBytes error|
+|58101  |  AssetNameError |TstAsset error,asset name error|
+|58102  |  DidError |TstAsset error, Did error|
+|58103  |  NullPkId |TstAsset error, null pkId|
+|58104  |  NullClaimId |TstAsset error, null claimId|
+|58105  |  TstAsset error, amount is less than or equal to zero|
+|58106  |  ParamLengthNotSame |TstAsset error, param length is not the same|
 |58201  |  NullKeyOrValue |RecordTx error, null key or value|
 |58202  |  NullKey |RecordTx error, null key|
-|58301  |  WebsocketNotInit |OntSdk error, WebSocket not init|
-|58302  |  ConnRestfulNotInit |OntSdk error, connRestful not init|
+|58301  |  WebsocketNotInit |TstSdk error, WebSocket not init|
+|58302  |  ConnRestfulNotInit |TstSdk error, connRestful not init|
 |58401  |  SetParamsValueValueNumError |AbiFunction error, setParamsValue value num error|
 |58402  |  InvalidUrlErr |Interfaces error, invalid url|
 |58403  |  InvalidUrl |Interfaces error, invalid url|

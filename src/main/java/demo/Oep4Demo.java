@@ -1,6 +1,6 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
@@ -21,7 +21,7 @@ public class Oep4Demo {
 
     public static void main(String[] args) {
         try {
-            OntSdk ontSdk = getOntSdk();
+            TstSdk tstSdk = getTstSdk();
             if(false){
                 System.out.println(BigInteger.ZERO.toString());
                 return;
@@ -30,18 +30,18 @@ public class Oep4Demo {
 //            Account account = sdk.getWalletMgr().getAccount("AQf4Mzu1YJrhz9f3aRkkwSm9n3qhXGSh4p", "xinhao");
             System.out.println(privateKey);
             Account account = new Account(Helper.hexToBytes(privateKey),SignatureScheme.SHA256WITHECDSA);
-            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), tstSdk.defaultSignScheme);
 
-            Account acct = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+            Account acct = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), tstSdk.defaultSignScheme);
             System.out.println("recv:"+acct.getAddressU160().toBase58());
             System.out.println("send:"+account.getAddressU160().toBase58());
 //            System.out.println(Helper.toHexString(acct1.getAddressU160().toArray()));
 //
-//            showBalance(ontSdk,new Account[]{acct1,acct2,acct3});
+//            showBalance(tstSdk,new Account[]{acct1,acct2,acct3});
 //            System.out.println("------------------------------------------------------");
 //System.exit(0);
 
@@ -51,67 +51,67 @@ public class Oep4Demo {
             }
 
             if(false) {
-//                long gasLimit = ontSdk.neovm().oep4().sendInitPreExec(acct,acct,30000,0);
+//                long gasLimit = tstSdk.neovm().oep4().sendInitPreExec(acct,acct,30000,0);
 //                System.out.println(gasLimit);
-                String result = ontSdk.neovm().oep4().sendInit(acct,account,20000,500);
+                String result = tstSdk.neovm().oep4().sendInit(acct,account,20000,500);
                 System.out.println(result);
                 Thread.sleep(6000);
-                System.out.println(ontSdk.getConnect().getSmartCodeEvent(result));
+                System.out.println(tstSdk.getConnect().getSmartCodeEvent(result));
                 System.exit(0);
             }
             if(true){
 //                System.out.println(Helper.toHexString(account.getAddressU160().toArray()));
-                System.out.println(ontSdk.neovm().oep4().queryDecimals());
-                System.out.println(ontSdk.neovm().oep4().queryName());
-                System.out.println(ontSdk.neovm().oep4().querySymbol());
-                System.out.println(ontSdk.neovm().oep4().queryTotalSupply());
-                System.out.println(acct.getAddressU160().toBase58()+": "+ontSdk.neovm().oep4().queryBalanceOf(acct.getAddressU160().toBase58()));
-                System.out.println(account.getAddressU160().toBase58()+": "+ontSdk.neovm().oep4().queryBalanceOf(account.getAddressU160().toBase58()));
+                System.out.println(tstSdk.neovm().oep4().queryDecimals());
+                System.out.println(tstSdk.neovm().oep4().queryName());
+                System.out.println(tstSdk.neovm().oep4().querySymbol());
+                System.out.println(tstSdk.neovm().oep4().queryTotalSupply());
+                System.out.println(acct.getAddressU160().toBase58()+": "+tstSdk.neovm().oep4().queryBalanceOf(acct.getAddressU160().toBase58()));
+                System.out.println(account.getAddressU160().toBase58()+": "+tstSdk.neovm().oep4().queryBalanceOf(account.getAddressU160().toBase58()));
                 //return;
             }
 
             if(false){ //transfer amount is long
-                //showBalance(ontSdk,new Account[]{account,acct});
-                String txhash = ontSdk.neovm().oep4().sendTransfer(account, acct.getAddressU160().toBase58(),1000,account,20000,500);
+                //showBalance(tstSdk,new Account[]{account,acct});
+                String txhash = tstSdk.neovm().oep4().sendTransfer(account, acct.getAddressU160().toBase58(),1000,account,20000,500);
                 //Thread.sleep(6000);
-                //showBalance(ontSdk,new Account[]{account,acct});
+                //showBalance(tstSdk,new Account[]{account,acct});
                 return;
             }
             if(false){ //transfer amount is BigInteger
-                //showBalance(ontSdk,new Account[]{account,acct});
-                Object txhash = ontSdk.neovm().oep4().sendTransfer(acct, account.getAddressU160().toBase58(),new BigInteger("9999999999999999999999999"),acct,20000,500,false);
-                //Object txhash = ontSdk.neovm().oep4().sendTransfer(account, acct.getAddressU160().toBase58(),new BigInteger("10000000000000000000000000"),acct,20000,500,false);
+                //showBalance(tstSdk,new Account[]{account,acct});
+                Object txhash = tstSdk.neovm().oep4().sendTransfer(acct, account.getAddressU160().toBase58(),new BigInteger("9999999999999999999999999"),acct,20000,500,false);
+                //Object txhash = tstSdk.neovm().oep4().sendTransfer(account, acct.getAddressU160().toBase58(),new BigInteger("10000000000000000000000000"),acct,20000,500,false);
                 System.out.println(txhash);
                 //Thread.sleep(6000);
-                //showBalance(ontSdk,new Account[]{account,acct});
+                //showBalance(tstSdk,new Account[]{account,acct});
                 return;
             }
             if(false){
-                showBalance(ontSdk,new Account[]{account,acct, acct1});
+                showBalance(tstSdk,new Account[]{account,acct, acct1});
                 Account[] accounts = new Account[]{account,acct};
                 State state = new State(account.getAddressU160(),acct.getAddressU160(),10);
                 State state2 = new State(account.getAddressU160(),acct1.getAddressU160(),10);
-                String txhash = ontSdk.neovm().oep4().sendTransferMulti(accounts, new State[]{state,state2},account,20000,500);
+                String txhash = tstSdk.neovm().oep4().sendTransferMulti(accounts, new State[]{state,state2},account,20000,500);
                 Thread.sleep(6000);
-                showBalance(ontSdk,new Account[]{account,acct,acct1});
+                showBalance(tstSdk,new Account[]{account,acct,acct1});
                 return;
             }
             if(false){
-                System.out.println(ontSdk.neovm().oep4().queryAllowance(account.getAddressU160().toBase58(),acct1.getAddressU160().toBase58()));
+                System.out.println(tstSdk.neovm().oep4().queryAllowance(account.getAddressU160().toBase58(),acct1.getAddressU160().toBase58()));
 
-                String txhash = ontSdk.neovm().oep4().sendApprove(account,acct1.getAddressU160().toBase58(),1000,account,20000,500);
+                String txhash = tstSdk.neovm().oep4().sendApprove(account,acct1.getAddressU160().toBase58(),1000,account,20000,500);
                 Thread.sleep(6000);
-                System.out.println(ontSdk.getConnect().getSmartCodeEvent(txhash));
-                System.out.println(ontSdk.neovm().oep4().queryAllowance(account.getAddressU160().toBase58(),acct1.getAddressU160().toBase58()));
+                System.out.println(tstSdk.getConnect().getSmartCodeEvent(txhash));
+                System.out.println(tstSdk.neovm().oep4().queryAllowance(account.getAddressU160().toBase58(),acct1.getAddressU160().toBase58()));
                 return;
             }
             if(true){
-                System.out.println(ontSdk.neovm().oep4().queryAllowance(account.getAddressU160().toBase58(),acct1.getAddressU160().toBase58()));
+                System.out.println(tstSdk.neovm().oep4().queryAllowance(account.getAddressU160().toBase58(),acct1.getAddressU160().toBase58()));
 
-                String txhash = ontSdk.neovm().oep4().sendTransferFrom(acct1,account.getAddressU160().toBase58(),acct1.getAddressU160().toBase58(),1000,account,20000,500);
+                String txhash = tstSdk.neovm().oep4().sendTransferFrom(acct1,account.getAddressU160().toBase58(),acct1.getAddressU160().toBase58(),1000,account,20000,500);
                 Thread.sleep(6000);
-                System.out.println(ontSdk.getConnect().getSmartCodeEvent(txhash));
-                System.out.println(ontSdk.neovm().oep4().queryAllowance(account.getAddressU160().toBase58(),acct1.getAddressU160().toBase58()));
+                System.out.println(tstSdk.getConnect().getSmartCodeEvent(txhash));
+                System.out.println(tstSdk.neovm().oep4().queryAllowance(account.getAddressU160().toBase58(),acct1.getAddressU160().toBase58()));
                 return;
             }
 
@@ -119,47 +119,47 @@ public class Oep4Demo {
             String multiAddr = Address.addressFromMultiPubKeys(2,acct.serializePublicKey(),acct2.serializePublicKey()).toBase58();
             System.out.println("multiAddr:"+multiAddr);
             if(false) {
-                ontSdk.neovm().oep4().sendTransfer(acct1, acct2.getAddressU160().toBase58(), 1000000000L, acct, 20000, 0);
+                tstSdk.neovm().oep4().sendTransfer(acct1, acct2.getAddressU160().toBase58(), 1000000000L, acct, 20000, 0);
                 Thread.sleep(6000);
-                showBalance(ontSdk,new Account[]{acct1,acct2,acct3});
+                showBalance(tstSdk,new Account[]{acct1,acct2,acct3});
 
                 System.exit(0);
             }
             if(false){
-                ontSdk.neovm().oep4().sendApprove(acct1, acct2.getAddressU160().toBase58(), 1000000000L, acct, 20000, 0);
+                tstSdk.neovm().oep4().sendApprove(acct1, acct2.getAddressU160().toBase58(), 1000000000L, acct, 20000, 0);
                 Thread.sleep(6000);
-                showBalance(ontSdk,new Account[]{acct1,acct2,acct3});
+                showBalance(tstSdk,new Account[]{acct1,acct2,acct3});
                 System.exit(0);
             }
             if(true){
-                ontSdk.neovm().oep4().queryAllowance(acct1.getAddressU160().toBase58(), acct2.getAddressU160().toBase58());
+                tstSdk.neovm().oep4().queryAllowance(acct1.getAddressU160().toBase58(), acct2.getAddressU160().toBase58());
                 Thread.sleep(6000);
-                showBalance(ontSdk,new Account[]{acct1,acct2,acct3});
+                showBalance(tstSdk,new Account[]{acct1,acct2,acct3});
             }
             if(false){
-                ontSdk.neovm().oep4().sendTransferFrom(acct1, acct2.getAddressU160().toBase58(),acct1.getAddressU160().toBase58(), 1000000000L, acct, 20000, 0);
+                tstSdk.neovm().oep4().sendTransferFrom(acct1, acct2.getAddressU160().toBase58(),acct1.getAddressU160().toBase58(), 1000000000L, acct, 20000, 0);
                 Thread.sleep(6000);
-                showBalance(ontSdk,new Account[]{acct1,acct2,acct3});
+                showBalance(tstSdk,new Account[]{acct1,acct2,acct3});
                 System.exit(0);
             }
 
             if(false){
                 Account[] accounts = new Account[]{acct1,acct2};
                 State[] states = new State[]{new State(acct1.getAddressU160(),acct3.getAddressU160(),100),new State(acct2.getAddressU160(),acct4.getAddressU160(),200)};
-                String txhash = ontSdk.neovm().oep4().sendTransferMulti(accounts,states,acct1,20000,0);
+                String txhash = tstSdk.neovm().oep4().sendTransferMulti(accounts,states,acct1,20000,0);
                 return;
             }
 
-//            String balance = ontSdk.neovm().oep4().queryBalanceOf(acct.getAddressU160().toBase58());
+//            String balance = tstSdk.neovm().oep4().queryBalanceOf(acct.getAddressU160().toBase58());
 //            System.out.println(new BigInteger(Helper.reverse(Helper.hexToBytes(balance))).longValue());
-//            balance = ontSdk.neovm().oep4().queryBalanceOf(multiAddr);
+//            balance = tstSdk.neovm().oep4().queryBalanceOf(multiAddr);
 //            System.out.println(new BigInteger(Helper.reverse(Helper.hexToBytes(balance))).longValue());
 //            System.exit(0);
 
             if(false) {
-                String name = ontSdk.neovm().oep4().queryName();
+                String name = tstSdk.neovm().oep4().queryName();
                 System.out.println(new String(Helper.hexToBytes(name)));
-                String symbol = ontSdk.neovm().oep4().querySymbol();
+                String symbol = tstSdk.neovm().oep4().querySymbol();
                 System.out.println(new String(Helper.hexToBytes(symbol)));
             }
         } catch (Exception e) {
@@ -167,16 +167,16 @@ public class Oep4Demo {
         }
     }
 
-    public static void showBalance(OntSdk ontSdk,Account[] accounts) throws Exception {
+    public static void showBalance(TstSdk tstSdk,Account[] accounts) throws Exception {
         for (int i=0;i<accounts.length;i++){
             int a = i+1;
-            System.out.println("account"+ a +":"+ ontSdk.neovm().oep4().queryBalanceOf(accounts[i].getAddressU160().toBase58()));
+            System.out.println("account"+ a +":"+ tstSdk.neovm().oep4().queryBalanceOf(accounts[i].getAddressU160().toBase58()));
         }
     }
 
 
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 //        String ip = "http://139.219.108.204";
         String ip = "http://127.0.0.1";
         ip = "http://polaris3.ont.io";
@@ -187,7 +187,7 @@ public class Oep4Demo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

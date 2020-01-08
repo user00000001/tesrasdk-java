@@ -1,6 +1,6 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.crypto.SignatureScheme;
@@ -12,7 +12,7 @@ import java.util.Base64;
 public class Oep8Demo {
     public static void main(String[] args) {
         try {
-            OntSdk sdk = getOntSdk();
+            TstSdk sdk = getTstSdk();
             String privateKey = Account.getGcmDecodedPrivateKey("8p2q0vLRqyfKmFHhnjUYVWOm12kPm78JWqzkTOi9rrFMBz624KjhHQJpyPmiSSOa","111111","AHX1wzvdw9Yipk7E9MuLY4GGX4Ym9tHeDe",Base64.getDecoder().decode("KbiCUr53CZUfKG1M3Gojjw=="),16384,SignatureScheme.SHA256WITHECDSA);
 //            Account account = sdk.getWalletMgr().getAccount("AQf4Mzu1YJrhz9f3aRkkwSm9n3qhXGSh4p", "xinhao");
             Account account1 = sdk.getWalletMgr().getAccount("ARR5ywDEx3ybXkMGmZPFYu9hiC8J4xvNdc", "xinhao");
@@ -189,7 +189,7 @@ public class Oep8Demo {
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 //        String ip = "http://139.219.108.204";
         String ip = "http://127.0.0.1";
         ip = "http://polaris3.ont.io";
@@ -200,7 +200,7 @@ public class Oep8Demo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

@@ -1,58 +1,58 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.sdk.info.AccountInfo;
 import com.github.TesraSupernet.sdk.wallet.Account;
 
 public class WalletDemo {
     public static void main(String[] args) {
         try {
-            OntSdk ontSdk = getOntSdk();
-            if (ontSdk.getWalletMgr().getWallet().getAccounts().size() > 0) {
-                ontSdk.getWalletMgr().getWallet().clearAccount();
-                ontSdk.getWalletMgr().getWallet().clearIdentity();
-                ontSdk.getWalletMgr().writeWallet();
+            TstSdk tstSdk = getTstSdk();
+            if (tstSdk.getWalletMgr().getWallet().getAccounts().size() > 0) {
+                tstSdk.getWalletMgr().getWallet().clearAccount();
+                tstSdk.getWalletMgr().getWallet().clearIdentity();
+                tstSdk.getWalletMgr().writeWallet();
             }
-            ontSdk.getWalletMgr().createAccounts(1, "passwordtest");
-            ontSdk.getWalletMgr().writeWallet();
+            tstSdk.getWalletMgr().createAccounts(1, "passwordtest");
+            tstSdk.getWalletMgr().writeWallet();
 
-            System.out.println("init size: "+ontSdk.getWalletMgr().getWallet().getAccounts().size()+" " +ontSdk.getWalletMgr().getWalletFile().getAccounts().size());
-            System.out.println(ontSdk.getWalletMgr().getWallet().toString());
-            System.out.println(ontSdk.getWalletMgr().getWalletFile().toString());
-
-            System.out.println();
-            ontSdk.getWalletMgr().getWallet().removeAccount(ontSdk.getWalletMgr().getWallet().getAccounts().get(0).address);
-            ontSdk.getWalletMgr().getWallet().setVersion("2.0");
-            System.out.println("removeAccount size: "+ontSdk.getWalletMgr().getWallet().getAccounts().size()+" " +ontSdk.getWalletMgr().getWalletFile().getAccounts().size());
-            System.out.println(ontSdk.getWalletMgr().getWallet().toString());
-            System.out.println(ontSdk.getWalletMgr().getWalletFile().toString());
+            System.out.println("init size: "+tstSdk.getWalletMgr().getWallet().getAccounts().size()+" " +tstSdk.getWalletMgr().getWalletFile().getAccounts().size());
+            System.out.println(tstSdk.getWalletMgr().getWallet().toString());
+            System.out.println(tstSdk.getWalletMgr().getWalletFile().toString());
 
             System.out.println();
-            ontSdk.getWalletMgr().resetWallet();
-            System.out.println("resetWallet size: "+ontSdk.getWalletMgr().getWallet().getAccounts().size()+" " +ontSdk.getWalletMgr().getWalletFile().getAccounts().size());
-            System.out.println(ontSdk.getWalletMgr().getWallet().toString());
-            System.out.println(ontSdk.getWalletMgr().getWalletFile().toString());
+            tstSdk.getWalletMgr().getWallet().removeAccount(tstSdk.getWalletMgr().getWallet().getAccounts().get(0).address);
+            tstSdk.getWalletMgr().getWallet().setVersion("2.0");
+            System.out.println("removeAccount size: "+tstSdk.getWalletMgr().getWallet().getAccounts().size()+" " +tstSdk.getWalletMgr().getWalletFile().getAccounts().size());
+            System.out.println(tstSdk.getWalletMgr().getWallet().toString());
+            System.out.println(tstSdk.getWalletMgr().getWalletFile().toString());
+
+            System.out.println();
+            tstSdk.getWalletMgr().resetWallet();
+            System.out.println("resetWallet size: "+tstSdk.getWalletMgr().getWallet().getAccounts().size()+" " +tstSdk.getWalletMgr().getWalletFile().getAccounts().size());
+            System.out.println(tstSdk.getWalletMgr().getWallet().toString());
+            System.out.println(tstSdk.getWalletMgr().getWalletFile().toString());
 
 
             System.out.println();
-            ontSdk.getWalletMgr().getWallet().removeAccount(ontSdk.getWalletMgr().getWallet().getAccounts().get(0).address);
-            ontSdk.getWalletMgr().getWallet().setVersion("2.0");
-            System.out.println("removeAccount size: "+ontSdk.getWalletMgr().getWallet().getAccounts().size()+" " +ontSdk.getWalletMgr().getWalletFile().getAccounts().size());
-            System.out.println(ontSdk.getWalletMgr().getWallet().toString());
-            System.out.println(ontSdk.getWalletMgr().getWalletFile().toString());
+            tstSdk.getWalletMgr().getWallet().removeAccount(tstSdk.getWalletMgr().getWallet().getAccounts().get(0).address);
+            tstSdk.getWalletMgr().getWallet().setVersion("2.0");
+            System.out.println("removeAccount size: "+tstSdk.getWalletMgr().getWallet().getAccounts().size()+" " +tstSdk.getWalletMgr().getWalletFile().getAccounts().size());
+            System.out.println(tstSdk.getWalletMgr().getWallet().toString());
+            System.out.println(tstSdk.getWalletMgr().getWalletFile().toString());
 
             //write wallet
-            ontSdk.getWalletMgr().writeWallet();
+            tstSdk.getWalletMgr().writeWallet();
             System.out.println();
-            System.out.println("writeWallet size: "+ontSdk.getWalletMgr().getWallet().getAccounts().size()+" " +ontSdk.getWalletMgr().getWalletFile().getAccounts().size());
-            System.out.println(ontSdk.getWalletMgr().getWallet().toString());
-            System.out.println(ontSdk.getWalletMgr().getWalletFile().toString());
+            System.out.println("writeWallet size: "+tstSdk.getWalletMgr().getWallet().getAccounts().size()+" " +tstSdk.getWalletMgr().getWalletFile().getAccounts().size());
+            System.out.println(tstSdk.getWalletMgr().getWallet().toString());
+            System.out.println(tstSdk.getWalletMgr().getWalletFile().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 
         String ip = "http://127.0.0.1";
 //        String ip = "http://54.222.182.88;
@@ -61,7 +61,7 @@ public class WalletDemo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

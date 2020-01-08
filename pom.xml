@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.TesraSupernet</groupId>
-    <artifactId>tesra-sdk-java</artifactId>
+    <artifactId>tesrasdk-java</artifactId>
     <version>0.0.1</version>
 
     <properties>
@@ -23,11 +23,11 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>tesra-java-sdk-snapshots</id>
+            <id>tesrasdk-java-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
-            <id>tesra-java-sdk-release</id>
+            <id>tesrasdk-java-release</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
     </distributionManagement>
@@ -41,9 +41,9 @@
     </licenses>
     <scm>
         <tag>master</tag>
-        <url>https://github.com/TesraSupernet/tesra-java-sdk</url>
-        <connection>scm:git:git@github.com:TesraSupernet/tesra-java-sdk.git</connection>
-        <developerConnection>scm:git:git@github.com:TesraSupernet/tesra-java-sdk.git</developerConnection>
+        <url>https://github.com/TesraSupernet/tesrasdk-java</url>
+        <connection>scm:git:git@github.com:TesraSupernet/tesrasdk-java.git</connection>
+        <developerConnection>scm:git:git@github.com:TesraSupernet/tesrasdk-java.git</developerConnection>
     </scm>
     <developers>
         <developer>
@@ -127,10 +127,10 @@
                 <configuration>
                     <excludes>
                         <exclude>**/ConnectMgrTest.java</exclude>
-                        <exclude>**/OntAssetTxTest.java</exclude>
+                        <exclude>**/TstAssetTxTest.java</exclude>
                         <exclude>**/MerkleVerifierTest.java</exclude>
-                        <exclude>**/NativeOntIdTxTest.java</exclude>
-                        <exclude>**/OngTest.java</exclude>
+                        <exclude>**/NativeTstIdTxTest.java</exclude>
+                        <exclude>**/TsgTest.java</exclude>
                         <exclude>**/NeoVmTest.java</exclude>
                         <exclude>**/AuthTest.java</exclude>
                         <exclude>**/WasmScriptBuilderTest.java</exclude>

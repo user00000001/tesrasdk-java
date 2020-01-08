@@ -2,7 +2,7 @@ package demo.ledger;
 
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.common.UInt256;
@@ -64,7 +64,7 @@ public class StoreDemo {
 
 
             if (false) {
-                DeployCode deployCode = ledgerStore.stateStore.GetContractState(Address.AddressFromVmCode(OntSdk.getInstance().nativevm().ont().getContractAddress()));
+                DeployCode deployCode = ledgerStore.stateStore.GetContractState(Address.AddressFromVmCode(TstSdk.getInstance().nativevm().ont().getContractAddress()));
                 System.out.println(deployCode.description);
                 System.out.println(Helper.toHexString(deployCode.code));
             }

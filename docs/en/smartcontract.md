@@ -38,16 +38,16 @@ code = Helper.toHexString(bys);
 
 
 //Deploy the contract
-Transaction tx = ontSdk.vm().makeDeployCodeTransaction(codeHexStr, true, "name", "1.0", "1", "1", "1", VmType.NEOVM.value(),payer,gaslimit,gasprice);
-ontSdk.vm().setCodeAddress(Address.AddressFromVmCode(code).toHexString());
+Transaction tx = tstSdk.vm().makeDeployCodeTransaction(codeHexStr, true, "name", "1.0", "1", "1", "1", VmType.NEOVM.value(),payer,gaslimit,gasprice);
+tstSdk.vm().setCodeAddress(Address.AddressFromVmCode(code).toHexString());
 Account account = new Account(Helper.hexToBytes("75de8489fcb2dcaf2ef3cd607feffde18789de7da129b5e97c81e001793cb7cf"),SignatureScheme.SHA256WITHECDSA);
-Transaction tx = ontSdk.vm().makeDeployCodeTransaction(code, true, "name",
-                    "v1.0", "author", "email", "desp", account.getAddressU160().toBase58(),ontSdk.DEFAULT_DEPLOY_GAS_LIMIT,0);
+Transaction tx = tstSdk.vm().makeDeployCodeTransaction(code, true, "name",
+                    "v1.0", "author", "email", "desp", account.getAddressU160().toBase58(),tstSdk.DEFAULT_DEPLOY_GAS_LIMIT,0);
 String txHex = Helper.toHexString(tx.toArray());
-ontSdk.getConnect().sendRawTransaction(txHex);
+tstSdk.getConnect().sendRawTransaction(txHex);
 //Waiting for block generation
 Thread.sleep(6000);
-DeployCodeTransaction t = (DeployCodeTransaction) ontSdk.getConnect().getTransaction(txhash);
+DeployCodeTransaction t = (DeployCodeTransaction) tstSdk.getConnect().getTransaction(txhash);
 ```
 
 
@@ -88,13 +88,13 @@ public static String invokeContract(byte[] params, Account payerAcct, long gasli
     if(gaslimit < 0 || gasprice< 0){
         throw new SDKException("gaslimit or gasprice should not be less than 0");
     }
-    Transaction tx = ontSdk.vm().makeInvokeCodeTransaction(Helper.reverse(contractAddress),null,params,payerAcct.getAddressU160().toBase58(),gaslimit,gasprice);
-    ontSdk.addSign(tx, payerAcct);
+    Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(Helper.reverse(contractAddress),null,params,payerAcct.getAddressU160().toBase58(),gaslimit,gasprice);
+    tstSdk.addSign(tx, payerAcct);
     Object result = null;
     if(preExec) {
-        result = ontSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
+        result = tstSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
     }else {
-        result = ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+        result = tstSdk.getConnect().sendRawTransaction(tx.toHexString());
         return tx.hash().toString();
     }
     return result.toString();
@@ -115,14 +115,14 @@ Process overview
 ##### Example:
 ```
 //set codeAddress
-ontSdk.getSmartcodeTx().setCodeAddress(codeAddress);
+tstSdk.getSmartcodeTx().setCodeAddress(codeAddress);
 String funcName = "add";
 //The parameters needed to construct a contract function
-String params = ontSdk.getSmartcodeTx().buildWasmContractJsonParam(new Object[]{20,30});
+String params = tstSdk.getSmartcodeTx().buildWasmContractJsonParam(new Object[]{20,30});
 //Specify a virtual machine type to construct the transaction
-Transaction tx = ontSdk.vm().makeInvokeCodeTransaction(ontSdk.getSmartcodeTx().getCodeAddress(),funcName,params.getBytes(),VmType.WASMVM.value(),payer,gaslimit,gasprice);
+Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(tstSdk.getSmartcodeTx().getCodeAddress(),funcName,params.getBytes(),VmType.WASMVM.value(),payer,gaslimit,gasprice);
 //send transaction
-ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+tstSdk.getConnect().sendRawTransaction(tx.toHexString());
 
 ```
 
@@ -139,10 +139,10 @@ public static Object lock = new Object();
 //Get ont instance
 String ip = "http://127.0.0.1";
 String wsUrl = ip + ":" + "20335";
-OntSdk wm = OntSdk.getInstance();
+TstSdk wm = TstSdk.getInstance();
 wm.setWesocket(wsUrl, lock);
 wm.setDefaultConnect(wm.getWebSocket());
-wm.openWalletFile("OntAssetDemo.json");
+wm.openWalletFile("TstAssetDemo.json");
 ```
 
 
@@ -150,7 +150,7 @@ wm.openWalletFile("OntAssetDemo.json");
 
 ```
 //false means not printing callback function information
-ontSdk.getWebSocket().startWebsocketThread(false);
+tstSdk.getWebSocket().startWebsocketThread(false);
 ```
 
 * Start result processing thread.
@@ -202,8 +202,8 @@ for (;;){
                     map.put("SubscribeRawBlock", true);
                 }
                 //System.out.println(map);
-                ontSdk.getWebSocket().setReqId(i);
-                ontSdk.getWebSocket().sendSubscribe(map);     
+                tstSdk.getWebSocket().setReqId(i);
+                tstSdk.getWebSocket().sendSubscribe(map);     
             Thread.sleep(6000);
         }
 ```
@@ -279,13 +279,13 @@ Note: When you are attempting to get the codeAddress, you need to set which virt
 ### Outline of the invokeTransaction function for a smart contract
 ```
 //Firstly, convert the parameters of the smart contract into the vm-recognizable opcode 
-Transaction tx = ontSdk.vm().makeInvokeCodeTransaction(ontContractAddr, null, contract.toArray(), VmType.Native.value(), sender.toBase58(),gaslimit，gasprice);
+Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(ontContractAddr, null, contract.toArray(), VmType.Native.value(), sender.toBase58(),gaslimit，gasprice);
 
 //Sign the transaction
-ontSdk.signTx(tx, info1.address, password);
+tstSdk.signTx(tx, info1.address, password);
 
 //Send the transaction
-ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+tstSdk.getConnect().sendRawTransaction(tx.toHexString());
 ```
 
 ### Why do we need to pass the account and its password when invoking?

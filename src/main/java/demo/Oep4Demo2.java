@@ -1,6 +1,6 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
@@ -32,76 +32,76 @@ public class Oep4Demo2 {
 
     public static void main(String[] args) {
         try {
-            OntSdk ontSdk = getOntSdk();
+            TstSdk tstSdk = getTstSdk();
 
             Account account = new Account(Helper.hexToBytes(privatekey0), SignatureScheme.SHA256WITHECDSA);
-            acct1 = new Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-            acct2 = new Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
-            acct3 = new Account(Helper.hexToBytes(privatekey3), ontSdk.defaultSignScheme);
-            acct4 = new Account(Helper.hexToBytes(privatekey4), ontSdk.defaultSignScheme);
-            acct5 = new Account(Helper.hexToBytes(privatekey5), ontSdk.defaultSignScheme);
-            acct = new Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+            acct1 = new Account(Helper.hexToBytes(privatekey1), tstSdk.defaultSignScheme);
+            acct2 = new Account(Helper.hexToBytes(privatekey2), tstSdk.defaultSignScheme);
+            acct3 = new Account(Helper.hexToBytes(privatekey3), tstSdk.defaultSignScheme);
+            acct4 = new Account(Helper.hexToBytes(privatekey4), tstSdk.defaultSignScheme);
+            acct5 = new Account(Helper.hexToBytes(privatekey5), tstSdk.defaultSignScheme);
+            acct = new Account(Helper.hexToBytes(privatekey0), tstSdk.defaultSignScheme);
             System.out.println("recv:" + acct.getAddressU160().toBase58());
             System.out.println("send:" + account.getAddressU160().toBase58());
 
             //set OEP4 contract address（设置OEP4合约地址）
-            ontSdk.neovm().oep4().setContractAddress("55e02438c938f6f4eb15a9cb315b26d0169b7fd7");
+            tstSdk.neovm().oep4().setContractAddress("55e02438c938f6f4eb15a9cb315b26d0169b7fd7");
 
-//            sendTransfer(ontSdk);
-//            sendTransferFromMultiToMulti(ontSdk);
-//            sendTransferFromMultiSignAddr(ontSdk);
-            getTransferSmartCodeEvent(ontSdk);
-//            accountInfo(ontSdk);
-//            convert(ontSdk);
+//            sendTransfer(tstSdk);
+//            sendTransferFromMultiToMulti(tstSdk);
+//            sendTransferFromMultiSignAddr(tstSdk);
+            getTransferSmartCodeEvent(tstSdk);
+//            accountInfo(tstSdk);
+//            convert(tstSdk);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void sendTransfer(OntSdk ontSdk) throws Exception {
+    public static void sendTransfer(TstSdk tstSdk) throws Exception {
         // send oep4 from acct1 to acct2(单发单收)
-        String txhash = ontSdk.neovm().oep4().sendTransfer(acct1, acct2.getAddressU160().toBase58(), 1000, acct1, 20000, 500);
+        String txhash = tstSdk.neovm().oep4().sendTransfer(acct1, acct2.getAddressU160().toBase58(), 1000, acct1, 20000, 500);
         //or
         if(false) {
-            Object txhash2 = ontSdk.neovm().oep4().sendTransfer(acct1, acct2.getAddressU160().toBase58(), new BigInteger("9999999999999999999999999"), acct1, 20000, 500, false);
+            Object txhash2 = tstSdk.neovm().oep4().sendTransfer(acct1, acct2.getAddressU160().toBase58(), new BigInteger("9999999999999999999999999"), acct1, 20000, 500, false);
         }
         return;
     }
 
-    public static void sendTransfer2(OntSdk ontSdk) throws Exception {
+    public static void sendTransfer2(TstSdk tstSdk) throws Exception {
         // send oep4 from acct1 to acct2, amount is BigInteger(单发单收)
 
 
     }
 
-    public static void sendTransferFromMultiToMulti(OntSdk ontSdk) throws Exception {
+    public static void sendTransferFromMultiToMulti(TstSdk tstSdk) throws Exception {
         // acct1,acct2 send to acct3,acct4(单发多收，多发单收，多发多收)
         Account[] accounts = new Account[]{acct1, acct2};
         State state = new State(acct1.getAddressU160(), acct3.getAddressU160(), 100);
         State state2 = new State(acct2.getAddressU160(), acct4.getAddressU160(), 200);
         State[] states = new State[]{state, state2};
-        String txhash = ontSdk.neovm().oep4().sendTransferMulti(accounts, states, acct1, 20000, 0);
+        String txhash = tstSdk.neovm().oep4().sendTransferMulti(accounts, states, acct1, 20000, 0);
         return;
 
     }
 
-    public static void sendTransferFromMultiSignAddr(OntSdk ontSdk) throws Exception {
+    public static void sendTransferFromMultiSignAddr(TstSdk tstSdk) throws Exception {
         // send oep4 from multiSignatureAddress to acct2（多签地址转账）
         Address multiSignatureAddress = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey(), acct2.serializePublicKey());
         Account payerAcct = acct1;
-        Transaction tx = ontSdk.neovm().oep4().makeTransfer(multiSignatureAddress.toBase58(), acct2.getAddressU160().toBase58(), 1000, payerAcct.getAddressU160().toBase58(), 20000, 500);
-        ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{payerAcct}});
-        ontSdk.addMultiSign(tx, 2, new byte[][]{acct1.serializePublicKey(), acct2.serializePublicKey()}, acct1);
-        ontSdk.addMultiSign(tx, 2, new byte[][]{acct1.serializePublicKey(), acct2.serializePublicKey()}, acct2);
-        boolean b = ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+        Transaction tx = tstSdk.neovm().oep4().makeTransfer(multiSignatureAddress.toBase58(), acct2.getAddressU160().toBase58(), 1000, payerAcct.getAddressU160().toBase58(), 20000, 500);
+        tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{payerAcct}});
+        tstSdk.addMultiSign(tx, 2, new byte[][]{acct1.serializePublicKey(), acct2.serializePublicKey()}, acct1);
+        tstSdk.addMultiSign(tx, 2, new byte[][]{acct1.serializePublicKey(), acct2.serializePublicKey()}, acct2);
+        boolean b = tstSdk.getConnect().sendRawTransaction(tx.toHexString());
         System.out.println(tx.hash().toString());
 
     }
 
-    public static void getTransferSmartCodeEvent(OntSdk ontSdk) throws Exception {
+    public static void getTransferSmartCodeEvent(TstSdk tstSdk) throws Exception {
         // parse smartcontract event transfer information(交易结果查看)
-        Map obj = (Map) ontSdk.getConnect().getSmartCodeEvent("3c6f15f4354e368eeee80b4c127007e77d2fe1e1bc463131dee9c358616ab615");
+        Map obj = (Map) tstSdk.getConnect().getSmartCodeEvent("3c6f15f4354e368eeee80b4c127007e77d2fe1e1bc463131dee9c358616ab615");
         List list = (List) obj.get("Notify");
         for (int i = 0; i < list.size(); i++) {
             Map tmp = (Map) list.get(i);
@@ -122,18 +122,18 @@ public class Oep4Demo2 {
 
     }
 
-    public static void accountInfo(OntSdk ontSdk) throws Exception {
+    public static void accountInfo(TstSdk tstSdk) throws Exception {
         //query oep4 token info(账户状态查看)
-        System.out.println(ontSdk.neovm().oep4().queryDecimals());
-        System.out.println(ontSdk.neovm().oep4().queryName());
-        System.out.println(ontSdk.neovm().oep4().querySymbol());
-        System.out.println(ontSdk.neovm().oep4().queryTotalSupply());
-        System.out.println(acct1.getAddressU160().toBase58() + ": " + ontSdk.neovm().oep4().queryBalanceOf(acct1.getAddressU160().toBase58()));
+        System.out.println(tstSdk.neovm().oep4().queryDecimals());
+        System.out.println(tstSdk.neovm().oep4().queryName());
+        System.out.println(tstSdk.neovm().oep4().querySymbol());
+        System.out.println(tstSdk.neovm().oep4().queryTotalSupply());
+        System.out.println(acct1.getAddressU160().toBase58() + ": " + tstSdk.neovm().oep4().queryBalanceOf(acct1.getAddressU160().toBase58()));
         return;
 
     }
 
-    public static void convert(OntSdk ontSdk) throws Exception {
+    public static void convert(TstSdk tstSdk) throws Exception {
 
         //583e0f  hex金额转string
         BigInteger amount = Helper.BigIntFromNeoBytes(Helper.hexToBytes("583e0f"));
@@ -146,15 +146,15 @@ public class Oep4Demo2 {
 
 
 
-    public static void showBalance(OntSdk ontSdk, Account[] accounts) throws Exception {
+    public static void showBalance(TstSdk tstSdk, Account[] accounts) throws Exception {
         for (int i = 0; i < accounts.length; i++) {
             int a = i + 1;
-            System.out.println("account" + a + ":" + ontSdk.neovm().oep4().queryBalanceOf(accounts[i].getAddressU160().toBase58()));
+            System.out.println("account" + a + ":" + tstSdk.neovm().oep4().queryBalanceOf(accounts[i].getAddressU160().toBase58()));
         }
     }
 
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 //        String ip = "http://139.219.108.204";
         String ip = "http://127.0.0.1";
         ip = "http://polaris3.ont.io";
@@ -165,7 +165,7 @@ public class Oep4Demo2 {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

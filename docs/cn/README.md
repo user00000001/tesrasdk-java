@@ -60,7 +60,7 @@ $ mvn clean install
 <dependency>
     <groupId>com.github.TesraSupernet</groupId>
     <artifactId>tesra-sdk-java</artifactId>
-    <version>1.0.13</version>
+    <version>0.0.1</version>
 </dependency>
 ```
 

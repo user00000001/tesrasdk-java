@@ -1,6 +1,6 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
@@ -9,7 +9,7 @@ import com.github.TesraSupernet.smartcontract.neovm.oep5.Oep5Param;
 public class Oep5Demo {
     public static void main(String[] args) {
         try {
-            OntSdk sdk = getOntSdk();
+            TstSdk sdk = getTstSdk();
             Account account = sdk.getWalletMgr().getAccount("AQf4Mzu1YJrhz9f3aRkkwSm9n3qhXGSh4p", "xinhao");
             Account account1 = sdk.getWalletMgr().getAccount("ARR5ywDEx3ybXkMGmZPFYu9hiC8J4xvNdc", "xinhao");
             Account account2 = sdk.getWalletMgr().getAccount("AacHGsQVbTtbvSWkqZfvdKePLS6K659dgp", "xinhao");
@@ -107,7 +107,7 @@ public class Oep5Demo {
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 //        String ip = "http://139.219.108.204";
         String ip = "http://127.0.0.1";
 //        ip= "http://139.219.138.201";
@@ -117,7 +117,7 @@ public class Oep5Demo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

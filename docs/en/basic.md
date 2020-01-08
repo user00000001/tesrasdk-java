@@ -7,15 +7,15 @@ English / [中文](../cn/basic.md)
 
 The following describes the basic blockchain interaction functions of the Java SDK and defines relevant data structures.
 
-Please use the following methods to initialize OntSDK before launching JAVA SDK.
+Please use the following methods to initialize TstSDK before launching JAVA SDK.
 
 
 ```
-OntSdk wm = OntSdk.getInstance();
+TstSdk wm = TstSdk.getInstance();
 wm.setRpc(rpcUrl);
 wm.setRestful(restUrl);
 wm.setDefaultConnect(wm.getRestful());
-wm.openWalletFile("OntAssetDemo.json");
+wm.openWalletFile("TstAssetDemo.json");
 ```
 
 Note: setRestful indicates that the connection is established using the restful interface, and setRpc indicates that the connection is established using the rpc interface. setDefaultConnect is used to set this as the default connection method.
@@ -26,19 +26,19 @@ Note: setRestful indicates that the connection is established using the restful 
 
 **Get the current block height**
 ```
-int height = ontSdk.getConnectMgr().getBlockHeight();
+int height = tstSdk.getConnectMgr().getBlockHeight();
 ```
 
 **Get block**
 
 ***Get block by block height***
 ```
-Block block = ontSdk.getConnect().getBlock(9757);
+Block block = tstSdk.getConnect().getBlock(9757);
 ```
 
 ***Get block by block hash***
 ```
-Block block = ontSdk.getConnect().getBlock(blockhash);
+Block block = tstSdk.getConnect().getBlock(blockhash);
 ```
 
 **Get block json**
@@ -46,83 +46,83 @@ Block block = ontSdk.getConnect().getBlock(blockhash);
 
 ***Get block by block height***
 ```
-Object block = ontSdk.getConnect().getBlockJson(9757);
+Object block = tstSdk.getConnect().getBlockJson(9757);
 ```
 
 ***Get block by block hash***
 
 ```
-Object block = ontSdk.getConnect().getBlockJson(blockhash);
+Object block = tstSdk.getConnect().getBlockJson(blockhash);
 ```
 
 **Get contract code**
 
 ***Get contract code by contract hash***
 ```
-Object contract =  ontSdk.getConnect().getContract(contractHash)
+Object contract =  tstSdk.getConnect().getContract(contractHash)
 ```
 
 ***Get contract json  by contract hash***
 ```
-Object contractJson = ontSdk.getConnect().getContractJson(hash)
+Object contractJson = tstSdk.getConnect().getContractJson(hash)
 ```
 
 **Get balance**
 ```
-Object  balance = ontSdk.getConnect().getBalance(address)
+Object  balance = tstSdk.getConnect().getBalance(address)
 ```
 
 **Get blockchain node count**
 ```
-ontSdk.getConnect().getNodeCount();
+tstSdk.getConnect().getNodeCount();
 ```
 
 **Get block height**
 
 ```
-int blockheight = ontSdk.getConnect().getBlockHeight()
+int blockheight = tstSdk.getConnect().getBlockHeight()
 ```
 
 **Get smartcontract event**
 
 ***Get smartcontract event by block height***
 ```
-Object  event = ontSdk.getConnect().getSmartCodeEvent(height)
+Object  event = tstSdk.getConnect().getSmartCodeEvent(height)
 ```
 
 ***Get smartcontract event by transaction hash***
 ```
-Object  event = ontSdk.getConnect().getSmartCodeEvent(hash)
+Object  event = tstSdk.getConnect().getSmartCodeEvent(hash)
 ```
 
 **Get block height by transaction hash**
 ```
-int blockheight = ontSdk.getConnect().getBlockHeightByTxHash(txhash)
+int blockheight = tstSdk.getConnect().getBlockHeightByTxHash(txhash)
 ```
 
 **Get data stored in smart contract by key**
 ```
-String value = ontSdk.getConnect().getStorage(codehash,key)
+String value = tstSdk.getConnect().getStorage(codehash,key)
 ```
 
 **Get merkle proof**
 ```
-Object proof =  ontSdk.getConnect().getMerkleProof(String hash)
+Object proof =  tstSdk.getConnect().getMerkleProof(String hash)
 ```
 
 **Get transaction**
 ```
-Transaction info = ontSdk.getConnect().getTransaction(hash);
+Transaction info = tstSdk.getConnect().getTransaction(hash);
 ```
 
 **Get transaction json by transaction hash**
 ```
-Object info = ontSdk.getConnect().getTransactionJson(txhash);
+Object info = tstSdk.getConnect().getTransactionJson(txhash);
 ```
 
 **Get InvokeTransaction**
 ```
-InvokeCodeTransaction t = (InvokeCodeTransaction) ontSdk.getConnect().getTransaction(hash);
+InvokeCodeTransaction t = (InvokeCodeTransaction) tstSdk.getConnect().getTransaction(hash);
 ```
 
 ## Data structure

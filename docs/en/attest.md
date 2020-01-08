@@ -21,7 +21,7 @@ class Claim{
 
 ```
 class Header {
-    public String Alg = "ONT-ES256";
+    public String Alg = "TSG-ES256";
     public String Typ = "JWT-X";
     public String Kid;
     }
@@ -33,7 +33,7 @@ class Header {
     * JWT: This corresponds to the case that blockchain proof is not contained in the claim
     * JWT-X: This corresponds to the case that blockchain proof is a part of the claim
 
-`kid`  attribute refers to the public key used for signature verification. It has the form <ontID>#keys-<id> as defined in ONT ID specification.
+`kid`  attribute refers to the public key used for signature verification. It has the form <ontID>#keys-<id> as defined in TSG ID specification.
 
 
 ```
@@ -53,9 +53,9 @@ class Payload {
 
 `ver` attribute specifies the version of the claim specification it follows
 
-`iss` attribute refers to the ONT ID of the issuer
+`iss` attribute refers to the TSG ID of the issuer
 
-`sub` attribute refers to the ONT ID of the recipient
+`sub` attribute refers to the TSG ID of the recipient
 
 `iat` attribute marks the time the claim was created and has the unix timestamp format
 
@@ -74,40 +74,40 @@ class Payload {
 ### Sign and issue verifiable claim
 A verifiable claim is constructed based on user input, which contains signed data.
 
-**createOntIdClaim**
+**createTstIdClaim**
 
 | Parameter      | Field   | Type  | Description |            Remarks |
 | ----- | ------- | ------ | ------------- | ----------- |
-| Input parameter | signerOntid| String | ONT ID | Required |
-|        | password    | String | ONT ID password   | Required |
+| Input parameter | signerTstid| String | TSG ID | Required |
+|        | password    | String | TSG ID password   | Required |
 |        | salt        | byte[] | Private key decryption parameters |Required|
 |        | context| String  |Attribute specifies the URI of claim content definition document which defines the meaning of each field and the type of the value | Required|
 |        | claimMap| Map  |Content of claim | Required|
-|        | metaData   | Map | Claim issuer and subject's ONT ID | Required |
+|        | metaData   | Map | Claim issuer and subject's TSG ID | Required |
 |        | clmRevMap   | Map | Attribute is an object which defines the revocation mechanism the claim use | Required |
 |        | expire   | long | Attribute marks the expiration time of the claim and has the format of unix timestamp     | required |
 | Output parameter| claim   | String  |   |  |
 
 ##### Example of creating an onit claim    
 ```
-String createOntIdClaim (String signerOntid, String password,byte[] salt, String context, Map<String, Object> claimMap, Map metaData,Map clmRevMap,long expire)
+String createTstIdClaim (String signerTstid, String password,byte[] salt, String context, Map<String, Object> claimMap, Map metaData,Map clmRevMap,long expire)
 ```
 
 ```
 Map<String, Object> map = new HashMap<String, Object>();
-map.put("Issuer", dids.get(0).ontid);
-map.put("Subject", dids.get(1).ontid);
+map.put("Issuer", dids.get(0).tstid);
+map.put("Subject", dids.get(1).tstid);
 Map clmRevMap = new HashMap();
 clmRevMap.put("typ","AttestContract");
-clmRevMap.put("addr",dids.get(1).ontid.replace(Common.didont,""));
-String claim = ontSdk.nativevm().ontId().createOntIdClaim(dids.get(0).ontid,password,salt, "claim:context", map, map,clmRevMap,System.currentTimeMillis()/1000 +100000);
+clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didont,""));
+String claim = tstSdk.nativevm().tstId().createTstIdClaim(dids.get(0).tstid,password,salt, "claim:context", map, map,clmRevMap,System.currentTimeMillis()/1000 +100000);
 ```
-Note: The issuer may have multiple public keys. The parameter ontid of createOntIdClaim specifies which public key to use. <p> <br>
+Note: The issuer may have multiple public keys. The parameter tstid of createTstIdClaim specifies which public key to use. <p> <br>
 
 
 ### Verify verifiable claim
 
-**verifyOntIdClaim**
+**verifyTstIdClaim**
 
 | Parameter      | Field   | Type  | Description |            Remarks |
 | ----- | ------- | ------ | ------------- | ----------- |
@@ -116,27 +116,27 @@ Note: The issuer may have multiple public keys. The parameter ontid of createOnt
   
  
 ```
-boolean verifyOntIdClaim (string claim)
+boolean verifyTstIdClaim (string claim)
 ```
 
-##### Example of verifying an ontid claim
+##### Example of verifying an tstid claim
 ```
-boolean b = ontSdk.nativevm().ontId().verifyOntIdClaim(claim);
+boolean b = tstSdk.nativevm().tstId().verifyTstIdClaim(claim);
 ```
 
 ##### Example of claim issuance and verification:
 
 ```
 Map<String, Object> map = new HashMap<String, Object>();
-map.put("Issuer", dids.get(0).ontid);
-map.put("Subject", dids.get(1).ontid);
+map.put("Issuer", dids.get(0).tstid);
+map.put("Subject", dids.get(1).tstid);
 
 Map clmRevMap = new HashMap();
 clmRevMap.put("typ","AttestContract");
-clmRevMap.put("addr",dids.get(1).ontid.replace(Common.didont,""));
+clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didont,""));
 
-String claim = ontSdk.nativevm().ontId().createOntIdClaim(dids.get(0).ontid,password,salt, "claim:context", map, map,clmRevMap,System.currentTimeMillis()/1000 +100000);
-boolean b = ontSdk.nativevm().ontId().verifyOntIdClaim(claim);
+String claim = tstSdk.nativevm().tstId().createTstIdClaim(dids.get(0).tstid,password,salt, "claim:context", map, map,clmRevMap,System.currentTimeMillis()/1000 +100000);
+boolean b = tstSdk.nativevm().tstId().verifyTstIdClaim(claim);
 ```
 
 
@@ -154,7 +154,7 @@ String ip = "http://127.0.0.1";
 String restUrl = ip + ":" + "20334";
 String rpcUrl = ip + ":" + "20336";
 String wsUrl = ip + ":" + "20335";
-OntSdk wm = OntSdk.getInstance();
+TstSdk wm = TstSdk.getInstance();
 wm.setRpc(rpcUrl);
 wm.setRestful(restUrl);
 wm.setDefaultConnect(wm.getRestful());
@@ -167,18 +167,18 @@ Note: codeAddress is the address of the record contract.
 
 ```
 Map<String, Object> map = new HashMap<String, Object>();
-map.put("Issuer", dids.get(0).ontid);
-map.put("Subject", dids.get(1).ontid);
+map.put("Issuer", dids.get(0).tstid);
+map.put("Subject", dids.get(1).tstid);
 
 Map clmRevMap = new HashMap();
 clmRevMap.put("typ","AttestContract");
-clmRevMap.put("addr",dids.get(1).ontid.replace(Common.didont,""));
+clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didont,""));
 
-String claim = ontSdk.nativevm().ontId().createOntIdClaim(dids.get(0).ontid,password,dids.get(0).controls.get(0).getSalt(), "claim:context", map, map,
+String claim = tstSdk.nativevm().tstId().createTstIdClaim(dids.get(0).tstid,password,dids.get(0).controls.get(0).getSalt(), "claim:context", map, map,
 clmRevMap,System.currentTimeMillis()/1000 +100000);
 ```
 
-Note: For createOntIdClaim interface details please see the digital identity ontid document https://github.com/TesraSupernet/tesra-java-sdk/blob/master/docs/cn/identity_claim.md
+Note: For createTstIdClaim interface details please see the digital identity tstid document https://github.com/TesraSupernet/tesra-java-sdk/blob/master/docs/cn/identity_claim.md
 
 
 <br>
@@ -187,13 +187,13 @@ Note: For createOntIdClaim interface details please see the digital identity ont
 
 **sendCommit**
 ```
-String sendCommit (String issuerOntid, String password,byte[] salt, String subjectOntid, String claimId, Account payerAcct, long gaslimit, long gasprice)
+String sendCommit (String issuerTstid, String password,byte[] salt, String subjectTstid, String claimId, Account payerAcct, long gaslimit, long gasprice)
 ```
 Function description: Save data to the chain
 
 Parameters:
-```issuerOntid```:  Issuer ONT ID
-```subjectOntid```:  Subject ONT ID
+```issuerTstid```:  Issuer TSG ID
+```subjectTstid```:  Subject TSG ID
 ```password```: Identity password
 ```claimId```: Trusted claims claim uniqueness mark, i.e. Jti field in Claim
 ```payerAcct```: Payment transaction account
@@ -207,7 +207,7 @@ return value: Transaction hash
 ```
 String[] claims = claim.split("\\.");
 JSONObject payload = JSONObject.parseObject(new String(Base64.getDecoder().decode(claims[1].getBytes())));
-ontSdk.neovm().claimRecord().sendCommit(ontid,password,payload.getString("jti"),0)
+tstSdk.neovm().claimRecord().sendCommit(tstid,password,payload.getString("jti"),0)
 ```
 
 
@@ -224,11 +224,11 @@ Parameters:
 
 return value： 
         Part 1: Status of the claim: "Not attested", "Attested", "Attest has been revoked"
-        Part 2: The certificate's ONT ID.
+        Part 2: The certificate's TSG ID.
 
 ##### Example
 ```
-String getstatusRes2 = ontSdk.neovm().claimRecord().sendGetStatus(payload.getString("jti"));
+String getstatusRes2 = tstSdk.neovm().claimRecord().sendGetStatus(payload.getString("jti"));
 ```
 
 
@@ -236,16 +236,16 @@ String getstatusRes2 = ontSdk.neovm().claimRecord().sendGetStatus(payload.getStr
 
 **sendRevoke**
 ```
-String sendRevoke(String issuerOntid,String password,byte[] salt,String claimId,Account payerAcct,long gaslimit,long gas)
+String sendRevoke(String issuerTstid,String password,byte[] salt,String claimId,Account payerAcct,long gaslimit,long gas)
 ```
 Function description:Repeal of a trust claim
 
 Parameters:
-```issuerOntid```: Issuer ONT ID
-```password```: Attester's ONT ID password
+```issuerTstid```: Issuer TSG ID
+```password```: Attester's TSG ID password
 ```claimId```: Trusted claims claim uniqueness mark, i.e. Jti field in Claim
 ```payerAcct```: Payment transaction account
 ```gaslimit```: Gas limit
 ```gasprice```: Gas price
 
-return value： This function will return true if and only if the claim is attested, and the revokerOntId is equal to the attester's ONT identity; Otherwise, it will return false.
+return value： This function will return true if and only if the claim is attested, and the revokerTstId is equal to the attester's TSG identity; Otherwise, it will return false.

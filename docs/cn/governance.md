@@ -10,10 +10,10 @@
 
 ### 1. 申请成为候选节点
 
-* 抵押一定的ONT，消耗一定的额外ONG，申请成为候选节点
+* 抵押一定的TSG，消耗一定的额外TSG，申请成为候选节点
 
 ```java
-String registerCandidate(Account account, String peerPubkey, long initPos, String ontid,String ontidpwd,byte[] salt,  long keyNo, Account payerAcct, long gaslimit, long gasprice)
+String registerCandidate(Account account, String peerPubkey, long initPos, String tstid,String tstidpwd,byte[] salt,  long keyNo, Account payerAcct, long gaslimit, long gasprice)
 ```
 
 参数说明:
@@ -23,9 +23,9 @@ String registerCandidate(Account account, String peerPubkey, long initPos, Strin
 | 输入参数 | account       | Account | 节点钱包账户            | 必选 |
 |         | peerPubkey    | String  | 节点公钥               | 必选 |
 |         | initPos       | long    | 初始化权益             |必选|
-|         | ontid         | String  |已授权的ontid           | 必选|
-|         | ontidpwd      | String  | ontid密码              |必选|
-|         | salt          | byte[]  | ontid对应的salt        |必选|
+|         | tstid         | String  |已授权的tstid           | 必选|
+|         | tstidpwd      | String  | tstid密码              |必选|
+|         | salt          | byte[]  | tstid对应的salt        |必选|
 |         | keyNo         | long    | 公钥索引               |必选|
 |         | payerAcct     | Account | 支付交易费用的账户      |必选|
 |         | gaslimit      | long    | gaslimit | 必选 |
@@ -36,7 +36,7 @@ String registerCandidate(Account account, String peerPubkey, long initPos, Strin
 
 ### 2. 取消申请成为候选节点
 
-* 取消申请成为候选节点，解冻抵押的ONT
+* 取消申请成为候选节点，解冻抵押的TSG
 
 ```java
 String unRegisterCandidate(Account account, String peerPubkey,Account payerAcct, long gaslimit, long gasprice)
@@ -104,9 +104,9 @@ String getAuthorizeInfo(String peerPubkey,Address addr)
 | 输出参数 | 节点授权信息       | String  | 节点授权信息  |  |
 
 
-### 6. 取出处于未冻结状态的抵押ONT
+### 6. 取出处于未冻结状态的抵押TSG
 
-* 取出处于未冻结状态的抵押ONT
+* 取出处于未冻结状态的抵押TSG
 
 ```java
 String withdraw(Account account,String peerPubkey[],long[] withdrawList,Account payerAcct,long gaslimit,long gasprice)
@@ -130,7 +130,7 @@ String withdraw(Account account,String peerPubkey[],long[] withdrawList,Account 
 * 提取解绑ong
 
 ```java
-String withdrawOng(Account account,Account payerAcct,long gaslimit,long gasprice)
+String withdrawTsg(Account account,Account payerAcct,long gaslimit,long gasprice)
 ```
 
 参数说明:
@@ -250,8 +250,8 @@ String setPeerCost(Account account,String peerPubkey,int peerCost,Account payerA
 | 输出参数 | 交易hash       | String  | 交易hash  |  |
 
 
-### 13. 节点修改自己接受的最大授权ONT数量
-* 节点修改自己接受的最大授权ONT数量
+### 13. 节点修改自己接受的最大授权TSG数量
+* 节点修改自己接受的最大授权TSG数量
 
 ```java
 String changeMaxAuthorization(Account account,String peerPubkey,int maxAuthorize,Account payerAcct,long gaslimit,long gasprice)

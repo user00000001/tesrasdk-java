@@ -20,7 +20,7 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.core.block.Block;
@@ -37,42 +37,42 @@ import java.util.Map;
 public class Demo {
     public static void main(String[] args) {
         try {
-            OntSdk ontSdk = getOntSdk();
+            TstSdk tstSdk = getTstSdk();
 
 
             if(false){
-                 Account account = ontSdk.getWalletMgr().importAccount("UcZl6tYzuUwikWnlSBkv1aDrFG80RadPqwoKINRe0+wzCR5o5QqBrrklFXgC5uz9",
+                 Account account = tstSdk.getWalletMgr().importAccount("UcZl6tYzuUwikWnlSBkv1aDrFG80RadPqwoKINRe0+wzCR5o5QqBrrklFXgC5uz9",
                         "LUlu@665211","AKSTMpAL1MWujdmE1oZNBXLTo4yr4sdF3g",Base64.getDecoder().decode("2kMG+JvubSz5Llw07ewiWQ=="));
                 System.out.println(account.address);
-                com.github.TesraSupernet.account.Account account1 = ontSdk.getWalletMgr().getAccount(account.address,"LUlu@665211");
+                com.github.TesraSupernet.account.Account account1 = tstSdk.getWalletMgr().getAccount(account.address,"LUlu@665211");
                 System.out.println(account1.exportWif());
                 return;
             }
 
 
-//            System.out.println(ontSdk.getConnect().getBalance("TA5NzM9iE3VT9X8SGk5h3dii6GPFQh2vme"));
-//            System.out.println(Helper.toHexString(ontSdk.getConnect().getBlock(1).transactions[0].sigs[0].sigData[0]));
-            System.out.println(ontSdk.getConnect().getBlock(15));
-            System.out.println(ontSdk.getConnect().getBlockHeight());
-            System.out.println(ontSdk.getConnect().getBlockJson(15));
-//            System.out.println(ontSdk.getConnect().getBlockJson("ee2d842fe7cdf48bc39b34d616a9e8f7f046970ed0a988dde3fe05c9126cce74"));
-            System.out.println(ontSdk.getConnect().getNodeCount());
-//            System.out.println(((InvokeCodeTransaction)ontSdk.getConnect().getRawTransaction("c2592940837c2347f6a7b391d4940abb7171dd5dd156b7c031d20a5940142b5a")));
-//            System.out.println((ontSdk.getConnect().getTransaction("d441a967315989116bf0afad498e4016f542c1e7f8605da943f07633996c24cc")));
-            System.out.println(ontSdk.getConnect().getSmartCodeEvent(0));
-//            System.out.println(ontSdk.getConnect().getContractJson("803ca638069742da4b6871fe3d7f78718eeee78a"));
-//            System.out.println(ontSdk.getConnect().getMerkleProof("0087217323d87284d21c3539f216dd030bf9da480372456d1fa02eec74c3226d"));
-            //System.out.println(ontSdk.getConnect().getBlockHeightByTxHash("7c3e38afb62db28c7360af7ef3c1baa66aeec27d7d2f60cd22c13ca85b2fd4f3"));
-            //String v = (String)ontSdk.getConnect().getStorage("ff00000000000000000000000000000000000001", Address.decodeBase58("TA63xZXqdPLtDeznWQ6Ns4UsbqprLrrLJk").toHexString());
+//            System.out.println(tstSdk.getConnect().getBalance("TA5NzM9iE3VT9X8SGk5h3dii6GPFQh2vme"));
+//            System.out.println(Helper.toHexString(tstSdk.getConnect().getBlock(1).transactions[0].sigs[0].sigData[0]));
+            System.out.println(tstSdk.getConnect().getBlock(15));
+            System.out.println(tstSdk.getConnect().getBlockHeight());
+            System.out.println(tstSdk.getConnect().getBlockJson(15));
+//            System.out.println(tstSdk.getConnect().getBlockJson("ee2d842fe7cdf48bc39b34d616a9e8f7f046970ed0a988dde3fe05c9126cce74"));
+            System.out.println(tstSdk.getConnect().getNodeCount());
+//            System.out.println(((InvokeCodeTransaction)tstSdk.getConnect().getRawTransaction("c2592940837c2347f6a7b391d4940abb7171dd5dd156b7c031d20a5940142b5a")));
+//            System.out.println((tstSdk.getConnect().getTransaction("d441a967315989116bf0afad498e4016f542c1e7f8605da943f07633996c24cc")));
+            System.out.println(tstSdk.getConnect().getSmartCodeEvent(0));
+//            System.out.println(tstSdk.getConnect().getContractJson("803ca638069742da4b6871fe3d7f78718eeee78a"));
+//            System.out.println(tstSdk.getConnect().getMerkleProof("0087217323d87284d21c3539f216dd030bf9da480372456d1fa02eec74c3226d"));
+            //System.out.println(tstSdk.getConnect().getBlockHeightByTxHash("7c3e38afb62db28c7360af7ef3c1baa66aeec27d7d2f60cd22c13ca85b2fd4f3"));
+            //String v = (String)tstSdk.getConnect().getStorage("ff00000000000000000000000000000000000001", Address.decodeBase58("TA63xZXqdPLtDeznWQ6Ns4UsbqprLrrLJk").toHexString());
             //System.out.println(v);
-            Block block = ontSdk.getConnect().getBlock(ontSdk.getConnect().getBlockHeight());
+            Block block = tstSdk.getConnect().getBlock(tstSdk.getConnect().getBlockHeight());
             String hash = block.transactions[0].hash().toHexString();
-            System.out.println(ontSdk.getConnect().getMerkleProof(hash));
-            Object proof = ontSdk.nativevm().ontId().getMerkleProof(hash);
+            System.out.println(tstSdk.getConnect().getMerkleProof(hash));
+            Object proof = tstSdk.nativevm().tstId().getMerkleProof(hash);
             System.out.println(proof);
-            System.out.println(ontSdk.nativevm().ontId().verifyMerkleProof(JSON.toJSONString(proof)));
+            System.out.println(tstSdk.nativevm().tstId().verifyMerkleProof(JSON.toJSONString(proof)));
             System.exit(0);
-            List list = (List) ontSdk.getConnect().getSmartCodeEvent("a12117c319aa6906efd8869ba65c221f4e2ee44a8a2766fd326c8d7125beffbf");
+            List list = (List) tstSdk.getConnect().getSmartCodeEvent("a12117c319aa6906efd8869ba65c221f4e2ee44a8a2766fd326c8d7125beffbf");
 
             List states = (List) ((Map) (list.get(0))).get("States");
             List state1 = (List) states.get(0);
@@ -85,34 +85,34 @@ public class Demo {
             System.exit(0);
 
 
-            ontSdk.getWalletMgr().createAccount("123456");
-            System.out.println(ontSdk.getWalletMgr().getWallet());
-            System.out.println(ontSdk.getWalletMgr().getWalletFile());
+            tstSdk.getWalletMgr().createAccount("123456");
+            System.out.println(tstSdk.getWalletMgr().getWallet());
+            System.out.println(tstSdk.getWalletMgr().getWalletFile());
             System.exit(0);
-            System.out.println(ontSdk.getWalletMgr().getWallet().getAccounts().get(0));
-            ontSdk.getWalletMgr().getWallet().removeAccount(ontSdk.getWalletMgr().getWallet().getAccounts().get(0).address);
-            ontSdk.getWalletMgr().writeWallet();
-            System.out.println(ontSdk.getWalletMgr().getWallet());
-            ontSdk.getWalletMgr().getWallet().setName("name");
+            System.out.println(tstSdk.getWalletMgr().getWallet().getAccounts().get(0));
+            tstSdk.getWalletMgr().getWallet().removeAccount(tstSdk.getWalletMgr().getWallet().getAccounts().get(0).address);
+            tstSdk.getWalletMgr().writeWallet();
+            System.out.println(tstSdk.getWalletMgr().getWallet());
+            tstSdk.getWalletMgr().getWallet().setName("name");
 
             System.exit(0);
-            Account acct = ontSdk.getWalletMgr().createAccount("password");
-            Identity identity = ontSdk.getWalletMgr().createIdentity("password");
-            //Block block = ontSdk.getConnectManager().getBlock(757);
-            System.out.println(ontSdk.getConnect().getNodeCount());
-            // ontSdk.getOepMgr().getAccount(ontSdk.getOepMgr().getAccounts().get(0).address,"1234567");
+            Account acct = tstSdk.getWalletMgr().createAccount("password");
+            Identity identity = tstSdk.getWalletMgr().createIdentity("password");
+            //Block block = tstSdk.getConnectManager().getBlock(757);
+            System.out.println(tstSdk.getConnect().getNodeCount());
+            // tstSdk.getOepMgr().getAccount(tstSdk.getOepMgr().getAccounts().get(0).address,"1234567");
 
-            Account info = ontSdk.getWalletMgr().createAccount("123456");
-            ontSdk.getWalletMgr().writeWallet();
-            //   ontSdk.getOepMgr().createOntId("123456");
-            //  AccountInfo info2 = ontSdk.getWalletMgr().getAccountInfo(info.address,"123456");
+            Account info = tstSdk.getWalletMgr().createAccount("123456");
+            tstSdk.getWalletMgr().writeWallet();
+            //   tstSdk.getOepMgr().createTstId("123456");
+            //  AccountInfo info2 = tstSdk.getWalletMgr().getAccountInfo(info.address,"123456");
             //  System.out.println(info2);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 //        String ip = "http://139.219.108.204";
         String ip = "http://127.0.0.1";
 //        String ip = "http://101.132.193.149";
@@ -120,7 +120,7 @@ public class Demo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

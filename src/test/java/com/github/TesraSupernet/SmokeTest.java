@@ -8,8 +8,8 @@
 //import com.github.TesraSupernet.sdk.exception.SDKException;
 //
 //import com.github.TesraSupernet.sdk.manager.ConnectMgr;
-//import com.github.TesraSupernet.smartcontract.nativevm.OntAssetTx;
-//import com.github.TesraSupernet.smartcontract.neovm.OntIdTx;
+//import com.github.TesraSupernet.smartcontract.nativevm.TstAssetTx;
+//import com.github.TesraSupernet.smartcontract.neovm.TstIdTx;
 //import com.github.TesraSupernet.sdk.manager.WalletMgr;
 //import com.github.TesraSupernet.sdk.wallet.Identity;
 //import com.github.TesraSupernet.sdk.wallet.Wallet;
@@ -20,24 +20,24 @@
 //import static org.junit.Assert.*;
 //
 //public class SmokeTest {
-//    private OntSdk ontSdk;
+//    private TstSdk tstSdk;
 //    private WalletMgr walletMgr;
 //    private Wallet wallet;
-//    private OntIdTx ontIdTx;
+//    private TstIdTx tstIdTx;
 //    private ConnectMgr connectMgr;
-//    private OntAssetTx ontAssetTx;
+//    private TstAssetTx ontAssetTx;
 //
 //    @Before
 //    public void setUp() throws Exception {
-//        ontSdk = OntSdk.getInstance();
-//        ontSdk.setRestful("http://polaris1.ont.io:20334");
-//        ontSdk.openWalletFile("wallet.json");
-//        ontSdk.neovm().ontId().setCodeAddress("80b0cc71bda8653599c5666cae084bff587e2de1");
-//        walletMgr = ontSdk.getWalletMgr();
+//        tstSdk = TstSdk.getInstance();
+//        tstSdk.setRestful("http://polaris1.ont.io:20334");
+//        tstSdk.openWalletFile("wallet.json");
+//        tstSdk.neovm().tstId().setCodeAddress("80b0cc71bda8653599c5666cae084bff587e2de1");
+//        walletMgr = tstSdk.getWalletMgr();
 //        wallet = walletMgr.getWallet();
-//        ontIdTx = ontSdk.neovm().ontId();
-//        connectMgr = ontSdk.getConnectMgr();
-//        ontAssetTx = ontSdk.nativevm().ont();
+//        tstIdTx = tstSdk.neovm().tstId();
+//        connectMgr = tstSdk.getConnectMgr();
+//        ontAssetTx = tstSdk.nativevm().ont();
 //    }
 //
 //    @After
@@ -46,21 +46,21 @@
 //
 //    @Test
 //    public void sendUpdateAttribute() throws Exception {
-//        Identity identity = ontIdTx.sendRegister("123456","payer",0);
-//        Account account = walletMgr.getAccount(identity.ontid,"123456");
+//        Identity identity = tstIdTx.sendRegister("123456","payer",0);
+//        Account account = walletMgr.getAccount(identity.tstid,"123456");
 //        String prikey = account.exportCtrEncryptedPrikey("123456", 16384);
 //        Thread.sleep(6000);
-//        String string = ontIdTx.sendGetDDO(identity.ontid);
-//        assertTrue(string.contains(identity.ontid));
+//        String string = tstIdTx.sendGetDDO(identity.tstid);
+//        assertTrue(string.contains(identity.tstid));
 //
 //        JSONObject jsonObject = new JSONObject();
 //        jsonObject.put("Context", "claimlalala");
 //        jsonObject.put("Issuer", "issuerlalala");
-//        String txnId = ontIdTx.sendUpdateAttribute(identity.ontid,"123456",prikey.getBytes(),"Json".getBytes(), jsonObject.toJSONString().getBytes(),0);
+//        String txnId = tstIdTx.sendUpdateAttribute(identity.tstid,"123456",prikey.getBytes(),"Json".getBytes(), jsonObject.toJSONString().getBytes(),0);
 //        assertNotNull(txnId);
 //        assertNotEquals(txnId,"");
 //        Thread.sleep(6000);
-//        string = ontIdTx.sendGetDDO(identity.ontid);
+//        string = tstIdTx.sendGetDDO(identity.tstid);
 //        assertTrue(string.contains("claimlalala"));
 //        assertTrue(string.contains("issuerlalala"));
 //    }
@@ -190,35 +190,35 @@
 //    }
 //
 //    @Test
-//    public void sendOngTransferFromToSelf() throws Exception {
+//    public void sendTsgTransferFromToSelf() throws Exception {
 ////        TA6qWdLo14aEve5azrYWWvMoGPrpczFfeW---1/gEPy/Uz3Eyl/sjoZ8JDymGX6hU/gi1ufUIg6vDURM= rich
 //        final int amount = 1;
 //        final String richAddr = "TA6qWdLo14aEve5azrYWWvMoGPrpczFfeW";
 //        final String richKey = "1/gEPy/Uz3Eyl/sjoZ8JDymGX6hU/gi1ufUIg6vDURM=";
 //        JSONObject richBalanceObj = (JSONObject) connectMgr.getBalance(richAddr);
-//        int richOngApprove = richBalanceObj.getIntValue("ong_appove");
-//        int richOng = richBalanceObj.getIntValue("ong");
-//        assertTrue(richOngApprove > 0);
-//        assertTrue(richOng >= 0);
+//        int richTsgApprove = richBalanceObj.getIntValue("ong_appove");
+//        int richTsg = richBalanceObj.getIntValue("ong");
+//        assertTrue(richTsgApprove > 0);
+//        assertTrue(richTsg >= 0);
 //
 //        com.github.TesraSupernet.sdk.wallet.Account accountRich = walletMgr.importAccount(richKey,"123456",richAddr);
 //
-//        String txnId = ontAssetTx.sendOngTransferFrom(richAddr,"123456",richAddr,amount,0);
+//        String txnId = ontAssetTx.sendTsgTransferFrom(richAddr,"123456",richAddr,amount,0);
 //        assertNotNull(txnId);
 //        assertNotEquals(txnId,"");
 //
 //        Thread.sleep(6000);
 //
 //        JSONObject richBalanceAfterObj = (JSONObject) connectMgr.getBalance(richAddr);
-//        int richOngApproveAfter = richBalanceAfterObj.getIntValue("ong_appove");
-//        int richOngAfter = richBalanceAfterObj.getIntValue("ong");
-//        assertTrue(richOngApproveAfter == richOngApprove - amount);
-//        assertTrue(richOngAfter == richOng + amount);
+//        int richTsgApproveAfter = richBalanceAfterObj.getIntValue("ong_appove");
+//        int richTsgAfter = richBalanceAfterObj.getIntValue("ong");
+//        assertTrue(richTsgApproveAfter == richTsgApprove - amount);
+//        assertTrue(richTsgAfter == richTsg + amount);
 //
 //    }
 //
 //    @Test
-//    public void sendOngTransferFromToOther() throws Exception {
+//    public void sendTsgTransferFromToOther() throws Exception {
 ////        TA6qWdLo14aEve5azrYWWvMoGPrpczFfeW---1/gEPy/Uz3Eyl/sjoZ8JDymGX6hU/gi1ufUIg6vDURM= rich
 ////        TA4pSdTKm4hHtQJ8FbrCk9LZn7Uo96wrPC---Vz0CevSaI9/VNLx03XNEQ4Lrnnkkjo5aM5hdCuicsOE= poor1
 //        final int amount = 1;
@@ -228,14 +228,14 @@
 //
 //        JSONObject richBalanceObj = (JSONObject) connectMgr.getBalance(richAddr);
 //        JSONObject poorBalanceObj = (JSONObject) connectMgr.getBalance(poorAddr);
-//        long richOngApprove = richBalanceObj.getLongValue("ong_appove");
-//        int poorOng = poorBalanceObj.getIntValue("ong");
-//        assertTrue(richOngApprove > 0);
-//        assertTrue(poorOng >= 0);
+//        long richTsgApprove = richBalanceObj.getLongValue("ong_appove");
+//        int poorTsg = poorBalanceObj.getIntValue("ong");
+//        assertTrue(richTsgApprove > 0);
+//        assertTrue(poorTsg >= 0);
 //
 //        com.github.TesraSupernet.sdk.wallet.Account account = walletMgr.importAccount(richKey,"123456",richAddr);
 //
-//        String txnId = ontAssetTx.sendOngTransferFrom(richAddr,"123456",poorAddr,amount,0);
+//        String txnId = ontAssetTx.sendTsgTransferFrom(richAddr,"123456",poorAddr,amount,0);
 //        assertNotNull(txnId);
 //        assertNotEquals(txnId,"");
 //
@@ -243,10 +243,10 @@
 //
 //        JSONObject richBalanceAfterObj = (JSONObject) connectMgr.getBalance(richAddr);
 //        JSONObject poorBalanceAfterObj = (JSONObject) connectMgr.getBalance(poorAddr);
-//        long richOngApproveAfter = richBalanceAfterObj.getLongValue("ong_appove");
-//        int poorOngAfter = poorBalanceAfterObj.getIntValue("ong");
-//        assertTrue(richOngApproveAfter == richOngApprove - amount);
-//        assertTrue(poorOngAfter == poorOng + amount);
+//        long richTsgApproveAfter = richBalanceAfterObj.getLongValue("ong_appove");
+//        int poorTsgAfter = poorBalanceAfterObj.getIntValue("ong");
+//        assertTrue(richTsgApproveAfter == richTsgApprove - amount);
+//        assertTrue(poorTsgAfter == poorTsg + amount);
 //
 //    }
 //
@@ -267,7 +267,7 @@
 //    }
 //
 //    @Test
-//    public void sendTransfer58016OntassetError() throws Exception {
+//    public void sendTransfer58016TstassetError() throws Exception {
 //        final String richAddr = "TA6qWdLo14aEve5azrYWWvMoGPrpczFfeW";
 //        final String poorAddr= "TA4pSdTKm4hHtQJ8FbrCk9LZn7Uo96wrPC";
 //        final String richKey = "1/gEPy/Uz3Eyl/sjoZ8JDymGX6hU/gi1ufUIg6vDURM=";
@@ -340,7 +340,7 @@
 //        final String poorAddr= "TA4pSdTKm4hHtQJ8FbrCk9LZn7Uo96wrPC";
 //        final String richKey = "1/gEPy/Uz3Eyl/sjoZ8JDymGX6hU/gi1ufUIg6vDURM=";
 //        walletMgr.importAccount(richKey,"123456",richAddr);
-//        ontSdk.setRestful("");
+//        tstSdk.setRestful("");
 //
 //        try {
 //            ontAssetTx.sendTransfer("ont",richAddr,"123456",poorAddr,1,0);
@@ -388,7 +388,7 @@
 //        }
 //
 //        try {
-//            ontSdk.setRestful("");
+//            tstSdk.setRestful("");
 //            ontAssetTx.sendTransferFromMany("ont",new String[]{richAddr,poor1Addr},new String[]{"123456","123456"},poor2Addr,new long[]{1,1},0);
 //        }catch (RestfulException e){
 //            assertTrue(e.getMessage().contains("58023"));
@@ -436,7 +436,7 @@
 //        }
 //
 //        try {
-//            ontSdk.setRestful("");
+//            tstSdk.setRestful("");
 //            ontAssetTx.sendTransferToMany("ont",richAddr,"123456",new String[]{poor1Addr,poor2Addr},new long[]{1,1},0);
 //        }catch (RestfulException e){
 //            assertTrue(e.getMessage().contains("58023"));

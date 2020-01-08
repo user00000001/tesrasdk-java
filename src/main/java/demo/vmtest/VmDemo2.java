@@ -1,7 +1,7 @@
 package demo.vmtest;
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.core.asset.Sig;
@@ -65,7 +65,7 @@ codeStr="57c56b6c766b00527ac46c766b51527ac4616c766b51c300c36c766b52527ac46c766b5
             engine.PushContext(new ExecutionContext(engine,params));
             Config config = new Config();
             String contractAddress = Helper.toHexString(Address.AddressFromVmCode(codeStr).toArray());
-            config.tx = OntSdk.getInstance().vm().makeInvokeCodeTransaction(contractAddress, null, params, null,0, 0);
+            config.tx = TstSdk.getInstance().vm().makeInvokeCodeTransaction(contractAddress, null, params, null,0, 0);
             config.tx.sigs = new Sig[1];
             config.tx.sigs[0] = new Sig();
             config.tx.sigs[0].M = 1;

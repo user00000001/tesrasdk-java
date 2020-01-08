@@ -20,7 +20,7 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.sdk.manager.ECIES;
 import org.bouncycastle.crypto.digests.SHA256Digest;
@@ -32,9 +32,9 @@ public class ECIESDemo {
     public static void main(String[] args) {
 
         try {
-            OntSdk ontSdk = getOntSdk();
+            TstSdk tstSdk = getTstSdk();
 
-            com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes("9a31d585431ce0aa0aab1f0a432142e98a92afccb7bcbcaff53f758df82acdb3"), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes("9a31d585431ce0aa0aab1f0a432142e98a92afccb7bcbcaff53f758df82acdb3"), tstSdk.defaultSignScheme);
             System.out.println("PrivateKey:"+Helper.toHexString(account.serializePrivateKey()));
             System.out.println("PublicKey:"+Helper.toHexString(account.serializePublicKey()));
 //            System.out.println(Helper.toHexString(account.serializePrivateKey()));
@@ -56,7 +56,7 @@ public class ECIESDemo {
 
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
         String ip = "http://127.0.0.1";
 //        String ip = "http://54.222.182.88;
 //        String ip = "http://101.132.193.149";
@@ -64,7 +64,7 @@ public class ECIESDemo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

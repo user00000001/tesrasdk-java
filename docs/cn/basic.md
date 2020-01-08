@@ -7,14 +7,14 @@
 
 以下针对使用SDK和区块交互的基本操作，以及相关数据结构定义。
 
-用Java SDK之前，请使用以下方式初始化OntSDK实例。
+用Java SDK之前，请使用以下方式初始化TstSDK实例。
 
 ```java
-OntSdk ontSdk = OntSdk.getInstance();
-ontSdk.setRpc(rpcUrl);
-ontSdk.setRestful(restUrl);
-ontSdk.setDefaultConnect(wm.getRestful());
-ontSdk.openWalletFile("OntAssetDemo.json");
+TstSdk tstSdk = TstSdk.getInstance();
+tstSdk.setRpc(rpcUrl);
+tstSdk.setRestful(restUrl);
+tstSdk.setDefaultConnect(wm.getRestful());
+tstSdk.openWalletFile("TstAssetDemo.json");
 ```
 > Note: setRestful表示采用restful接口建立连接，setRpc表示采用rpc接口建立连接,setDefaultConnect表示设置默认的链接方式。
 
@@ -24,46 +24,46 @@ ontSdk.openWalletFile("OntAssetDemo.json");
 
 * 获取当前区块高度
 ```java
-int height = ontSdk.getConnect().getBlockHeight();
+int height = tstSdk.getConnect().getBlockHeight();
 ```
 
 * 获取区块
 
 根据高度获取区块
 ```java
-Block block = ontSdk.getConnect().getBlock(9757);
+Block block = tstSdk.getConnect().getBlock(9757);
 ```
 
 根据区块hash获得区块
 
 ```java
-Block block = ontSdk.getConnect().getBlock(blockhash);
+Block block = tstSdk.getConnect().getBlock(blockhash);
 ```
 
 * 获得block json数据
 
 根据高度获取区块json
 ```java
-Object block = ontSdk.getConnect().getBlockJson(9757);
+Object block = tstSdk.getConnect().getBlockJson(9757);
 ```
 
 根据区块hash获得区块json
 
 ```java
-Object block = ontSdk.getConnect().getBlockJson(blockhash);
+Object block = tstSdk.getConnect().getBlockJson(blockhash);
 ```
 * 获得合约代码
 
 根据合约hash获得合约代码
 
 ```java
-Object contract =  ontSdk.getConnect().getContract(contractHash)
+Object contract =  tstSdk.getConnect().getContract(contractHash)
 ```
 
 根据合约hash获得合约代码json数据
 
 ```java
-Object contractJson = ontSdk.getConnect().getContractJson(hash)
+Object contractJson = tstSdk.getConnect().getContractJson(hash)
 ```
 
 * 查询余额
@@ -71,19 +71,19 @@ Object contractJson = ontSdk.getConnect().getContractJson(hash)
 根据账户地址查询余额
 
 ```java
-Object  balance = ontSdk.getConnect().getBalance(address)
+Object  balance = tstSdk.getConnect().getBalance(address)
 ```
 
 * 获取区块链节点数
 
 ```java
-int count = ontSdk.getConnect().getNodeCount();
+int count = tstSdk.getConnect().getNodeCount();
 ```
 
 * 获得区块高度
 
 ```java
-int blockheight = ontSdk.getConnect().getBlockHeight()
+int blockheight = tstSdk.getConnect().getBlockHeight()
 ```
 
 * 获得智能合约事件
@@ -91,25 +91,25 @@ int blockheight = ontSdk.getConnect().getBlockHeight()
 根据高度获得智能合约事件
 
 ```java
-Object  event = ontSdk.getConnect().getSmartCodeEvent(height)
+Object  event = tstSdk.getConnect().getSmartCodeEvent(height)
 ```
 
 根据交易hash获得智能合约事件
 
 ```java
-Object  event = ontSdk.getConnect().getSmartCodeEvent(hash)
+Object  event = tstSdk.getConnect().getSmartCodeEvent(hash)
 ```
 
 * 根据交易hash获得区块高度
 
 ```java
-int blockheight = ontSdk.getConnect().getBlockHeightByTxHash(txhash)
+int blockheight = tstSdk.getConnect().getBlockHeightByTxHash(txhash)
 ```
 
 * 获得智能合约存储的数据
 
 ```java
-String value = ontSdk.getConnect().getStorage(codehash,key)
+String value = tstSdk.getConnect().getStorage(codehash,key)
 ```
 
 * 获得merkle证明
@@ -117,26 +117,26 @@ String value = ontSdk.getConnect().getStorage(codehash,key)
 根据交易hash获得merkle证明
 
 ```java
-Object proof =  ontSdk.getConnect().getMerkleProof(String hash)
+Object proof =  tstSdk.getConnect().getMerkleProof(String hash)
 ```
 
 * 从区块链中获取交易
 
 根据交易hash获得交易对象
 ```java
-Transaction info = ontSdk.getConnect().getTransaction(txhash);
+Transaction info = tstSdk.getConnect().getTransaction(txhash);
 ```
 
 根据交易hash获得交易json数据
 
 ```java
-Object info = ontSdk.getConnect().getTransactionJson(txhash);
+Object info = tstSdk.getConnect().getTransactionJson(txhash);
 ```
 
 * 从区块链中获取InvokeCodeTransaction
 
 ```java
-InvokeCodeTransaction t = (InvokeCodeTransaction) ontSdk.getConnect().getTransaction(txhash);
+InvokeCodeTransaction t = (InvokeCodeTransaction) tstSdk.getConnect().getTransaction(txhash);
 ```
 ## 数据结构说明
 

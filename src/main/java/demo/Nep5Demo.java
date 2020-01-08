@@ -19,7 +19,7 @@
 
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.core.transaction.Transaction;
@@ -47,64 +47,64 @@ public class Nep5Demo {
     public static String privatekey5 = "f07d5a2be17bde8632ec08083af8c760b41b5e8e0b5de3703683c3bdcfb91549";
     public static void main(String[] args) {
         try {
-            OntSdk ontSdk = getOntSdk();
-            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), ontSdk.defaultSignScheme);
+            TstSdk tstSdk = getTstSdk();
+            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), tstSdk.defaultSignScheme);
 
-            Account acct = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+            Account acct = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), tstSdk.defaultSignScheme);
             System.out.println("recv:"+acct.getAddressU160().toBase58());
             System.out.println("acct1:"+acct1.getAddressU160().toBase58());
             if(false) {
-                long gasLimit = ontSdk.neovm().nep5().sendInitPreExec(acct,acct,30000,0);
+                long gasLimit = tstSdk.neovm().nep5().sendInitPreExec(acct,acct,30000,0);
                 System.out.println(gasLimit);
-                String result = ontSdk.neovm().nep5().sendInit(acct,acct,30000,0);
+                String result = tstSdk.neovm().nep5().sendInit(acct,acct,30000,0);
                 System.out.println(result);
                 System.exit(0);
             }
             String multiAddr = Address.addressFromMultiPubKeys(2,acct.serializePublicKey(),acct2.serializePublicKey()).toBase58();
             System.out.println("multiAddr:"+multiAddr);
             if(false) {
-                long gasLimit = ontSdk.neovm().nep5().sendTransferPreExec(acct, acct1.getAddressU160().toBase58(), 9000000000L);
+                long gasLimit = tstSdk.neovm().nep5().sendTransferPreExec(acct, acct1.getAddressU160().toBase58(), 9000000000L);
                 System.out.println(gasLimit);
-                ontSdk.neovm().nep5().sendTransfer(acct, acct1.getAddressU160().toBase58(), 1000000000L, acct, gasLimit, 0);
-                ontSdk.neovm().nep5().sendTransfer(acct, multiAddr, 1000000000L, acct, gasLimit, 0);
+                tstSdk.neovm().nep5().sendTransfer(acct, acct1.getAddressU160().toBase58(), 1000000000L, acct, gasLimit, 0);
+                tstSdk.neovm().nep5().sendTransfer(acct, multiAddr, 1000000000L, acct, gasLimit, 0);
                 System.exit(0);
             }
 
             if(true){ // sender is multi sign addr
-                String balance = ontSdk.neovm().nep5().queryBalanceOf(multiAddr);
+                String balance = tstSdk.neovm().nep5().queryBalanceOf(multiAddr);
                 System.out.println(new BigInteger(Helper.reverse(Helper.hexToBytes(balance))).longValue());
 
-                Transaction tx = ontSdk.neovm().nep5().makeTransfer(multiAddr,acct1.getAddressU160().toBase58(),10000000L,acct,50000,0);
-                ontSdk.addSign(tx,acct);
-                ontSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct);
-                ontSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct2);
-                Object obj = ontSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
+                Transaction tx = tstSdk.neovm().nep5().makeTransfer(multiAddr,acct1.getAddressU160().toBase58(),10000000L,acct,50000,0);
+                tstSdk.addSign(tx,acct);
+                tstSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct);
+                tstSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct2);
+                Object obj = tstSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
                 System.out.println(obj);
-             //   ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+             //   tstSdk.getConnect().sendRawTransaction(tx.toHexString());
                 System.out.println(tx.hash().toString());
                 System.exit(0);
             }
 
-            String balance = ontSdk.neovm().nep5().queryBalanceOf(acct.getAddressU160().toBase58());
+            String balance = tstSdk.neovm().nep5().queryBalanceOf(acct.getAddressU160().toBase58());
             System.out.println(new BigInteger(Helper.reverse(Helper.hexToBytes(balance))).longValue());
-            balance = ontSdk.neovm().nep5().queryBalanceOf(multiAddr);
+            balance = tstSdk.neovm().nep5().queryBalanceOf(multiAddr);
             System.out.println(new BigInteger(Helper.reverse(Helper.hexToBytes(balance))).longValue());
             System.exit(0);
 
-            String totalSupply = ontSdk.neovm().nep5().queryTotalSupply();
+            String totalSupply = tstSdk.neovm().nep5().queryTotalSupply();
             System.out.println(new BigInteger(Helper.reverse(Helper.hexToBytes(totalSupply))).longValue());
             System.exit(0);
 
-            String decimals = ontSdk.neovm().nep5().queryDecimals();
+            String decimals = tstSdk.neovm().nep5().queryDecimals();
             System.out.println(decimals);
 
-            String name = ontSdk.neovm().nep5().queryName();
+            String name = tstSdk.neovm().nep5().queryName();
             System.out.println(new String(Helper.hexToBytes(name)));
-            String symbol = ontSdk.neovm().nep5().querySymbol();
+            String symbol = tstSdk.neovm().nep5().querySymbol();
             System.out.println(new String(Helper.hexToBytes(symbol)));
 
             System.out.println(Address.decodeBase58(acct.getAddressU160().toBase58()).toHexString());
@@ -115,7 +115,7 @@ public class Nep5Demo {
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 //        String ip = "http://139.219.108.204";
         String ip = "http://127.0.0.1";
 //        String ip = "http://101.132.193.149";
@@ -124,7 +124,7 @@ public class Nep5Demo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

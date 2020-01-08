@@ -6,7 +6,7 @@ English / [中文](../cn/sdk_get_start.md)
 
 This is an introductory guide for developers who wish to use the Java SDK. You can access the full Java SDK document suite [here](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/docs/en).
 
-There are two kinds of assets in the Tesra Ecosystem, native assets and contract assets. Native assets are ONT and ONG and contract assets are items such as smart contracts.
+There are two kinds of assets in the Tesra Ecosystem, native assets and contract assets. Native assets are TSG and TSG and contract assets are items such as smart contracts.
 
 
 
@@ -20,20 +20,20 @@ The outline of this document is as follows:
 			* [Create account based on private key](#create-account-based-on-private-key)
 		* [Using wallet management](#using-wallet-management)
 	* [Address generation](#address-generation)
-* [ONT and ONG transfer](#ont-and-ong-transfer)
+* [TSG and TSG transfer](#ont-and-ong-transfer)
 	* [SDK Initialization](#sdk-Initialization)
 	* [Queries](#queries)
-		* [Query ONT or ONG Balance](#query-ont-or-ong-balance)
+		* [Query TSG or TSG Balance](#query-ont-or-ong-balance)
 		* [Query if the transaction is in the transaction pool](#query-if-the-transaction-is-in-the-transaction-pool)
 	* [Transaction deserialization](#transaction-deserialization)	
-	* [ONT transfer](#ont-transfer)
+	* [TSG transfer](#ont-transfer)
 		* [Construct transfer transaction and send](#construct-transfer-transaction-and-send)
 		* [Multiple signatures](#multiple-signatures)
 		* [One to multiple or multiple to multiple](#one-to-multiple-or-multiple-to-multiple)
 		* [Use signature server to sign](#use-signature-server-to-sign)
-	* [ONG transfer](#ong-transfer)
-		* [ONG transfer](#ong-transfer)
-		* [Withdraw ONG](#Withdraw-ong)
+	* [TSG transfer](#ong-transfer)
+		* [TSG transfer](#ong-transfer)
+		* [Withdraw TSG](#Withdraw-ong)
 * [NEP5 Transfer](#nep5-transfer)
 	* [Query NEP5 Balance](#query-nep5-balance)
 	* [Transfer NEP5 token](#transfer-nep5-token)
@@ -43,7 +43,7 @@ The outline of this document is as follows:
 * [Batch Transaction](#Batch-Transaction)
     * [Constructure Batch Transaction](#批量构造交易)
     * [Send Batch Transaction](#批量发送交易)
-    * [Create Ontid in Wallet](#在钱包中创建Ontid)	
+    * [Create Tstid in Wallet](#在钱包中创建Tstid)	
     	
 <br>
 
@@ -51,26 +51,26 @@ The outline of this document is as follows:
 
 | No   |                    Main   Function                     |     Description      |
 | ---- | :----------------------------------------------------: | :------------------: |
-| 1    |           ontSdk.getConnect().getNodeCount()           |     Query the number of nodes     |
-| 2    |            ontSdk.getConnect().getBlock(15)            |        Query block info        |
-| 3    |          ontSdk.getConnect().getBlockJson(15)          |        Query block info        |
-| 4    |       ontSdk.getConnect().getBlockJson("txhash")       |        Query block info        |
-| 5    |         ontSdk.getConnect().getBlock("txhash")         |        Query block info        |
-| 6    |          ontSdk.getConnect().getBlockHeight()          |     Query current block height     |
-| 7    |      ontSdk.getConnect().getTransaction("txhash")      |       Query transaction       |
-| 8    | ontSdk.getConnect().getStorage("contractaddress", key) |   Query smart contract storage   |
-| 9   |       ontSdk.getConnect().getBalance("address")        |       Query balance       |
-| 10   | ontSdk.getConnect().getContractJson("contractaddress") |     Query smart contract     |
-| 11   |       ontSdk.getConnect().getSmartCodeEvent(59)        |   Query the event in the smart contract   |
-| 12   |    ontSdk.getConnect().getSmartCodeEvent("txhash")     |   Query the event in the smart contract   |
-| 13   |  ontSdk.getConnect().getBlockHeightByTxHash("txhash")  |   Query the block height by transaction hash   |
-| 14   |      ontSdk.getConnect().getMerkleProof("txhash")      |    Get merkle proof    |
-| 15   | ontSdk.getConnect().sendRawTransaction("txhexString")  |       Send transaction       |
-| 16   |  ontSdk.getConnect().sendRawTransaction(Transaction)   |       Send transaction       |
-| 17   |    ontSdk.getConnect().sendRawTransactionPreExec()     |    Send a pre-execution transaction    |
-| 18   |  ontSdk.getConnect().getAllowance("ont","from","to")   |    Query Allowed Values    |
-| 19   |        ontSdk.getConnect().getMemPoolTxCount()         | Query total transaction volumn in the transaction pool  |
-| 20   |        ontSdk.getConnect().getMemPoolTxState()         | Query transaction status in the transaction pool |
+| 1    |           tstSdk.getConnect().getNodeCount()           |     Query the number of nodes     |
+| 2    |            tstSdk.getConnect().getBlock(15)            |        Query block info        |
+| 3    |          tstSdk.getConnect().getBlockJson(15)          |        Query block info        |
+| 4    |       tstSdk.getConnect().getBlockJson("txhash")       |        Query block info        |
+| 5    |         tstSdk.getConnect().getBlock("txhash")         |        Query block info        |
+| 6    |          tstSdk.getConnect().getBlockHeight()          |     Query current block height     |
+| 7    |      tstSdk.getConnect().getTransaction("txhash")      |       Query transaction       |
+| 8    | tstSdk.getConnect().getStorage("contractaddress", key) |   Query smart contract storage   |
+| 9   |       tstSdk.getConnect().getBalance("address")        |       Query balance       |
+| 10   | tstSdk.getConnect().getContractJson("contractaddress") |     Query smart contract     |
+| 11   |       tstSdk.getConnect().getSmartCodeEvent(59)        |   Query the event in the smart contract   |
+| 12   |    tstSdk.getConnect().getSmartCodeEvent("txhash")     |   Query the event in the smart contract   |
+| 13   |  tstSdk.getConnect().getBlockHeightByTxHash("txhash")  |   Query the block height by transaction hash   |
+| 14   |      tstSdk.getConnect().getMerkleProof("txhash")      |    Get merkle proof    |
+| 15   | tstSdk.getConnect().sendRawTransaction("txhexString")  |       Send transaction       |
+| 16   |  tstSdk.getConnect().sendRawTransaction(Transaction)   |       Send transaction       |
+| 17   |    tstSdk.getConnect().sendRawTransactionPreExec()     |    Send a pre-execution transaction    |
+| 18   |  tstSdk.getConnect().getAllowance("ont","from","to")   |    Query Allowed Values    |
+| 19   |        tstSdk.getConnect().getMemPoolTxCount()         | Query total transaction volumn in the transaction pool  |
+| 20   |        tstSdk.getConnect().getMemPoolTxState()         | Query transaction status in the transaction pool |
 
 
 
@@ -81,16 +81,16 @@ The outline of this document is as follows:
 #### Without using wallet management 
 #####  Create account randomly
 ```
-com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(tstSdk.defaultSignScheme);
 acct.serializePrivateKey();//Private key
 acct.serializePublicKey();//Public key
 acct.getAddressU160().toBase58();//Base58 address
 ```            
 ##### Create account based on private key
 ```          
-com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
-com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), tstSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), tstSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), tstSdk.defaultSignScheme);
 
 ```
 
@@ -98,17 +98,17 @@ com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.ac
 ```
 
 // Create a number of accounts in the wallet (10)
-ontSdk.getWalletMgr().createAccounts(10, "passwordtest");
-ontSdk.getWalletMgr().writeWallet();
+tstSdk.getWalletMgr().createAccounts(10, "passwordtest");
+tstSdk.getWalletMgr().writeWallet();
 
 // Create account randomly
-AccountInfo info0 = ontSdk.getWalletMgr().createAccountInfo("passwordtest");
+AccountInfo info0 = tstSdk.getWalletMgr().createAccountInfo("passwordtest");
 
 // Create account based on private key
-AccountInfo info = ontSdk.getWalletMgr().createAccountInfoFromPriKey("passwordtest","e467a2a9c9f56b012c71cf2270df42843a9d7ff181934068b4a62bcdd570e8be");
+AccountInfo info = tstSdk.getWalletMgr().createAccountInfoFromPriKey("passwordtest","e467a2a9c9f56b012c71cf2270df42843a9d7ff181934068b4a62bcdd570e8be");
 
 // Get account
-com.github.TesraSupernet.account.Account acct0 = ontSdk.getWalletMgr().getAccount(info.addressBase58,"passwordtest",salt);
+com.github.TesraSupernet.account.Account acct0 = tstSdk.getWalletMgr().getAccount(info.addressBase58,"passwordtest",salt);
 
 ```
 [Full example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/WalletDemo.java) 
@@ -128,7 +128,7 @@ String privatekey1 = "49855b16636e70f100cc5f4f42bc20a6535d7414fb8845e7310f8dd065
 String privatekey2 = "1094e90dd7c4fdfd849c14798d725ac351ae0d924b29a279a9ffa77d5737bd96";
 
 //Generate account and get address
-com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), tstSdk.defaultSignScheme);
 Address sender = acct0.getAddressU160();
 
 //base58 address decode
@@ -143,7 +143,7 @@ Address recvAddr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey()
 | addressFromMultiPubkeys | int m,byte\[\]... pubkeys | The minimum number of signatures (<=the number of public keys)，public key |
 
 
-## ONT and ONG transfer
+## TSG and TSG transfer
 
 [Full example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/MakeTxWithoutWalletDemo.java)
 
@@ -151,46 +151,46 @@ Address recvAddr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey()
 ```
 String ip = "http://polaris1.ont.io";
 String rpcUrl = ip + ":" + "20336";
-OntSdk ontSdk = OntSdk.getInstance();
-ontSdk.setRpc(rpcUrl);
-ontSdk.setDefaultConnect(wm.getRpc());
+TstSdk tstSdk = TstSdk.getInstance();
+tstSdk.setRpc(rpcUrl);
+tstSdk.setDefaultConnect(wm.getRpc());
 
 // or use restful
 String restUrl = ip + ":" + "20334";
-ontSdk.setRestful(restUrl);
-ontSdk.setDefaultConnect(wm.getRestful());
+tstSdk.setRestful(restUrl);
+tstSdk.setDefaultConnect(wm.getRestful());
 
 // or use websocket
 String wsUrl = ip + ":" + "20335";
-ontSdk.setWesocket(wsUrl, lock);
-ontSdk.setDefaultConnect(wm.getWebSocket());
+tstSdk.setWesocket(wsUrl, lock);
+tstSdk.setDefaultConnect(wm.getWebSocket());
 ```
 
 
 ### Queries
 
-####  Query ONT or ONG balance
+####  Query TSG or TSG balance
 ```
-ontSdk.getConnect().getBalance("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2");
-ontSdk.nativevm().ont().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
-ontSdk.nativevm().ong().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
+tstSdk.getConnect().getBalance("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2");
+tstSdk.nativevm().ont().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
+tstSdk.nativevm().ong().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
 
-// view ONT information
-System.out.println(ontSdk.nativevm().ont().queryName());
-System.out.println(ontSdk.nativevm().ont().querySymbol());
-System.out.println(ontSdk.nativevm().ont().queryDecimals());
-System.out.println(ontSdk.nativevm().ont().queryTotalSupply());
+// view TSG information
+System.out.println(tstSdk.nativevm().ont().queryName());
+System.out.println(tstSdk.nativevm().ont().querySymbol());
+System.out.println(tstSdk.nativevm().ont().queryDecimals());
+System.out.println(tstSdk.nativevm().ont().queryTotalSupply());
 
-// view ONG information
-System.out.println(ontSdk.nativevm().ong().queryName());
-System.out.println(ontSdk.nativevm().ong().querySymbol());
-System.out.println(ontSdk.nativevm().ong().queryDecimals());
-System.out.println(ontSdk.nativevm().ong().queryTotalSupply());
+// view TSG information
+System.out.println(tstSdk.nativevm().ong().queryName());
+System.out.println(tstSdk.nativevm().ong().querySymbol());
+System.out.println(tstSdk.nativevm().ong().queryDecimals());
+System.out.println(tstSdk.nativevm().ong().queryTotalSupply());
 ```
 
 #### Query if the transaction is in the transaction pool
 ```
-ontSdk.getConnect().getMemPoolTxState("d441a967315989116bf0afad498e4016f542c1e7f8605da943f07633996c24cc")
+tstSdk.getConnect().getMemPoolTxState("d441a967315989116bf0afad498e4016f542c1e7f8605da943f07633996c24cc")
 ```
 ##### Response when the transaction is in the transaction pool
 ```
@@ -229,7 +229,7 @@ ontSdk.getConnect().getMemPoolTxState("d441a967315989116bf0afad498e4016f542c1e7f
 ```
 
 
-### ONT transfer
+### TSG transfer
 
 #### Construct transfer transaction and send
 ```
@@ -242,16 +242,16 @@ Address recvAddr = acct1;
 
 // Construct a transfer transaction
 long amount = 1000;
-Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 
 // Sign a transaction
-ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
+tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
 // Signature scheme of multiple addresses
-ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct1, acct2}});
+tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct1, acct2}});
 // If the addresses of the transferee and the payer who pay the network fee are different, the payer’s signature needs to be added.
 
 //Send prepare execution transaction（optional）：
-Object obj = ontSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
+Object obj = tstSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
 System.out.println(obj);
 ```
 ##### Success result
@@ -266,10 +266,10 @@ com.github.TesraSupernet.network.exception.RestfulException: {"Action":"sendrawt
 
 ```
 // Send a transaction
-ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+tstSdk.getConnect().sendRawTransaction(tx.toHexString());
 
 // Send a transaction synchronized 
-Object obj = ontSdk.getConnect().syncSendRawTransaction(tx.toHexString());
+Object obj = tstSdk.getConnect().syncSendRawTransaction(tx.toHexString());
 ```
 ##### Success result
 ```
@@ -294,22 +294,22 @@ If the addresses of the transferee and the payer who pay the network fee are dif
 ```
 // Add single signature 
 
-ontSdk.addSign(tx,acct0);
+tstSdk.addSign(tx,acct0);
 
 // Add multiple signatures 
-ontSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct);
-ontSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct2);
+tstSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct);
+tstSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct2);
 ```
 
 
 #### Multiple signatures split
 ##### Account 0 signature
 ```
-ontSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct);
+tstSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct);
 ```
 ##### Account 1 signature
 ```
-ontSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct2);
+tstSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct2);
 ```
 
 #### One to multiple or multiple to multiple
@@ -327,12 +327,12 @@ int amount2 = 20;
 
 State state = new State(sender1, recvAddr, amount);
 State state2 = new State(sender2, recvAddr, amount2);
-Transaction tx = ontSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
 
 //The first transferee is a single-signature address, and the second transferee is a multiple-signature address
-ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
-ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
-ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
+tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
+tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
+tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
 
 ```
 
@@ -346,14 +346,14 @@ ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serialize
 
 ```
 //Send serialized transaction to signature server
-Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 String txHex = tx.toHexString();
 
 //The receiver deserializes the transaction and signs it
 Transaction txRx = Transaction.deserializeFrom(Helper.hexToBytes(txHex));
 
 //Sign
-ontSdk.addSign(txRx,acct0);
+tstSdk.addSign(txRx,acct0);
 ```
 
 **Interaction between SDK and signature server**：
@@ -366,21 +366,21 @@ go run SigSvr.go
 
 // Set signature server URL
 String url = ip + ":" + "20000/cli";
-OntSdk ontSdk = OntSdk.getInstance();
-ontSdk.setSignServer(url);
+TstSdk tstSdk = TstSdk.getInstance();
+tstSdk.setSignServer(url);
         
 String txHex = tx.toHexString();
 
 // Request a transaction with single signature
-ontSdk.getSignServer().sendSigRawTx(txHex);
+tstSdk.getSignServer().sendSigRawTx(txHex);
  
 // Request a transaction with multiple signatures
 String[] signs = new String[]{"1202039b196d5ed74a4d771ade78752734957346597b31384c3047c1946ce96211c2a7",
                     "120203428daa06375b8dd40a5fc249f1d8032e578b5ebb5c62368fc6c5206d8798a966"};
-ontSdk.getSignServer().sendMultiSigRawTx(txHex,2,signs);
+tstSdk.getSignServer().sendMultiSigRawTx(txHex,2,signs);
 
 // Construct transfer transaction and sign
-ontSdk.getSignServer().sendSigTransferTx("ont","TU5exRFVqjRi5wnMVzNoWKBq9WFncLXEjK","TA5SgQXTeKWyN4GNfWGoXqioEQ4eCDFMqE",10,30000,0);
+tstSdk.getSignServer().sendSigTransferTx("ont","TU5exRFVqjRi5wnMVzNoWKBq9WFncLXEjK","TA5SgQXTeKWyN4GNfWGoXqioEQ4eCDFMqE",10,30000,0);
 ```
 
 **Sign data**
@@ -389,12 +389,12 @@ ontSdk.getSignServer().sendSigTransferTx("ont","TU5exRFVqjRi5wnMVzNoWKBq9WFncLXE
 [Full Example](https://github.com/TesraSupernet/tesra-java-sdk/blob/master/src/main/java/demo/SignatureDemo.java) 
 
 ```
-com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(tstSdk.defaultSignScheme);
 
 byte[] data = "12345".getBytes();
-byte[] signature = ontSdk.signatureData(acct, data);
+byte[] signature = tstSdk.signatureData(acct, data);
 
-System.out.println(ontSdk.verifySignature(acct.serializePublicKey(), data, signature));
+System.out.println(tstSdk.verifySignature(acct.serializePublicKey(), data, signature));
 
 ```
 
@@ -473,30 +473,30 @@ Example: 1000 is  0xe803000000000000 -> 0x00000000000003e8   change from little 
 
 
 
-### ONG
+### TSG
 
 
-#### ONG transfer
+#### TSG transfer
 
-The interface is similar to ONT - see the makeTransfer functionlity in the ONT section above.
-
-```
-ontSdk.nativevm().ong().makeTransfer...
-```
-
-#### Withdraw ONG
-
-1. Check the balance of unbound ONG
-2. Send a transaction that claims ONG
+The interface is similar to TSG - see the makeTransfer functionlity in the TSG section above.
 
 ```
-// Query unbound ONG
+tstSdk.nativevm().ong().makeTransfer...
+```
+
+#### Withdraw TSG
+
+1. Check the balance of unbound TSG
+2. Send a transaction that claims TSG
+
+```
+// Query unbound TSG
 String addr = acct0.getAddressU160().toBase58();
-String ong = sdk.nativevm().ong().unboundOng(addr);
+String ong = sdk.nativevm().ong().unboundTsg(addr);
 
-// Withdraw ONG
-com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.signatureScheme);
-String hash = sdk.nativevm().ong().withdrawOng(account,toAddr,64000L,payerAcct,30000,500);
+// Withdraw TSG
+com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), tstSdk.signatureScheme);
+String hash = sdk.nativevm().ong().withdrawTsg(account,toAddr,64000L,payerAcct,30000,500);
 
 ```
 
@@ -509,19 +509,19 @@ String hash = sdk.nativevm().ong().withdrawOng(account,toAddr,64000L,payerAcct,3
 ### Query NEP5 Balance
 
 ```
-String balance = ontSdk.neovm().nep5().queryBalanceOf(acct.address);
+String balance = tstSdk.neovm().nep5().queryBalanceOf(acct.address);
 System.out.println(new BigInteger(Helper.reverse(Helper.hexToBytes(balance))).longValue());
 
-String totalSupply = ontSdk.neovm().nep5().queryTotalSupply();
+String totalSupply = tstSdk.neovm().nep5().queryTotalSupply();
 System.out.println(new BigInteger(Helper.reverse(Helper.hexToBytes(totalSupply))).longValue());
 
-String decimals = ontSdk.neovm().nep5().queryDecimals();
+String decimals = tstSdk.neovm().nep5().queryDecimals();
 System.out.println(decimals);
 
-String name = ontSdk.neovm().nep5().queryName();
+String name = tstSdk.neovm().nep5().queryName();
 System.out.println(new String(Helper.hexToBytes(name)));
 
-String symbol = ontSdk.neovm().nep5().querySymbol();
+String symbol = tstSdk.neovm().nep5().querySymbol();
 System.out.println(new String(Helper.hexToBytes(symbol)));
 
 System.out.println(Address.decodeBase58(acct.address).toHexString());
@@ -529,14 +529,14 @@ System.out.println(Address.decodeBase58(acct.address).toHexString());
 
 ### Transfer NEP5 token
 ```
-ontSdk.neovm().nep5().sendTransfer(acct,"AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2",46440000L,acct,gasLimit,0);
+tstSdk.neovm().nep5().sendTransfer(acct,"AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2",46440000L,acct,gasLimit,0);
 ```
 
 ## Smart contracts
 
 #### Query content of a smart contract
 ```
-ontSdk.getConnect().getSmartCodeEvent("d441a967315989116bf0afad498e4016f542c1e7f8605da943f07633996c24cc")
+tstSdk.getConnect().getSmartCodeEvent("d441a967315989116bf0afad498e4016f542c1e7f8605da943f07633996c24cc")
 ```
 ##### Response
 ```
@@ -569,7 +569,7 @@ ontSdk.getConnect().getSmartCodeEvent("d441a967315989116bf0afad498e4016f542c1e7f
 You can also use the block height to query a smart contract event, and the event transaction hash will be returned.
 ```
 
-ontSdk.getConnect().getSmartCodeEvent(10)
+tstSdk.getConnect().getSmartCodeEvent(10)
 ```
 ##### Reponse
 ```
@@ -614,7 +614,7 @@ ontSdk.getConnect().getSmartCodeEvent(10)
 ```
 //query event per 3s after send transaction, maximum is 60s
 
-Object object = ontSdk.getConnect().waitResult(tx.hash().toString());
+Object object = tstSdk.getConnect().waitResult(tx.hash().toString());
 System.out.println(object);
 ```
 
@@ -633,20 +633,20 @@ com.github.TesraSupernet.sdk.exception.SDKException: {"Action":"getmempooltxstat
 ## Batch Transaction
 
 
-When SDK sends OntID registration or other exchange transaction, the whole process takes 1-2 seconds since user will extract the private key information from the wallet before doing the signature. To be more efficient, we can constructure the transaction in advance by multi-line or multi-machine before pushing transaction
+When SDK sends TstID registration or other exchange transaction, the whole process takes 1-2 seconds since user will extract the private key information from the wallet before doing the signature. To be more efficient, we can constructure the transaction in advance by multi-line or multi-machine before pushing transaction
 
 Detail example as below，[Example](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/src/main/java/demo/CreateManyTx.java)
 
 ### Construct Batch Transaction
 
 1. Open the file
-2. Construct the transaction, we will use create OntID as an example down below
+2. Construct the transaction, we will use create TstID as an example down below
 3. Save the transaction
 
 > When creating new transaction, user will need to protect their own private key if they are a new user
 
 ```
-//open file, make registry ontid transaction, save tx to file.
+//open file, make registry tstid transaction, save tx to file.
 File file = new File(filePath);
 if (!file.exists()) {
     file.createNewFile();
@@ -655,10 +655,10 @@ com.github.TesraSupernet.account.Account payerAcct = new com.github.TesraSuperne
 FileOutputStream fos = new FileOutputStream(file);
 for (int i = 0; i < 3; i++) {
     com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(SignatureScheme.SHA256WITHECDSA);
-    String ontid = Common.didont + account.getAddressU160().toBase58();
-    Transaction tx = ontSdk.nativevm().ontId().makeRegister(ontid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
-    ontSdk.addSign(tx, account);
-    ontSdk.addSign(tx, payerAcct);
+    String tstid = Common.didont + account.getAddressU160().toBase58();
+    Transaction tx = tstSdk.nativevm().tstId().makeRegister(tstid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
+    tstSdk.addSign(tx, account);
+    tstSdk.addSign(tx, payerAcct);
     System.out.println("PrivateKey:"+Helper.toHexString(account.serializePrivateKey())+",txhash:"+tx.hash().toString());
 
     fos.write(tx.toHexString().getBytes());
@@ -695,7 +695,7 @@ BufferedReader bf = new BufferedReader(fr);
 String txHex = null;
 while ((txHex=bf.readLine())!=null){
     txHex = txHex.split(",")[0];
-    Object obj = ontSdk.getConnect().sendRawTransactionPreExec(txHex);//change to sendRawTransaction
+    Object obj = tstSdk.getConnect().sendRawTransactionPreExec(txHex);//change to sendRawTransaction
     System.out.println(obj);
 }
 
@@ -703,11 +703,11 @@ while ((txHex=bf.readLine())!=null){
 ```
 
 
-### Ontid Create OntID in Wallet
+### Tstid Create TstID in Wallet
 
-OntID can be easily created by the wallet. You can refer to the private hey from section 4.1
+TstID can be easily created by the wallet. You can refer to the private hey from section 4.1
 
 ```
-Identity identity = ontSdk.getWalletMgr().createIdentityFromPriKey(password,privatekey0);
-ontSdk.getWalletMgr().writeWallet();
+Identity identity = tstSdk.getWalletMgr().createIdentityFromPriKey(password,privatekey0);
+tstSdk.getWalletMgr().writeWallet();
 ```

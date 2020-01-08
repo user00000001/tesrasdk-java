@@ -12,8 +12,8 @@
 
 ```java
 //如果不存在钱包文件，会自动创建钱包文件。
-OntSdk ontSdk = OntSdk.getInstance();
-ontSdk.openWalletFile("Demo.json");
+TstSdk tstSdk = TstSdk.getInstance();
+tstSdk.openWalletFile("Demo.json");
 ```
 > 注：目前仅支持文件形式钱包文件，也可以扩展支持数据库或其他存储方式。
 
@@ -58,33 +58,33 @@ public class Account {
 * 创建数字资产账号
 
 ```java
-OntSdk ontSdk = OntSdk.getInstance();
-Account acct = ontSdk.getWalletMgr().createAccount("password");
+TstSdk tstSdk = TstSdk.getInstance();
+Account acct = tstSdk.getWalletMgr().createAccount("password");
 //创建的账号或身份只在内存中，如果要写入钱包文件，需调用写入接口
-ontSdk.getWalletMgr().writeWallet();
+tstSdk.getWalletMgr().writeWallet();
 ```
 
 
 * 移除数字资产账号
 
 ```java
-ontSdk.getWalletMgr().getWallet().removeAccount(address);
+tstSdk.getWalletMgr().getWallet().removeAccount(address);
 //写入钱包
-ontSdk.getWalletMgr().writeWallet();
+tstSdk.getWalletMgr().writeWallet();
 ```
 
 * 设置默认数字资产账号
 
 ```java
-ontSdk.getWalletMgr().getWallet().setDefaultAccount(index);
-ontSdk.getWalletMgr().getWallet().setDefaultAccount("address");
+tstSdk.getWalletMgr().getWallet().setDefaultAccount(index);
+tstSdk.getWalletMgr().getWallet().setDefaultAccount("address");
 ```
 > Note: index表示设置第index个account为默认账户，address表示设置该address对应的account为默认账户
 
 ## 原生数字资产接口
 
 
-原生数字资产包括ONT和ONG。封装了构造交易、交易签名、发送交易。
+原生数字资产包括TSG和TSG。封装了构造交易、交易签名、发送交易。
 
 #### 1. 转账
 ```java
@@ -100,7 +100,7 @@ String sendTransfer(Account sendAcct, String recvAddr, long amount, Account paye
 |        | recvAddr    | Account | 接收方地址   | 必选 |
 |        | amount        | long | 转移的资产数量|必选|
 |        | payerAcct| Account  |支付交易费用的账户 | 必选|
-|        | gaslimit   | long | 声明发行者和申请者ontid | 必选 |
+|        | gaslimit   | long | 声明发行者和申请者tstid | 必选 |
 |        | gasprice   | long | gas价格 | 必选 |
 | 输出参数 | 交易hash   | String  | 交易hash  |  |
 
@@ -118,7 +118,7 @@ String sendApprove(Account sendAcct, String recvAddr, long amount, Account payer
 |        | recvAddr    | Account | 接收方地址   | 必选 |
 |        | amount        | long | 授权的资产数量|必选|
 |        | payerAcct| Account  |支付交易费用的账户 | 必选|
-|        | gaslimit   | long | 声明发行者和申请者ontid | 必选 |
+|        | gaslimit   | long | 声明发行者和申请者tstid | 必选 |
 |        | gasprice   | long | gas价格 | 必选 |
 | 输出参数 | 交易hash   | String  | 交易hash  |  |
 
@@ -138,7 +138,7 @@ String sendTransferFrom(Account sendAcct, String fromAddr, String toAddr, long a
 |        | toAddr    | Account | 资产转入方地址   | 必选 |
 |        | amount        | long | 转移的资产数量|必选|
 |        | payerAcct| Account  |支付交易费用的账户 | 必选|
-|        | gaslimit   | long | 声明发行者和申请者ontid | 必选 |
+|        | gaslimit   | long | 声明发行者和申请者tstid | 必选 |
 |        | gasprice   | long | gas价格 | 必选 |
 | 输出参数 | 交易hash   | String  | 交易hash  |  |
 
@@ -216,15 +216,15 @@ long queryTotalSupply()
 资产转移示例代码：
 
 ```java
-//step1:获得ontSdk实例
-OntSdk sdk = OntSdk.getInstance();
+//step1:获得tstSdk实例
+TstSdk sdk = TstSdk.getInstance();
 sdk.setRpc(url);
-sdk.openWalletFile("OntAssetDemo.json");
+sdk.openWalletFile("TstAssetDemo.json");
 //step2:获得ont实例
 ont = sdk.nativevm().ont()
 //step3:调用转账方法
 com.github.TesraSupernet.account.Account account1 = new com.github.TesraSupernet.account.Account(privateKey,SignatureScheme.SHA256WITHECDSA);
-ontSdk.nativevm().ont().sendTransfer(account1,"TA4pCAb4zUifHyxSx32dZRjTrnXtxEWKZr",10000,account1,ontSdk.DEFAULT_GAS_LIMIT,0);
+tstSdk.nativevm().ont().sendTransfer(account1,"TA4pCAb4zUifHyxSx32dZRjTrnXtxEWKZr",10000,account1,tstSdk.DEFAULT_GAS_LIMIT,0);
 ```
 
 ## nep-5智能合约数字资产例子

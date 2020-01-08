@@ -23,16 +23,16 @@ byte[] bys = new byte[is.available()];
 is.read(bys);
 is.close();
 code = Helper.toHexString(bys);
-ontSdk.setCodeAddress(Address.AddressFromVmCode(code).toHexString());
+tstSdk.setCodeAddress(Address.AddressFromVmCode(code).toHexString());
 
 //部署合约
-Transaction tx = ontSdk.vm().makeDeployCodeTransaction(code, true, "name",
-                    "v1.0", "author", "email", "desp", account.getAddressU160().toBase58(),ontSdk.DEFAULT_DEPLOY_GAS_LIMIT,500);
+Transaction tx = tstSdk.vm().makeDeployCodeTransaction(code, true, "name",
+                    "v1.0", "author", "email", "desp", account.getAddressU160().toBase58(),tstSdk.DEFAULT_DEPLOY_GAS_LIMIT,500);
 String txHex = Helper.toHexString(tx.toArray());
-ontSdk.getConnect().sendRawTransaction(txHex);
+tstSdk.getConnect().sendRawTransaction(txHex);
 //等待出块
 Thread.sleep(6000);
-DeployCodeTransaction t = (DeployCodeTransaction) ontSdk.getConnect().getTransaction(txHex);
+DeployCodeTransaction t = (DeployCodeTransaction) tstSdk.getConnect().getTransaction(txHex);
 ```
 
 **makeDeployCodeTransaction**
@@ -95,13 +95,13 @@ public static String invokeContract(byte[] params, Account payerAcct, long gasli
     if(gaslimit < 0 || gasprice< 0){
         throw new SDKException("gaslimit or gasprice should not be less than 0");
     }
-    Transaction tx = ontSdk.vm().makeInvokeCodeTransaction(Helper.reverse(contractAddress),null,params,payerAcct.getAddressU160().toBase58(),gaslimit,gasprice);
-    ontSdk.addSign(tx, payerAcct);
+    Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(Helper.reverse(contractAddress),null,params,payerAcct.getAddressU160().toBase58(),gaslimit,gasprice);
+    tstSdk.addSign(tx, payerAcct);
     Object result = null;
     if(preExec) {
-        result = ontSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
+        result = tstSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
     }else {
-        result = ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+        result = tstSdk.getConnect().sendRawTransaction(tx.toHexString());
         return tx.hash().toString();
     }
     return result.toString();
@@ -122,14 +122,14 @@ public static String invokeContract(byte[] params, Account payerAcct, long gasli
 
 ```java
 //设置要调用的合约地址codeAddress
-ontSdk.getSmartcodeTx().setCodeAddress(codeAddress);
+tstSdk.getSmartcodeTx().setCodeAddress(codeAddress);
 String funcName = "add";
 //构造合约函数需要的参数
-String params = ontSdk.vm().buildWasmContractJsonParam(new Object[]{20,30});
+String params = tstSdk.vm().buildWasmContractJsonParam(new Object[]{20,30});
 //指定虚拟机类型构造交易
-Transaction tx = ontSdk.vm().makeInvokeCodeTransaction(ontSdk.getSmartcodeTx().getCodeAddress(),funcName,params.getBytes(),VmType.WASMVM.value(),payer,gas);
+Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(tstSdk.getSmartcodeTx().getCodeAddress(),funcName,params.getBytes(),VmType.WASMVM.value(),payer,gas);
 //发送交易
-ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+tstSdk.getConnect().sendRawTransaction(tx.toHexString());
 ```
 
 #### 智能合约调用例子
@@ -179,9 +179,9 @@ list3.add(100);
 list.add(list3);
 //设置函数需要的参数
 func.setParamsValue(account999.getAddressU160().toArray(),Address.decodeBase58("AacHGsQVbTtbvSWkqZfvdKePLS6K659dgp").toArray(),list);
-String txhash = ontSdk.neovm().sendTransaction(Helper.reverse("44f1f4ee6940b4f162d857411842f2d533892084"),acct,acct,20000,500,func,false);
+String txhash = tstSdk.neovm().sendTransaction(Helper.reverse("44f1f4ee6940b4f162d857411842f2d533892084"),acct,acct,20000,500,func,false);
 Thread.sleep(6000);
-System.out.println(ontSdk.getConnect().getSmartCodeEvent(tx.hash().toHexString()));
+System.out.println(tstSdk.getConnect().getSmartCodeEvent(tx.hash().toHexString()));
 ```
 
 
@@ -203,10 +203,10 @@ public static Object lock = new Object();
 //获得ont实例
 String ip = "http://127.0.0.1";
 String wsUrl = ip + ":" + "20335";
-OntSdk wm = OntSdk.getInstance();
+TstSdk wm = TstSdk.getInstance();
 wm.setWesocket(wsUrl, lock);
 wm.setDefaultConnect(wm.getWebSocket());
-wm.openWalletFile("OntAssetDemo.json");
+wm.openWalletFile("TstAssetDemo.json");
 
 ```
 
@@ -216,7 +216,7 @@ wm.openWalletFile("OntAssetDemo.json");
 
 ```java
 //false 表示不打印回调函数信息
-ontSdk.getWebSocket().startWebsocketThread(false);
+tstSdk.getWebSocket().startWebsocketThread(false);
 
 ```
 
@@ -272,8 +272,8 @@ for (;;){
                         map.put("SubscribeRawBlock", true);
                     }
                     //System.out.println(map);
-                    ontSdk.getWebSocket().setReqId(i);
-                    ontSdk.getWebSocket().sendSubscribe(map);     
+                    tstSdk.getWebSocket().setReqId(i);
+                    tstSdk.getWebSocket().sendSubscribe(map);     
                 Thread.sleep(6000);
             }
 ```
@@ -377,13 +377,13 @@ System.out.println("CodeAddress:" + Address.AddressFromVmCode(code).toHexString(
 ```java
 //step1：构造交易
 //需先将智能合约参数转换成vm可识别的opcode
-Transaction tx = ontSdk.vm().makeInvokeCodeTransaction(ontContractAddr, null, contract.toArray(), VmType.Native.value(), sender.toBase58(),gaslimit，gasprice);
+Transaction tx = tstSdk.vm().makeInvokeCodeTransaction(ontContractAddr, null, contract.toArray(), VmType.Native.value(), sender.toBase58(),gaslimit，gasprice);
 
 //step2：对交易签名
-ontSdk.signTx(tx, info1.address, password);
+tstSdk.signTx(tx, info1.address, password);
 
 //step3：发送交易
-ontSdk.getConnectMgr().sendRawTransaction(tx.toHexString());
+tstSdk.getConnectMgr().sendRawTransaction(tx.toHexString());
 ```
 
 * invoke时为什么要传入账号和密码

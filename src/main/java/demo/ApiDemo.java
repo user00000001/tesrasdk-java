@@ -1,6 +1,6 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 
 /**
  * @Description:
@@ -11,23 +11,23 @@ public class ApiDemo {
     public static void main(String[] args) {
 
         try {
-            OntSdk ontSdk = getOntSdk();
+            TstSdk tstSdk = getTstSdk();
             if (true) {
-                System.out.println(ontSdk.getConnect().getBalance("AHX1wzvdw9Yipk7E9MuLY4GGX4Ym9tHeDe"));
-                System.out.println(ontSdk.getConnect().getNodeSyncStatus());
+                System.out.println(tstSdk.getConnect().getBalance("AHX1wzvdw9Yipk7E9MuLY4GGX4Ym9tHeDe"));
+                System.out.println(tstSdk.getConnect().getNodeSyncStatus());
                 System.exit(0);
             }
         }catch (Exception ex){
         }
     }
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 
         String ip = "http://polaris1.ont.io";
         String restUrl = ip + ":" + "20334";
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRpc());

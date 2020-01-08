@@ -1,6 +1,6 @@
 package com.github.TesraSupernet.smartcontract;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.sdk.exception.SDKException;
 import org.junit.Before;
@@ -10,12 +10,12 @@ import static org.junit.Assert.*;
 
 public class VmTest {
 
-    OntSdk ontSdk;
+    TstSdk tstSdk;
     Vm vm;
     @Before
     public void setUp(){
-        ontSdk = OntSdk.getInstance();
-        vm = new Vm(ontSdk);
+        tstSdk = TstSdk.getInstance();
+        vm = new Vm(tstSdk);
 
     }
 

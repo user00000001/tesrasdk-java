@@ -2,7 +2,7 @@ package demo;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Common;
@@ -18,9 +18,9 @@ import java.util.Map;
 public class GovernanceDemo {
 
     public static void main(String[] args){
-        OntSdk sdk;
+        TstSdk sdk;
         try {
-            sdk = getOntSdk();
+            sdk = getTstSdk();
             String password = "111111";
             String privatekey1 = "54ca4db481966046b15f8d15ff433e611c49ab8e68a279ebf579e4cfd108196d";
             Account payerAcct = new Account(Helper.hexToBytes(privatekey1),SignatureScheme.SHA256WITHECDSA);
@@ -34,10 +34,10 @@ public class GovernanceDemo {
             String prikey = "75de8489fcb2dcaf2ef3cd607feffde18789de7da129b5e97c81e001793cb7cf";
 //            prikey = "523c5fcf74823831756f0bcb3634234f10b3beb1c05595058534577752ad2d9f";
             String adminPrivateKey = "957419a5ceaf5bd40e83e0fc59e71b0d7fef68149e3ea99f79149afc441549cd";
-//            Account adminOntIdAcct = getAccount("FbB9GrorxmLn7AgX6d5+/hhp6zGb7OwXzYYhbPuCqy8NvMJgTlAaRNUa4yfcG0Wf","passwordtest","AMAx993nE6NEqZjwBssUfopxnnvTdob9ij","W3i7TqkbdQ6OQineVzL47A==");
+//            Account adminTstIdAcct = getAccount("FbB9GrorxmLn7AgX6d5+/hhp6zGb7OwXzYYhbPuCqy8NvMJgTlAaRNUa4yfcG0Wf","passwordtest","AMAx993nE6NEqZjwBssUfopxnnvTdob9ij","W3i7TqkbdQ6OQineVzL47A==");
             //梦航
-            Account adminOntIdAcct = getAccount("cCQnie0Dd8aQPyY+9UBFw2x2cLn2RMogKqhM8OkyjJNrNTvlcVaYGRENfy2ErF7Q","passwordtest","ARiwjLzjzLKZy8V43vm6yUcRG9b56DnZtY","3e1zvaLjtVuPrQ1o7oJsQA==");
-            adminPrivateKey =Helper.toHexString(adminOntIdAcct.serializePrivateKey());
+            Account adminTstIdAcct = getAccount("cCQnie0Dd8aQPyY+9UBFw2x2cLn2RMogKqhM8OkyjJNrNTvlcVaYGRENfy2ErF7Q","passwordtest","ARiwjLzjzLKZy8V43vm6yUcRG9b56DnZtY","3e1zvaLjtVuPrQ1o7oJsQA==");
+            adminPrivateKey =Helper.toHexString(adminTstIdAcct.serializePrivateKey());
             String adminPrivateKey2 = "ca53fa4f53ed175e39da86f4e02cd87638652cdbdcdae594c81d2e2f2f673745";
             Account account = new Account(Helper.hexToBytes(prikey),SignatureScheme.SHA256WITHECDSA);
             Account account8 = new Account(Helper.hexToBytes(privatekey8),SignatureScheme.SHA256WITHECDSA);
@@ -76,10 +76,10 @@ public class GovernanceDemo {
 
             if(sdk.getWalletMgr().getWallet().getIdentities().size() < 2){
                 Identity identity = sdk.getWalletMgr().createIdentity(password);
-                String txhash = sdk.nativevm().ontId().sendRegister(identity,password,payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
+                String txhash = sdk.nativevm().tstId().sendRegister(identity,password,payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
 
                 Identity identity2 = sdk.getWalletMgr().createIdentity(password);
-                String txhash2 = sdk.nativevm().ontId().sendRegister(identity2,password,payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
+                String txhash2 = sdk.nativevm().tstId().sendRegister(identity2,password,payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
                 Thread.sleep(6000);
                 Object obj = sdk.getConnect().getSmartCodeEvent(txhash);
                 System.out.println(obj);
@@ -91,18 +91,18 @@ public class GovernanceDemo {
                 sdk.nativevm().ont().sendTransfer(account,account9.getAddressU160().toBase58(),100000000,payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
                 Thread.sleep(6000);
                 System.out.println("account" + sdk.getConnect().getBalance(account.getAddressU160().toBase58()));
-                System.out.println("account" + sdk.nativevm().ong().unboundOng(account.getAddressU160().toBase58()));
-                sdk.nativevm().ong().withdrawOng(account,account9.getAddressU160().toBase58(),640000000000L,payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
+                System.out.println("account" + sdk.nativevm().ong().unboundTsg(account.getAddressU160().toBase58()));
+                sdk.nativevm().ong().withdrawTsg(account,account9.getAddressU160().toBase58(),640000000000L,payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
             }
 
             if(false){
-                Identity identity = sdk.getWalletMgr().getWallet().getIdentity(Common.didont+adminOntIdAcct.getAddressU160().toBase58());
-                String txhash = sdk.nativevm().ontId().sendRegister(identity,password,payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
+                Identity identity = sdk.getWalletMgr().getWallet().getIdentity(Common.didont+adminTstIdAcct.getAddressU160().toBase58());
+                String txhash = sdk.nativevm().tstId().sendRegister(identity,password,payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
                 Thread.sleep(6000);
                 Object obj = sdk.getConnect().getSmartCodeEvent(txhash);
                 System.out.println(obj);
 
-                System.out.println(sdk.nativevm().ontId().sendGetDDO(Common.didont+adminOntIdAcct.getAddressU160().toBase58()));
+                System.out.println(sdk.nativevm().tstId().sendGetDDO(Common.didont+adminTstIdAcct.getAddressU160().toBase58()));
 
                 return;
             }
@@ -110,8 +110,8 @@ public class GovernanceDemo {
             Identity identity = dids.get(0);
 
 
-            Identity adminOntid = sdk.getWalletMgr().createIdentityFromPriKey(password,adminPrivateKey);
-//            Identity adminOntid = sdk.getWalletMgr().getWallet().getIdentity(Common.didont+adminOntIdAcct.getAddressU160().toBase58());
+            Identity adminTstid = sdk.getWalletMgr().createIdentityFromPriKey(password,adminPrivateKey);
+//            Identity adminTstid = sdk.getWalletMgr().getWallet().getIdentity(Common.didont+adminTstIdAcct.getAddressU160().toBase58());
             Account adminAccount = new Account(Helper.hexToBytes(adminPrivateKey),SignatureScheme.SHA256WITHECDSA);
             Account adminAccount2 = new Account(Helper.hexToBytes(adminPrivateKey2),SignatureScheme.SHA256WITHECDSA);
             System.out.println("account:" + sdk.getConnect().getBalance(account.getAddressU160().toBase58()));
@@ -120,14 +120,14 @@ public class GovernanceDemo {
 
             if(false){
                 String contractAddr = "0000000000000000000000000000000000000007";
-//                Identity adminOntid = sdk.getWalletMgr().getWallet().getIdentity("did:ont:AazEvfQPcQ2GEFFPLF1ZLwQ7K5jDn81hve");
-//                String txhash = sdk.nativevm().auth().assignFuncsToRole(adminOntid.ontid,password,adminOntid.controls.get(0).getSalt(),1,contractAddr,"role",new String[]{"registerCandidate"},payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
-                String txhash = sdk.nativevm().auth().assignOntIdsToRole(adminOntid.ontid,password,adminOntid.controls.get(0).getSalt(),1,contractAddr,"role",new String[]{identity.ontid},payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
+//                Identity adminTstid = sdk.getWalletMgr().getWallet().getIdentity("did:ont:AazEvfQPcQ2GEFFPLF1ZLwQ7K5jDn81hve");
+//                String txhash = sdk.nativevm().auth().assignFuncsToRole(adminTstid.tstid,password,adminTstid.controls.get(0).getSalt(),1,contractAddr,"role",new String[]{"registerCandidate"},payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
+                String txhash = sdk.nativevm().auth().assignTstIdsToRole(adminTstid.tstid,password,adminTstid.controls.get(0).getSalt(),1,contractAddr,"role",new String[]{identity.tstid},payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
                 Thread.sleep(6000);
                 Object obj = sdk.getConnect().getSmartCodeEvent(txhash);
                 System.out.println(obj);
 
-                Object obj2 = sdk.nativevm().auth().verifyToken(identity.ontid,password,identity.controls.get(0).getSalt(),1,contractAddr,"registerCandidate");
+                Object obj2 = sdk.nativevm().auth().verifyToken(identity.tstid,password,identity.controls.get(0).getSalt(),1,contractAddr,"registerCandidate");
                 System.out.println(obj2);
 
             }
@@ -144,7 +144,7 @@ public class GovernanceDemo {
             if(false){
                 sdk.getWalletMgr().importAccount("blDuHRtsfOGo9A79rxnJFo2iOMckxdFDfYe2n6a9X+jdMCRkNUfs4+C4vgOfCOQ5",password,account.getAddressU160().toBase58(),Base64.getDecoder().decode("0hAaO6CT+peDil9s5eoHyw=="));
 
-                String txhash = sdk.nativevm().governance().registerCandidate(account1,"02a98c15099d599b55c87834fd41bf9ad55408050b32bdc6ea88d6358717e19525",10000,identity.ontid,password,identity.controls.get(0).getSalt(),1,payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
+                String txhash = sdk.nativevm().governance().registerCandidate(account1,"02a98c15099d599b55c87834fd41bf9ad55408050b32bdc6ea88d6358717e19525",10000,identity.tstid,password,identity.controls.get(0).getSalt(),1,payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
 //                String txhash = sdk.nativevm().governance().unRegisterCandidate(account,Helper.toHexString(account8.serializePublicKey()),payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
                 Thread.sleep(6000);
                 Object obj = sdk.getConnect().getSmartCodeEvent(txhash);
@@ -176,7 +176,7 @@ public class GovernanceDemo {
 //                System.out.println("txevent:" + sdk.getConnect().getSmartCodeEvent(txhash));
             }
             if(false){
-//                Identity adminOntid = sdk.getWalletMgr().getWallet().getIdentity("did:ont:AazEvfQPcQ2GEFFPLF1ZLwQ7K5jDn81hve");
+//                Identity adminTstid = sdk.getWalletMgr().getWallet().getIdentity("did:ont:AazEvfQPcQ2GEFFPLF1ZLwQ7K5jDn81hve");
 //                String txhash = sdk.nativevm().governance().approveCandidate(adminAccount2,Helper.toHexString(account8.serializePublicKey()),payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
 //                  String txhash = sdk.nativevm().governance().rejectCandidate(adminAccount2,Helper.toHexString(account8.serializePublicKey()),payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
 // String txhash = sdk.nativevm().governance().voteForPeer(account,new String[]{Helper.toHexString(account8.serializePublicKey())},new long[]{100},payerAcct,sdk.DEFAULT_GAS_LIMIT,0);
@@ -218,7 +218,7 @@ public class GovernanceDemo {
 
 
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 //        String ip = "http://127.0.0.1";
         String ip = "http://polaris1.ont.io";
         ip= "http://139.219.128.220";
@@ -229,7 +229,7 @@ public class GovernanceDemo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRpc());

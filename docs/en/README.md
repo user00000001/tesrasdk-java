@@ -13,7 +13,6 @@ This official Tesra Java SDK is a comprehensive Java library for the Tesra block
 - [Getting Started](sdk_get_start.md)
 - [Interface](interface.md)
 - [Basic operation of blockchain nodes](basic.md)
-- [Wallet file specification](https://github.com/ontio/documentation/blob/master/docs/pages/doc_en/SDKs/Wallet_File_Specification_en.md)
 - [Digital identity and verifable claim management](identity_claim.md)
 - [Digital assets](asset.md)
 - [Digital Attestment](attest.md)
@@ -64,7 +63,7 @@ Add maven dependency:
 <dependency>
     <groupId>com.github.TesraSupernet</groupId>
     <artifactId>tesra-sdk-java</artifactId>
-    <version>1.0.13</version>
+    <version>0.0.1</version>
 </dependency>
 ```
     

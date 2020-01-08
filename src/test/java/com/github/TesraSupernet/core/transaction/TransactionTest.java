@@ -1,6 +1,6 @@
 package com.github.TesraSupernet.core.transaction;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
@@ -16,21 +16,21 @@ import static org.junit.Assert.*;
 
 public class TransactionTest {
 
-    OntSdk ontSdk;
+    TstSdk tstSdk;
     Vm vm;
     String ontContract = "ff00000000000000000000000000000000000001";
 
     @Before
     public void setUp(){
-        ontSdk = OntSdk.getInstance();
-        vm = new Vm(ontSdk);
+        tstSdk = TstSdk.getInstance();
+        vm = new Vm(tstSdk);
     }
 
     @Test
     public void serialize() throws Exception {
         Transaction tx = vm.buildNativeParams(Address.parse(ontContract),"init","1".getBytes(),null,0,0);
         Account account = new Account(Helper.hexToBytes("0bc8c1f75a028672cd42c221bf81709dfc7abbbaf0d87cb6fdeaf9a20492c194"),SignatureScheme.SHA256WITHECDSA);
-        ontSdk.signTx(tx,new Account[][]{{account}});
+        tstSdk.signTx(tx,new Account[][]{{account}});
 
         String t = tx.toHexString();
         System.out.println(t);

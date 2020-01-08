@@ -4,7 +4,7 @@
 
 English / [中文](../cn/asset.md)
 
-The storing of Digital Assets such as ONT and ONG is handled by the Java SDK using the Account structure, which is outlined below.
+The storing of Digital Assets such as TSG and TSG is handled by the Java SDK using the Account structure, which is outlined below.
 
 ## Data structure
 
@@ -63,25 +63,25 @@ The following code shows some common digital asset functions:
 * Create digital asset account
 
 ```
-OntSdk ontSdk = OntSdk.getInstance();
-Account acct = ontSdk.getWalletMgr().createAccount("password");
+TstSdk tstSdk = TstSdk.getInstance();
+Account acct = tstSdk.getWalletMgr().createAccount("password");
 //any account or identity, once created is stored in memory only. A write api should be invoked to write to a wallet file.
-ontSdk.getWalletMgr().writeWallet();
+tstSdk.getWalletMgr().writeWallet();
 ```
 
 * Remove digital asset account
 
 ```
-ontSdk.getWalletMgr().getWallet().removeAccount(address);
+tstSdk.getWalletMgr().getWallet().removeAccount(address);
 //write to wallet
-ontSdk.getWalletMgr().writeWallet();
+tstSdk.getWalletMgr().writeWallet();
 ```
 
 * Set default digital asset account
 
 ```
-ontSdk.getWalletMgr().getWallet().setDefaultAccount(index);
-ontSdk.getWalletMgr().getWallet().setDefaultAccount("address");
+tstSdk.getWalletMgr().getWallet().setDefaultAccount(index);
+tstSdk.getWalletMgr().getWallet().setDefaultAccount("address");
 ```
 Note:  
 > index: The account with such index number is set as the default account.  
@@ -90,7 +90,7 @@ Note:
 
 ## Native digital asset methods
 
-Methods apply to both ONT and ONG assets.
+Methods apply to both TSG and TSG assets.
 
 **sendTransfer**
 ```
@@ -228,14 +228,14 @@ return value：total Supply
 
 ```
 //get sdk instance
-OntSdk sdk = OntSdk.getInstance();
+TstSdk sdk = TstSdk.getInstance();
 sdk.setRpc(url);
-sdk.openWalletFile("OntAssetDemo.json");
+sdk.openWalletFile("TstAssetDemo.json");
 //get ontAssetTx instance
 ont = sdk.nativevm().ont()
 //transfer
 com.github.TesraSupernet.account.Account account1 = new com.github.TesraSupernet.account.Account(privateKey,SignatureScheme.SHA256WITHECDSA);
-ont.sendTransfer(account1,"TA4pCAb4zUifHyxSx32dZRjTrnXtxEWKZr",10000,account1,ontSdk.DEFAULT_GAS_LIMIT,0);
+ont.sendTransfer(account1,"TA4pCAb4zUifHyxSx32dZRjTrnXtxEWKZr",10000,account1,tstSdk.DEFAULT_GAS_LIMIT,0);
 ```
 
 ## NEP-5 smart contract digital assets

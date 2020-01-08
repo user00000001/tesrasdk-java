@@ -1,7 +1,7 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.common.WalletQR;

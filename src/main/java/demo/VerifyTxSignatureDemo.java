@@ -1,6 +1,6 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.ErrorCode;
@@ -14,19 +14,19 @@ import com.github.TesraSupernet.sdk.exception.SDKException;
  *
  */
 public class VerifyTxSignatureDemo {
-    private static OntSdk ontSdk = null;
+    private static TstSdk tstSdk = null;
 
     public static void main(String[] args) {
 
         try {
-            ontSdk = getOntSdk();
-            Transaction tx = ontSdk.getConnect().getTransaction("c2a917a928f15ba6b30bb2af0f12884df4d81ab917b6ca82ce395a33000f7ba2");
+            tstSdk = getTstSdk();
+            Transaction tx = tstSdk.getConnect().getTransaction("c2a917a928f15ba6b30bb2af0f12884df4d81ab917b6ca82ce395a33000f7ba2");
             //System.out.println(tx.toHexString());
-            System.out.println(ontSdk.verifyTransaction(tx));
+            System.out.println(tstSdk.verifyTransaction(tx));
 
             // test error signature
             tx.sigs[0].sigData[0] = Helper.hexToBytes("011b2cb837a373ee8ac9f9ed1cbdf03517006d30df8d1c0a379e21d833bcbeeb853b4fa182c9868052a6604d9d46a20bfd2028a7a709e75cac7aaa7421d2de0ffd");
-            System.out.println(false == ontSdk.verifyTransaction(tx));
+            System.out.println(false == tstSdk.verifyTransaction(tx));
 
             System.out.println();
             // multi sign
@@ -39,7 +39,7 @@ public class VerifyTxSignatureDemo {
                     System.out.println(i + " " + Address.addressFromMultiPubKeys(tx.sigs[i].M, tx.sigs[i].pubKeys).toBase58() + "  " + tx.sigs[i].json());
                 }
             }
-            System.out.println( ontSdk.verifyTransaction(tx));
+            System.out.println( tstSdk.verifyTransaction(tx));
 
             System.out.println();
             // test error signature in multi sign
@@ -52,20 +52,20 @@ public class VerifyTxSignatureDemo {
                     System.out.println(i + " " + Address.addressFromMultiPubKeys(tx.sigs[i].M, tx.sigs[i].pubKeys).toBase58() + "  " + tx.sigs[i].json());
                 }
             }
-            System.out.println(false == ontSdk.verifyTransaction(tx));
+            System.out.println(false == tstSdk.verifyTransaction(tx));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
         String ip = "http://dappnode1.ont.io";//"http://polaris1.ont.io";//
         String restUrl = ip + ":" + "20334";
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

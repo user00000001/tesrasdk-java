@@ -17,7 +17,7 @@
   "name": "MyWallet",
   "version": "1.0",
   "scrypt": {},
-  "defaultOntid": "did:ont:TJNxJe2Ty8eSCjCDxDPwiS78NRAn8XPTFL",
+  "defaultTstid": "did:ont:TJNxJe2Ty8eSCjCDxDPwiS78NRAn8XPTFL",
   "defaultAccountAddress": "TJNxJe2Ty8eSCjCDxDPwiS78NRAn8XPTFL",
   "createTime": "2018-03-14T03:12:30.862Z",
   "identities": [],
@@ -33,7 +33,7 @@
 
 ```scrypt``` SCrypt算法参数.
 
-```defaultOntid``` 钱包中的默认Ontid.
+```defaultTstid``` 钱包中的默认Tstid.
 
 ```defaultAccountAddress``` 钱包中默认账户地址.
 
@@ -50,7 +50,7 @@
 ```json
 {
 	"name": "mickey",
-	"defaultOntid": "",
+	"defaultTstid": "",
 	"defaultAccountAddress": "",
 	"createTime": "2018-06-30T08:52:01.519Z",
 	"version": "1.0",
@@ -61,7 +61,7 @@
 		"dkLen": 64
 	},
 	"identities": [{
-		"ontid": "did:ont:ATcHA9eYKyve8M74CB4p6Ssx7kwXjmREUa",
+		"tstid": "did:ont:ATcHA9eYKyve8M74CB4p6Ssx7kwXjmREUa",
 		"label": "mickey",
 		"lock": false,
 		"controls": [{
@@ -123,7 +123,7 @@ SCrypt算法参数，Scrypt数据结构:
 数字身份数据结构:
 ```json
 {
-  "ontid": "did:ont:TQLASLtT6pWbThcSCYU1biVqhMnzhTgLFq",
+  "tstid": "did:ont:TQLASLtT6pWbThcSCYU1biVqhMnzhTgLFq",
   "label": "MyIdentity",
   "lock": false,
   "isDefault" : false,
@@ -132,7 +132,7 @@ SCrypt算法参数，Scrypt数据结构:
 ```
 参数描述：
 
-```ontid``` 身份id.
+```tstid``` 身份id.
 
 ```label``` 昵称.
 

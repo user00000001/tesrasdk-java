@@ -1,6 +1,6 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
@@ -18,7 +18,7 @@ import java.util.Base64;
 public class GlobalParamDemo {
     public static void main(String[] args) throws Exception {
 
-        OntSdk ontSdk = getOntSdk();
+        TstSdk tstSdk = getTstSdk();
         String password = "111111";
         String privateKey  = "f9d2d30ffb22dffdf4f14ad6f1303460efc633ea8a3014f638eaa19c259bada1";
         String privateKey2 = "75de8489fcb2dcaf2ef3cd607feffde18789de7da129b5e97c81e001793cb7cf";
@@ -39,55 +39,55 @@ public class GlobalParamDemo {
 
 
         Address multiAddress2 = Address.addressFromMultiPubKeys(2,account1s.serializePublicKey(),account2s.serializePublicKey(),account3s.serializePublicKey());
-        if(ontSdk.getWalletMgr().getWallet().getIdentities().size() < 1) {
-            Identity identity = ontSdk.getWalletMgr().createIdentityFromPriKey(password,privateKey2);
-            String txhash = ontSdk.nativevm().ontId().sendRegister(identity,password,account,ontSdk.DEFAULT_GAS_LIMIT,0);
+        if(tstSdk.getWalletMgr().getWallet().getIdentities().size() < 1) {
+            Identity identity = tstSdk.getWalletMgr().createIdentityFromPriKey(password,privateKey2);
+            String txhash = tstSdk.nativevm().tstId().sendRegister(identity,password,account,tstSdk.DEFAULT_GAS_LIMIT,0);
             Thread.sleep(6000);
-            System.out.println(ontSdk.getConnect().getSmartCodeEvent(txhash));
+            System.out.println(tstSdk.getConnect().getSmartCodeEvent(txhash));
             System.out.println(privateKey);
         }
 
         if(false){
-//            String txhash = ontSdk.nativevm().gParams().transferAdmin(account,account1.getAddressU160(),account,ontSdk.DEFAULT_GAS_LIMIT,0);
-            String txhash = ontSdk.nativevm().gParams().transferAdmin(5,new Account[]{account1s,account2s,account3s,account4s,account5s,account6s,account7s},
-                    multiAddress2,account,ontSdk.DEFAULT_GAS_LIMIT,0);
+//            String txhash = tstSdk.nativevm().gParams().transferAdmin(account,account1.getAddressU160(),account,tstSdk.DEFAULT_GAS_LIMIT,0);
+            String txhash = tstSdk.nativevm().gParams().transferAdmin(5,new Account[]{account1s,account2s,account3s,account4s,account5s,account6s,account7s},
+                    multiAddress2,account,tstSdk.DEFAULT_GAS_LIMIT,0);
             Thread.sleep(6000);
-            System.out.println(ontSdk.getConnect().getSmartCodeEvent(txhash));
+            System.out.println(tstSdk.getConnect().getSmartCodeEvent(txhash));
 
         }
         if(false){
-//            String txhash = ontSdk.nativevm().gParams().acceptAdmin(account1,account,ontSdk.DEFAULT_GAS_LIMIT,0);
+//            String txhash = tstSdk.nativevm().gParams().acceptAdmin(account1,account,tstSdk.DEFAULT_GAS_LIMIT,0);
 
-            String txhash = ontSdk.nativevm().gParams().acceptAdmin(multiAddress2,2,new Account[]{account1s,account2s,account3s},account,ontSdk.DEFAULT_GAS_LIMIT,0);
+            String txhash = tstSdk.nativevm().gParams().acceptAdmin(multiAddress2,2,new Account[]{account1s,account2s,account3s},account,tstSdk.DEFAULT_GAS_LIMIT,0);
             Thread.sleep(6000);
-            System.out.println(ontSdk.getConnect().getSmartCodeEvent(txhash));
+            System.out.println(tstSdk.getConnect().getSmartCodeEvent(txhash));
         }
         if(false){
             Address multiAddr3 = Address.addressFromMultiPubKeys(2,account2s.serializePublicKey(),account3s.serializePublicKey(),account4s.serializePublicKey());
-//            String txhash = ontSdk.nativevm().gParams().setOperator(account1,account2.getAddressU160(),account,ontSdk.DEFAULT_GAS_LIMIT,0);
-            String txhash = ontSdk.nativevm().gParams().setOperator(2,new Account[]{account2s,account3s,account4s},
-                    multiAddr3,account,ontSdk.DEFAULT_GAS_LIMIT,0);
+//            String txhash = tstSdk.nativevm().gParams().setOperator(account1,account2.getAddressU160(),account,tstSdk.DEFAULT_GAS_LIMIT,0);
+            String txhash = tstSdk.nativevm().gParams().setOperator(2,new Account[]{account2s,account3s,account4s},
+                    multiAddr3,account,tstSdk.DEFAULT_GAS_LIMIT,0);
             Thread.sleep(6000);
-            System.out.println(ontSdk.getConnect().getSmartCodeEvent(txhash));
+            System.out.println(tstSdk.getConnect().getSmartCodeEvent(txhash));
         }
 
         if(false){
             Params params = new Params(new com.github.TesraSupernet.core.globalparams.Param[]{new com.github.TesraSupernet.core.globalparams.Param("key2","value2")});
             System.out.println(Helper.toHexString(params.toArray()));
-//            String txhash = ontSdk.nativevm().gParams().setGlobalParam(account1,params,account,ontSdk.DEFAULT_GAS_LIMIT,0);
-            String txhash = ontSdk.nativevm().gParams().setGlobalParam(2,new Account[]{account1s,account2s,account3s},
-                    params,account,ontSdk.DEFAULT_GAS_LIMIT,0);
+//            String txhash = tstSdk.nativevm().gParams().setGlobalParam(account1,params,account,tstSdk.DEFAULT_GAS_LIMIT,0);
+            String txhash = tstSdk.nativevm().gParams().setGlobalParam(2,new Account[]{account1s,account2s,account3s},
+                    params,account,tstSdk.DEFAULT_GAS_LIMIT,0);
             Thread.sleep(6000);
-            System.out.println(ontSdk.getConnect().getSmartCodeEvent(txhash));
+            System.out.println(tstSdk.getConnect().getSmartCodeEvent(txhash));
         }
         if(false){
-//            String txhash = ontSdk.nativevm().gParams().createSnapshot(account2,account,ontSdk.DEFAULT_GAS_LIMIT,0);
-            String txhash = ontSdk.nativevm().gParams().createSnapshot(2,new Account[]{account1s,account2s,account3s},account,ontSdk.DEFAULT_GAS_LIMIT,0);
+//            String txhash = tstSdk.nativevm().gParams().createSnapshot(account2,account,tstSdk.DEFAULT_GAS_LIMIT,0);
+            String txhash = tstSdk.nativevm().gParams().createSnapshot(2,new Account[]{account1s,account2s,account3s},account,tstSdk.DEFAULT_GAS_LIMIT,0);
             Thread.sleep(6000);
-            System.out.println(ontSdk.getConnect().getSmartCodeEvent(txhash));
+            System.out.println(tstSdk.getConnect().getSmartCodeEvent(txhash));
         }
         if(true){
-            String res = ontSdk.nativevm().gParams().getGlobalParam(new String[]{"key2"});
+            String res = tstSdk.nativevm().gParams().getGlobalParam(new String[]{"key2"});
             System.out.println("res:" + res);
             byte[] resbytes = Helper.hexToBytes(res);
             ByteArrayInputStream ms = new ByteArrayInputStream(resbytes);
@@ -113,7 +113,7 @@ public class GlobalParamDemo {
     }
 
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 //        String ip = "http://polaris1.ont.io";
         String ip = "http://127.0.0.1";
 //        String ip = "http://54.222.182.88;
@@ -122,7 +122,7 @@ public class GlobalParamDemo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

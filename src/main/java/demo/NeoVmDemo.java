@@ -20,7 +20,7 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.smartcontract.neovm.abi.AbiFunction;
@@ -43,10 +43,10 @@ public class NeoVmDemo {
     public static String abi ="{\"hash\":\"0x638119357dd210e0d7661f779526690af5e3cf8e\",\"entrypoint\":\"Main\",\"functions\":[{\"name\":\"Main\",\"parameters\":[{\"name\":\"operation\",\"type\":\"String\"},{\"name\":\"args\",\"type\":\"Array\"}],\"returntype\":\"Any\"},{\"name\":\"TestMap\",\"parameters\":[],\"returntype\":\"Any\"},{\"name\":\"DeserializeMap\",\"parameters\":[{\"name\":\"param\",\"type\":\"Map\"}],\"returntype\":\"Any\"},{\"name\":\"TestStruct\",\"parameters\":[],\"returntype\":\"Any\"},{\"name\":\"DeserializeStruct\",\"parameters\":[{\"name\":\"param\",\"type\":\"Struct\"}],\"returntype\":\"Any\"}],\"events\":[]}";
     public static void main(String[] args) {
         try {
-            OntSdk ontSdk = getOntSdk();
-            Account acct1 = new Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-            Account acct2 = new Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
-            Account acct = new Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+            TstSdk tstSdk = getTstSdk();
+            Account acct1 = new Account(Helper.hexToBytes(privatekey1), tstSdk.defaultSignScheme);
+            Account acct2 = new Account(Helper.hexToBytes(privatekey2), tstSdk.defaultSignScheme);
+            Account acct = new Account(Helper.hexToBytes(privatekey0), tstSdk.defaultSignScheme);
 
             System.out.println("hello:"+Helper.toHexString("hello".getBytes()));
             System.out.println("world:"+Helper.toHexString("world".getBytes()));
@@ -64,7 +64,7 @@ public class NeoVmDemo {
                 System.out.println(func);
                 func.setParamsValue();
 
-                Object obj =  ontSdk.neovm().sendTransaction(Helper.reverse("638119357dd210e0d7661f779526690af5e3cf8e"),null,null,0,0,func, true);
+                Object obj =  tstSdk.neovm().sendTransaction(Helper.reverse("638119357dd210e0d7661f779526690af5e3cf8e"),null,null,0,0,func, true);
                 System.out.println(obj);
 
             }
@@ -84,7 +84,7 @@ public class NeoVmDemo {
                 System.out.println(func);
                 func.setParamsValue(map);
 
-                Object obj =  ontSdk.neovm().sendTransaction(Helper.reverse("638119357dd210e0d7661f779526690af5e3cf8e"),null,null,0,0,func, true);
+                Object obj =  tstSdk.neovm().sendTransaction(Helper.reverse("638119357dd210e0d7661f779526690af5e3cf8e"),null,null,0,0,func, true);
                 System.out.println(obj);
 
             }
@@ -98,7 +98,7 @@ public class NeoVmDemo {
                 System.out.println(func);
                 func.setParamsValue();
 
-                Object obj =  ontSdk.neovm().sendTransaction(Helper.reverse("638119357dd210e0d7661f779526690af5e3cf8e"),null,null,0,0,func, true);
+                Object obj =  tstSdk.neovm().sendTransaction(Helper.reverse("638119357dd210e0d7661f779526690af5e3cf8e"),null,null,0,0,func, true);
                 System.out.println(obj);
 
             }
@@ -112,7 +112,7 @@ public class NeoVmDemo {
                 System.out.println(func);
                 func.setParamsValue(new Struct().add(100,"claimid"));
 
-                Object obj =  ontSdk.neovm().sendTransaction(Helper.reverse("638119357dd210e0d7661f779526690af5e3cf8e"),null,null,0,0,func, true);
+                Object obj =  tstSdk.neovm().sendTransaction(Helper.reverse("638119357dd210e0d7661f779526690af5e3cf8e"),null,null,0,0,func, true);
                 System.out.println(obj);
 
             }
@@ -122,7 +122,7 @@ public class NeoVmDemo {
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 //        String ip = "http://139.219.108.204";
         String ip = "http://127.0.0.1";
 //        String ip = "http://101.132.193.149";
@@ -131,7 +131,7 @@ public class NeoVmDemo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

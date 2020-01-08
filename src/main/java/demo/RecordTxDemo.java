@@ -1,6 +1,6 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.sdk.wallet.Identity;
 
 public class RecordTxDemo {
@@ -8,24 +8,24 @@ public class RecordTxDemo {
 
     public static void main(String[] args){
         try {
-            OntSdk ontSdk = getOntSdk();
+            TstSdk tstSdk = getTstSdk();
 
-            if(ontSdk.getWalletMgr().getWallet().getIdentities().size() < 1) {
+            if(tstSdk.getWalletMgr().getWallet().getIdentities().size() < 1) {
 
-                ontSdk.getWalletMgr().createIdentity("passwordtest");
-                ontSdk.getWalletMgr().writeWallet();
+                tstSdk.getWalletMgr().createIdentity("passwordtest");
+                tstSdk.getWalletMgr().writeWallet();
             }
 
 
-            Identity id = ontSdk.getWalletMgr().getWallet().getIdentities().get(0);
+            Identity id = tstSdk.getWalletMgr().getWallet().getIdentities().get(0);
 
-            String hash = ontSdk.neovm().record().sendPut(id.ontid,"passwordtest",new byte[]{},"key","value-test",0,0);
+            String hash = tstSdk.neovm().record().sendPut(id.tstid,"passwordtest",new byte[]{},"key","value-test",0,0);
             System.out.println(hash);
             Thread.sleep(6000);
-            String res = ontSdk.neovm().record().sendGet(id.ontid,"passwordtest",new byte[]{},"key");
+            String res = tstSdk.neovm().record().sendGet(id.tstid,"passwordtest",new byte[]{},"key");
             System.out.println("result:"+res);
 
-            //System.out.println(ontSdk.getConnectMgr().getSmartCodeEvent(hash));
+            //System.out.println(tstSdk.getConnectMgr().getSmartCodeEvent(hash));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,7 +35,7 @@ public class RecordTxDemo {
 
 
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
         String ip = "http://127.0.0.1";
 //        String ip = "http://54.222.182.88;
 //        String ip = "http://101.132.193.149";
@@ -43,7 +43,7 @@ public class RecordTxDemo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

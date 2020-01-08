@@ -1,6 +1,6 @@
 package com.github.TesraSupernet.sdk.wallet;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class WalletTest {
 
-    OntSdk ontSdk;
+    TstSdk tstSdk;
     Identity id1;
     Identity id2;
     Account acct1;
@@ -22,15 +22,15 @@ public class WalletTest {
 
     @Before
     public void setUp() throws Exception {
-        ontSdk = OntSdk.getInstance();
-        ontSdk.openWalletFile(walletFile);
+        tstSdk = TstSdk.getInstance();
+        tstSdk.openWalletFile(walletFile);
 
 
-        id1 = ontSdk.getWalletMgr().createIdentity("passwordtest");
-        id2 = ontSdk.getWalletMgr().createIdentity("passwordtest");
+        id1 = tstSdk.getWalletMgr().createIdentity("passwordtest");
+        id2 = tstSdk.getWalletMgr().createIdentity("passwordtest");
 
-        acct1 = ontSdk.getWalletMgr().createAccount("passwordtest");
-        acct2 = ontSdk.getWalletMgr().createAccount("passwordtest");
+        acct1 = tstSdk.getWalletMgr().createAccount("passwordtest");
+        acct2 = tstSdk.getWalletMgr().createAccount("passwordtest");
     }
 
     @After
@@ -46,19 +46,19 @@ public class WalletTest {
 
     @Test
     public void getAccount() throws Exception {
-        Account acct = ontSdk.getWalletMgr().getWallet().getAccount(acct1.address);
+        Account acct = tstSdk.getWalletMgr().getWallet().getAccount(acct1.address);
         Assert.assertNotNull(acct);
 
-        ontSdk.getWalletMgr().getWallet().setDefaultIdentity(id1.ontid);
-        ontSdk.getWalletMgr().getWallet().setDefaultIdentity(1);
-        ontSdk.getWalletMgr().getWallet().setDefaultAccount(acct1.address);
-        ontSdk.getWalletMgr().getWallet().setDefaultAccount(1);
-        Identity did = ontSdk.getWalletMgr().getWallet().getIdentity(id1.ontid);
+        tstSdk.getWalletMgr().getWallet().setDefaultIdentity(id1.tstid);
+        tstSdk.getWalletMgr().getWallet().setDefaultIdentity(1);
+        tstSdk.getWalletMgr().getWallet().setDefaultAccount(acct1.address);
+        tstSdk.getWalletMgr().getWallet().setDefaultAccount(1);
+        Identity did = tstSdk.getWalletMgr().getWallet().getIdentity(id1.tstid);
         Assert.assertNotNull(did);
-        boolean b = ontSdk.getWalletMgr().getWallet().removeIdentity(id1.ontid);
+        boolean b = tstSdk.getWalletMgr().getWallet().removeIdentity(id1.tstid);
         Assert.assertTrue(b);
 
-        boolean b2 = ontSdk.getWalletMgr().getWallet().removeAccount(acct1.address);
+        boolean b2 = tstSdk.getWalletMgr().getWallet().removeAccount(acct1.address);
         Assert.assertTrue(b2);
 
 

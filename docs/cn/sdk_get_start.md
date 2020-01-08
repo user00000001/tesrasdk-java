@@ -4,7 +4,7 @@
 
 [English](../en/sdk_get_start.md) / 中文
 
-ONT中有两种资产：原生资产和合约资产。原生资产如ont和ong。交易所对接时，主要处理这两种类型资产的充值、提现等操作。
+TSG中有两种资产：原生资产和合约资产。原生资产如ont和ong。交易所对接时，主要处理这两种类型资产的充值、提现等操作。
 
 sdk文档：[sdk文档](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/docs/cn) 
 
@@ -26,13 +26,13 @@ sdk文档：[sdk文档](https://github.com/TesraSupernet/tesra-java-sdk/tree/mas
 			* [ 同步查询智能合约event](#同步查询智能合约event)
 			* [其他与链交互接口列表：](#其他与链交互接口列表)
 		* [2.3 交易反序](#23-交易反序)	
-		* [2.4 ONT转账](#24-ONT转账)
+		* [2.4 TSG转账](#24-TSG转账)
 			* [ 构造转账交易并发送](#构造转账交易并发送)
 			* [ 多次签名](#多次签名)
 			* [ 一转多或多转多](#一转多或多转多)
 			* [使用签名机签名](#使用签名机签名)
-		* [2.5 ONG转账](#25-ONG转账)
-			* [ ONG转账](#ONG转账)
+		* [2.5 TSG转账](#25-TSG转账)
+			* [ TSG转账](#TSG转账)
 			* [ 提取ong](#提取ong)
 	* [3. NEP5转账](#3-nep5转账)
 		* [3.1 查询](#31-查询)
@@ -40,7 +40,7 @@ sdk文档：[sdk文档](https://github.com/TesraSupernet/tesra-java-sdk/tree/mas
 	* [4. 批量交易](#4-批量交易)
 		* [4.1 批量构造交易](#41-批量构造交易)
 		* [4.2 批量发送交易](#42-批量发送交易)
-		* [4.3 在钱包中创建Ontid](#43-在钱包中创建Ontid)
+		* [4.3 在钱包中创建Tstid](#43-在钱包中创建Tstid)
 ## 1. 公私钥和地址
 
 账户是基于公私钥创建的，地址是公钥转换而来。
@@ -54,16 +54,16 @@ sdk文档：[sdk文档](https://github.com/TesraSupernet/tesra-java-sdk/tree/mas
 自己存储，是指账户信息保存在用户数据库或其他地方，而不存储在遵循钱包规范的文件中。
 #####  随机创建账号：
 ```java
-com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(tstSdk.defaultSignScheme);
 acct.serializePrivateKey();//私钥
 acct.serializePublicKey();//公钥
 acct.getAddressU160().toBase58();//base58地址
 ```            
 ##### 根据私钥创建账号            
 ```java     
-com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
-com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), tstSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), tstSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), tstSdk.defaultSignScheme);
 
 ```
 
@@ -78,17 +78,17 @@ com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.ac
 
 一个创建多个账号的方法。
 ```java
-ontSdk.getWalletMgr().createAccounts(10, "passwordtest");
-ontSdk.getWalletMgr().writeWallet();
+tstSdk.getWalletMgr().createAccounts(10, "passwordtest");
+tstSdk.getWalletMgr().writeWallet();
 
 随机创建:
-AccountInfo info0 = ontSdk.getWalletMgr().createAccountInfo("passwordtest");
+AccountInfo info0 = tstSdk.getWalletMgr().createAccountInfo("passwordtest");
 
 通过私钥创建:
-AccountInfo info = ontSdk.getWalletMgr().createAccountInfoFromPriKey("passwordtest","e467a2a9c9f56b012c71cf2270df42843a9d7ff181934068b4a62bcdd570e8be");
+AccountInfo info = tstSdk.getWalletMgr().createAccountInfoFromPriKey("passwordtest","e467a2a9c9f56b012c71cf2270df42843a9d7ff181934068b4a62bcdd570e8be");
 
 获取账号
-com.github.TesraSupernet.account.Account acct0 = ontSdk.getWalletMgr().getAccount(info.addressBase58,"passwordtest",salt);
+com.github.TesraSupernet.account.Account acct0 = tstSdk.getWalletMgr().getAccount(info.addressBase58,"passwordtest",salt);
 
 ```
 
@@ -109,7 +109,7 @@ String privatekey1 = "49855b16636e70f100cc5f4f42bc20a6535d7414fb8845e7310f8dd065
 String privatekey2 = "1094e90dd7c4fdfd849c14798d725ac351ae0d924b29a279a9ffa77d5737bd96";
 
 //生成账号，获取地址
-com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), tstSdk.defaultSignScheme);
 Address sender = acct0.getAddressU160();
 
 //base58地址解码
@@ -139,19 +139,19 @@ Address recvAddr = Address.addressFromMultiPubKeys(2, acct1.serializePublicKey()
 
 String ip = "http://polaris1.ont.io";
 String rpcUrl = ip + ":" + "20336";
-OntSdk ontSdk = OntSdk.getInstance();
-ontSdk.setRpc(rpcUrl);
-ontSdk.setDefaultConnect(wm.getRpc());
+TstSdk tstSdk = TstSdk.getInstance();
+tstSdk.setRpc(rpcUrl);
+tstSdk.setDefaultConnect(wm.getRpc());
 
 或使用restful：
 String restUrl = ip + ":" + "20334";
-ontSdk.setRestful(restUrl);
-ontSdk.setDefaultConnect(wm.getRestful());
+tstSdk.setRestful(restUrl);
+tstSdk.setDefaultConnect(wm.getRestful());
 
 也可以选择websocket：
 String wsUrl = ip + ":" + "20335";
-ontSdk.setWesocket(wsUrl, lock);
-ontSdk.setDefaultConnect(wm.getWebSocket());
+tstSdk.setWesocket(wsUrl, lock);
+tstSdk.setDefaultConnect(wm.getWebSocket());
 
 ```
 
@@ -163,21 +163,21 @@ ontSdk.setDefaultConnect(wm.getWebSocket());
 ####  **查询ont，ong余额**
 
 ```java
-ontSdk.getConnect().getBalance("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2");
-ontSdk.nativevm().ont().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
-ontSdk.nativevm().ong().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
+tstSdk.getConnect().getBalance("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2");
+tstSdk.nativevm().ont().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
+tstSdk.nativevm().ong().queryBalanceOf("AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2")
 
 查ont信息：
-System.out.println(ontSdk.nativevm().ont().queryName());
-System.out.println(ontSdk.nativevm().ont().querySymbol());
-System.out.println(ontSdk.nativevm().ont().queryDecimals());
-System.out.println(ontSdk.nativevm().ont().queryTotalSupply());
+System.out.println(tstSdk.nativevm().ont().queryName());
+System.out.println(tstSdk.nativevm().ont().querySymbol());
+System.out.println(tstSdk.nativevm().ont().queryDecimals());
+System.out.println(tstSdk.nativevm().ont().queryTotalSupply());
 
 查ong信息：
-System.out.println(ontSdk.nativevm().ong().queryName());
-System.out.println(ontSdk.nativevm().ong().querySymbol());
-System.out.println(ontSdk.nativevm().ong().queryDecimals());
-System.out.println(ontSdk.nativevm().ong().queryTotalSupply());
+System.out.println(tstSdk.nativevm().ong().queryName());
+System.out.println(tstSdk.nativevm().ong().querySymbol());
+System.out.println(tstSdk.nativevm().ong().queryDecimals());
+System.out.println(tstSdk.nativevm().ong().queryTotalSupply());
 
 
 
@@ -188,7 +188,7 @@ System.out.println(ontSdk.nativevm().ong().queryTotalSupply());
 通过接口查询交易是否在交易池中
 ```json
 
-ontSdk.getConnect().getMemPoolTxState("d441a967315989116bf0afad498e4016f542c1e7f8605da943f07633996c24cc")
+tstSdk.getConnect().getMemPoolTxState("d441a967315989116bf0afad498e4016f542c1e7f8605da943f07633996c24cc")
 
 
 response 交易池存在此交易:
@@ -232,7 +232,7 @@ response 交易池存在此交易:
 查询智能合约推送内容，代表交易执行成功，如果没有成功```States```中不会有```transfer```的事件。
 
 ```json
-ontSdk.getConnect().getSmartCodeEvent("d441a967315989116bf0afad498e4016f542c1e7f8605da943f07633996c24cc")
+tstSdk.getConnect().getSmartCodeEvent("d441a967315989116bf0afad498e4016f542c1e7f8605da943f07633996c24cc")
 
 
 response:
@@ -266,7 +266,7 @@ response:
 
 ```json
 
-ontSdk.getConnect().getSmartCodeEvent(10)
+tstSdk.getConnect().getSmartCodeEvent(10)
 
 response:
 {
@@ -312,7 +312,7 @@ response:
 ```json
 //发完交易每隔3秒请求一次，最长等待60秒
 
-Object object = ontSdk.getConnect().waitResult(tx.hash().toString());
+Object object = tstSdk.getConnect().waitResult(tx.hash().toString());
 System.out.println(object);
 
 response success:
@@ -335,26 +335,26 @@ com.github.TesraSupernet.sdk.exception.SDKException: {"Action":"getmempooltxstat
 
       |                     Main   Function                      |           Description            
  -----|----------------------------------------------------------|---------------------------------------------
-    1 | ontSdk.getConnect().getNodeCount()                       |  查询节点数量
-    2 | ontSdk.getConnect().getBlock(15)                         |  查询块
-    3 | ontSdk.getConnect().getBlockJson(15)                     |  查询块    
-    4 | ontSdk.getConnect().getBlockJson("txhash")               |  查询块    
-    5 | ontSdk.getConnect().getBlock("txhash")                   |  查询块     
-    6 | ontSdk.getConnect().getBlockHeight()                     |  查询当前块高
-    7 | ontSdk.getConnect().getTransaction("txhash")             |  查询交易                                     
-    8 | ontSdk.getConnect().getStorage("contractaddress", key)   |  查询智能合约存储
-    9 | ontSdk.getConnect().getBalance("address")                |  查询余额
-   10 | ontSdk.getConnect().getContractJson("contractaddress")   |  查询智能合约          
-   11 | ontSdk.getConnect().getSmartCodeEvent(59)                |  查询智能合约事件
-   12 | ontSdk.getConnect().getSmartCodeEvent("txhash")          |  查询智能合约事件
-   13 | ontSdk.getConnect().getBlockHeightByTxHash("txhash")     |  查询交易所在高度
-   14 | ontSdk.getConnect().getMerkleProof("txhash")             |  获取merkle证明
-   15 | ontSdk.getConnect().sendRawTransaction("txhexString")    |  发送交易
-   16 | ontSdk.getConnect().sendRawTransaction(Transaction)      |  发送交易
-   17 | ontSdk.getConnect().sendRawTransactionPreExec()          |  发送预执行交易
-   18 | ontSdk.getConnect().getAllowance("ont","from","to")      |  查询允许使用值
-   19 | ontSdk.getConnect().getMemPoolTxCount()                  |  查询交易池中交易总量
-   20 | ontSdk.getConnect().getMemPoolTxState()                  |  查询交易池中交易状态
+    1 | tstSdk.getConnect().getNodeCount()                       |  查询节点数量
+    2 | tstSdk.getConnect().getBlock(15)                         |  查询块
+    3 | tstSdk.getConnect().getBlockJson(15)                     |  查询块    
+    4 | tstSdk.getConnect().getBlockJson("txhash")               |  查询块    
+    5 | tstSdk.getConnect().getBlock("txhash")                   |  查询块     
+    6 | tstSdk.getConnect().getBlockHeight()                     |  查询当前块高
+    7 | tstSdk.getConnect().getTransaction("txhash")             |  查询交易                                     
+    8 | tstSdk.getConnect().getStorage("contractaddress", key)   |  查询智能合约存储
+    9 | tstSdk.getConnect().getBalance("address")                |  查询余额
+   10 | tstSdk.getConnect().getContractJson("contractaddress")   |  查询智能合约          
+   11 | tstSdk.getConnect().getSmartCodeEvent(59)                |  查询智能合约事件
+   12 | tstSdk.getConnect().getSmartCodeEvent("txhash")          |  查询智能合约事件
+   13 | tstSdk.getConnect().getBlockHeightByTxHash("txhash")     |  查询交易所在高度
+   14 | tstSdk.getConnect().getMerkleProof("txhash")             |  获取merkle证明
+   15 | tstSdk.getConnect().sendRawTransaction("txhexString")    |  发送交易
+   16 | tstSdk.getConnect().sendRawTransaction(Transaction)      |  发送交易
+   17 | tstSdk.getConnect().sendRawTransactionPreExec()          |  发送预执行交易
+   18 | tstSdk.getConnect().getAllowance("ont","from","to")      |  查询允许使用值
+   19 | tstSdk.getConnect().getMemPoolTxCount()                  |  查询交易池中交易总量
+   20 | tstSdk.getConnect().getMemPoolTxState()                  |  查询交易池中交易状态
 ```  
 
 ### 2.3 交易反序
@@ -430,9 +430,9 @@ Example: 1000 is  0xe803000000000000 -> 0x00000000000003e8   change from little 
 
 ```  
 
-### 2.4 ONT转账
+### 2.4 TSG转账
 
-ONT和ONG转账可以一对一，也可以一对多，多对多，多对一。
+TSG和TSG转账可以一对一，也可以一对多，多对多，多对一。
 
 #### **构造转账交易并发送**
 
@@ -445,18 +445,18 @@ Address recvAddr = acct1;
 
 构造转账交易：
 long amount = 1000;
-Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 String hash = tx.hash().toString()
 
 对交易做签名：
-ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
+tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
 //多签地址的签名方法：
-ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct1, acct2}});
+tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct1, acct2}});
 //如果转出方与网络费付款人不是同一个地址，需要添加网络费付款人的签名
 
 
 发送预执行（可选）：
-Object obj = ontSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
+Object obj = tstSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
 System.out.println(obj);
 成功返回：
 {"State":1,"Gas":30000,"Result":"01"}
@@ -465,11 +465,11 @@ com.github.TesraSupernet.network.exception.RestfulException: {"Action":"sendrawt
 
 
 发送交易：
-ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+tstSdk.getConnect().sendRawTransaction(tx.toHexString());
 
 
 同步发送交易：
-Object obj = ontSdk.getConnect().syncSendRawTransaction(tx.toHexString());
+Object obj = tstSdk.getConnect().syncSendRawTransaction(tx.toHexString());
 
 response success:
 {
@@ -499,18 +499,18 @@ com.github.TesraSupernet.sdk.exception.SDKException: {"Action":"getmempooltxstat
 ```java
 
 1.添加单签签名
-ontSdk.addSign(tx,acct0);
+tstSdk.addSign(tx,acct0);
 
 2.添加多签签名
-ontSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct);
-ontSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct2);
+tstSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct);
+tstSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct2);
 
 3.多签签名分多次签
 acct0签名：
-ontSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct);
+tstSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct);
 
 acct1签名：
-ontSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct2);
+tstSdk.addMultiSign(tx,2,new byte[][]{acct.serializePublicKey(),acct2.serializePublicKey()},acct2);
 
 ```
 
@@ -532,12 +532,12 @@ int amount2 = 20;
 
 State state = new State(sender1, recvAddr, amount);
 State state2 = new State(sender2, recvAddr, amount2);
-Transaction tx = ontSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
 
 //第一个转出方是单签地址，第二个转出方是多签地址：
-ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
-ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
-ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
+tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
+tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
+tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
 ```
 
 #### 使用签名机签名
@@ -551,7 +551,7 @@ ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serialize
 ```java
 
 序列化交易发送给签名机：
-Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 String txHex = tx.toHexString();
 
 接收方反序列化交易并签名：
@@ -560,7 +560,7 @@ Transaction txRx = Transaction.deserializeFrom(Helper.hexToBytes(txHex));
 
 
 签名：
-ontSdk.addSign(txRx,acct0);
+tstSdk.addSign(txRx,acct0);
 ```
 
 **SDK与签名机交互**：
@@ -574,22 +574,22 @@ go run SigSvr.go
 
 设置签名机URL：
 String url = ip + ":" + "20000/cli";
-OntSdk ontSdk = OntSdk.getInstance();
-ontSdk.setSignServer(url);
+TstSdk tstSdk = TstSdk.getInstance();
+tstSdk.setSignServer(url);
         
 
 String txHex = tx.toHexString();
 
 请求单签交易：
-ontSdk.getSignServer().sendSigRawTx(txHex);
+tstSdk.getSignServer().sendSigRawTx(txHex);
  
 请求多签交易： 
 String[] signs = new String[]{"02039b196d5ed74a4d771ade78752734957346597b31384c3047c1946ce96211c2a7",
                     "0203428daa06375b8dd40a5fc249f1d8032e578b5ebb5c62368fc6c5206d8798a966"};
-ontSdk.getSignServer().sendMultiSigRawTx(txHex,2,signs);
+tstSdk.getSignServer().sendMultiSigRawTx(txHex,2,signs);
 
 请求构造转账交易并签名：
-ontSdk.getSignServer().sendSigTransferTx("ont","TU5exRFVqjRi5wnMVzNoWKBq9WFncLXEjK","TA5SgQXTeKWyN4GNfWGoXqioEQ4eCDFMqE",10,30000,0);
+tstSdk.getSignServer().sendSigTransferTx("ont","TU5exRFVqjRi5wnMVzNoWKBq9WFncLXEjK","TA5SgQXTeKWyN4GNfWGoXqioEQ4eCDFMqE",10,30000,0);
             
 
 ```
@@ -600,25 +600,25 @@ SDK提供直接对数据做签名的接口。[例子](https://github.com/TesraSu
 
 
 ```java
-com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
+com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(tstSdk.defaultSignScheme);
 
 byte[] data = "12345".getBytes();
-byte[] signature = ontSdk.signatureData(acct, data);
+byte[] signature = tstSdk.signatureData(acct, data);
 
-System.out.println(ontSdk.verifySignature(acct.serializePublicKey(), data, signature));
+System.out.println(tstSdk.verifySignature(acct.serializePublicKey(), data, signature));
 
 ```
 
 
 
-### 2.5 ONG转账
+### 2.5 TSG转账
 
-ONG转账方法与ONT转账类似，但ONG的精度是9。
-####  **ONG转账**
+TSG转账方法与TSG转账类似，但TSG的精度是9。
+####  **TSG转账**
 
 
 ```json
-ontSdk.nativevm().ong().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+tstSdk.nativevm().ong().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 ```
 
 ####  **提取ong**
@@ -629,11 +629,11 @@ ontSdk.nativevm().ong().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amou
 ```json
 查询未提取ong:
 String addr = acct0.getAddressU160().toBase58();
-String ong = sdk.nativevm().ong().unboundOng(addr);
+String ong = sdk.nativevm().ong().unboundTsg(addr);
 
 //提取ong
-com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.signatureScheme);
-String hash = sdk.nativevm().ong().withdrawOng(account,toAddr,64000L,payerAcct,30000,500);
+com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), tstSdk.signatureScheme);
+String hash = sdk.nativevm().ong().withdrawTsg(account,toAddr,64000L,payerAcct,30000,500);
 
 ```
 
@@ -646,19 +646,19 @@ String hash = sdk.nativevm().ong().withdrawOng(account,toAddr,64000L,payerAcct,3
 ### 3.1 查询
 
 ```json
-String balance = ontSdk.neovm().nep5().queryBalanceOf(acct.address);
+String balance = tstSdk.neovm().nep5().queryBalanceOf(acct.address);
 System.out.println(new BigInteger(Helper.reverse(Helper.hexToBytes(balance))).longValue());
 
-String totalSupply = ontSdk.neovm().nep5().queryTotalSupply();
+String totalSupply = tstSdk.neovm().nep5().queryTotalSupply();
 System.out.println(new BigInteger(Helper.reverse(Helper.hexToBytes(totalSupply))).longValue());
 
-String decimals = ontSdk.neovm().nep5().queryDecimals();
+String decimals = tstSdk.neovm().nep5().queryDecimals();
 System.out.println(decimals);
 
-String name = ontSdk.neovm().nep5().queryName();
+String name = tstSdk.neovm().nep5().queryName();
 System.out.println(new String(Helper.hexToBytes(name)));
 
-String symbol = ontSdk.neovm().nep5().querySymbol();
+String symbol = tstSdk.neovm().nep5().querySymbol();
 System.out.println(new String(Helper.hexToBytes(symbol)));
 
 System.out.println(Address.decodeBase58(acct.address).toHexString());
@@ -667,26 +667,26 @@ System.out.println(Address.decodeBase58(acct.address).toHexString());
 ### 3.2 转账
 
 ```json
-ontSdk.neovm().nep5().sendTransfer(acct,"AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2",46440000L,acct,gasLimit,0);
+tstSdk.neovm().nep5().sendTransfer(acct,"AVcv8YBABi9m6vH7faq3t8jWNamDXYytU2",46440000L,acct,gasLimit,0);
 ```
 
 
 ## 4. 批量交易
 
-SDK发送注册Ontid和转账等交易时，根据钱包中账户和身份信息解密出私钥再做签名，这个过程大概需要1-2秒时间。为了节省发交易时间，可以多线程或多机器事先创建交易，再批量发送。
+SDK发送注册Tstid和转账等交易时，根据钱包中账户和身份信息解密出私钥再做签名，这个过程大概需要1-2秒时间。为了节省发交易时间，可以多线程或多机器事先创建交易，再批量发送。
 
 实现步骤如下，[例子](https://github.com/TesraSupernet/tesra-java-sdk/tree/master/src/main/java/demo/CreateManyTx.java)
 
 ### 4.1 批量构造交易
 
 1. 打开文件
-2. 构造交易，下面以构造注册Ontid交易为例。
+2. 构造交易，下面以构造注册Tstid交易为例。
 3. 写入交易
 
 > 构造交易时，如果新创建账户，需要用户自己保存账户私钥。
 
 ```
-//open file, make registry ontid transaction, save tx to file.
+//open file, make registry tstid transaction, save tx to file.
 File file = new File(filePath);
 if (!file.exists()) {
     file.createNewFile();
@@ -695,10 +695,10 @@ com.github.TesraSupernet.account.Account payerAcct = new com.github.TesraSuperne
 FileOutputStream fos = new FileOutputStream(file);
 for (int i = 0; i < 3; i++) {
     com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(SignatureScheme.SHA256WITHECDSA);
-    String ontid = Common.didont + account.getAddressU160().toBase58();
-    Transaction tx = ontSdk.nativevm().ontId().makeRegister(ontid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
-    ontSdk.addSign(tx, account);
-    ontSdk.addSign(tx, payerAcct);
+    String tstid = Common.didont + account.getAddressU160().toBase58();
+    Transaction tx = tstSdk.nativevm().tstId().makeRegister(tstid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
+    tstSdk.addSign(tx, account);
+    tstSdk.addSign(tx, payerAcct);
     System.out.println("PrivateKey:"+Helper.toHexString(account.serializePrivateKey())+",txhash:"+tx.hash().toString());
 
     fos.write(tx.toHexString().getBytes());
@@ -734,7 +734,7 @@ BufferedReader bf = new BufferedReader(fr);
 String txHex = null;
 while ((txHex=bf.readLine())!=null){
     txHex = txHex.split(",")[0];
-    Object obj = ontSdk.getConnect().sendRawTransactionPreExec(txHex);//change to sendRawTransaction
+    Object obj = tstSdk.getConnect().sendRawTransactionPreExec(txHex);//change to sendRawTransaction
     System.out.println(obj);
 }
 
@@ -742,11 +742,11 @@ while ((txHex=bf.readLine())!=null){
 ```
 
 
-### 4.3 在钱包中创建Ontid
+### 4.3 在钱包中创建Tstid
 
-如果需要把Ontid保存到钱包，根据4.1中保存的私钥，在钱包中创建Ontid即可。
+如果需要把Tstid保存到钱包，根据4.1中保存的私钥，在钱包中创建Tstid即可。
 
 ```
-Identity identity = ontSdk.getWalletMgr().createIdentityFromPriKey(password,privatekey0);
-ontSdk.getWalletMgr().writeWallet();
+Identity identity = tstSdk.getWalletMgr().createIdentityFromPriKey(password,privatekey0);
+tstSdk.getWalletMgr().writeWallet();
 ```

@@ -11,7 +11,7 @@
 
 可验证声明用来证明实体的某些属性。
 
-可信声明存证合约提供了可信声明的存证服务。即存证可信声明Id，签发者ONT身份，属主ONT身份等信息，以及记录可用性信息即是否被吊销等信息。
+可信声明存证合约提供了可信声明的存证服务。即存证可信声明Id，签发者TSG身份，属主TSG身份等信息，以及记录可用性信息即是否被吊销等信息。
 
 ### 1.1 数据结构和规范
 
@@ -30,7 +30,7 @@ class Claim{
 
 ```java
 class Header {
-    public String Alg = "ONT-ES256";
+    public String Alg = "TSG-ES256";
     public String Typ = "JWT-X";
     public String Kid;
     }
@@ -59,8 +59,8 @@ class Payload {
 ```
 
 `ver` Claim版本号
-`iss` 发行方的ontid
-`sub` 申请方的ontid
+`iss` 发行方的tstid
+`sub` 申请方的tstid
 `iat` 创建时间
 `exp` 超期时间
 `jti` claim的唯一标志
@@ -80,18 +80,18 @@ class Payload {
 
 ```java
 Map<String, Object> map = new HashMap<String, Object>();
-map.put("Issuer", dids.get(0).ontid);
-map.put("Subject", dids.get(1).ontid);
+map.put("Issuer", dids.get(0).tstid);
+map.put("Subject", dids.get(1).tstid);
 Map clmRevMap = new HashMap();
 clmRevMap.put("typ","AttestContract");
-clmRevMap.put("addr",dids.get(1).ontid.replace(Common.didont,""));
-String claim = ontSdk.nativevm().ontId().createOntIdClaim(dids.get(0).ontid,password,salt, "claim:context", map, map,clmRevMap,System.currentTimeMillis()/1000 +100000);
+clmRevMap.put("addr",dids.get(1).tstid.replace(Common.didont,""));
+String claim = tstSdk.nativevm().tstId().createTstIdClaim(dids.get(0).tstid,password,salt, "claim:context", map, map,clmRevMap,System.currentTimeMillis()/1000 +100000);
 ```
 
-**createOntIdClaim**
+**createTstIdClaim**
 
 ```java
-String createOntIdClaim(String signerOntid, String password,byte[] salt, String context, Map<String, Object> claimMap, Map metaData,Map clmRevMap,long expire)
+String createTstIdClaim(String signerTstid, String password,byte[] salt, String context, Map<String, Object> claimMap, Map metaData,Map clmRevMap,long expire)
 ```
 
 
@@ -99,12 +99,12 @@ String createOntIdClaim(String signerOntid, String password,byte[] salt, String 
 
 | 参数      | 字段   | 类型  | 描述 |             说明 |
 | ----- | ------- | ------ | ------------- | ----------- |
-| 输入参数 | signerOntid| String | 签名者ontid | 必选 |
+| 输入参数 | signerTstid| String | 签名者tstid | 必选 |
 |        | password    | String | 签名者密码   | 必选 |
 |        | salt        | byte[] | 解密需要的参数|必选|
 |        | context| String  |指定声明内容定义文档URI，其定义了每个字段的含义和值得类型 | 必选|
 |        | claimMap| Map  |声明的内容 | 必选|
-|        | metaData   | Map | 声明发行者和申请者ontid | 必选 |
+|        | metaData   | Map | 声明发行者和申请者tstid | 必选 |
 |        | clmRevMap   | Map | claim的撤回机制 | 必选 |
 |        | expire   | long | 声明过期时间     | 必选 |
 | 输出参数 | claim   | String  | 可信声明  |  |
@@ -119,13 +119,13 @@ String createOntIdClaim(String signerOntid, String password,byte[] salt, String 
 * 3.对要验签的json数据转成Map对key做排序。
 * 4.删除Signature做验签（根据PublicKeyId的id值查找到公钥,签名是Signature中Value做base64解码）
 ```java
-boolean b = ontSdk.nativevm().ontId().verifyOntIdClaim(claim);
+boolean b = tstSdk.nativevm().tstId().verifyTstIdClaim(claim);
 ```
 
-**verifyOntIdClaim**
+**verifyTstIdClaim**
 
 ```java
-boolean verifyOntIdClaim(String claim)
+boolean verifyTstIdClaim(String claim)
 ```
 
 功能说明： 验证可信声明
@@ -151,7 +151,7 @@ String ip = "http://127.0.0.1";
 String restUrl = ip + ":" + "20334";
 String rpcUrl = ip + ":" + "20336";
 String wsUrl = ip + ":" + "20335";
-OntSdk wm = OntSdk.getInstance();
+TstSdk wm = TstSdk.getInstance();
 wm.setRpc(rpcUrl);
 wm.setRestful(restUrl);
 wm.setDefaultConnect(wm.getRestful());
@@ -168,7 +168,7 @@ wm.setCodeAddress("803ca638069742da4b6871fe3d7f78718eeee78a");
 **sendCommit**
 
 ```java
-String sendCommit(String issuerOntid, String password,byte[] salt, String subjectOntid, String claimId, Account payerAcct, long gaslimit, long gasprice)
+String sendCommit(String issuerTstid, String password,byte[] salt, String subjectTstid, String claimId, Account payerAcct, long gaslimit, long gasprice)
 ```
 
 功能说明： 将数据保存到链上，声明存证，当且仅当该声明没有被存证过，且Commit函数是由committer调用，才能存证成功；否则，存证失败。存证成功后，该声明的状态就是已存证（committed）。
@@ -177,9 +177,9 @@ String sendCommit(String issuerOntid, String password,byte[] salt, String subjec
 
 | 参数      | 字段   | 类型  | 描述 |             说明 |
 | ----- | ------- | ------ | ------------- | ----------- |
-| 输入参数 | issuerOntid| String | 可信申明签发者数字身份ontid | 必选 |
+| 输入参数 | issuerTstid| String | 可信申明签发者数字身份tstid | 必选 |
 | 输入参数 | password| String | 数字身份密码 | 必选 |
-| 输入参数 | subjectOntid| String | 可信申明申请者ontid | 必选 |
+| 输入参数 | subjectTstid| String | 可信申明申请者tstid | 必选 |
 | 输入参数 | claimId| String | 可信申明claim唯一性标志，即Claim里面的Jti字段 | 必选 |
 | 输入参数 | payerAcct| String | 交易费用支付者账号 | 必选 |
 | 输入参数 | gaslimit| String | gaslimit | 必选 |
@@ -193,7 +193,7 @@ String sendCommit(String issuerOntid, String password,byte[] salt, String subjec
 ```java
 String[] claims = claim.split("\\.");
 JSONObject payload = JSONObject.parseObject(new String(Base64.getDecoder().decode(claims[1].getBytes())));
-String commitHash = ontSdk.neovm().claimRecord().sendCommit(dids.get(0).ontid,password,dids.get(1).ontid,payload.getString("jti"),account1,ontSdk.DEFAULT_GAS_LIMIT,0)
+String commitHash = tstSdk.neovm().claimRecord().sendCommit(dids.get(0).tstid,password,dids.get(1).tstid,payload.getString("jti"),account1,tstSdk.DEFAULT_GAS_LIMIT,0)
 ```
 
 ###  2.3. 查询可信申明的状态
@@ -211,13 +211,13 @@ String sendGetStatus(String claimId)
 
 ```claimId```： 可信申明claim唯一性标志，即Claim里面的Jti字段
 
-返回值：有两部分: 第一部分，claim的状态："Not attested", "Attested", "Attest has been revoked";第二部分是存证者的ontid
+返回值：有两部分: 第一部分，claim的状态："Not attested", "Attested", "Attest has been revoked";第二部分是存证者的tstid
 
 
 示例代码
 
 ```java
-String getstatusRes2 = ontSdk.neovm().claimRecord().sendGetStatus(payload.getString("jti"));
+String getstatusRes2 = tstSdk.neovm().claimRecord().sendGetStatus(payload.getString("jti"));
 ```
 
 
@@ -227,7 +227,7 @@ String getstatusRes2 = ontSdk.neovm().claimRecord().sendGetStatus(payload.getStr
 **sendRevoke**
 
 ```java
-String sendRevoke(String issuerOntid,String password,byte[] salt,String claimId,Account payerAcct,long gaslimit,long gas)
+String sendRevoke(String issuerTstid,String password,byte[] salt,String claimId,Account payerAcct,long gaslimit,long gas)
 ```
 
 功能说明：撤销可信申明
@@ -235,7 +235,7 @@ String sendRevoke(String issuerOntid,String password,byte[] salt,String claimId,
 
 | 参数      | 字段   | 类型  | 描述 |             说明 |
 | ----- | ------- | ------ | ------------- | ----------- |
-| 输入参数 | issuerOntid| String | 可信申明签发者数字身份ontid | 必选 |
+| 输入参数 | issuerTstid| String | 可信申明签发者数字身份tstid | 必选 |
 | 输入参数 | password| String | 数字身份密码 | 必选 |
 | 输入参数 | salt| String | issuer的salt | 必选 |
 | 输入参数 | claimId| String | 可信申明claim唯一性标志，即Claim里面的Jti字段 | 必选 |
@@ -248,5 +248,5 @@ String sendRevoke(String issuerOntid,String password,byte[] salt,String claimId,
 示例代码
 
 ```java
-String revokeHash = ontSdk.neovm().claimRecord().sendRevoke(dids.get(0).ontid,password,salt,payload.getString("jti"),account1,ontSdk.DEFAULT_GAS_LIMIT,0);
+String revokeHash = tstSdk.neovm().claimRecord().sendRevoke(dids.get(0).tstid,password,salt,payload.getString("jti"),account1,tstSdk.DEFAULT_GAS_LIMIT,0);
 ```

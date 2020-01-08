@@ -19,7 +19,7 @@ A wallet file in JSON format has the following basic structure:
   "name": "MyWallet",
   "version": "1.0",
   "scrypt": {},
-  "defaultOntid": "did:ont:TJNxJe2Ty8eSCjCDxDPwiS78NRAn8XPTFL",
+  "defaultTstid": "did:ont:TJNxJe2Ty8eSCjCDxDPwiS78NRAn8XPTFL",
   "defaultAccountAddress": "TJNxJe2Ty8eSCjCDxDPwiS78NRAn8XPTFL",
   "createTime": "2018-03-14T03:12:30.862Z",
   "identities": [],
@@ -33,7 +33,7 @@ A wallet file in JSON format has the following basic structure:
 
 ```scrypt``` is a ScryptParameters object which describe the parameters of SCrypt algorithm used for encrypting and decrypting the private keys in the wallet.
 
-```defaultOntid``` indicates the default identity in this wallet.
+```defaultTstid``` indicates the default identity in this wallet.
 
 ```defaultAccountAddress``` indicates the default digital asset account's address in this wallet.
 
@@ -59,7 +59,7 @@ Here is an example as below:
 	"version": "1.0"，
 	"createTime": "2018-09-26T18:02:26Z",
 	"defaultAccountAddress": "APyT9ZrjDsvq6cRWPaVq3Fu3zFjP33FUq4",
-	"defaultOntid": "did:ont:AXFZPQivJK2NTxJDnE6vsrFfyyfnEQSqX6",
+	"defaultTstid": "did:ont:AXFZPQivJK2NTxJDnE6vsrFfyyfnEQSqX6",
 	"accounts": [{
 		"address": "APyT9ZrjDsvq6cRWPaVq3Fu3zFjP33FUq4",
 		"algorithm": "ECDSA",
@@ -93,7 +93,7 @@ Here is an example as below:
 		"isDefault": true,
 		"label": "d6a5b3b3",
 		"lock": false,
-		"ontid": "did:ont:AXFZPQivJK2NTxJDnE6vsrFfyyfnEQSqX6"
+		"tstid": "did:ont:AXFZPQivJK2NTxJDnE6vsrFfyyfnEQSqX6"
 	}]
 	
 }
@@ -124,14 +124,14 @@ ScryptParameters object has the following structure:
 Identity object has the following structure:
 ```
 {
-  "ontid": "did:ont:TQLASLtT6pWbThcSCYU1biVqhMnzhTgLFq",
+  "tstid": "did:ont:TQLASLtT6pWbThcSCYU1biVqhMnzhTgLFq",
   "label": "MyIdentity",
   "lock": false,
   "isDefault" : false,
   "controls": []
 }
 ```
-```ontid``` is the ontid of the identity.
+```tstid``` is the tstid of the identity.
 
 ```label``` is a label that the user has given to the identity.
 

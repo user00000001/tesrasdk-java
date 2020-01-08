@@ -2,8 +2,8 @@ package com.github.TesraSupernet.merkle;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.github.TesraSupernet.OntSdk;
-import com.github.TesraSupernet.OntSdkTest;
+import com.github.TesraSupernet.TstSdk;
+import com.github.TesraSupernet.TstSdkTest;
 import com.github.TesraSupernet.common.UInt256;
 import com.github.TesraSupernet.core.block.Block;
 import com.github.TesraSupernet.core.transaction.Transaction;
@@ -24,19 +24,19 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class MerkleVerifierTest {
-    OntSdk ontSdk;
+    TstSdk tstSdk;
     String password = "111111";
     String walletFile = "MerkleVerifierTest.json";
 
     @Before
     public void setUp() throws SDKException {
-        String restUrl = OntSdkTest.URL;
+        String restUrl = TstSdkTest.URL;
 
-        ontSdk = OntSdk.getInstance();
-        ontSdk.setRestful(restUrl);
-        ontSdk.setDefaultConnect(ontSdk.getRestful());
+        tstSdk = TstSdk.getInstance();
+        tstSdk.setRestful(restUrl);
+        tstSdk.setDefaultConnect(tstSdk.getRestful());
 
-        ontSdk.openWalletFile(walletFile);
+        tstSdk.openWalletFile(walletFile);
     }
 
 
@@ -74,25 +74,25 @@ public class MerkleVerifierTest {
 
     @Test
     public void getProof() throws Exception {
-        Identity identity = ontSdk.getWalletMgr().createIdentity(password);
-        Account payer = ontSdk.getWalletMgr().createAccount(password);
+        Identity identity = tstSdk.getWalletMgr().createIdentity(password);
+        Account payer = tstSdk.getWalletMgr().createAccount(password);
         byte[] salt = identity.controls.get(0).getSalt();
-        Transaction tx = ontSdk.nativevm().ontId().makeRegister(identity.ontid,identity.controls.get(0).publicKey,payer.address,ontSdk.DEFAULT_GAS_LIMIT,0);
-        ontSdk.signTx(tx,identity.ontid,password,salt);
-        ontSdk.addSign(tx,payer.address,password,payer.getSalt());
-        ontSdk.getConnect().sendRawTransaction(tx);
+        Transaction tx = tstSdk.nativevm().tstId().makeRegister(identity.tstid,identity.controls.get(0).publicKey,payer.address,tstSdk.DEFAULT_GAS_LIMIT,0);
+        tstSdk.signTx(tx,identity.tstid,password,salt);
+        tstSdk.addSign(tx,payer.address,password,payer.getSalt());
+        tstSdk.getConnect().sendRawTransaction(tx);
         Thread.sleep(6000);
 
         String hash = tx.hash().toHexString();
         System.out.println(hash);
         Map proof = new HashMap();
         Map map = new HashMap();
-        int height = ontSdk.getConnect().getBlockHeightByTxHash(hash);
+        int height = tstSdk.getConnect().getBlockHeightByTxHash(hash);
         map.put("Type", "MerkleProof");
         map.put("TxnHash", hash);
         map.put("BlockHeight", height);
         System.out.println(hash);
-        Map tmpProof = (Map) ontSdk.getConnect().getMerkleProof(hash);
+        Map tmpProof = (Map) tstSdk.getConnect().getMerkleProof(hash);
         System.out.println(JSONObject.toJSONString(tmpProof));
         UInt256 txroot = UInt256.parse((String) tmpProof.get("TransactionsRoot"));
         int blockHeight = (int) tmpProof.get("BlockHeight");

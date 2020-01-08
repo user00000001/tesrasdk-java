@@ -2,7 +2,7 @@ package demo;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
@@ -27,19 +27,19 @@ class Balance{
     @JSONField(name="ong")
     String ong;
 
-    public String getOnt() {
+    public String getTst() {
         return ont;
     }
 
-    public void setOnt(String ont) {
+    public void setTst(String ont) {
         this.ont = ont;
     }
 
-    public String getOng() {
+    public String getTsg() {
         return ong;
     }
 
-    public void setOng(String ong) {
+    public void setTsg(String ong) {
         this.ong = ong;
     }
 }
@@ -146,22 +146,22 @@ public class ExchangeDemo {
     public static final String WITHDRAW_ADDRESS = "AZbcPX7HyJTWjqogZhnr2qDTh6NNksGSE6";
 
 
-    public static  String ONT_NATIVE_ADDRESS = "";
-    public static  String ONG_NATIVE_ADDRESS = "";
+    public static  String TST_NATIVE_ADDRESS = "";
+    public static  String TSG_NATIVE_ADDRESS = "";
 
     public static void main(String[] args) {
         try{
             //simulate a database using hashmap
             HashMap<String,UserAcct> database = new HashMap<String,UserAcct>();
 
-            OntSdk ontSdk = getOntSdk();
-            ONT_NATIVE_ADDRESS = Helper.reverse(ontSdk.nativevm().ont().getContractAddress());
-            ONG_NATIVE_ADDRESS = Helper.reverse(ontSdk.nativevm().ong().getContractAddress());
+            TstSdk tstSdk = getTstSdk();
+            TST_NATIVE_ADDRESS = Helper.reverse(tstSdk.nativevm().ont().getContractAddress());
+            TSG_NATIVE_ADDRESS = Helper.reverse(tstSdk.nativevm().ong().getContractAddress());
 
             printlog("++++ starting simulate exchange process ...========");
             printlog("++++ 1. create a random account for user ====");
             String id1 = "id1";
-            Account acct1 = new Account(ontSdk.defaultSignScheme);
+            Account acct1 = new Account(tstSdk.defaultSignScheme);
             String pubkey =  acct1.getAddressU160().toBase58();
             byte[] privkey = acct1.serializePrivateKey();
             printlog("++++ public key is " + acct1.getAddressU160().toBase58());
@@ -170,12 +170,12 @@ public class ExchangeDemo {
             usr.withdrawAddr = WITHDRAW_ADDRESS;
             database.put(acct1.getAddressU160().toBase58(),usr);
             //all transfer fee is provide from this account
-            Account feeAct = ontSdk.getWalletMgr().getAccount(FEE_PROVIDER,PWD,Base64.getDecoder().decode(FEE_PROVIDER_SALT));
+            Account feeAct = tstSdk.getWalletMgr().getAccount(FEE_PROVIDER,PWD,Base64.getDecoder().decode(FEE_PROVIDER_SALT));
 
             //create a multi-sig account as a main account
-            Account mutiSeedAct1 = ontSdk.getWalletMgr().getAccount(MUTI_SIG_ACCT_SEED1_ADDR,PWD,Base64.getDecoder().decode(MUTI_SIG_ACCT_SEED1_SALT));
-            Account mutiSeedAct2 = ontSdk.getWalletMgr().getAccount(MUTI_SIG_ACCT_SEED2_ADDR,PWD,Base64.getDecoder().decode(MUTI_SIG_ACCT_SEED2_SALT));
-            Account mutiSeedAct3 = ontSdk.getWalletMgr().getAccount(MUTI_SIG_ACCT_SEED3_ADDR,PWD,Base64.getDecoder().decode(MUTI_SIG_ACCT_SEED3_SALT));
+            Account mutiSeedAct1 = tstSdk.getWalletMgr().getAccount(MUTI_SIG_ACCT_SEED1_ADDR,PWD,Base64.getDecoder().decode(MUTI_SIG_ACCT_SEED1_SALT));
+            Account mutiSeedAct2 = tstSdk.getWalletMgr().getAccount(MUTI_SIG_ACCT_SEED2_ADDR,PWD,Base64.getDecoder().decode(MUTI_SIG_ACCT_SEED2_SALT));
+            Account mutiSeedAct3 = tstSdk.getWalletMgr().getAccount(MUTI_SIG_ACCT_SEED3_ADDR,PWD,Base64.getDecoder().decode(MUTI_SIG_ACCT_SEED3_SALT));
 
             Address mainAccountAddr = Address.addressFromMultiPubKeys(3,mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey());
             printlog("++++ Main Account Address is :" + mainAccountAddr.toBase58());
@@ -192,11 +192,11 @@ public class ExchangeDemo {
                         try{
                             //get latest blocknum:
                             //TODO fix lost block
-                            int height = ontSdk.getConnect().getBlockHeight();
+                            int height = tstSdk.getConnect().getBlockHeight();
                             if (height > lastblocknum){
                                 printlog("====== new block sync :" + height);
 
-                                Object  event = ontSdk.getConnect().getSmartCodeEvent(height);
+                                Object  event = tstSdk.getConnect().getSmartCodeEvent(height);
                                 if(event == null){
                                     lastblocknum = height;
                                     Thread.sleep(1000);
@@ -229,12 +229,12 @@ public class ExchangeDemo {
                                                 //
                                                 if ("transfer".equals(state.getStates()[0]) && keys.contains(state.getStates()[2])){
                                                     BigInteger amount = new BigInteger(state.getStates()[3].toString());
-                                                    if (ONT_NATIVE_ADDRESS.equals(state.getContractAddress())){
-                                                        printlog("===== charge ONT :"+state.getStates()[2] +" ,amount:"+amount);
+                                                    if (TSG_NATIVE_ADDRESS.equals(state.getContractAddress())){
+                                                        printlog("===== charge TSG :"+state.getStates()[2] +" ,amount:"+amount);
                                                         database.get(state.getStates()[2]).ontBalance = amount.add(database.get(state.getStates()[2]).ontBalance);
                                                     }
-                                                    if (ONG_NATIVE_ADDRESS.equals(state.getContractAddress())){
-                                                        printlog("===== charge ONG :"+state.getStates()[2] +" ,amount:"+amount);
+                                                    if (TSG_NATIVE_ADDRESS.equals(state.getContractAddress())){
+                                                        printlog("===== charge TSG :"+state.getStates()[2] +" ,amount:"+amount);
                                                         database.get(state.getStates()[2]).ongBalance = amount.add(database.get(state.getStates()[2]).ongBalance);
                                                     }
                                                 }
@@ -245,10 +245,10 @@ public class ExchangeDemo {
                                                     for(UserAcct ua: database.values()){
                                                         if (ua.withdrawAddr.equals((state.getStates()[2]))){
                                                             BigInteger amount = new BigInteger(state.getStates()[3].toString());
-                                                            if (ONT_NATIVE_ADDRESS.equals(state.getContractAddress())){
+                                                            if (TSG_NATIVE_ADDRESS.equals(state.getContractAddress())){
                                                                 printlog("===== widtdraw "+ amount +" ont to " + ua.withdrawAddr + " confirmed!");
                                                             }
-                                                            if (ONG_NATIVE_ADDRESS.equals(state.getContractAddress())){
+                                                            if (TSG_NATIVE_ADDRESS.equals(state.getContractAddress())){
                                                                 printlog("===== widtdraw "+ amount +" ong to " + ua.withdrawAddr + " confirmed!");
                                                             }
 
@@ -293,7 +293,7 @@ public class ExchangeDemo {
 
 
                             for(String key:keys){
-                                Object balance = ontSdk.getConnect().getBalance(key);
+                                Object balance = tstSdk.getConnect().getBalance(key);
                                 printlog("----- balance of " + key + " : " + balance);
                                 Balance b = JSON.parseObject(balance.toString(),Balance.class);
                                 BigInteger ontbalance = new BigInteger(b.ont);
@@ -302,7 +302,7 @@ public class ExchangeDemo {
                                 if (ontbalance.compareTo(new BigInteger("0")) > 0){
                                     //transfer ont to main wallet
                                     UserAcct ua = database.get(key);
-                                    Account acct = new Account(ua.privkey,ontSdk.defaultSignScheme);
+                                    Account acct = new Account(ua.privkey,tstSdk.defaultSignScheme);
                                     ontAccts.add(acct);
                                     State st = new State(Address.addressFromPubKey(acct.serializePublicKey()),mainAccountAddr,ua.ontBalance.longValue());
                                     ontStates.add(st);
@@ -311,7 +311,7 @@ public class ExchangeDemo {
                                 if (ongbalance.compareTo(new BigInteger("0")) > 0){
                                     //transfer ong to main wallet
                                     UserAcct ua = database.get(key);
-                                    Account acct = new Account(ua.privkey,ontSdk.defaultSignScheme);
+                                    Account acct = new Account(ua.privkey,tstSdk.defaultSignScheme);
                                     ongAccts.add(acct);
                                     State st = new State(Address.addressFromPubKey(acct.serializePublicKey()),mainAccountAddr,ua.ongBalance.longValue());
                                     ongStates.add(st);
@@ -321,25 +321,25 @@ public class ExchangeDemo {
                             //construct ont transfer tx
                             if (ontStates.size() > 0) {
                                 printlog("----- Will collect ont to main wallet");
-                                Transaction ontTx = ontSdk.nativevm().ont().makeTransfer(ontStates.toArray(new State[ontStates.size()]), FEE_PROVIDER, 30000, 0);
+                                Transaction ontTx = tstSdk.nativevm().ont().makeTransfer(ontStates.toArray(new State[ontStates.size()]), FEE_PROVIDER, 30000, 0);
                                 for (Account act : ontAccts) {
-                                    ontSdk.addSign(ontTx, act);
+                                    tstSdk.addSign(ontTx, act);
                                 }
                                 //add fee provider account sig
-                                ontSdk.addSign(ontTx, feeAct);
-                                ontSdk.getConnect().sendRawTransaction(ontTx.toHexString());
+                                tstSdk.addSign(ontTx, feeAct);
+                                tstSdk.getConnect().sendRawTransaction(ontTx.toHexString());
                             }
 
                             //construct ong transfer tx
                             if(ongStates.size() > 0) {
                                 printlog("----- Will collect ong to main wallet");
-                                Transaction ongTx = ontSdk.nativevm().ong().makeTransfer(ongStates.toArray(new State[ongStates.size()]), FEE_PROVIDER, 30000, 0);
+                                Transaction ongTx = tstSdk.nativevm().ong().makeTransfer(ongStates.toArray(new State[ongStates.size()]), FEE_PROVIDER, 30000, 0);
                                 for (Account act : ongAccts) {
-                                    ontSdk.addSign(ongTx, act);
+                                    tstSdk.addSign(ongTx, act);
                                 }
                                 //add fee provider account sig
-                                ontSdk.addSign(ongTx, feeAct);
-                                ontSdk.getConnect().sendRawTransaction(ongTx.toHexString());
+                                tstSdk.addSign(ongTx, feeAct);
+                                tstSdk.getConnect().sendRawTransaction(ongTx.toHexString());
                             }
 
                             Thread.sleep(10000);
@@ -357,26 +357,26 @@ public class ExchangeDemo {
 
             Thread.sleep(2000);
             printlog("++++ 2. charge some ont to acct1 from init account");
-            Account initAccount = ontSdk.getWalletMgr().getAccount(INIT_ACCT_ADDR,PWD,Base64.getDecoder().decode(INIT_ACCT_SALT));
+            Account initAccount = tstSdk.getWalletMgr().getAccount(INIT_ACCT_ADDR,PWD,Base64.getDecoder().decode(INIT_ACCT_SALT));
             State st = new State(initAccount.getAddressU160(),acct1.getAddressU160(),1000L);
-            Transaction tx = ontSdk.nativevm().ont().makeTransfer(new State[]{st}, FEE_PROVIDER, 30000, 0);
-            ontSdk.addSign(tx,initAccount);
-            ontSdk.addSign(tx, feeAct);
+            Transaction tx = tstSdk.nativevm().ont().makeTransfer(new State[]{st}, FEE_PROVIDER, 30000, 0);
+            tstSdk.addSign(tx,initAccount);
+            tstSdk.addSign(tx, feeAct);
 
-            ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+            tstSdk.getConnect().sendRawTransaction(tx.toHexString());
             // test is the tx in txpool
             String txhash = tx.hash().toHexString();
             printlog("++++ txhash :"+txhash);
-            Object event = ontSdk.getConnect().getMemPoolTxState(txhash);
+            Object event = tstSdk.getConnect().getMemPoolTxState(txhash);
             printlog(event.toString());
 
 
             printlog("++++ 3. charge some ong to acct1 from init account");
             st = new State(initAccount.getAddressU160(),acct1.getAddressU160(),1200L);
-            tx = ontSdk.nativevm().ong().makeTransfer(new State[]{st}, FEE_PROVIDER, 30000, 0);
-            ontSdk.addSign(tx,initAccount);
-            ontSdk.addSign(tx, feeAct);
-            ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+            tx = tstSdk.nativevm().ong().makeTransfer(new State[]{st}, FEE_PROVIDER, 30000, 0);
+            tstSdk.addSign(tx,initAccount);
+            tstSdk.addSign(tx, feeAct);
+            tstSdk.getConnect().sendRawTransaction(tx.toHexString());
 
             Thread.sleep(15000);
 
@@ -389,12 +389,12 @@ public class ExchangeDemo {
                 database.get(usr.address).ontBalance = database.get(usr.address).ontBalance.subtract(wdAmount);
                 printlog("++++  " + usr.address + " ont balance : " + database.get(usr.address).ontBalance);
                 State wdSt = new State(mainAccountAddr, Address.decodeBase58(usr.withdrawAddr), 500);
-                Transaction wdTx = ontSdk.nativevm().ont().makeTransfer(new State[]{wdSt}, FEE_PROVIDER, 30000, 0);
-                ontSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct1);
-                ontSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct2);
-                ontSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct3);
-                ontSdk.addSign(wdTx, feeAct);
-                ontSdk.getConnect().sendRawTransaction(wdTx.toHexString());
+                Transaction wdTx = tstSdk.nativevm().ont().makeTransfer(new State[]{wdSt}, FEE_PROVIDER, 30000, 0);
+                tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct1);
+                tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct2);
+                tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct3);
+                tstSdk.addSign(wdTx, feeAct);
+                tstSdk.getConnect().sendRawTransaction(wdTx.toHexString());
 
             }
 
@@ -408,29 +408,29 @@ public class ExchangeDemo {
                 printlog("++++  " + usr.address + " ong balance : " + database.get(usr.address).ongBalance);
 
                 State wdSt = new State(mainAccountAddr, Address.decodeBase58(usr.withdrawAddr), 500);
-                Transaction wdTx = ontSdk.nativevm().ong().makeTransfer(new State[]{wdSt}, FEE_PROVIDER, 30000, 0);
-                ontSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct1);
-                ontSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct2);
-                ontSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct3);
-                ontSdk.addSign(wdTx, feeAct);
-                ontSdk.getConnect().sendRawTransaction(wdTx.toHexString());
+                Transaction wdTx = tstSdk.nativevm().ong().makeTransfer(new State[]{wdSt}, FEE_PROVIDER, 30000, 0);
+                tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct1);
+                tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct2);
+                tstSdk.addMultiSign(wdTx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct3);
+                tstSdk.addSign(wdTx, feeAct);
+                tstSdk.getConnect().sendRawTransaction(wdTx.toHexString());
             }
 
 
 
             //claim ong
-            Object balance = ontSdk.getConnect().getBalance(mainAccountAddr.toBase58());
+            Object balance = tstSdk.getConnect().getBalance(mainAccountAddr.toBase58());
             printlog("++++ before claime ong ,balance of "+ mainAccountAddr.toBase58() +" is " + balance);
-            String uOngAmt = ontSdk.nativevm().ong().unboundOng(mainAccountAddr.toBase58());
-            printlog("++++ unclaimed ong is " + uOngAmt);
-            if(new BigInteger(uOngAmt).compareTo(new BigInteger("0")) > 0) {
-                tx = ontSdk.nativevm().ong().makeWithdrawOng(mainAccountAddr.toBase58(), mainAccountAddr.toBase58(), new BigInteger(uOngAmt).longValue(), FEE_PROVIDER, 30000, 0);
-                ontSdk.addMultiSign(tx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct1);
-                ontSdk.addMultiSign(tx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct2);
-                ontSdk.addMultiSign(tx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct3);
-                ontSdk.addSign(tx, feeAct);
-                ontSdk.getConnect().sendRawTransaction(tx.toHexString());
-                balance = ontSdk.getConnect().getBalance(mainAccountAddr.toBase58());
+            String uTsgAmt = tstSdk.nativevm().ong().unboundTsg(mainAccountAddr.toBase58());
+            printlog("++++ unclaimed ong is " + uTsgAmt);
+            if(new BigInteger(uTsgAmt).compareTo(new BigInteger("0")) > 0) {
+                tx = tstSdk.nativevm().ong().makeWithdrawTsg(mainAccountAddr.toBase58(), mainAccountAddr.toBase58(), new BigInteger(uTsgAmt).longValue(), FEE_PROVIDER, 30000, 0);
+                tstSdk.addMultiSign(tx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct1);
+                tstSdk.addMultiSign(tx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct2);
+                tstSdk.addMultiSign(tx, 3, new byte[][]{mutiSeedAct1.serializePublicKey(),mutiSeedAct2.serializePublicKey(),mutiSeedAct3.serializePublicKey()},mutiSeedAct3);
+                tstSdk.addSign(tx, feeAct);
+                tstSdk.getConnect().sendRawTransaction(tx.toHexString());
+                balance = tstSdk.getConnect().getBalance(mainAccountAddr.toBase58());
 
                 Thread.sleep(10000);
                 printlog("++++ after claime ong ,balance of " + mainAccountAddr.toBase58() + " is " + balance);
@@ -450,14 +450,14 @@ public class ExchangeDemo {
 
 
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 
         String ip = "http://127.0.0.1";
         String restUrl = ip + ":" + "20334";
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

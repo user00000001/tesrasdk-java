@@ -1,6 +1,6 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.core.transaction.Transaction;
@@ -22,12 +22,12 @@ public class MutiSignDemo {
     public static void main(String[] args) {
 
         try {
-            OntSdk ontSdk = getOntSdk();
-            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), ontSdk.defaultSignScheme);
+            TstSdk tstSdk = getTstSdk();
+            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), tstSdk.defaultSignScheme);
 
             com.github.TesraSupernet.account.Account[] accounts = new com.github.TesraSupernet.account.Account[]{acct1,acct2,acct3};
             int M = 2;
@@ -42,30 +42,30 @@ public class MutiSignDemo {
             System.out.println("recvAddr:" + recvAddr.toBase58());
             long amount = 100000;
 
-            Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+            Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 
-            ontSdk.addMultiSign(tx,M,pks,acct1);
+            tstSdk.addMultiSign(tx,M,pks,acct1);
 
             String txHex1 = tx.toHexString();
             Transaction tx1 = Transaction.deserializeFrom(Helper.hexToBytes(txHex1));
             System.out.println(tx1.sigs[0].json());
 
             tx.sigs = null;
-            ontSdk.addMultiSign(tx,M,pks,acct2);
+            tstSdk.addMultiSign(tx,M,pks,acct2);
             String txHex2 = tx.toHexString();
             Transaction tx2 = Transaction.deserializeFrom(Helper.hexToBytes(txHex2));
             System.out.println(tx2.sigs[0].json());
 
             tx.sigs = null;
-            ontSdk.addMultiSign(tx,M,pks,acct3);
+            tstSdk.addMultiSign(tx,M,pks,acct3);
             String txHex3 = tx.toHexString();
             Transaction tx3 = Transaction.deserializeFrom(Helper.hexToBytes(txHex3));
             System.out.println(tx3.sigs[0].json());
 
             tx.sigs = null;
-            ontSdk.addMultiSign(tx,M,pks,tx1.sigs[0].sigData[0]);
-            ontSdk.addMultiSign(tx,M,pks,tx2.sigs[0].sigData[0]);
-            ontSdk.addMultiSign(tx,M,pks,tx3.sigs[0].sigData[0]);
+            tstSdk.addMultiSign(tx,M,pks,tx1.sigs[0].sigData[0]);
+            tstSdk.addMultiSign(tx,M,pks,tx2.sigs[0].sigData[0]);
+            tstSdk.addMultiSign(tx,M,pks,tx3.sigs[0].sigData[0]);
             String txHex4 = tx.toHexString();
             Transaction tx4 = Transaction.deserializeFrom(Helper.hexToBytes(txHex4));
             System.out.println(tx4.sigs[0].json());
@@ -75,7 +75,7 @@ public class MutiSignDemo {
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
         String ip = "http://127.0.0.1";
 //        String ip = "http://polaris1.ont.io";
 //        String ip = "http://dappnode1.ont.io";
@@ -84,7 +84,7 @@ public class MutiSignDemo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

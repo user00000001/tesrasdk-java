@@ -1,7 +1,7 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.common.Common;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.core.transaction.Transaction;
@@ -20,9 +20,9 @@ public class CreateManyTx {
     public static void main(String[] args){
 
         try {
-            OntSdk ontSdk = getOntSdk();
+            TstSdk tstSdk = getTstSdk();
             com.github.TesraSupernet.account.Account payerAcct = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), SignatureScheme.SHA256WITHECDSA);
-            if(true) {  //open file, make registry ontid transaction, save tx to file.
+            if(true) {  //open file, make registry tstid transaction, save tx to file.
                 File file = new File(filePath);
                 if (!file.exists()) {
                     file.createNewFile();
@@ -30,12 +30,12 @@ public class CreateManyTx {
                 FileOutputStream fos = new FileOutputStream(file);
                 for (int i = 0; i < 3; i++) {
                     com.github.TesraSupernet.account.Account account = new com.github.TesraSupernet.account.Account(SignatureScheme.SHA256WITHECDSA);
-                    String ontid = Common.didont + account.getAddressU160().toBase58();
-                    Transaction tx = ontSdk.nativevm().ontId().makeRegister(ontid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
-                    ontSdk.addSign(tx, account);
-                    ontSdk.addSign(tx, payerAcct);
+                    String tstid = Common.didont + account.getAddressU160().toBase58();
+                    Transaction tx = tstSdk.nativevm().tstId().makeRegister(tstid, Helper.toHexString(account.serializePublicKey()), payerAcct.getAddressU160().toBase58(), 20000, 500);
+                    tstSdk.addSign(tx, account);
+                    tstSdk.addSign(tx, payerAcct);
                     System.out.println("PrivateKey:"+Helper.toHexString(account.serializePrivateKey())+",txhash:"+tx.hash().toString());
-                    Identity identity = ontSdk.getWalletMgr().createIdentityFromPriKey("password",Helper.toHexString(account.serializePrivateKey()));
+                    Identity identity = tstSdk.getWalletMgr().createIdentityFromPriKey("password",Helper.toHexString(account.serializePrivateKey()));
                     System.out.println(JSON.toJSONString(identity));
 
                     fos.write(tx.toHexString().getBytes());
@@ -50,7 +50,7 @@ public class CreateManyTx {
                 String txHex = null;
                 while ((txHex=bf.readLine())!=null){
                     txHex = txHex.split(",")[0];
-                    Object obj = ontSdk.getConnect().sendRawTransactionPreExec(txHex);//change to sendRawTransaction
+                    Object obj = tstSdk.getConnect().sendRawTransactionPreExec(txHex);//change to sendRawTransaction
                     System.out.println(obj);
                 }
             }
@@ -59,7 +59,7 @@ public class CreateManyTx {
         }
 
     }
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 
         String ip = "http://127.0.0.1";
 //        String ip = "http://54.222.182.88;
@@ -68,7 +68,7 @@ public class CreateManyTx {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

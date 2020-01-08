@@ -1,7 +1,7 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.account.Account;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
@@ -39,7 +39,7 @@ public class GovernanceDemo2 {
 
 
         try {
-            OntSdk sdk = getOntSdk();
+            TstSdk sdk = getTstSdk();
 
 
             if(false){
@@ -187,7 +187,7 @@ public class GovernanceDemo2 {
     }
 
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
         String ip = "http://127.0.0.1";
 //        String ip = "http://polaris1.ont.io";
         ip= "http://139.219.128.220";
@@ -198,7 +198,7 @@ public class GovernanceDemo2 {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRpc());

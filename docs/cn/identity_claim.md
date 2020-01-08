@@ -6,7 +6,7 @@
 
 ## 介绍
 
-数字身份相关介绍可参考[ONT ID 身份标识协议及信任框架](https://github.com/TesraSupernet/tesra-DID)。
+数字身份相关介绍可参考[TSG ID 身份标识协议及信任框架](https://github.com/TesraSupernet/tesra-DID)。
 
 ## 钱包文件及规范
 
@@ -17,8 +17,8 @@
 
 ```java
 //如果不存在钱包文件，会自动创建钱包文件。
-OntSdk ontSdk = OntSdk.getInstance();
-ontSdk.openWalletFile("Demo3.json");
+TstSdk tstSdk = TstSdk.getInstance();
+tstSdk.openWalletFile("Demo3.json");
 ```
 > 注：目前仅支持文件形式钱包文件，也可以扩展支持数据库或其他存储方式。
 
@@ -28,7 +28,7 @@ ontSdk.openWalletFile("Demo3.json");
 
 **Identity数据结构说明**
 
-`ontid` 是代表身份的唯一的id
+`tstid` 是代表身份的唯一的id
 `label` 是用户给身份所取的名称。
 `lock` 表明身份是否被用户锁定了。客户端不能更新被锁定的身份信息。默认值为false。
 `controls` 是身份的所有控制对象ControlData的数组。
@@ -38,7 +38,7 @@ ontSdk.openWalletFile("Demo3.json");
 //Identity数据结构
 public class Identity {
 	public String label = "";
-	public String ontid = "";
+	public String tstid = "";
 	public boolean isDefault = false;
 	public boolean lock = false;
 	public List<Control> controls = new ArrayList<Control>();
@@ -74,9 +74,9 @@ public class Control {
 创建数字身份指的是产生一个Identity数据结构的身份信息，并写入到到钱包文件中。
 
 ```
-Identity identity = ontSdk.getConnect().createIdentity("passwordtest");
+Identity identity = tstSdk.getConnect().createIdentity("passwordtest");
 //创建的账号或身份只在内存中，如果要写入钱包文件，需调用写入接口
-ontSdk.getWalletMgr().writeWallet();
+tstSdk.getWalletMgr().writeWallet();
 ```
 
 **向链上注册身份**
@@ -88,8 +88,8 @@ ontSdk.getWalletMgr().writeWallet();
 方法一，注册者指定支付交易费用的账户地址
 
 ```
-Identity identity = ontSdk.getWalletMgr().createIdentity(password);
-ontSdk.nativevm().ontId().sendRegister(identity2,password,payerAcct,gaslimit,gasprice);
+Identity identity = tstSdk.getWalletMgr().createIdentity(password);
+tstSdk.nativevm().tstId().sendRegister(identity2,password,payerAcct,gaslimit,gasprice);
 ```
 
 
@@ -97,15 +97,15 @@ ontSdk.nativevm().ontId().sendRegister(identity2,password,payerAcct,gaslimit,gas
 
 
 ```
-Identity identity = ontSdk.getWalletMgr().createIdentity(password);
-Transaction tx = ontSdk.nativevm().ontId().makeRegister(identity.ontid,password,payerAcc.address,ontSdk.DEFAULT_GAS_LIMIT,0);
-ontSdk.signTx(tx,identity.ontid,password);
-ontSdk.getConnect().sendRawTransaction(tx);
+Identity identity = tstSdk.getWalletMgr().createIdentity(password);
+Transaction tx = tstSdk.nativevm().tstId().makeRegister(identity.tstid,password,payerAcc.address,tstSdk.DEFAULT_GAS_LIMIT,0);
+tstSdk.signTx(tx,identity.tstid,password);
+tstSdk.getConnect().sendRawTransaction(tx);
 ```
 
-链上注册成功后，对应此ONT ID的身份描述对象DDO将被存储在本体区块链上。
+链上注册成功后，对应此TSG ID的身份描述对象DDO将被存储在本体区块链上。
 
-关于DDO的信息可以从[ONT ID 身份标识协议](https://github.com/TesraSupernet/tesra-DID/blob/master/README_cn.md)
+关于DDO的信息可以从[TSG ID 身份标识协议](https://github.com/TesraSupernet/tesra-DID/blob/master/README_cn.md)
 
 
 ### 2. 身份管理
@@ -118,9 +118,9 @@ ontSdk.getConnect().sendRawTransaction(tx);
 
 
 ```java
-Identity identity = ontSdk.getWalletMgr().importIdentity(encriptPrivateKey,password,salt,address);
+Identity identity = tstSdk.getWalletMgr().importIdentity(encriptPrivateKey,password,salt,address);
 //写入钱包      
-ontSdk.getWalletMgr().writeWallet();
+tstSdk.getWalletMgr().writeWallet();
 ```
 
 
@@ -133,28 +133,28 @@ address: 账户地址base58编码
 **移除身份**
 
 ```java
-ontSdk.getWalletMgr().getWallet().removeIdentity(ontid);
+tstSdk.getWalletMgr().getWallet().removeIdentity(tstid);
 //写入钱包
-ontSdk.getWalletMgr().writeWallet();
+tstSdk.getWalletMgr().writeWallet();
 ```
 
 **设置默认账号或身份**
 
 ```java
 //根据账户地址设置默认账户
-ontSdk.getWalletMgr().getWallet().setDefaultAccount(address);
+tstSdk.getWalletMgr().getWallet().setDefaultAccount(address);
 //根据identity索引设置默认identity
-ontSdk.getWalletMgr().getWallet().setDefaultIdentity(index);
-ontSdk.getWalletMgr().getWallet().setDefaultIdentity(ontid);
+tstSdk.getWalletMgr().getWallet().setDefaultIdentity(index);
+tstSdk.getWalletMgr().getWallet().setDefaultIdentity(tstid);
 ```
 
 ### 3. 查询链上身份信息
 
-链上身份DDO信息，可以通过ONT ID进行查询。
+链上身份DDO信息，可以通过TSG ID进行查询。
 
 ```json
-//通过ONT ID获取DDO
-String ddo = ontSdk.nativevm().ontId().sendGetDDO(ontid);
+//通过TSG ID获取DDO
+String ddo = tstSdk.nativevm().tstId().sendGetDDO(tstid);
 
 //返回DDO格式
 {
@@ -163,7 +163,7 @@ String ddo = ontSdk.nativevm().ontId().sendGetDDO(ontid);
 		"Value": "value1",
 		"Key": "key1"
 	}],
-	"OntId": "did:ont:TA5UqF8iPqecMdBzTdzzANVeY8HW1krrgy",
+	"TstId": "did:ont:TA5UqF8iPqecMdBzTdzzANVeY8HW1krrgy",
 	"Recovery": "TA6AhqudP1dcLknEXmFinHPugDdudDnMJZ",
 	"Owners": [{
 		"Type": "ECDSA",
@@ -189,7 +189,7 @@ String ddo = ontSdk.nativevm().ontId().sendGetDDO(ontid);
 
 ```java
 //添加或者更新属性
-String sendAddAttributes(String ontid, String password,byte[] salt， Attribute[] attributes,Account payerAcct,long gaslimit,long gasprice)
+String sendAddAttributes(String tstid, String password,byte[] salt， Attribute[] attributes,Account payerAcct,long gaslimit,long gasprice)
 ```
 
 
@@ -197,7 +197,7 @@ String sendAddAttributes(String ontid, String password,byte[] salt， Attribute[
 | -----    | ------- | ------ | ------------- | ----------- |
 | 输入参数   | password| String | 数字身份密码 | 必选，私钥解密的密码 |
 |           |salt     | byte[] |  |    必选  |
-|           | ontid    | String | 数字身份id  | 必选，身份Id |
+|           | tstid    | String | 数字身份id  | 必选，身份Id |
 |           | attributes | Attribute[]| 属性数组  | 必选 |
 |           | payerAcct    | Account | 交易费用支付者账户       |  必选， |
 |           | gaslimit      | long | gaslimit     | 必选 |
@@ -208,15 +208,15 @@ String sendAddAttributes(String ontid, String password,byte[] salt， Attribute[
 
 方法二，将构造好的交易发送给服务器，让服务器进行交易费用账号的签名操作。
 ```java
-Transaction makeAddAttributes(String ontid, String password, byte[] salt,Attribute[] attributes,String payer,
+Transaction makeAddAttributes(String tstid, String password, byte[] salt,Attribute[] attributes,String payer,
                                           long gaslimit,long gasprice)
 ```
 
 示例代码
 ```java
-Transaction tx = ontSdk.nativevm().ontId().makeAddAttributes(ontid,password,salt,attributes,payer,gaslimit,0);
-ontSdk.signTx(tx,identity.ontid,password);
-ontSdk.getConnect().sendRawTransaction(tx);
+Transaction tx = tstSdk.nativevm().tstId().makeAddAttributes(tstid,password,salt,attributes,payer,gaslimit,0);
+tstSdk.signTx(tx,identity.tstid,password);
+tstSdk.getConnect().sendRawTransaction(tx);
 ```
 
 #### 4.2 移除链上DDO属性
@@ -224,7 +224,7 @@ ontSdk.getConnect().sendRawTransaction(tx);
 方法一
 
 ```
-String sendRemoveAttribute(String ontid,String password,byte[] salt,String path,Account payerAcct,long gaslimit,long gasprice)
+String sendRemoveAttribute(String tstid,String password,byte[] salt,String path,Account payerAcct,long gaslimit,long gasprice)
 ```
 
 
@@ -232,7 +232,7 @@ String sendRemoveAttribute(String ontid,String password,byte[] salt,String path,
 | ----- | ------- | ------ | ------------- | ----------- |
 | 输入参数 | password| String | 数字身份密码 | 必选 |
 |        | salt| byte[] |  | required |
-|        | ontid    | String | 数字身份ID   | 必选，身份Id |
+|        | tstid    | String | 数字身份ID   | 必选，身份Id |
 |        | path    | byte[]  | path       | 必选，path |
 |        | payer    | String  | payer       | 必选，payer |
 |        | payerpassword | String  | 支付交易费用的账户地址  | 必选 |
@@ -242,14 +242,14 @@ String sendRemoveAttribute(String ontid,String password,byte[] salt,String path,
 
 方法二，将构造好的交易发送给服务器，让服务器进行交易费用账号的签名操作。
 ```
-Transaction makeRemoveAttribute(String ontid,String password,salt,String path,String payer,long gaslimit,long gasprice)
+Transaction makeRemoveAttribute(String tstid,String password,salt,String path,String payer,long gaslimit,long gasprice)
 ```
 
 示例代码：
 ```
-Transaction tx = ontSdk.nativevm().ontId().makeRemoveAttribute(ontid,password,salt,path,payer,gaslimit,0);
-ontSdk.signTx(tx,identity.ontid,password);
-ontSdk.getConnect().sendRawTransaction(tx);
+Transaction tx = tstSdk.nativevm().tstId().makeRemoveAttribute(tstid,password,salt,path,payer,gaslimit,0);
+tstSdk.signTx(tx,identity.tstid,password);
+tstSdk.getConnect().sendRawTransaction(tx);
 ```
 
 ### 5. 身份公钥
@@ -260,7 +260,7 @@ ontSdk.getConnect().sendRawTransaction(tx);
 方法一
 
 ```java
-String sendAddPubKey(String ontid, String password,byte[] salt, String newpubkey,Account payerAcct,long gaslimit,long gasprice)
+String sendAddPubKey(String tstid, String password,byte[] salt, String newpubkey,Account payerAcct,long gaslimit,long gasprice)
 ```
 
 
@@ -268,7 +268,7 @@ String sendAddPubKey(String ontid, String password,byte[] salt, String newpubkey
 | ----- | ------- | ------ | ------------- | ----------- |
 | 输入参数 | password| String | 数字身份密码 | 必选 |
 |        | salt| byte[] |  | required |
-|        | ontid    | String | 数字身份ID   | 必选，身份Id |
+|        | tstid    | String | 数字身份ID   | 必选，身份Id |
 |        | newpubkey| String  |公钥       | 必选， newpubkey|
 |        | payerAcct    | Account  | Payment transaction account  | 必选，payer |
 |        | gaslimit   | long | gaslimit     | 必选 |
@@ -279,26 +279,26 @@ String sendAddPubKey(String ontid, String password,byte[] salt, String newpubkey
 方法二，将构造好的交易发送给服务器，让服务器进行交易费用账号的签名操作。
 
 ```java
-Transaction makeAddPubKey(String ontid,String password,byte[] salt,String newpubkey,String payer,long gaslimit,long gasprice)
+Transaction makeAddPubKey(String tstid,String password,byte[] salt,String newpubkey,String payer,long gaslimit,long gasprice)
 ```
 参数说明请参考方法一sendAddPubKey
 
 示例代码
 ```java
-Transaction tx = ontSdk.nativevm().ontId().makeAddPubKey(ontid,password,byte[] salt,newpubkey,payer,gaslimit,gasprice);
-ontSdk.signTx(tx,identity.ontid,password);
-ontSdk.getConnect().sendRawTransaction(tx);
+Transaction tx = tstSdk.nativevm().tstId().makeAddPubKey(tstid,password,byte[] salt,newpubkey,payer,gaslimit,gasprice);
+tstSdk.signTx(tx,identity.tstid,password);
+tstSdk.getConnect().sendRawTransaction(tx);
 ```
 
 方法三，recovery机制
-recovery可以为ontid添加公钥
+recovery可以为tstid添加公钥
 ```java
-String sendAddPubKey(String ontid,String recoveryAddr, String password, byte[] salt,String newpubkey,Account payerAcct,long gaslimit,long gasprice)
+String sendAddPubKey(String tstid,String recoveryAddr, String password, byte[] salt,String newpubkey,Account payerAcct,long gaslimit,long gasprice)
 ```
 
 | 参数      | 字段   | 类型  | 描述 |             说明 |
 | ----- | ------- | ------ | ------------- | ----------- |
-| 输入参数 | ontid    | String | 数字身份ID   | 必选，身份Id |
+| 输入参数 | tstid    | String | 数字身份ID   | 必选，身份Id |
 |        | recoveryAddr| String | recovery地址 | 必选 |
 |        | password| String | recovery密码 | 必选 |
 |        | salt| byte[] |  | required |
@@ -313,7 +313,7 @@ String sendAddPubKey(String ontid,String recoveryAddr, String password, byte[] s
 方法四（recovery机制）
 
 ```java
-Transaction makeAddPubKey(String ontid,String recoveryAddr,String password,byte[] salt,String newpubkey,
+Transaction makeAddPubKey(String tstid,String recoveryAddr,String password,byte[] salt,String newpubkey,
                                           String payer,long gaslimit,long gasprice)
 ```
 
@@ -325,7 +325,7 @@ Transaction makeAddPubKey(String ontid,String recoveryAddr,String password,byte[
 方法一，删除公钥
 
 ```java
-String sendRemovePubKey(String ontid, String password,byte[] salt, String removePubkey,Account payerAcct,long gaslimit,long gasprice)
+String sendRemovePubKey(String tstid, String password,byte[] salt, String removePubkey,Account payerAcct,long gaslimit,long gasprice)
 ```
 
 
@@ -333,7 +333,7 @@ String sendRemovePubKey(String ontid, String password,byte[] salt, String remove
 | ----- | ------- | ------ | ------------- | ----------- |
 | 输入参数 | password| String | 数字身份密码 | 必选 |
 |        | salt| byte[] |  | required |
-|        | ontid    | String | 数字身份ID   | 必选，身份Id |
+|        | tstid    | String | 数字身份ID   | 必选，身份Id |
 |        | removePubkey| String  |公钥       | 必选， removePubkey|
 |        | payer    | String  | payer       | 必选，payer |
 |        | payerpassword | String  | 支付交易费用的账户地址  | 必选 |
@@ -344,19 +344,19 @@ String sendRemovePubKey(String ontid, String password,byte[] salt, String remove
 方法二，将构造好的交易发送给服务器，让服务器进行交易费用账号的签名操作。
 
 ```java
-Transaction tx = ontSdk.nativevm().ontId().makeRemovePubKey(ontid,password,salt,removePubkey,payer,gas);
-ontSdk.signTx(tx,identity.ontid.replace(Common.didont,""),password,salt);
-ontSdk.getConnect().sendRawTransaction(tx);
+Transaction tx = tstSdk.nativevm().tstId().makeRemovePubKey(tstid,password,salt,removePubkey,payer,gas);
+tstSdk.signTx(tx,identity.tstid.replace(Common.didont,""),password,salt);
+tstSdk.getConnect().sendRawTransaction(tx);
 ```
 
 方法三，恢复人机制
 ```java
-String sendRemovePubKey(String ontid, String recoveryAddr,String password, byte[] salt,String removePubkey,Account payerAcct,long gaslimit,long gasprice)
+String sendRemovePubKey(String tstid, String recoveryAddr,String password, byte[] salt,String removePubkey,Account payerAcct,long gaslimit,long gasprice)
 ```
 
 | 参数      | 字段   | 类型  | 描述 |             说明 |
 | ----- | ------- | ------ | ------------- | ----------- |
-| 输入参数 | ontid    | String | 数字身份ID   | 必选，身份Id |
+| 输入参数 | tstid    | String | 数字身份ID   | 必选，身份Id |
 |        | recoveryAddr| String | recovery地址 | 必选 |
 |        | password| String | recovery密码 | 必选 |
 |        | salt| byte[] |  | required |
@@ -369,7 +369,7 @@ String sendRemovePubKey(String ontid, String recoveryAddr,String password, byte[
 
 方法四（recovery机制）
 ```java
-Transaction makeRemovePubKey(String ontid,String recoveryAddr, String password,byte[] salt, String removePubkey,String payer,
+Transaction makeRemovePubKey(String tstid,String recoveryAddr, String password,byte[] salt, String removePubkey,String payer,
                                           long gaslimit,long gasprice)
 ```
 
@@ -377,20 +377,20 @@ Transaction makeRemovePubKey(String ontid,String recoveryAddr, String password,b
 
 ### 6. 身份恢复人
 
-当ontid中控制人私钥丢失时，身份恢复人可以设置新的控制人。
+当tstid中控制人私钥丢失时，身份恢复人可以设置新的控制人。
 #### 6.1 添加恢复人
 
 方法一
 
 ```java
-String sendAddRecovery(String ontid, String password,byte[] salt, String recoveryAddr,Account payerAcct,long gaslimit,long gasprice)
+String sendAddRecovery(String tstid, String password,byte[] salt, String recoveryAddr,Account payerAcct,long gaslimit,long gasprice)
 ```
 
 | 参数      | 字段   | 类型  | 描述 |             说明 |
 | ----- | ------- | ------ | ------------- | ----------- |
 | 输入参数 | password| String | 数字身份密码 | 必选 |
 |        | salt| byte[] | | required |
-|        | ontid    | String | 数字身份ID   | 必选，身份Id |
+|        | tstid    | String | 数字身份ID   | 必选，身份Id |
 |        | recoveryAddr| String  |recovery账户地址 | 必选，recovery|
 |        | payerAcct    | Account  | payerAcct  | 必选，payer |
 |        | gaslimit   | long | gaslimit     | 必选 |
@@ -400,26 +400,26 @@ String sendAddRecovery(String ontid, String password,byte[] salt, String recover
 
 方法二，将构造好的交易发送给服务器，让服务器进行交易费用账号的签名操作。
 ```
-Transaction makeAddRecovery(String ontid, String password,byte[] salt, String recoveryAddr,String payer,long gaslimit,long gasprice)
+Transaction makeAddRecovery(String tstid, String password,byte[] salt, String recoveryAddr,String payer,long gaslimit,long gasprice)
 ```
 
 示例
 ```
-Transaction tx = ontSdk.nativevm().ontId().makeAddRecovery(ontid,password,salt,recovery,payer,gas);
-ontSdk.signTx(tx,identity.ontid.replace(Common.didont,""),password,salt);
-ontSdk.getConnect().sendRawTransaction(tx);
+Transaction tx = tstSdk.nativevm().tstId().makeAddRecovery(tstid,password,salt,recovery,payer,gas);
+tstSdk.signTx(tx,identity.tstid.replace(Common.didont,""),password,salt);
+tstSdk.getConnect().sendRawTransaction(tx);
 ```
 
 #### 6.2 修改recovery
 
 方法一
 ```
-String sendChangeRecovery(String ontid, String newRecovery, String oldRecovery, String password,,byte[] salt,long gaslimit,long gasprice)
+String sendChangeRecovery(String tstid, String newRecovery, String oldRecovery, String password,,byte[] salt,long gaslimit,long gasprice)
 ```
 
 | 参数      | 字段   | 类型  | 描述 |             说明 |
 | ----- | ------- | ------ | ------------- | ----------- |
-| 输入参数 |ontid    | String | 数字身份ID   | 必选，身份Id |
+| 输入参数 |tstid    | String | 数字身份ID   | 必选，身份Id |
 |        | newRecovery| String  |newRecovery账户地址 | 必选，newRecovery|
 |        | oldRecovery| String  |oldRecovery账户地址 | 必选，oldRecovery|
 |        | oldRecovery password | String  | oldRecovery password  | 必选 |
@@ -432,7 +432,7 @@ String sendChangeRecovery(String ontid, String newRecovery, String oldRecovery, 
 
 方法二
 ```
-Transaction makeChangeRecovery(String ontid, String newRecovery, String oldRecovery, String password,byte[] salt,long gaslimit,long gasprice)
+Transaction makeChangeRecovery(String tstid, String newRecovery, String oldRecovery, String password,byte[] salt,long gaslimit,long gasprice)
 ```
 
 参数说明请参考上面的方法一

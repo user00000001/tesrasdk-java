@@ -20,7 +20,7 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.core.VmType;
@@ -53,17 +53,17 @@ public class MakeTxWithoutWalletDemo {
 
     public static void main(String[] args) {
         try {
-            OntSdk ontSdk = getOntSdk();
+            TstSdk tstSdk = getTstSdk();
 
             String privatekey0 = "523c5fcf74823831756f0bcb3634234f10b3beb1c05595058534577752ad2d9f";
-            com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct0 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey0), tstSdk.defaultSignScheme);
             System.out.println(Helper.toHexString(acct0.serializePublicKey()));
 
-            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), ontSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), tstSdk.defaultSignScheme);
 
 
             if (false) {
@@ -75,17 +75,17 @@ public class MakeTxWithoutWalletDemo {
                 System.out.println("recvAddr:" + recvAddr.toBase58());
                 long amount = 100000;
 
-                Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+                Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 
                 System.out.println(tx.json());
-                ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
-                ontSdk.addMultiSign(tx,2,new byte[][]{acct0.serializePublicKey(),acct1.serializePublicKey()},acct0);
-                ontSdk.addMultiSign(tx,2,new byte[][]{acct0.serializePublicKey(),acct1.serializePublicKey()},acct0);
+                tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
+                tstSdk.addMultiSign(tx,2,new byte[][]{acct0.serializePublicKey(),acct1.serializePublicKey()},acct0);
+                tstSdk.addMultiSign(tx,2,new byte[][]{acct0.serializePublicKey(),acct1.serializePublicKey()},acct0);
                 System.out.println(tx.hash().toHexString());
 
-                Object obj = ontSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
+                Object obj = tstSdk.getConnect().sendRawTransactionPreExec(tx.toHexString());
                 System.out.println(obj);
-                //ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+                //tstSdk.getConnect().sendRawTransaction(tx.toHexString());
 
             }
             if(false){
@@ -94,10 +94,10 @@ public class MakeTxWithoutWalletDemo {
                 System.out.println("sender:" + sender.toBase58());
                 System.out.println("recvAddr:" + recvAddr.toBase58());
                 long amount = 100000;
-                Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
-                ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
+                Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+                tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
                 //getSmartCodeEvent per 3s, max 60s
-                Object object = ontSdk.getConnect().waitResult(tx.hash().toString());
+                Object object = tstSdk.getConnect().waitResult(tx.hash().toString());
                 System.out.println(object);
             }
 
@@ -109,14 +109,14 @@ public class MakeTxWithoutWalletDemo {
                 System.out.println("recvAddr:" + recvAddr.toBase58());
                 int amount = 8;
 
-                Transaction tx = ontSdk.nativevm().ont().makeTransfer(multiAddr.toBase58(),recvAddr.toBase58(), amount,multiAddr.toBase58(),30000,0);
+                Transaction tx = tstSdk.nativevm().ont().makeTransfer(multiAddr.toBase58(),recvAddr.toBase58(), amount,multiAddr.toBase58(),30000,0);
                 System.out.println(tx.json());
-                //ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct1, acct2}});
-                ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
-                ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
+                //tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct1, acct2}});
+                tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
+                tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
 
                 System.out.println(tx.hash().toHexString());
-                ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+                tstSdk.getConnect().sendRawTransaction(tx.toHexString());
 
             }
 
@@ -133,13 +133,13 @@ public class MakeTxWithoutWalletDemo {
                 int amount2 = 2;
                 State state1 = new State(sender1,recvAddr,amount);
                 State state2 = new State(sender2,recvAddr,amount2);
-                Transaction tx = ontSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
+                Transaction tx = tstSdk.nativevm().ont().makeTransfer(new State[]{state1,state2},sender1.toBase58(),30000,0);
                 System.out.println(tx.json());
-                ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
-                ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
-                ontSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
+                tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
+                tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
+                tstSdk.addMultiSign(tx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
                 System.out.println(tx.hash().toHexString());
-                ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+                tstSdk.getConnect().sendRawTransaction(tx.toHexString());
 
             }
             if(false){
@@ -150,7 +150,7 @@ public class MakeTxWithoutWalletDemo {
                 System.out.println("recvAddr:" + recvAddr.toBase58());
                 long amount = 1000;
 
-                Transaction tx = ontSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
+                Transaction tx = tstSdk.nativevm().ont().makeTransfer(sender.toBase58(),recvAddr.toBase58(), amount,sender.toBase58(),30000,0);
 
                 //serialize tx data
                 String txHex = tx.toHexString();
@@ -158,25 +158,25 @@ public class MakeTxWithoutWalletDemo {
                 //deserialize
                 InvokeCode txRx = (InvokeCode)Transaction.deserializeFrom(Helper.hexToBytes(txHex));
                 System.out.println(Transfers.deserializeFrom(Contract.deserializeFrom(txRx.code).args).json());
-                ontSdk.addSign(txRx,acct0);
-                ontSdk.addMultiSign(txRx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
-                ontSdk.addMultiSign(txRx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
+                tstSdk.addSign(txRx,acct0);
+                tstSdk.addMultiSign(txRx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct1);
+                tstSdk.addMultiSign(txRx,2,new byte[][]{acct1.serializePublicKey(),acct2.serializePublicKey()},acct2);
                 //send tx
-                //ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+                //tstSdk.getConnect().sendRawTransaction(tx.toHexString());
 
             }
             if(false){
                 String sender = acct0.getAddressU160().toBase58();
-                Transaction tx = ontSdk.nativevm().ong().makeWithdrawOng(sender,sender,10,sender,30000,0);
-                ontSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
-                ontSdk.getConnect().sendRawTransaction(tx.toHexString());
+                Transaction tx = tstSdk.nativevm().ong().makeWithdrawTsg(sender,sender,10,sender,30000,0);
+                tstSdk.signTx(tx, new com.github.TesraSupernet.account.Account[][]{{acct0}});
+                tstSdk.getConnect().sendRawTransaction(tx.toHexString());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
         String ip = "http://127.0.0.1";
 //        String ip = "http://54.222.182.88;
 //        String ip = "http://101.132.193.149";
@@ -185,7 +185,7 @@ public class MakeTxWithoutWalletDemo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

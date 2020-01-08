@@ -1,6 +1,6 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.core.DataSignature;
 import com.github.TesraSupernet.sdk.info.AccountInfo;
 import com.github.TesraSupernet.sdk.wallet.Account;
@@ -8,18 +8,18 @@ import com.github.TesraSupernet.sdk.wallet.Account;
 public class SignatureDemo {
     public static void main(String[] args) {
         try {
-            OntSdk ontSdk = getOntSdk();
+            TstSdk tstSdk = getTstSdk();
             if(true) {
-                com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
+                com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(tstSdk.defaultSignScheme);
                 byte[] data = "12345".getBytes();
-                byte[] signature = ontSdk.signatureData(acct, data);
+                byte[] signature = tstSdk.signatureData(acct, data);
 
-                System.out.println(ontSdk.verifySignature(acct.serializePublicKey(), data, signature));
+                System.out.println(tstSdk.verifySignature(acct.serializePublicKey(), data, signature));
             }
             if(true) {
-                com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(ontSdk.defaultSignScheme);
+                com.github.TesraSupernet.account.Account acct = new com.github.TesraSupernet.account.Account(tstSdk.defaultSignScheme);
                 byte[] data = "12345".getBytes();
-                DataSignature sign = new DataSignature(ontSdk.defaultSignScheme, acct, data);
+                DataSignature sign = new DataSignature(tstSdk.defaultSignScheme, acct, data);
                 byte[] signature = sign.signature();
 
 
@@ -33,7 +33,7 @@ public class SignatureDemo {
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 
         String ip = "http://127.0.0.1";
 //        String ip = "http://54.222.182.88;
@@ -42,7 +42,7 @@ public class SignatureDemo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

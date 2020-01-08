@@ -1,7 +1,7 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.common.UInt256;
 import com.github.TesraSupernet.merkle.MerkleVerifier;
 import com.github.TesraSupernet.sdk.wallet.Identity;
@@ -14,8 +14,8 @@ public class merkleProofDemo {
     public static void main(String[] args) {
 
         try {
-            OntSdk ontSdk = getOntSdk();
-            //System.out.println(ontSdk.getConnectMgr().getMerkleProof(""));
+            TstSdk tstSdk = getTstSdk();
+            //System.out.println(tstSdk.getConnectMgr().getMerkleProof(""));
 
             if(false) {
                 UInt256 txroot = UInt256.parse("731be6e82cfe0382bdf04e891fdab2fd1a3cd1b97628ef8498c85789f8c798ba");
@@ -39,17 +39,17 @@ public class merkleProofDemo {
                 System.exit(0);
             }
             String txhash = "76763a5f9fc6b68d54463933e51c4b4dbce6732146294525c09b167637f2facf";
-            Object proof = ontSdk.nativevm().ontId().getMerkleProof(txhash);
+            Object proof = tstSdk.nativevm().tstId().getMerkleProof(txhash);
             System.out.println(proof);
-            System.out.println(ontSdk.getConnect().getMerkleProof(txhash));
-            System.out.println(ontSdk.nativevm().ontId().verifyMerkleProof(JSON.toJSONString(proof)));
+            System.out.println(tstSdk.getConnect().getMerkleProof(txhash));
+            System.out.println(tstSdk.nativevm().tstId().verifyMerkleProof(JSON.toJSONString(proof)));
             System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
 
         String ip = "http://127.0.0.1";
 //        String ip = "http://54.222.182.88;
@@ -58,7 +58,7 @@ public class merkleProofDemo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

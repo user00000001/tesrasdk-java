@@ -1,11 +1,11 @@
 package com.github.TesraSupernet.sdk.manager;
 
-import com.github.TesraSupernet.OntSdk;
-import com.github.TesraSupernet.OntSdkTest;
+import com.github.TesraSupernet.TstSdk;
+import com.github.TesraSupernet.TstSdkTest;
 import com.github.TesraSupernet.sdk.wallet.Account;
 import com.github.TesraSupernet.sdk.wallet.Identity;
 import com.github.TesraSupernet.sdk.wallet.Wallet;
-import com.github.TesraSupernet.smartcontract.nativevm.OntId;
+import com.github.TesraSupernet.smartcontract.nativevm.TstId;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +16,10 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class WalletMgrTest {
-    private OntSdk ontSdk;
+    private TstSdk tstSdk;
     private WalletMgr walletMgr;
     private Wallet wallet;
-    private OntId ontIdTx;
+    private TstId tstIdTx;
 
     String password = "111111";
     byte[] salt = new byte[]{};
@@ -29,13 +29,13 @@ public class WalletMgrTest {
 
     @Before
     public void setUp() throws Exception {
-        ontSdk = OntSdk.getInstance();
-        ontSdk.setRestful(OntSdkTest.URL);
-        ontSdk.openWalletFile(walletFile);
-        walletMgr = ontSdk.getWalletMgr();
+        tstSdk = TstSdk.getInstance();
+        tstSdk.setRestful(TstSdkTest.URL);
+        tstSdk.openWalletFile(walletFile);
+        walletMgr = tstSdk.getWalletMgr();
         wallet = walletMgr.getWallet();
-        ontIdTx = ontSdk.nativevm().ontId();
-        payer = ontSdk.getWalletMgr().createAccount(password);
+        tstIdTx = tstSdk.nativevm().tstId();
+        payer = tstSdk.getWalletMgr().createAccount(password);
 
     }
 
@@ -51,8 +51,8 @@ public class WalletMgrTest {
 
     @Test
     public void openWallet() {
-        ontSdk.openWalletFile("wallet.json");
-        walletMgr = ontSdk.getWalletMgr();
+        tstSdk.openWalletFile("wallet.json");
+        walletMgr = tstSdk.getWalletMgr();
         assertNotNull(walletMgr);
     }
 
@@ -71,11 +71,11 @@ public class WalletMgrTest {
     @Test
     public void createIdentity() throws Exception {
          Identity identity = walletMgr.createIdentity(password);
-         com.github.TesraSupernet.account.Account account = walletMgr.getAccount(identity.ontid,password,identity.controls.get(0).getSalt());
+         com.github.TesraSupernet.account.Account account = walletMgr.getAccount(identity.tstid,password,identity.controls.get(0).getSalt());
          assertNotNull(account);
          assertNotNull(identity);
-         assertNotNull(identity.ontid);
-         assertNotEquals(identity.ontid,"");
+         assertNotNull(identity.tstid);
+         assertNotEquals(identity.tstid,"");
     }
 
     @Test
@@ -86,18 +86,18 @@ public class WalletMgrTest {
         assertEquals(identities.size(), 0);
 
         Identity identity = walletMgr.createIdentity(password);
-        com.github.TesraSupernet.account.Account account = walletMgr.getAccount(identity.ontid,password,identity.controls.get(0).getSalt());
+        com.github.TesraSupernet.account.Account account = walletMgr.getAccount(identity.tstid,password,identity.controls.get(0).getSalt());
         String prikeyStr = account.exportGcmEncryptedPrikey(password,identity.controls.get(0).getSalt(),16384);
         assertTrue(identities.size() == 1);
         identities.clear();
         walletMgr.writeWallet();
         assertTrue(identities.size() == 0);
 
-        String addr = identity.ontid.substring(8);
+        String addr = identity.tstid.substring(8);
         walletMgr.importIdentity(prikeyStr,password,identity.controls.get(0).getSalt(),addr);
         assertTrue(identities.size() == 1);
         Identity identity1 = identities.get(0);
-        assertEquals(identity.ontid,identity1.ontid);
+        assertEquals(identity.tstid,identity1.tstid);
     }
 
     @Test

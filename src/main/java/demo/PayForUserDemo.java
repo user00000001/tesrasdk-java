@@ -1,7 +1,7 @@
 package demo;
 
 import com.alibaba.fastjson.JSON;
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.common.Address;
 import com.github.TesraSupernet.common.Helper;
 import com.github.TesraSupernet.core.transaction.Transaction;
@@ -26,12 +26,12 @@ public class PayForUserDemo {
     public static void main(String[] args) {
 
         try {
-            OntSdk ontSdk = getOntSdk();
-            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), ontSdk.defaultSignScheme);
-            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), ontSdk.defaultSignScheme);
+            TstSdk tstSdk = getTstSdk();
+            com.github.TesraSupernet.account.Account acct1 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey1), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct2 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey2), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct3 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey3), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct4 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey4), tstSdk.defaultSignScheme);
+            com.github.TesraSupernet.account.Account acct5 = new com.github.TesraSupernet.account.Account(Helper.hexToBytes(privatekey5), tstSdk.defaultSignScheme);
 
 
             if(false){ //TODO How pay Fee for user?
@@ -49,16 +49,16 @@ public class PayForUserDemo {
                 String payer = payerAcct.getAddressU160().toBase58();
 
                 //TODO 1. make transaction and user signature in frontend.
-                Transaction txSend = ontSdk.vm().makeInvokeCodeTransaction(Helper.reverse(ontSdk.neovm().oep4().getContractAddress()), null, params, payer,gaslimit, gasprice);
-                ontSdk.addSign(txSend,sender);
+                Transaction txSend = tstSdk.vm().makeInvokeCodeTransaction(Helper.reverse(tstSdk.neovm().oep4().getContractAddress()), null, params, payer,gaslimit, gasprice);
+                tstSdk.addSign(txSend,sender);
 
                 //TODO 2. send data to backend
                 String data = txSend.toHexString();
 
                 //TODO 3. backend add payer signature and send transaction
                 Transaction txRecv =  Transaction.deserializeFrom(Helper.hexToBytes(data));
-                ontSdk.addSign(txRecv,payerAcct);
-                Object obj = ontSdk.getConnect().sendRawTransactionPreExec(txRecv.toHexString());
+                tstSdk.addSign(txRecv,payerAcct);
+                Object obj = tstSdk.getConnect().sendRawTransactionPreExec(txRecv.toHexString());
 
             }
         }catch (Exception e){
@@ -66,7 +66,7 @@ public class PayForUserDemo {
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
         String ip = "http://127.0.0.1";
 //        String ip = "http://polaris1.ont.io";
 //        String ip = "http://dappnode1.ont.io";
@@ -75,7 +75,7 @@ public class PayForUserDemo {
         String rpcUrl = ip + ":" + "20336";
         String wsUrl = ip + ":" + "20335";
 
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());

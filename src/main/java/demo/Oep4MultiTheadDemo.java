@@ -1,6 +1,6 @@
 package demo;
 
-import com.github.TesraSupernet.OntSdk;
+import com.github.TesraSupernet.TstSdk;
 import com.github.TesraSupernet.network.exception.RestfulException;
 import com.github.TesraSupernet.sdk.exception.SDKException;
 import com.github.TesraSupernet.smartcontract.neovm.Oep4;
@@ -22,13 +22,13 @@ public class Oep4MultiTheadDemo {
 
     public static void main(String[] args) {
         try {
-            OntSdk ontSdk = Oep4MultiTheadDemo.getOntSdk();
+            TstSdk tstSdk = Oep4MultiTheadDemo.getTstSdk();
             for (int i = 0; i < 1; i++) {
-                startThread(ontSdk, "Thread 1", "55e02438c938f6f4eb15a9cb315b26d0169b7fd7");
-                startThread(ontSdk, "Thread 2", "547d89289f75648cbda8c1c8ccf4e83ebd01240a");
-                startThread(ontSdk, "Thread 3", "25277b421a58cfc2ef5836767e54eb7abdd31afd");
-                startThread(ontSdk, "Thread 4", "9f612aff420d11dc781be892545346607d13fd8f");
-                startThread(ontSdk, "Thread 5", "e32a9cfcb91737e27246493d8a067d438d1f650e");
+                startThread(tstSdk, "Thread 1", "55e02438c938f6f4eb15a9cb315b26d0169b7fd7");
+                startThread(tstSdk, "Thread 2", "547d89289f75648cbda8c1c8ccf4e83ebd01240a");
+                startThread(tstSdk, "Thread 3", "25277b421a58cfc2ef5836767e54eb7abdd31afd");
+                startThread(tstSdk, "Thread 4", "9f612aff420d11dc781be892545346607d13fd8f");
+                startThread(tstSdk, "Thread 5", "e32a9cfcb91737e27246493d8a067d438d1f650e");
             }
             while (true) {
                 Thread.sleep(1000);
@@ -38,7 +38,7 @@ public class Oep4MultiTheadDemo {
         }
     }
 
-    public static void startThread(OntSdk ontSdk, String threadName, String contractAddress) {
+    public static void startThread(TstSdk tstSdk, String threadName, String contractAddress) {
 
         Thread thread = new Thread() {
             @Override
@@ -47,7 +47,7 @@ public class Oep4MultiTheadDemo {
                 for (int i = 0; i < 10000; i++) {
                     try {
                         tmpIp = curIp;  // this is important
-                        Oep4 oep4 = new Oep4(ontSdk);
+                        Oep4 oep4 = new Oep4(tstSdk);
                         oep4.setContractAddress(contractAddress);
                         String tokenname = oep4.queryName();
                         String total = oep4.queryTotalSupply();
@@ -55,7 +55,7 @@ public class Oep4MultiTheadDemo {
                         Thread.sleep(10);
                     } catch (RestfulException e) {
                         System.err.println(e.getMessage());
-                        switchNode(ontSdk,tmpIp);
+                        switchNode(tstSdk,tmpIp);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     }
@@ -66,7 +66,7 @@ public class Oep4MultiTheadDemo {
         thread.start();
     }
 
-    public static void switchNode(OntSdk ontSdk,String reqIp) {
+    public static void switchNode(TstSdk tstSdk,String reqIp) {
         try {
             if(!reqIp.equals(curIp)){
                 return;
@@ -82,18 +82,18 @@ public class Oep4MultiTheadDemo {
                 }
             }
             String restUrl = curIp + ":" + "20334";
-            ontSdk.setRestful(restUrl);
-            ontSdk.setDefaultConnect(ontSdk.getRestful());
+            tstSdk.setRestful(restUrl);
+            tstSdk.setDefaultConnect(tstSdk.getRestful());
         } catch (SDKException e) {
             e.printStackTrace();
         }
     }
 
-    public static OntSdk getOntSdk() throws Exception {
+    public static TstSdk getTstSdk() throws Exception {
         String restUrl = curIp + ":" + "20334";
         String rpcUrl = curIp + ":" + "20336";
         String wsUrl = curIp + ":" + "20335";
-        OntSdk wm = OntSdk.getInstance();
+        TstSdk wm = TstSdk.getInstance();
         wm.setRpc(rpcUrl);
         wm.setRestful(restUrl);
         wm.setDefaultConnect(wm.getRestful());
