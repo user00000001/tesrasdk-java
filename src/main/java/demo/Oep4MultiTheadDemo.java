@@ -13,10 +13,10 @@ import java.util.List;
  * @date 2019/11/7
  */
 public class Oep4MultiTheadDemo {
-    static String ip1 = "http://dapp2.tesra.me";
+    static String ip1 = "http://dapp1.tesra.me";
     static String ip2 = "http://dapp2.tesra.me";
-    static String ip3 = "http://dapp2.tesra.me";
-    static String ip4 = "http://dapp2.tesra.me";
+    static String ip3 = "http://dapp3.tesra.me";
+    static String ip4 = "http://dapp4.tesra.me";
     static List<String> nodes = Arrays.asList(ip1, ip2, ip3, ip4);
     static String curIp = ip1;
 

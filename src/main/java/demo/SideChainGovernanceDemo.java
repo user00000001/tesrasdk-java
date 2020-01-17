@@ -17,7 +17,7 @@ public class SideChainGovernanceDemo {
     public static void main(String[] args) throws Exception {
         TstSdk sdk = TstSdk.getInstance();
         sdk.openWalletFile("wallet2.dat");
-        sdk.setRpc("http://52.184.29.110:25768");
+        sdk.setRpc("http://dapp1.tesra.me:25768");
         SideChainGovernance sideChainGovernance = new SideChainGovernance(sdk);
         String password = "111111";
         Account account = sdk.getWalletMgr().getAccount("AHX1wzvdw9Yipk7E9MuLY4GGX4Ym9tHeDe",password);

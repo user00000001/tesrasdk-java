@@ -116,9 +116,9 @@ public class Nep5Demo {
     }
 
     public static TstSdk getTstSdk() throws Exception {
-//        String ip = "http://52.184.29.110";
+//        String ip = "http://explorer.tesra.me";
         String ip = "http://127.0.0.1";
-//        String ip = "http://52.229.166.6";
+//        String ip = "http://dapp1.tesra.me";
 //        String ip = "http://dapp2.tesra.me";
         String restUrl = ip + ":" + "25770";
         String rpcUrl = ip + ":" + "25768";

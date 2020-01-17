@@ -56,7 +56,7 @@ public class GovernanceDemo2 {
 
 
             if(false){
-                sdk.setRpc("http://52.184.29.110:25768");
+                sdk.setRpc("http://dapp1.tesra.me:25768");
 //                System.out.println(multiAddress.toBase58());
 //                System.out.println(sdk.getConnect().getBalance(multiAddress.toBase58()));
                 System.out.println(sdk.getConnect().getSideChainData("123456"));
@@ -165,7 +165,7 @@ public class GovernanceDemo2 {
 
             }
             if(true){
-                sdk.setRpc("http://52.184.29.110:25768");
+                sdk.setRpc("http://dapp1.tesra.me:25768");
                 Configuration c = new Configuration(8,3,8,128,10000,10000,10,10000);
                 String txhash = sdk.nativevm().governance().updateConfig(accounts1,pks,5,c,account1,20000,0);
                 System.out.println(txhash);
@@ -189,11 +189,11 @@ public class GovernanceDemo2 {
 
     public static TstSdk getTstSdk() throws Exception {
         String ip = "http://127.0.0.1";
+//        String ip = "http://explorer.tesra.me";
+        ip= "http://dapp1.tesra.me";
 //        String ip = "http://dapp2.tesra.me";
-        ip= "http://52.184.29.110";
-//        String ip = "http://52.184.29.110";
-//        String ip = "http://52.229.166.46";
-//        String ip = "http://52.229.166.6";
+//        String ip = "http://dapp3.tesra.me";
+//        String ip = "http://dapp4.tesra.me";
         String restUrl = ip + ":" + "25770";
         String rpcUrl = ip + ":" + "25768";
         String wsUrl = ip + ":" + "25771";

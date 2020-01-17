@@ -720,7 +720,7 @@ public class NeoVmDemo3 {
     }
 
     public static TstSdk getTstSdk() throws Exception {
-        String ip = "http://dapp2.tesra.me";
+        String ip = "http://dapp1.tesra.me";
 //        String ip = "http://dapp2.tesra.me";
         String restUrl = ip + ":" + "25770";
         String rpcUrl = ip + ":" + "25768";

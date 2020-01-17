@@ -32,9 +32,9 @@ public class SignServerDemo {
         }
     }
     public static TstSdk getTstSdk() throws Exception {
-//        String ip = "http://52.184.29.110";
+//        String ip = "http://dapp1.tesra.me";
         String ip = "http://127.0.0.1";
-//        String ip = "http://52.229.166.6";
+//        String ip = "http://dapp2.tesra.me";
         String url = ip + ":" + "20000/cli";
         TstSdk wm = TstSdk.getInstance();
         wm.setSignServer(url);

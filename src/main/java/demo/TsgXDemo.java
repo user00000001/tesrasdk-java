@@ -15,12 +15,12 @@ import java.util.Base64;
 public class TsgXDemo {
 
     public static void main(String[] args) throws Exception {
-//        String mainChainUrl = "http://52.184.29.110:25768";
+//        String mainChainUrl = "http://dapp1.tesra.me:25768";
         String sideChainUrl = "http://23.99.137.227:30336";
         TstSdk sdk = TstSdk.getInstance();
         sdk.openWalletFile("tsgx.dat");
         sdk.setSideChainRpc(sideChainUrl);
-//        sdk.setRpc("http://52.184.29.110:25768");
+//        sdk.setRpc("http://dapp2.tesra.me:25768");
 //        sdk.setRpc("http://127.0.0.1:25768");
 //        sdk.setRpc(sideChainUrl);
 

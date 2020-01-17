@@ -190,12 +190,12 @@ public class Oep8Demo {
     }
 
     public static TstSdk getTstSdk() throws Exception {
-//        String ip = "http://52.184.29.110";
+//        String ip = "http://explorer.tesra.me";
         String ip = "http://127.0.0.1";
-        ip = "http://dapp2.tesra.me";
-//        ip= "http://139.219.138.201";
-//        String ip = "http://52.229.166.6";
-//        String ip = "http://dapp2.tesra.me";
+        ip = "http://dapp1.tesra.me";
+//        ip= "http://dapp2.tesra.me";
+//        String ip = "http://dapp3.tesra.me";
+//        String ip = "http://dapp4.tesra.me";
         String restUrl = ip + ":" + "25770";
         String rpcUrl = ip + ":" + "25768";
         String wsUrl = ip + ":" + "25771";
